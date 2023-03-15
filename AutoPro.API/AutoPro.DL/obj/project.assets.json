@@ -1,0 +1,90 @@
+{
+  "version": 3,
+  "targets": {
+    "net6.0": {
+      "AutoPro.Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/AutoPro.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/AutoPro.Common.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "AutoPro.Common/1.0.0": {
+      "type": "project",
+      "path": "../AutoPro.Common/AutoPro.Common.csproj",
+      "msbuildProject": "../AutoPro.Common/AutoPro.Common.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net6.0": [
+      "AutoPro.Common >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\DucDang\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "D:\\Do An Tot Nghiep\\AutoPro.API\\AutoPro.DL\\AutoPro.DL.csproj",
+      "projectName": "AutoPro.DL",
+      "projectPath": "D:\\Do An Tot Nghiep\\AutoPro.API\\AutoPro.DL\\AutoPro.DL.csproj",
+      "packagesPath": "C:\\Users\\DucDang\\.nuget\\packages\\",
+      "outputPath": "D:\\Do An Tot Nghiep\\AutoPro.API\\AutoPro.DL\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\DucDang\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net6.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "projectReferences": {
+            "D:\\Do An Tot Nghiep\\AutoPro.API\\AutoPro.Common\\AutoPro.Common.csproj": {
+              "projectPath": "D:\\Do An Tot Nghiep\\AutoPro.API\\AutoPro.Common\\AutoPro.Common.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net6.0": {
+        "targetAlias": "net6.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
