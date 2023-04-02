@@ -1,5 +1,5 @@
 <template>
-    <div>Thông tin user</div>
+    <div>Thông tin user new </div>
 </template>
   
 <script>
