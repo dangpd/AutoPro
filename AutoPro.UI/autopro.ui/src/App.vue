@@ -1,17 +1,18 @@
 <template>
   <div>
-    <IndexWeb></IndexWeb>
+    <Home></Home>
   </div>
 </template>
 
 <script>
+import Home from './views/user/Home.vue';
 
-import IndexWeb from './layout/IndexWeb.vue';
+
 export default {
   name: 'App',
   components: {
-    IndexWeb,
-  }
+    Home
+}
 }
 </script>
 
