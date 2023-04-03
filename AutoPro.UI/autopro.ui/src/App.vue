@@ -12,9 +12,10 @@ export default {
   name: 'App',
   components: {
     Home
-}
+  }
 }
 </script>
 
 <style>
+@import url(../src/css/main.css);
 </style>

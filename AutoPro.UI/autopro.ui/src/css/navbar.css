@@ -1,0 +1,58 @@
+.navbar {
+    height: 40px;
+    width: 100%;
+    background-color: aqua;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.nav-list {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 100px;
+}
+
+.nav-item {
+    cursor: pointer;
+    width: 220px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-item:hover {
+    background-color: blue;
+    color: white;
+}
+
+.nav-item:hover .sub-menu {
+    display: block;
+}
+
+.sub-menu {
+    background-color: aqua;
+    color: black;
+    position: absolute;
+    top: 40px;
+    left: 320px;
+    font-size: 14px;
+    z-index: 1;
+    display: none;
+}
+
+.nav-item-submenu {
+    cursor: pointer;
+    width: 220px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
+
+.nav-item-submenu:hover {
+    background-color: blue;
+    color: white;
+}
