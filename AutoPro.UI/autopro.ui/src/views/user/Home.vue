@@ -3,6 +3,7 @@
     <TheHeader></TheHeader>
     <TheNavbar></TheNavbar>
     <div class="content">
+      <div class="line-content"></div>
       <div class="brand-products">
         <div class="title">PHỤ TÙNG THEO NHÀ SẢN XUẤT</div>
         <div class="list-brand">
@@ -54,7 +55,6 @@
             <div class="product-buttom">
               <div class="product-detail">Xem chi tiết</div>
               <div class="add-cart">Thêm vào giỏ hàng</div>
-              <div class="buy-now">Mua ngay</div>
             </div>
           </div>
           <div class="product">
@@ -69,7 +69,6 @@
             <div class="product-buttom">
               <div class="product-detail">Xem chi tiết</div>
               <div class="add-cart">Thêm vào giỏ hàng</div>
-              <div class="buy-now">Mua ngay</div>
             </div>
           </div>
           <div class="product">
@@ -84,7 +83,6 @@
             <div class="product-buttom">
               <div class="product-detail">Xem chi tiết</div>
               <div class="add-cart">Thêm vào giỏ hàng</div>
-              <div class="buy-now">Mua ngay</div>
             </div>
           </div>
           <div class="product">
@@ -99,16 +97,191 @@
             <div class="product-buttom">
               <div class="product-detail">Xem chi tiết</div>
               <div class="add-cart">Thêm vào giỏ hàng</div>
-              <div class="buy-now">Mua ngay</div>
+            </div>
+          </div>
+          <div class="product">
+            <div class="product-image">
+              <img src="../../assets/Image/giamsoc.jpg" alt="">
+              <div class="favourtive">
+                <i class="fa-regular fa-heart"></i>
+              </div>
+            </div>
+            <div class="product-name">Lốc gió</div>
+            <div class="price">Giá : 330.000Vnd</div>
+            <div class="product-buttom">
+              <div class="product-detail">Xem chi tiết</div>
+              <div class="add-cart">Thêm vào giỏ hàng</div>
+            </div>
+          </div>
+          <div class="product">
+            <div class="product-image">
+              <img src="../../assets/Image/giamsoc.jpg" alt="">
+              <div class="favourtive">
+                <i class="fa-regular fa-heart"></i>
+              </div>
+            </div>
+            <div class="product-name">Lốc gió</div>
+            <div class="price">Giá : 330.000Vnd</div>
+            <div class="product-buttom">
+              <div class="product-detail">Xem chi tiết</div>
+              <div class="add-cart">Thêm vào giỏ hàng</div>
+            </div>
+          </div>
+          <div class="product">
+            <div class="product-image">
+              <img src="../../assets/Image/giamsoc.jpg" alt="">
+              <div class="favourtive">
+                <i class="fa-regular fa-heart"></i>
+              </div>
+            </div>
+            <div class="product-name">Lốc gió</div>
+            <div class="price">Giá : 330.000Vnd</div>
+            <div class="product-buttom">
+              <div class="product-detail">Xem chi tiết</div>
+              <div class="add-cart">Thêm vào giỏ hàng</div>
+            </div>
+          </div>
+          <div class="product">
+            <div class="product-image">
+              <img src="../../assets/Image/giamsoc.jpg" alt="">
+              <div class="favourtive">
+                <i class="fa-regular fa-heart"></i>
+              </div>
+            </div>
+            <div class="product-name">Lốc gió</div>
+            <div class="price">Giá : 330.000Vnd</div>
+            <div class="product-buttom">
+              <div class="product-detail">Xem chi tiết</div>
+              <div class="add-cart">Thêm vào giỏ hàng</div>
             </div>
           </div>
         </div>
+        <div class="see-more">Xem thêm</div>
+      </div>
+      <div class="new-products-imported">
+        <div class="title">PHỤ TÙNG BÁN NHIỀU NHẤT</div>
+        <div class="list-product-impoted">
+          <div class="product">
+            <div class="product-image">
+              <img src="../../assets/Image/giamsoc.jpg" alt="">
+              <div class="favourtive">
+                <i class="fa-regular fa-heart"></i>
+              </div>
+            </div>
+            <div class="product-name">Lốc gió</div>
+            <div class="price">Giá : 330.000Vnd</div>
+            <div class="product-buttom">
+              <div class="product-detail">Xem chi tiết</div>
+              <div class="add-cart">Thêm vào giỏ hàng</div>
+            </div>
+          </div>
+          <div class="product">
+            <div class="product-image">
+              <img src="../../assets/Image/giamsoc.jpg" alt="">
+              <div class="favourtive">
+                <i class="fa-regular fa-heart"></i>
+              </div>
+            </div>
+            <div class="product-name">Lốc gió</div>
+            <div class="price">Giá : 330.000Vnd</div>
+            <div class="product-buttom">
+              <div class="product-detail">Xem chi tiết</div>
+              <div class="add-cart">Thêm vào giỏ hàng</div>
+            </div>
+          </div>
+          <div class="product">
+            <div class="product-image">
+              <img src="../../assets/Image/giamsoc.jpg" alt="">
+              <div class="favourtive">
+                <i class="fa-regular fa-heart"></i>
+              </div>
+            </div>
+            <div class="product-name">Lốc gió</div>
+            <div class="price">Giá : 330.000Vnd</div>
+            <div class="product-buttom">
+              <div class="product-detail">Xem chi tiết</div>
+              <div class="add-cart">Thêm vào giỏ hàng</div>
+            </div>
+          </div>
+          <div class="product">
+            <div class="product-image">
+              <img src="../../assets/Image/giamsoc.jpg" alt="">
+              <div class="favourtive">
+                <i class="fa-regular fa-heart"></i>
+              </div>
+            </div>
+            <div class="product-name">Lốc gió</div>
+            <div class="price">Giá : 330.000Vnd</div>
+            <div class="product-buttom">
+              <div class="product-detail">Xem chi tiết</div>
+              <div class="add-cart">Thêm vào giỏ hàng</div>
+            </div>
+          </div>
+          <div class="product">
+            <div class="product-image">
+              <img src="../../assets/Image/giamsoc.jpg" alt="">
+              <div class="favourtive">
+                <i class="fa-regular fa-heart"></i>
+              </div>
+            </div>
+            <div class="product-name">Lốc gió</div>
+            <div class="price">Giá : 330.000Vnd</div>
+            <div class="product-buttom">
+              <div class="product-detail">Xem chi tiết</div>
+              <div class="add-cart">Thêm vào giỏ hàng</div>
+            </div>
+          </div>
+          <div class="product">
+            <div class="product-image">
+              <img src="../../assets/Image/giamsoc.jpg" alt="">
+              <div class="favourtive">
+                <i class="fa-regular fa-heart"></i>
+              </div>
+            </div>
+            <div class="product-name">Lốc gió</div>
+            <div class="price">Giá : 330.000Vnd</div>
+            <div class="product-buttom">
+              <div class="product-detail">Xem chi tiết</div>
+              <div class="add-cart">Thêm vào giỏ hàng</div>
+            </div>
+          </div>
+          <div class="product">
+            <div class="product-image">
+              <img src="../../assets/Image/giamsoc.jpg" alt="">
+              <div class="favourtive">
+                <i class="fa-regular fa-heart"></i>
+              </div>
+            </div>
+            <div class="product-name">Lốc gió</div>
+            <div class="price">Giá : 330.000Vnd</div>
+            <div class="product-buttom">
+              <div class="product-detail">Xem chi tiết</div>
+              <div class="add-cart">Thêm vào giỏ hàng</div>
+            </div>
+          </div>
+          <div class="product">
+            <div class="product-image">
+              <img src="../../assets/Image/giamsoc.jpg" alt="">
+              <div class="favourtive">
+                <i class="fa-regular fa-heart"></i>
+              </div>
+            </div>
+            <div class="product-name">Lốc gió</div>
+            <div class="price">Giá : 330.000Vnd</div>
+            <div class="product-buttom">
+              <div class="product-detail">Xem chi tiết</div>
+              <div class="add-cart">Thêm vào giỏ hàng</div>
+            </div>
+          </div>
+        </div>
+        <div class="see-more">Xem thêm</div>
       </div>
     </div>
-
+    <TheFooter></TheFooter>
   </div>
 </template>
 <script>
+import TheFooter from '@/layout/TheFooter.vue';
 import TheHeader from '@/layout/TheHeader.vue';
 import TheNavbar from '@/layout/TheNavbar.vue'
 export default {
@@ -123,7 +296,7 @@ export default {
   /**
    * Component được sử dụng
    */
-  components: { TheHeader, TheNavbar },
+  components: { TheHeader, TheNavbar, TheFooter },
   /**
    * Emit sự thay đổi
    */
@@ -150,9 +323,9 @@ export default {
   methods: {
     changeItem() {
       this.currentIndex++;
-      if (this.currentIndex >= this.$refs.listBrand.length) {
-        this.currentIndex = 0;
-      }
+      // if (this.currentIndex >= this.$refs.listBrand.length) {
+      //   this.currentIndex = 0;
+      // }
     },
   },
   created() {

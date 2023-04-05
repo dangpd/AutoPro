@@ -1,8 +1,11 @@
 .header {
-    width: 100%;
+    width: calc(100% - 200px);
     height: 100px;
     display: flex;
     margin: 0 100px;
+    position: fixed;
+    background-color: #EEEFF1;
+    z-index: 10;
 }
 
 .header-left {
