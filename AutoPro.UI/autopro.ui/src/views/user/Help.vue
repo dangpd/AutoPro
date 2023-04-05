@@ -2,19 +2,18 @@
     <div>
         <TheHeader></TheHeader>
         <TheNavbar></TheNavbar>
-        Giỏ hàng
+        Trợ giúp
     </div>
 </template>
-  
+
 <script>
 import TheHeader from '@/layout/TheHeader.vue';
 import TheNavbar from '@/layout/TheNavbar.vue';
-
 export default {
     /**
-     * Tên component
-     */
-    name: 'Cart',
+         * Tên component
+         */
+    name: 'Help',
     /**
      * Hứng nhận
      */
@@ -55,7 +54,5 @@ export default {
     }
 }
 </script>
-  
-<style>
-@import url(../../css/home.css);
-</style>
+
+<style></style>

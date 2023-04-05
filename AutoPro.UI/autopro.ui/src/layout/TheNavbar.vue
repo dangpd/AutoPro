@@ -1,10 +1,10 @@
 <template>
     <div class="navbar">
         <div class="nav-list">
-            <div class="nav-item" style="display: flex;">
+            <router-link to="/" class="nav-item" style="display: flex;">
                 <i class="fa-solid fa-house"></i>
                 <div class="nav-text" style="padding-left: 8px;">Trang chủ</div>
-            </div>
+            </router-link>
             <div class="nav-item" style="display: flex;">
                 <i class="fa-solid fa-bars"></i>
                 <div class="nav-text" style="padding-left: 8px;">Danh mục sản phẩm</div>
@@ -30,21 +30,20 @@
 
                 </div>
             </div>
-            <div class="nav-item">Giới thiệu</div>
-            <div class="nav-item" style="display: flex;">
+            <router-link to="/about" class="nav-item">Giới thiệu</router-link>
+            <router-link to="/news" class="nav-item" style="display: flex;">
                 <i class="fa-solid fa-newspaper"></i>
                 <div class="nav-text" style="padding-left: 8px;">Tin tức</div>
-            </div>
-            <div class="nav-item" style="display: flex;">
+            </router-link>
+            <router-link to="/helps" class="nav-item" style="display: flex;">
                 <i class="fa-solid fa-headset"></i>
                 <div class="nav-text" style="padding-left: 8px;">Trợ giúp</div>
-            </div>
-            <div class="nav-item" style="display: flex;">
+            </router-link>
+            <router-link to="/contact" class="nav-item" style="display: flex;">
                 <i class="fa-solid fa-circle-info"></i>
                 <div class="nav-text" style="padding-left: 8px;">Liên hệ</div>
-            </div>
+            </router-link>
         </div>
-
     </div>
 </template>
 

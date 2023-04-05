@@ -1,6 +1,6 @@
 <template>
     <div class="m-input">
-        <input type="text" :placeholder="placeholder" :style="styleInput">
+        <input :type="type" :placeholder="placeholder" :style="styleInput">
     </div>
 </template>
   
@@ -13,7 +13,7 @@ export default {
     /**
      * Hứng nhận
      */
-    props: ["placeholder","styleInput"],
+    props: ["placeholder", "styleInput", "type"],
     /**
      * Component được sử dụng
      */

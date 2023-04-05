@@ -1,20 +1,15 @@
 <template>
     <div>
-        <TheHeader></TheHeader>
-        <TheNavbar></TheNavbar>
-        Giỏ hàng
+        404 Not found
     </div>
 </template>
-  
-<script>
-import TheHeader from '@/layout/TheHeader.vue';
-import TheNavbar from '@/layout/TheNavbar.vue';
 
+<script>
 export default {
     /**
-     * Tên component
-     */
-    name: 'Cart',
+ * Tên component
+ */
+    name: 'NotFound ',
     /**
      * Hứng nhận
      */
@@ -22,7 +17,7 @@ export default {
     /**
      * Component được sử dụng
      */
-    components: { TheHeader, TheNavbar },
+    components: {},
     /**
      * Emit sự thay đổi
      */
@@ -55,7 +50,5 @@ export default {
     }
 }
 </script>
-  
-<style>
-@import url(../../css/home.css);
-</style>
+
+<style></style>

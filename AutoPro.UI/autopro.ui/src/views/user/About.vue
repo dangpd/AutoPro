@@ -1,8 +1,17 @@
 <template>
-    <div>Tổng quan</div>
+    <div>
+        <TheHeader></TheHeader>
+        <TheNavbar></TheNavbar>
+        Giới thiệu
+        <TheFooter></TheFooter>
+    </div>
 </template>
   
 <script>
+import TheFooter from '@/layout/TheFooter.vue';
+import TheHeader from '@/layout/TheHeader.vue';
+import TheNavbar from '@/layout/TheNavbar.vue';
+
 export default {
     /**
      * Tên component
@@ -15,7 +24,7 @@ export default {
     /**
      * Component được sử dụng
      */
-    components: {},
+    components: { TheHeader, TheNavbar, TheFooter },
     /**
      * Emit sự thay đổi
      */

@@ -18,6 +18,8 @@
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
 }
 
 .logo>img {
@@ -32,19 +34,20 @@
     align-items: center;
 }
 
-.icon{
+.icon {
     height: 30px;
     width: 30px;
     margin-left: -36px;
     border: 1px solid black;
-    display: flex; 
+    display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
     cursor: pointer;
     background-color: blanchedalmond;
 }
-.icon :hover{
+
+.icon :hover {
     color: aqua;
 }
 
@@ -53,34 +56,55 @@
     margin-left: 45px;
     margin-top: 50px;
     justify-content: space-around;
+    margin-bottom: 10px;
 }
 
-.user{
+.user {
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    padding: 0 10px;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
 }
 
-.info{
+.user:hover {
+    color: white;
+    background-color: blue;
+}
+
+.info {
     margin-left: 8px;
     font-size: 14px;
 }
 
-.cart{
+.cart {
     margin-left: 16px;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0 10px;
     cursor: pointer;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
 }
 
-.info-cart{
+.cart:hover {
+    color: white;
+    background-color: blue;
+}
+
+.info-cart {
     margin-left: 8px;
     font-size: 14px;
 }
 
-.line-header{
+.line-header {
     border: 1px solid black;
     margin: 0 100px;
 }

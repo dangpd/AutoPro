@@ -1,8 +1,15 @@
 <template>
-    <div>Tin tức</div>
+    <div>
+        <TheHeader></TheHeader>
+        <TheNavbar></TheNavbar>
+        Tin tức
+    </div>
 </template>
   
 <script>
+import TheHeader from '@/layout/TheHeader.vue';
+import TheNavbar from '@/layout/TheNavbar.vue';
+
 export default {
     /**
      * Tên component
@@ -15,7 +22,7 @@ export default {
     /**
      * Component được sử dụng
      */
-    components: {},
+    components: { TheHeader, TheNavbar },
     /**
      * Emit sự thay đổi
      */

@@ -283,7 +283,7 @@
 <script>
 import TheFooter from '@/layout/TheFooter.vue';
 import TheHeader from '@/layout/TheHeader.vue';
-import TheNavbar from '@/layout/TheNavbar.vue'
+import TheNavbar from '@/layout/TheNavbar.vue';
 export default {
   /**
    * Tên component

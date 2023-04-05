@@ -1,0 +1,65 @@
+.content {
+    margin: 140px 100px 0 100px;
+    padding: 0 10px 8px 10px;
+    border-left: 1px solid #bbb;
+    border-right: 1px solid #bbb;
+    border-bottom: 1px solid #bbb;
+    width: calc(100% - 200px);
+    box-sizing: border-box;
+}
+
+.line-content {
+    height: 10px;
+    width: 100%;
+}
+
+.form-login {
+    width: 600px;
+    height: 300px;
+    margin: 0 auto;
+}
+
+.title-form {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.account,
+.password {
+    display: flex;
+    margin: 15px 0;
+}
+
+.text {
+    width: 150px;
+}
+
+.submit {
+    text-align: center;
+}
+
+.orther {
+    text-align: center;
+    margin: 10px 0;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+}
+
+.register:hover {
+    color: red;
+}
+
+.sign-up:hover {
+    color: red;
+}
+
+.forgot-password:hover {
+    color: red;
+}
+
+.form-register {
+    width: 600px;
+    height: 450px;
+    margin: 0 auto;
+}
