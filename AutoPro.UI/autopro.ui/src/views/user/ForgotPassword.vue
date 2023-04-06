@@ -3,6 +3,7 @@
         <TheHeader></TheHeader>
         <TheNavbar></TheNavbar>
         <div class="content">
+            <TheLineLink name="Quên mật khẩu"></TheLineLink>
             <div class="line-content"></div>
             <div class="form-login">
                 <div class="title-form">
@@ -41,6 +42,7 @@ import TheFooter from '@/layout/TheFooter.vue';
 import TheHeader from '@/layout/TheHeader.vue';
 import TheNavbar from '@/layout/TheNavbar.vue';
 import MInput from '@/components/MInput.vue';
+import TheLineLink from '@/layout/TheLineLink.vue';
 export default {
     /**
          * Tên component
@@ -53,7 +55,7 @@ export default {
     /**
      * Component được sử dụng
      */
-    components: { TheHeader, TheNavbar, TheFooter, MInput },
+    components: { TheHeader, TheNavbar, TheFooter, MInput, TheLineLink },
     /**
      * Emit sự thay đổi
      */

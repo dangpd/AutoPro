@@ -4,7 +4,7 @@
         <div class="footer">
             <div class="footer-left">
                 <img src="../assets/Image/logo3.jpg" alt="">
-                <h6>Hệ thống ô tô phụ tùng uy tín chính hãng</h6>
+                <h6 style="font-weight: 700;">Hệ thống ô tô phụ tùng uy tín chính hãng</h6>
                 <div class="contact">
                     <img src="../assets/Image/CarlsonFacebook.png" alt="">
                     <img src="../assets/Image/icon_twitter_20x20.gif" alt="">

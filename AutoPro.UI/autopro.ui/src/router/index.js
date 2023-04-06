@@ -3,6 +3,9 @@ import Home from '@/views/user/Home.vue'
 import About from '@/views/user/About.vue'
 import News from '@/views/user/News.vue'
 import Help from '@/views/user/Help.vue'
+import Payment from '@/views/user/Payment.vue'
+import Guarantee from '@/views/user/Guarantee.vue'
+import FreeShip from '@/views/user/FreeShip.vue'
 import Contact from '@/views/user/Contact.vue'
 import Purchase from '@/views/user/Purchase.vue'
 import SignUp from '@/views/user/SignUp.vue'
@@ -11,20 +14,32 @@ import ForgotPassword from '@/views/user/ForgotPassword.vue'
 import Cart from '@/views/user/Cart.vue'
 import NotFound from '@/views/NotFound.vue'
 const routes = [
-    { path: '/home', name: 'Home', component: Home },
-    { path: '', name: 'Home', component: Home },
-    { path: '/about', name: 'About', component: About },
-    { path: '/news', name: 'News', component: News },
-    { path: '/helps', name: 'Help', component: Help },
-    { path: '/contact', name: 'Contact', component: Contact },
-    { path: '/account/sign-up', name: 'SignUp', component: SignUp },
-    { path: '/account/register', name: 'Register', component: Register },
-    { path: '/account/forgot-password', name: 'ForgotPassword', component: ForgotPassword },
-    { path: '/cart', name: 'Cart', component: Cart },
-    { path: '/purchase', name: 'Purchase', component: Purchase },
+    { path: '/home', component: Home },
+    { path: '', component: Home },
+    { path: '/about', component: About },
+    { path: '/news', component: News },
+    {
+        path: '/helps',
+        component: Help,
+        children:
+            [
+                { path: '/helps/pay-ment', component: Payment },
+                { path: '/helps/guarantee', component: Guarantee },
+                { path: '/helps/free-ship', component: FreeShip },
+            ]
+    },
+    { path: '/helps/pay-ment', component: Payment },
+    { path: '/helps/guarantee', component: Guarantee },
+    { path: '/helps/free-ship', component: FreeShip },
+    { path: '/contact', component: Contact },
+    { path: '/account/sign-up', component: SignUp },
+    { path: '/account/register', component: Register },
+    { path: '/account/forgot-password', component: ForgotPassword },
+    { path: '/cart', component: Cart },
+    { path: '/purchase', component: Purchase },
     {
         path: '/:catchAll(.*)',
-        name: 'NotFound', component: NotFound
+        component: NotFound
     },
 ]
 const router = createRouter({

@@ -1,6 +1,6 @@
 <template>
-    <div class="m-input">
-        <input :type="type" :placeholder="placeholder" :style="styleInput">
+    <div>
+        <input class="m-input" :type="type" :placeholder="placeholder" :style="styleInput">
     </div>
 </template>
   

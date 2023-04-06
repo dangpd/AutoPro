@@ -1,10 +1,17 @@
 <template>
     <div>
-        404 Not found
+        <TheHeader></TheHeader>
+        <TheNavbar></TheNavbar>
+        <div class="not-found">
+            <img src="../assets/Image/404.jpg" alt="">
+        </div>
     </div>
 </template>
 
 <script>
+import TheHeader from '@/layout/TheHeader.vue';
+import TheNavbar from '@/layout/TheNavbar.vue';
+
 export default {
     /**
  * Tên component
@@ -17,7 +24,7 @@ export default {
     /**
      * Component được sử dụng
      */
-    components: {},
+    components: { TheHeader, TheNavbar },
     /**
      * Emit sự thay đổi
      */
@@ -51,4 +58,16 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.not-found {
+    margin: 140px 100px 0;
+}
+
+.not-found img{
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    width: 500px;
+    height: 500px;
+}
+</style>

@@ -1,17 +1,19 @@
 <template>
-    <div>Thông tin user </div>
+    <div class="div-link" style="margin: 10px 0;">
+        <router-link to="/" class="line-link">Trang chủ </router-link>/ {{ this.name }}
+    </div>
 </template>
-  
+
 <script>
 export default {
     /**
-     * Tên component
-     */
-    name: 'UserDetails',
+         * Tên component
+         */
+    name: 'TheLineLink',
     /**
      * Hứng nhận
      */
-    props: [""],
+    props: ["name"],
     /**
      * Component được sử dụng
      */
@@ -48,7 +50,7 @@ export default {
     }
 }
 </script>
-  
+
 <style>
-@import url(../../css/home.css);
+@import url(../css/line-link.css);
 </style>

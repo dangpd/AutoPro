@@ -4,11 +4,11 @@
             <div class="header-left">
                 <router-link to="/" class="logo">
                     <img src="../assets/Image/logo3.jpg" alt="">
-                    <h6>Hệ thống ô tô phụ tùng uy tín chính hãng</h6>
+                    <h6 style="font-weight: 700;">Hệ thống ô tô phụ tùng uy tín chính hãng</h6>
                 </router-link>
                 <div class="search">
                     <MInput placeholder="Nhập từ khóa tìm kiếm" type="text"
-                        styleInput="width:500px; height:36px; font-size:13px; padding-left:15px; border-radius:4px;border:1px solid black;box-sizing: border-box;">
+                        styleInput="width:500px; height:36px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                     </MInput>
                     <div class="icon">
                         <i class="fa-solid fa-magnifying-glass"></i>

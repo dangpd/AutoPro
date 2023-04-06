@@ -1,0 +1,13 @@
+.div-link {
+    background-color: #f5f5f5;
+    padding: 10px;
+}
+
+.line-link {
+    text-decoration: none;
+    color: blue;
+}
+
+.line-link:hover {
+    color: red;
+}

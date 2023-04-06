@@ -2,14 +2,70 @@
     <div>
         <TheHeader></TheHeader>
         <TheNavbar></TheNavbar>
-        Liên hệ
+        <div class="content">
+            <TheLineLink name="Liên hệ"></TheLineLink>
+            <div class="content-contact">
+                sitemap
+            </div>
+            <div class="contact-email">
+                <div>
+                    <h6 style="margin-top: 8px;">Liên hệ với chúng tôi</h6>
+                    <p>Địa chỉ :Số 23 - Ngõ 62 - Đường Trần Bình - Quận Cầu Giấy - Hà Nội</p>
+                    <h6>Thời gian làm việc</h6>
+                    <p>Từ 8h30 đến 17h30 từ thứ 2 đến thứ 7</p>
+                    <h6>Hotline hỗ trợ</h6>
+                    <p>0394061318</p>
+                </div>
+                <div class="form-contact">
+                    <div>
+                        <h6 style="font-weight: 600;">Email cho chúng tôi</h6>
+                        <div class="name">
+                            <div class="text">Họ và tên:</div>
+                            <MInput type="text"
+                                styleInput="width: 300px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
+                            </MInput>
+                        </div>
+                        <div class="email">
+                            <div class="text">Email :</div>
+                            <MInput type="email"
+                                styleInput="width: 300px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
+                            </MInput>
+                        </div>
+                        <div class="phone">
+                            <div class="text">Số điện thoại:</div>
+                            <MInput type="text"
+                                styleInput="width: 300px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
+                            </MInput>
+                        </div>
+                    </div>
+                    <div style="margin-top: 26px; padding-left: 8px;">
+                        <div class="noidung">
+                            <div class="text">Nội dung:</div>
+                            <MInput type="text"
+                                styleInput="width: 400px; height: 85px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
+                            </MInput>
+                        </div>
+                        <div class="contact-submirt">
+                            <MInput type="submit" styleInput="width: 50px; height: 30px; font-size:13px;margin-top:24px;">
+                            </MInput>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <TheFooter></TheFooter>
     </div>
 </template>
 
 <script>
 
 import TheHeader from '@/layout/TheHeader.vue';
+import TheLineLink from '@/layout/TheLineLink.vue';
 import TheNavbar from '@/layout/TheNavbar.vue';
+import MInput from '@/components/MInput.vue';
+import TheFooter from '@/layout/TheFooter.vue';
 export default {
     /**
      * Tên component
@@ -22,7 +78,7 @@ export default {
     /**
      * Component được sử dụng
      */
-    components: { TheHeader, TheNavbar },
+    components: { TheHeader, TheNavbar, TheLineLink, MInput, TheFooter },
     /**
      * Emit sự thay đổi
      */
@@ -56,4 +112,6 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+@import url(../../css/contact.css);
+</style>
