@@ -10,13 +10,13 @@
                     ĐĂNG NHẬP
                 </div>
                 <div class="form-input">
-                    <div class="account">
+                    <div class="login-account">
                         <div class="text">Tên đăng nhập :</div>
                         <MInput type="text"
                             styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                         </MInput>
                     </div>
-                    <div class="password">
+                    <div class="login-password">
                         <div class="text">Mật khẩu :</div>
                         <MInput type="password"
                             styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">

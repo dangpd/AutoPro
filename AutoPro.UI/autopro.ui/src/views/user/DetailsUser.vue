@@ -1,5 +1,5 @@
 <template>
-    <div>Chi tiết sản phẩm</div>
+    <div>Thông tin user </div>
 </template>
   
 <script>
@@ -7,7 +7,7 @@ export default {
     /**
      * Tên component
      */
-    name: 'ProductDetails',
+    name: 'DetailsUser',
     /**
      * Hứng nhận
      */
@@ -50,5 +50,5 @@ export default {
 </script>
   
 <style>
-@import url(../../css/home.css);
+@import url(../../css/detailsuser.css);
 </style>

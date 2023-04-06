@@ -1,13 +1,13 @@
 <template>
-    <div>Thông tin user </div>
+    <div>Chi tiết tin tức</div>
 </template>
-  
+
 <script>
 export default {
     /**
      * Tên component
      */
-    name: 'UserDetails',
+    name: 'DetailsNews',
     /**
      * Hứng nhận
      */
@@ -48,7 +48,7 @@ export default {
     }
 }
 </script>
-  
+
 <style>
-@import url(../../css/home.css);
+@import url(../../css/detailsnews.css);
 </style>

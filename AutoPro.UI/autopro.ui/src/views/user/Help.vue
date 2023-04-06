@@ -33,6 +33,7 @@ import TheFooter from '@/layout/TheFooter.vue';
 import TheHeader from '@/layout/TheHeader.vue';
 import TheLineLink from '@/layout/TheLineLink.vue';
 import TheNavbar from '@/layout/TheNavbar.vue';
+import Payment from './Payment.vue';
 export default {
     /**
          * Tên component
@@ -45,7 +46,7 @@ export default {
     /**
      * Component được sử dụng
      */
-    components: { TheHeader, TheNavbar, TheLineLink, TheFooter },
+    components: { TheHeader, TheNavbar, TheLineLink, TheFooter, Payment },
     /**
      * Emit sự thay đổi
      */

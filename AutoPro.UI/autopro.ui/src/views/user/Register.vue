@@ -10,43 +10,43 @@
                     ĐĂNG KÍ
                 </div>
                 <div class="form-input">
-                    <div class="account">
+                    <div class="register-account">
                         <div class="text">Tên đăng nhập :</div>
                         <MInput type="text"
                             styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                         </MInput>
                     </div>
-                    <div class="account">
+                    <div class="register-fullName">
                         <div class="text">Họ và tên :</div>
                         <MInput type="text"
                             styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                         </MInput>
                     </div>
-                    <div class="account">
+                    <div class="register-address">
                         <div class="text">Địa chỉ :</div>
                         <MInput type="text"
                             styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                         </MInput>
                     </div>
-                    <div class="account">
+                    <div class="register-birth">
                         <div class="text">Ngày sinh :</div>
                         <MInput type="date"
                             styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                         </MInput>
                     </div>
-                    <div class="account">
+                    <div class="register-gender">
                         <div class="text">Giới tính :</div>
                         <MInput type="radio">Nam</MInput>
                         <MInput type="radio">Nữ</MInput>
                         <MInput type="radio">Khác</MInput>
                     </div>
-                    <div class="password">
+                    <div class="register-password">
                         <div class="text">Mật khẩu :</div>
                         <MInput type="password"
                             styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                         </MInput>
                     </div>
-                    <div class="password">
+                    <div class="register-password">
                         <div class="text">Nhập lại mật khẩu :</div>
                         <MInput type="password"
                             styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">

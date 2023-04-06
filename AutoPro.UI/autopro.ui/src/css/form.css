@@ -25,8 +25,8 @@
     font-weight: 600;
 }
 
-.account,
-.password {
+.login-account,
+.login-password {
     display: flex;
     margin: 15px 0;
 }
@@ -50,6 +50,16 @@
     color: red;
 }
 
+.register-account,
+.register-fullName,
+.register-address,
+.register-birth,
+.register-gender,
+.register-password {
+    display: flex;
+    margin: 10px 0;
+}
+
 .sign-up:hover {
     color: red;
 }
@@ -62,4 +72,11 @@
     width: 600px;
     height: 450px;
     margin: 0 auto;
+}
+
+.forgot-account,
+.forgot-phone,
+.forgot-email {
+    display: flex;
+    margin: 10px 0;
 }

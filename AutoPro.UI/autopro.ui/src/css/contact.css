@@ -5,10 +5,11 @@
     margin: 0 auto;
 }
 
-.contact-email {
+.contact-name,
+.contact-email,
+.contact-phone {
     display: flex;
-    padding-top: 8px;
-    padding-left: 8px;
+    margin: 10px 0;
 }
 
 .contact-email p {
@@ -23,4 +24,5 @@
 .form-contact {
     display: flex;
     padding-left: 24px;
+    padding-top: 10px;
 }

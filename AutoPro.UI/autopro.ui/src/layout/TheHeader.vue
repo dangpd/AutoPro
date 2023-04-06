@@ -8,7 +8,7 @@
                 </router-link>
                 <div class="search">
                     <MInput placeholder="Nhập từ khóa tìm kiếm" type="text"
-                        styleInput="width:500px; height:36px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
+                        styleInput="width:400px; height:36px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                     </MInput>
                     <div class="icon">
                         <i class="fa-solid fa-magnifying-glass"></i>
@@ -23,6 +23,10 @@
                 <router-link to="/cart" class="cart">
                     <i class="fa-solid fa-cart-plus fa-xl"></i>
                     <div class="info-cart">Giỏ hàng của bạn</div>
+                </router-link>
+                <router-link to="/order" class="cart">
+                    <i class="fa-solid fa-cart-flatbed-suitcase"></i>
+                    <div class="info-cart">Đơn hàng của bạn</div>
                 </router-link>
             </div>
         </div>

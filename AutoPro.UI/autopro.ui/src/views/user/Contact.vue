@@ -19,19 +19,19 @@
                 <div class="form-contact">
                     <div>
                         <h6 style="font-weight: 600;">Email cho chúng tôi</h6>
-                        <div class="name">
+                        <div class="contact-name">
                             <div class="text">Họ và tên:</div>
                             <MInput type="text"
                                 styleInput="width: 300px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                             </MInput>
                         </div>
-                        <div class="email">
+                        <div class="contact-email">
                             <div class="text">Email :</div>
                             <MInput type="email"
                                 styleInput="width: 300px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                             </MInput>
                         </div>
-                        <div class="phone">
+                        <div class="contact-phone">
                             <div class="text">Số điện thoại:</div>
                             <MInput type="text"
                                 styleInput="width: 300px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
@@ -39,20 +39,18 @@
                         </div>
                     </div>
                     <div style="margin-top: 26px; padding-left: 8px;">
-                        <div class="noidung">
+                        <div class="contact-noidung">
                             <div class="text">Nội dung:</div>
                             <MInput type="text"
-                                styleInput="width: 400px; height: 85px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
+                                styleInput="width: 400px; height: 90px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                             </MInput>
                         </div>
-                        <div class="contact-submirt">
-                            <MInput type="submit" styleInput="width: 50px; height: 30px; font-size:13px;margin-top:24px;">
+                        <div class="contact-submit">
+                            <MInput type="submit" styleInput="width: 50px; height: 36px; font-size:13px;margin-top:8px;margin-left:350px">
                             </MInput>
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
         <TheFooter></TheFooter>
