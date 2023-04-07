@@ -13,7 +13,7 @@
                         <th style="min-width: 300px;">Sản phẩm</th>
                         <th style="min-width: 200px;">Đơn giá</th>
                         <th style="min-width: 100px;">Số lượng</th>
-                        <th style="min-width: 200px;">Số tiền</th>
+                        <th style="min-width: 200px;">Thành tiền</th>
                         <th style="min-width: 100px;">Thao tác</th>
                     </tr>
                 </thead>
@@ -43,7 +43,9 @@
                         <td style="min-width: 150px;">
                             200.000 vnd
                         </td>
-                        <td style="min-width: 100px; cursor: pointer;">Xóa</td>
+                        <td style="min-width: 100px; cursor: pointer;">
+                            <div class="cart-method">Xóa</div>
+                        </td>
                     </tr>
                     <tr>
                         <td style="min-width: 50px; padding-left: 16px;">
@@ -70,7 +72,9 @@
                         <td style="min-width: 150px;">
                             200.000 vnd
                         </td>
-                        <td style="min-width: 100px; cursor: pointer;">Xóa</td>
+                        <td style="min-width: 100px; cursor: pointer;">
+                            <div class="cart-method">Xóa</div>
+                        </td>
                     </tr>
                     <tr>
                         <td style="min-width: 50px; padding-left: 16px;">
@@ -97,7 +101,9 @@
                         <td style="min-width: 150px;">
                             200.000 vnd
                         </td>
-                        <td style="min-width: 100px; cursor: pointer;">Xóa</td>
+                        <td style="min-width: 100px; cursor: pointer;">
+                            <div class="cart-method">Xóa</div>
+                        </td>
                     </tr>
                     <tr>
                         <td style="min-width: 50px; padding-left: 16px;">
@@ -124,7 +130,9 @@
                         <td style="min-width: 150px;">
                             200.000 vnd
                         </td>
-                        <td style="min-width: 100px; cursor: pointer;">Xóa</td>
+                        <td style="min-width: 100px; cursor: pointer;">
+                            <div class="cart-method">Xóa</div>
+                        </td>
                     </tr>
                 </tbody>
             </table>

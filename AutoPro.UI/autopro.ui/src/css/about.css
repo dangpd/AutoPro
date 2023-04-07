@@ -3,7 +3,7 @@
     padding: 0 10px 8px 10px;
     border-left: 1px solid #bbb;
     border-right: 1px solid #bbb;
-    border-bottom: 1px solid #bbb;
+    /* border-bottom: 1px solid #bbb; */
     width: calc(100% - 200px);
 }
 

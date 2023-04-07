@@ -5,7 +5,8 @@
     margin: 0 100px;
     position: fixed;
     background-color: #EEEFF1;
-    z-index: 10;
+    z-index: 2;
+    /* z-index: 1; */
 }
 
 .header-left {
@@ -69,6 +70,7 @@
     border-radius: 4px;
     text-decoration: none;
     color: rgb(0, 0, 0);
+    position: relative;
 }
 
 .user:hover {
@@ -107,4 +109,68 @@
 .line-header {
     border: 1px solid black;
     margin: 0 100px;
+}
+
+.account {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 4px;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+}
+
+.account:hover {
+    background-color: blue;
+    color: white;
+}
+
+.user:hover .under-user {
+    display: block;
+}
+
+.under-user {
+    height: 122px;
+    width: 150px;
+    position: absolute;
+    z-index: 2;
+    top: 41px;
+    left: 0px;
+    font-size: 14px;
+    border-radius: 4px;
+    background-color: #eeeff1;
+    color: black;
+    display: none;
+    border: 1px solid #bbb;
+}
+
+.logout,
+.product-favorite,
+.details-user {
+    padding: 10px;
+    font-size: 14px;
+    text-decoration: none;
+    color: black;
+    height: 40px;
+}
+
+.logout:hover {
+    background-color: blue;
+    color: white;
+}
+
+.product-favorite:hover {
+    background-color: blue;
+    color: white;
+}
+
+.details-user:hover {
+    background-color: blue;
+    color: white;
+}
+
+.item-header {
+    text-decoration: none;
+    color: black;
 }

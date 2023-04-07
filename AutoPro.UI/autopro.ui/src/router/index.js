@@ -12,6 +12,8 @@ import SignUp from '@/views/user/SignUp.vue'
 import Register from '@/views/user/Register.vue'
 import ForgotPassword from '@/views/user/ForgotPassword.vue'
 import Cart from '@/views/user/Cart.vue'
+import Order from '@/views/user/Order.vue'
+import FavoriteProduct from '@/views/user/FavoriteProduct.vue'
 import NotFound from '@/views/NotFound.vue'
 const routes = [
     { path: '/home', component: Home },
@@ -36,6 +38,8 @@ const routes = [
     { path: '/account/register', component: Register },
     { path: '/account/forgot-password', component: ForgotPassword },
     { path: '/cart', component: Cart },
+    { path: '/order', component: Order },
+    { path: '/product-favorite', component: FavoriteProduct },
     { path: '/purchase', component: Purchase },
     {
         path: '/:catchAll(.*)',

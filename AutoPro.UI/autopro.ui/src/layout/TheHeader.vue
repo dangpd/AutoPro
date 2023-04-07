@@ -16,12 +16,27 @@
                 </div>
             </div>
             <div class="header-right">
-                <router-link to="/account/sign-up" class="user">
-                    <i class="fa-regular fa-user fa-xl" style=""></i>
-                    <div class="info">Tài khoản</div>
-                </router-link>
+                <div class="user">
+                    <router-link to="/account/sign-up" class="account">
+                        <i class="fa-regular fa-user " style=""></i>
+                        <div class="info">
+                            <div class="">Tài khoản</div>
+                            <div class="under-user">
+                                <router-link to="/user/:id" class="item-header">
+                                    <div class="details-user">Tài khoản của tôi</div>
+                                </router-link>
+                                <router-link to="/product-favorite" class="item-header">
+                                    <div class="product-favorite">Sản phẩm yêu thích</div>
+                                </router-link>
+                                <router-link to="/" class="item-header">
+                                    <div class="logout">Đăng xuất</div>
+                                </router-link>
+                            </div>
+                        </div>
+                    </router-link>
+                </div>
                 <router-link to="/cart" class="cart">
-                    <i class="fa-solid fa-cart-plus fa-xl"></i>
+                    <i class="fa-solid fa-cart-plus"></i>
                     <div class="info-cart">Giỏ hàng của bạn</div>
                 </router-link>
                 <router-link to="/order" class="cart">

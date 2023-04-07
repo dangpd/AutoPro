@@ -47,7 +47,7 @@
             <div class="product-image">
               <img src="../../assets/Image/giamsoc.jpg" alt="">
               <div class="favourtive">
-                <i class="fa-regular fa-heart"></i>
+                <i class="fa-solid fa-heart"></i>
               </div>
             </div>
             <div class="product-name">Lốc gió</div>
@@ -61,7 +61,7 @@
             <div class="product-image">
               <img src="../../assets/Image/giamsoc.jpg" alt="">
               <div class="favourtive">
-                <i class="fa-regular fa-heart"></i>
+                <i class="fa-solid fa-heart"></i>
               </div>
             </div>
             <div class="product-name">Lốc gió</div>
@@ -75,7 +75,7 @@
             <div class="product-image">
               <img src="../../assets/Image/giamsoc.jpg" alt="">
               <div class="favourtive">
-                <i class="fa-regular fa-heart"></i>
+                <i class="fa-solid fa-heart"></i>
               </div>
             </div>
             <div class="product-name">Lốc gió</div>
@@ -89,7 +89,7 @@
             <div class="product-image">
               <img src="../../assets/Image/giamsoc.jpg" alt="">
               <div class="favourtive">
-                <i class="fa-regular fa-heart"></i>
+                <i class="fa-solid fa-heart"></i>
               </div>
             </div>
             <div class="product-name">Lốc gió</div>
@@ -103,7 +103,7 @@
             <div class="product-image">
               <img src="../../assets/Image/giamsoc.jpg" alt="">
               <div class="favourtive">
-                <i class="fa-regular fa-heart"></i>
+                <i class="fa-solid fa-heart"></i>
               </div>
             </div>
             <div class="product-name">Lốc gió</div>
@@ -117,7 +117,7 @@
             <div class="product-image">
               <img src="../../assets/Image/giamsoc.jpg" alt="">
               <div class="favourtive">
-                <i class="fa-regular fa-heart"></i>
+                <i class="fa-solid fa-heart"></i>
               </div>
             </div>
             <div class="product-name">Lốc gió</div>
@@ -131,7 +131,7 @@
             <div class="product-image">
               <img src="../../assets/Image/giamsoc.jpg" alt="">
               <div class="favourtive">
-                <i class="fa-regular fa-heart"></i>
+                <i class="fa-solid fa-heart"></i>
               </div>
             </div>
             <div class="product-name">Lốc gió</div>
@@ -145,7 +145,7 @@
             <div class="product-image">
               <img src="../../assets/Image/giamsoc.jpg" alt="">
               <div class="favourtive">
-                <i class="fa-regular fa-heart"></i>
+                <i class="fa-solid fa-heart"></i>
               </div>
             </div>
             <div class="product-name">Lốc gió</div>
@@ -165,7 +165,7 @@
             <div class="product-image">
               <img src="../../assets/Image/giamsoc.jpg" alt="">
               <div class="favourtive">
-                <i class="fa-regular fa-heart"></i>
+                <i class="fa-solid fa-heart"></i>
               </div>
             </div>
             <div class="product-name">Lốc gió</div>
@@ -179,7 +179,7 @@
             <div class="product-image">
               <img src="../../assets/Image/giamsoc.jpg" alt="">
               <div class="favourtive">
-                <i class="fa-regular fa-heart"></i>
+                <i class="fa-solid fa-heart"></i>
               </div>
             </div>
             <div class="product-name">Lốc gió</div>
@@ -193,7 +193,7 @@
             <div class="product-image">
               <img src="../../assets/Image/giamsoc.jpg" alt="">
               <div class="favourtive">
-                <i class="fa-regular fa-heart"></i>
+                <i class="fa-solid fa-heart"></i>
               </div>
             </div>
             <div class="product-name">Lốc gió</div>
@@ -207,7 +207,7 @@
             <div class="product-image">
               <img src="../../assets/Image/giamsoc.jpg" alt="">
               <div class="favourtive">
-                <i class="fa-regular fa-heart"></i>
+                <i class="fa-solid fa-heart"></i>
               </div>
             </div>
             <div class="product-name">Lốc gió</div>
@@ -221,7 +221,7 @@
             <div class="product-image">
               <img src="../../assets/Image/giamsoc.jpg" alt="">
               <div class="favourtive">
-                <i class="fa-regular fa-heart"></i>
+                <i class="fa-solid fa-heart"></i>
               </div>
             </div>
             <div class="product-name">Lốc gió</div>
@@ -235,7 +235,7 @@
             <div class="product-image">
               <img src="../../assets/Image/giamsoc.jpg" alt="">
               <div class="favourtive">
-                <i class="fa-regular fa-heart"></i>
+                <i class="fa-solid fa-heart"></i>
               </div>
             </div>
             <div class="product-name">Lốc gió</div>
@@ -249,7 +249,7 @@
             <div class="product-image">
               <img src="../../assets/Image/giamsoc.jpg" alt="">
               <div class="favourtive">
-                <i class="fa-regular fa-heart"></i>
+                <i class="fa-solid fa-heart"></i>
               </div>
             </div>
             <div class="product-name">Lốc gió</div>
@@ -263,7 +263,7 @@
             <div class="product-image">
               <img src="../../assets/Image/giamsoc.jpg" alt="">
               <div class="favourtive">
-                <i class="fa-regular fa-heart"></i>
+                <i class="fa-solid fa-heart"></i>
               </div>
             </div>
             <div class="product-name">Lốc gió</div>
