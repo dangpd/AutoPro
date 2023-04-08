@@ -43,20 +43,22 @@
       <div class="new-products-imported">
         <div class="title">SẢN PHẨM MỚI NHẬP VỀ</div>
         <div class="list-product-impoted">
-          <div class="product">
-            <div class="product-image">
-              <img src="../../assets/Image/giamsoc.jpg" alt="">
-              <div class="favourtive">
-                <i class="fa-solid fa-heart"></i>
+          <router-link to="/product/:id" style="text-decoration: none;color: black;">
+            <div class="product">
+              <div class="product-image">
+                <img src="../../assets/Image/giamsoc.jpg" alt="">
+                <div class="favourtive">
+                  <i class="fa-solid fa-heart"></i>
+                </div>
+              </div>
+              <div class="product-name">Lốc gió</div>
+              <div class="price">Giá : 330.000Vnd</div>
+              <div class="product-buttom">
+                <div class="product-detail">Xem chi tiết</div>
+                <div class="add-cart">Thêm vào giỏ hàng</div>
               </div>
             </div>
-            <div class="product-name">Lốc gió</div>
-            <div class="price">Giá : 330.000Vnd</div>
-            <div class="product-buttom">
-              <div class="product-detail">Xem chi tiết</div>
-              <div class="add-cart">Thêm vào giỏ hàng</div>
-            </div>
-          </div>
+          </router-link>
           <div class="product">
             <div class="product-image">
               <img src="../../assets/Image/giamsoc.jpg" alt="">

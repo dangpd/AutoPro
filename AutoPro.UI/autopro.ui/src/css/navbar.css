@@ -61,3 +61,8 @@
     background-color: blue;
     color: white;
 }
+
+.no-link{
+    text-decoration: none;
+    color: black;
+}

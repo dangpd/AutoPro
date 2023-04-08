@@ -8,6 +8,18 @@
                 <div class="nav-list-news">
                     <div class="title-news">TIN TỨC</div>
                     <div class="list-content">
+                        <router-link to="/news/:id" style="text-decoration: none;color: black;">
+                            <div class="news">
+                                <div class="news-image">
+                                    <img src="../../assets/Image/giamsoc.jpg" alt="">
+                                </div>
+                                <div class="news-right">
+                                    <div class="news-title">Tiêu để tin tức</div>
+                                    <div class="news-time">Thời gian tin tức</div>
+                                    <div class="news-content">Nội dung tin tức rút gọn</div>
+                                </div>
+                            </div>
+                        </router-link>
                         <div class="news">
                             <div class="news-image">
                                 <img src="../../assets/Image/giamsoc.jpg" alt="">
@@ -15,7 +27,7 @@
                             <div class="news-right">
                                 <div class="news-title">Tiêu để tin tức</div>
                                 <div class="news-time">Thời gian tin tức</div>
-                                <div class="news-content">Nội dung tin tức</div>
+                                <div class="news-content">Nội dung tin tức rút gọn</div>
                             </div>
                         </div>
                         <div class="news">
@@ -25,17 +37,7 @@
                             <div class="news-right">
                                 <div class="news-title">Tiêu để tin tức</div>
                                 <div class="news-time">Thời gian tin tức</div>
-                                <div class="news-content">Nội dung tin tức</div>
-                            </div>
-                        </div>
-                        <div class="news">
-                            <div class="news-image">
-                                <img src="../../assets/Image/giamsoc.jpg" alt="">
-                            </div>
-                            <div class="news-right">
-                                <div class="news-title">Tiêu để tin tức</div>
-                                <div class="news-time">Thời gian tin tức</div>
-                                <div class="news-content">Nội dung tin tức</div>
+                                <div class="news-content">Nội dung tin tức rút gọn</div>
                             </div>
                         </div>
                     </div>

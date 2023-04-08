@@ -1,8 +1,26 @@
 <template>
-    <div>Chi tiết tin tức</div>
+    <div>
+        <TheHeader></TheHeader>
+        <TheNavbar></TheNavbar>
+        <div class="content">
+            <TheLineLink name="Tin tức" detail="/ Chi tiết tin tức"></TheLineLink>
+                <div class="details-news-title">Tiêu đề tin tức</div>
+                <div class="details-news-time">Thời gian</div>
+                <div class="details-news-image">
+                    <img src="../../assets/Image/giamsoc.jpg" alt="">
+                </div>
+                <div class="details-news-content">Chi tiết nội dung</div>
+        </div>
+        <TheFooter></TheFooter>
+    </div>
 </template>
 
 <script>
+import TheFooter from '@/layout/TheFooter.vue';
+import TheHeader from '@/layout/TheHeader.vue';
+import TheLineLink from '@/layout/TheLineLink.vue';
+import TheNavbar from '@/layout/TheNavbar.vue';
+
 export default {
     /**
      * Tên component
@@ -15,7 +33,7 @@ export default {
     /**
      * Component được sử dụng
      */
-    components: {},
+    components: { TheHeader, TheNavbar, TheFooter, TheLineLink },
     /**
      * Emit sự thay đổi
      */

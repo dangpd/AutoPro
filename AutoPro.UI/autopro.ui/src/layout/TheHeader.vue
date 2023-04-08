@@ -25,7 +25,7 @@
                                 <router-link to="/user/:id" class="item-header">
                                     <div class="details-user">Tài khoản của tôi</div>
                                 </router-link>
-                                <router-link to="/product-favorite" class="item-header">
+                                <router-link to="/list-product-favorite" class="item-header">
                                     <div class="product-favorite">Sản phẩm yêu thích</div>
                                 </router-link>
                                 <router-link to="/" class="item-header">

@@ -1,7 +1,5 @@
 <template>
-    <div class="div-link" style="margin: 10px 0;">
-        <router-link to="/" class="line-link">Trang chủ </router-link>/ {{ this.name }}  {{ this.detail }}
-    </div>
+    <div>Combobox</div>
 </template>
 
 <script>
@@ -9,11 +7,11 @@ export default {
     /**
          * Tên component
          */
-    name: 'TheLineLink',
+    name: 'MCombobox',
     /**
      * Hứng nhận
      */
-    props: ["name","detail"],
+    props: [""],
     /**
      * Component được sử dụng
      */
@@ -52,5 +50,5 @@ export default {
 </script>
 
 <style>
-@import url(../css/line-link.css);
+@import url(../css/combobox.css);
 </style>

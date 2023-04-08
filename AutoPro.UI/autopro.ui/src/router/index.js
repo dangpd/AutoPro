@@ -14,6 +14,10 @@ import ForgotPassword from '@/views/user/ForgotPassword.vue'
 import Cart from '@/views/user/Cart.vue'
 import Order from '@/views/user/Order.vue'
 import FavoriteProduct from '@/views/user/FavoriteProduct.vue'
+import DetailsProduct from '@/views/user/DetailsProduct.vue'
+import DetailsNews from '@/views/user/DetailsNews.vue'
+import DetailsUser from '@/views/user/DetailsUser.vue'
+import ProductByCategory from '@/views/user/ProductByCategory.vue'
 import NotFound from '@/views/NotFound.vue'
 const routes = [
     { path: '/home', component: Home },
@@ -39,7 +43,11 @@ const routes = [
     { path: '/account/forgot-password', component: ForgotPassword },
     { path: '/cart', component: Cart },
     { path: '/order', component: Order },
-    { path: '/product-favorite', component: FavoriteProduct },
+    { path: '/product/:id', component: DetailsProduct },
+    { path: '/news/:id', component: DetailsNews },
+    { path: '/user/:id', component: DetailsUser },
+    { path: '/list-product-favorite', component: FavoriteProduct },
+    { path: '/category/:id', component: ProductByCategory },
     { path: '/purchase', component: Purchase },
     {
         path: '/:catchAll(.*)',

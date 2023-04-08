@@ -1,0 +1,30 @@
+.details-form-user {
+    width: 700px;
+    height: auto;
+}
+
+.details-user-firstname,
+.details-user-lastname,
+.details-user-fullName,
+.details-user-address,
+.details-user-birth,
+.details-user-gender {
+    display: flex;
+    margin: 10px 0;
+    align-items: center;
+}
+
+.details-text {
+    width: 100px;
+}
+
+.details-user-update{
+    width: 700px;
+    text-align: center;
+}
+
+.details-user-update button{
+    padding: 8px;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+}

@@ -9,9 +9,11 @@
                 <i class="fa-solid fa-bars"></i>
                 <div class="nav-text" style="padding-left: 8px;">Danh mục sản phẩm</div>
                 <div class="sub-menu">
-                    <div class="nav-item-submenu">
-                        <div class="nav-text">Hệ thống gầm, phanh</div>
-                    </div>
+                    <router-link to="/category/:id" class="no-link">
+                        <div class="nav-item-submenu">
+                            <div class="nav-text">Hệ thống gầm, phanh</div>
+                        </div>
+                    </router-link>
                     <div class="nav-item-submenu">
                         <div class="nav-text">Hệ thống động cơ, hộp số</div>
                     </div>

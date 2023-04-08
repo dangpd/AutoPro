@@ -1,0 +1,29 @@
+.details-news-title{
+    background-color: aqua;
+    font-size: 20px;
+    color: blue;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+.details-news-time{
+    font-size: 14px;
+    background-color: aquamarine;
+}
+
+.details-news-image{
+    background-color: bisque;
+    text-align: center;
+}
+
+.details-news-image img{
+    height: 400px;
+    width: 400px;
+    padding: 10px;
+}
+
+.details-news-content{
+    font-size: 16px;
+    height: auto;
+    background-color: blueviolet;
+}

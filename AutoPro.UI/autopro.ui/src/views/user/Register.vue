@@ -16,6 +16,18 @@
                             styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                         </MInput>
                     </div>
+                    <div class="register-account">
+                        <div class="text">Họ :</div>
+                        <MInput type="text"
+                            styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
+                        </MInput>
+                    </div>
+                    <div class="register-account">
+                        <div class="text">Tên :</div>
+                        <MInput type="text"
+                            styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
+                        </MInput>
+                    </div>
                     <div class="register-fullName">
                         <div class="text">Họ và tên :</div>
                         <MInput type="text"
