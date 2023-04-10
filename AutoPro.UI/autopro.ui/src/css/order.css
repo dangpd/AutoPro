@@ -23,9 +23,13 @@
     /* border-bottom: 1px solid #bbb; */
 }
 
+.product-order-code {
+    width: 120px;
+    padding-left: 10px;
+}
+
 .product-order-image {
     width: 200px;
-    padding-left: 10px;
 }
 
 .product-order-image img {

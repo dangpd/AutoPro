@@ -9,151 +9,48 @@
                 <table class="m-table-order">
                     <thead>
                         <tr>
-                            <th style="min-width: 200px;padding-left:10px">Sản phẩm</th>
-                            <th style="min-width: 300px;">Thông tin sản phẩm</th>
-                            <th style="min-width: 200px;">Đơn giá</th>
-                            <th style="min-width: 100px;">Số lượng</th>
-                            <th style="min-width: 200px;">Thành tiền</th>
-                            <th style="min-width: 200px;">Trạng thái</th>
-                            <th style="min-width: 100px;">Thao tác</th>
+                            <th style="width: 120px;padding-left:10px">Mã đơn hàng</th>
+                            <th style="width: 200px;">Sản phẩm</th>
+                            <th style="width: 350px;">Thông tin sản phẩm</th>
+                            <th style="width: 150px;">Ngày đặt</th>
+                            <th style="width: 150px;">Thành tiền</th>
+                            <th style="width: 150px;">Trạng thái</th>
+                            <th style="width: 100px;">Thao tác</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>
-                                <div class="product-order-image">
-                                    <img src="../../assets/Image/giamsoc.jpg" alt="">
+                                <div class="product-order-code">
+                                    DH01
                                 </div>
                             </td>
-                            <td>
-                                <div class="product-order-name">
-                                    Giamr soavcakj sdkcjnsan sdfjkhcsiud sakdjfhcjks
-                                </div>
-                            </td>
-                            <td>
-                                <div class="product-order-price">
-                                    200.000 vnd
-                                </div>
-                            </td>
-                            <td>
-                                <div class="product-order-amount">
-                                    * 1
-                                </div>
-                            </td>
-                            <td>
-                                <div class="product-order-totalmoney">
-                                    = 200.000 vnd
-                                </div>
-                            </td>
-                            <td>
-                                <div class="product-order-status">
-                                    Đang xử lí
-                                </div>
-                            </td>
-                            <td>
-                                <div class="product-order-method">
-                                    Hủy
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
                             <td>
                                 <div class="product-order-image">
                                     <img src="../../assets/Image/giamsoc.jpg" alt="">
                                 </div>
                             </td>
                             <td>
-                                <div class="product-order-name">
-                                    Giamr soavcakj sdkcjnsan sdfjkhcsiud sakdjfhcjks
+                                <div class="product-order-info">
+                                    <div class="product-order-name">
+                                        Tên sp: Giamr soavcakj sdk snfd sdfc sdf sfd cjnsan sdfjkhcsiud sakdjfhcjks
+                                    </div>
+                                    <div class="product-order-price">
+                                        Giá : 200.000 vnd
+                                    </div>
+                                    <div class="product-order-amount">
+                                        Số lượng * 1
+                                    </div>
                                 </div>
                             </td>
                             <td>
-                                <div class="product-order-price">
-                                    200.000 vnd
-                                </div>
-                            </td>
-                            <td>
-                                <div class="product-order-amount">
-                                    * 1
-                                </div>
-                            </td>
-                            <td>
-                                <div class="product-order-totalmoney">
-                                    = 200.000 vnd
-                                </div>
-                            </td>
-                            <td>
-                                <div class="product-order-status">
-                                    Đang xử lí
-                                </div>
-                            </td>
-                            <td>
-                                <div class="product-order-method">
-                                    Hủy
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="product-order-image">
-                                    <img src="../../assets/Image/giamsoc.jpg" alt="">
-                                </div>
-                            </td>
-                            <td>
-                                <div class="product-order-name">
-                                    Giamr soavcakj sdkcjnsan sdfjkhcsiud sakdjfhcjks
-                                </div>
-                            </td>
-                            <td>
-                                <div class="product-order-price">
-                                    200.000 vnd
-                                </div>
-                            </td>
-                            <td>
-                                <div class="product-order-amount">
-                                    * 1
+                                <div class="product-order-time">
+                                    Ngày : 1/2/2023
                                 </div>
                             </td>
                             <td>
                                 <div class="product-order-totalmoney">
-                                    = 200.000 vnd
-                                </div>
-                            </td>
-                            <td>
-                                <div class="product-order-status">
-                                    Đang xử lí
-                                </div>
-                            </td>
-                            <td>
-                                <div class="product-order-method">
-                                    Hủy
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="product-order-image">
-                                    <img src="../../assets/Image/giamsoc.jpg" alt="">
-                                </div>
-                            </td>
-                            <td>
-                                <div class="product-order-name">
-                                    Giamr soavcakj sdkcjnsan sdfjkhcsiud sakdjfhcjks
-                                </div>
-                            </td>
-                            <td>
-                                <div class="product-order-price">
                                     200.000 vnd
-                                </div>
-                            </td>
-                            <td>
-                                <div class="product-order-amount">
-                                    * 1
-                                </div>
-                            </td>
-                            <td>
-                                <div class="product-order-totalmoney">
-                                    = 200.000 vnd
                                 </div>
                             </td>
                             <td>

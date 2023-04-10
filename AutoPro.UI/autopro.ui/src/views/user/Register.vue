@@ -1,10 +1,8 @@
 <template>
     <div>
-        <TheHeader></TheHeader>
-        <TheNavbar></TheNavbar>
-        <div class="content">
-            <TheLineLink name="Đăng kí"></TheLineLink>
-            <div class="line-content"></div>
+        <div class="login">
+            <img src="../../assets/Image/bglogin.png" alt="">
+
             <div class="form-register">
                 <div class="title-form">
                     ĐĂNG KÍ
@@ -75,7 +73,6 @@
                 </div>
             </div>
         </div>
-        <TheFooter></TheFooter>
     </div>
 </template>
 
