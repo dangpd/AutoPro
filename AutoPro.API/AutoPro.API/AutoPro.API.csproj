@@ -15,4 +15,9 @@
     <ProjectReference Include="..\AutoPro.DL\AutoPro.DL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\CustomerController\" />
+    <Folder Include="Controllers\AdminController\" />
+  </ItemGroup>
+
 </Project>

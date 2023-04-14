@@ -1,3 +1,9 @@
+using AutoPro.BL.BaseBL;
+using AutoPro.BL.UserBL;
+using AutoPro.DL;
+using AutoPro.DL.BaseDL;
+using AutoPro.DL.UserDL;
+
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -14,7 +20,13 @@ builder.Services.AddCors(options =>
                                               "http://www.contoso.com");
                       });
 });
+builder.Services.AddScoped(typeof(IBaseBL<>), typeof(BaseBL<>));
+builder.Services.AddScoped(typeof(IBaseDL<>), typeof(BaseDL<>));
 
+builder.Services.AddScoped<IUserBL, UserBL>();
+builder.Services.AddScoped<IUserDL, UserDL>();
+
+DatabaseContext.ConnectionString = builder.Configuration.GetConnectionString("MySQL");
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -27,6 +39,16 @@ builder.Services.AddCors(options =>
                           policy.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
                       });
 });
+
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromSeconds(3660);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -39,7 +61,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
+app.UseSession();
 app.MapControllers();
 app.UseCors(MyAllowSpecificOrigins);
 

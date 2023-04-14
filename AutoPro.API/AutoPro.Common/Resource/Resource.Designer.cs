@@ -59,5 +59,113 @@ namespace AutoPro.Common.Resource {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to e001.
+        /// </summary>
+        public static string UserMsg_AccountEmpty {
+            get {
+                return ResourceManager.GetString("UserMsg_AccountEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to e005.
+        /// </summary>
+        public static string UserMsg_DateOfBirthLongerNow {
+            get {
+                return ResourceManager.GetString("UserMsg_DateOfBirthLongerNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to e008.
+        /// </summary>
+        public static string UserMsg_DuplicateAccount {
+            get {
+                return ResourceManager.GetString("UserMsg_DuplicateAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to e009.
+        /// </summary>
+        public static string UserMsg_DuplicateEmail {
+            get {
+                return ResourceManager.GetString("UserMsg_DuplicateEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to e004.
+        /// </summary>
+        public static string UserMsg_EmailEmpty {
+            get {
+                return ResourceManager.GetString("UserMsg_EmailEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to e006.
+        /// </summary>
+        public static string UserMsg_EmailRegex {
+            get {
+                return ResourceManager.GetString("UserMsg_EmailRegex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to e003.
+        /// </summary>
+        public static string UserMsg_FullNameEmpty {
+            get {
+                return ResourceManager.GetString("UserMsg_FullNameEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to e011.
+        /// </summary>
+        public static string UserMsg_GetByIDFail {
+            get {
+                return ResourceManager.GetString("UserMsg_GetByIDFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to e010.
+        /// </summary>
+        public static string UserMsg_LoginFail {
+            get {
+                return ResourceManager.GetString("UserMsg_LoginFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to e002.
+        /// </summary>
+        public static string UserMsg_PasswordEmpty {
+            get {
+                return ResourceManager.GetString("UserMsg_PasswordEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to e007.
+        /// </summary>
+        public static string UserMsg_PasswordMaxlength {
+            get {
+                return ResourceManager.GetString("UserMsg_PasswordMaxlength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to e012.
+        /// </summary>
+        public static string UserMsg_ServerError {
+            get {
+                return ResourceManager.GetString("UserMsg_ServerError", resourceCulture);
+            }
+        }
     }
 }

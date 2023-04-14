@@ -8,5 +8,14 @@ namespace AutoPro.Common.Entities.DTO
 {
     public class ServiceResult
     {
+        /// <summary>
+        /// Trạng thái kết quả
+        /// </summary>
+        public bool IsSuccess { get; set; }
+
+        /// <summary>
+        /// Mã lỗi
+        /// </summary>
+        public ErrorResult? Data { get; set; }
     }
 }
