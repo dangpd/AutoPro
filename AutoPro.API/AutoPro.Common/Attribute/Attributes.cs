@@ -151,29 +151,29 @@ namespace AutoPro.Common.Attributes
         /// <summary>
         /// News
         /// </summary>
-        [AttributeUsage(AttributeTargets.Property)]
-        public class ContentNewsNotEmpty : Attribute { }
+        //[AttributeUsage(AttributeTargets.Property)]
+        //public class ContentNewsNotEmpty : Attribute { }
 
 
-        [AttributeUsage(AttributeTargets.Property)]
-        public class ContentShortedNewsNotEmpty : Attribute { }
+        //[AttributeUsage(AttributeTargets.Property)]
+        //public class ContentShortedNewsNotEmpty : Attribute { }
 
 
-        [AttributeUsage(AttributeTargets.Property)]
-        public class NewsTitleNotEmpty : Attribute { }
+        //[AttributeUsage(AttributeTargets.Property)]
+        //public class NewsTitleNotEmpty : Attribute { }
 
-        /// <summary>
-        /// News
-        /// </summary>
-        [AttributeUsage(AttributeTargets.Property)]
-        public class ContentNewsNotEmpty : Attribute { }
-
-
-        [AttributeUsage(AttributeTargets.Property)]
-        public class ContentShortedNewsNotEmpty : Attribute { }
+        ///// <summary>
+        ///// News
+        ///// </summary>
+        //[AttributeUsage(AttributeTargets.Property)]
+        //public class ContentNewsNotEmpty : Attribute { }
 
 
-        [AttributeUsage(AttributeTargets.Property)]
-        public class NewsTitleNotEmpty : Attribute { }
+        //[AttributeUsage(AttributeTargets.Property)]
+        //public class ContentShortedNewsNotEmpty : Attribute { }
+
+
+        //[AttributeUsage(AttributeTargets.Property)]
+        //public class NewsTitleNotEmpty : Attribute { }
     }
 }

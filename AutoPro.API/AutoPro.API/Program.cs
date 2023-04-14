@@ -1,7 +1,31 @@
 using AutoPro.BL.BaseBL;
+using AutoPro.BL.BrandBL;
+using AutoPro.BL.CartBL;
+using AutoPro.BL.CartDetailBL;
+using AutoPro.BL.ContactBL;
+using AutoPro.BL.NewsBL;
+using AutoPro.BL.NewsCommentBL;
+using AutoPro.BL.OrderDetailBL;
+using AutoPro.BL.OrdersBL;
+using AutoPro.BL.ProductBL;
+using AutoPro.BL.ProductCategoryBL;
+using AutoPro.BL.ProductCommentBL;
+using AutoPro.BL.ProductFavoriteBL;
 using AutoPro.BL.UserBL;
 using AutoPro.DL;
 using AutoPro.DL.BaseDL;
+using AutoPro.DL.BrandDL;
+using AutoPro.DL.CartDetailDL;
+using AutoPro.DL.CartDL;
+using AutoPro.DL.ContactDL;
+using AutoPro.DL.NewsCommentDL;
+using AutoPro.DL.NewsDL;
+using AutoPro.DL.OrderDetailDL;
+using AutoPro.DL.OrdersDL;
+using AutoPro.DL.ProductCategoryDL;
+using AutoPro.DL.ProductCommentDL;
+using AutoPro.DL.ProductDL;
+using AutoPro.DL.ProductFavoriteDL;
 using AutoPro.DL.UserDL;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,6 +49,42 @@ builder.Services.AddScoped(typeof(IBaseDL<>), typeof(BaseDL<>));
 
 builder.Services.AddScoped<IUserBL, UserBL>();
 builder.Services.AddScoped<IUserDL, UserDL>();
+
+builder.Services.AddScoped<IBrandBL, BrandBL>();
+builder.Services.AddScoped<IBrandDL, BrandDL>();
+
+builder.Services.AddScoped<ICartBL, CartBL>();
+builder.Services.AddScoped<ICartDL, CartDL>();
+
+builder.Services.AddScoped<ICartDetailBL, CartDetailBL>();
+builder.Services.AddScoped<ICartDetailDL, CartDetailDL>();
+
+builder.Services.AddScoped<IContactBL, ContactBL>();
+builder.Services.AddScoped<IContactDL, ContactDL>();
+
+builder.Services.AddScoped<INewsBL, NewsBL>();
+builder.Services.AddScoped<INewsDL, NewsDL>();
+
+builder.Services.AddScoped<INewsCommentBL, NewsCommentBL>();
+builder.Services.AddScoped<INewsCommentDL, NewsCommentDL>();
+
+builder.Services.AddScoped<IOrderDetailBL, OrderDetailBL>();
+builder.Services.AddScoped<IOrderDetailDL, OrderDetailDL>();
+
+builder.Services.AddScoped<IOrdersBL, OrdersBL>();
+builder.Services.AddScoped<IOrdersDL, OrdersDL>();
+
+builder.Services.AddScoped<IProductBL, ProductBL>();
+builder.Services.AddScoped<IProductDL, ProductDL>();
+
+builder.Services.AddScoped<IProductCategoryBL, ProductCategoryBL>();
+builder.Services.AddScoped<IProductCategoryDL, ProductCategoryDL>();
+
+builder.Services.AddScoped<IProductCommentBL, ProductCommentBL>();
+builder.Services.AddScoped<IProductCommentDL, ProductCommentDL>();
+
+builder.Services.AddScoped<IProductFavoriteBL, ProductFavoriteBL>();
+builder.Services.AddScoped<IProductFavoriteDL, ProductFavoriteDL>();
 
 DatabaseContext.ConnectionString = builder.Configuration.GetConnectionString("MySQL");
 builder.Services.AddControllers();

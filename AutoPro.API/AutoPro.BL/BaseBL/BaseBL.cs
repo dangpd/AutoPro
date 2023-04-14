@@ -89,9 +89,9 @@ namespace AutoPro.BL.BaseBL
                     Data = new ErrorResult
                     {
                         ErrorCode = Common.Enum.ErrorCode.Exception,
-                        DevMsg = "",
-                        UserMsg = "",
-                        MoreInfo = ""
+                        DevMsg = Common.Resource.DataResource.DevMsg_ServerError,
+                        UserMsg = Common.Resource.DataResource.UserMsg_ServerError,
+                        MoreInfo = Common.Resource.Resource.UserMsg_ServerError
 
                     }
                 };
@@ -139,9 +139,9 @@ namespace AutoPro.BL.BaseBL
                     Data = new ErrorResult
                     {
                         ErrorCode = Common.Enum.ErrorCode.ServerError,
-                        DevMsg = "",
-                        UserMsg = "",
-                        MoreInfo = ""
+                        DevMsg = Common.Resource.DataResource.DevMsg_ServerError,
+                        UserMsg = Common.Resource.DataResource.UserMsg_ServerError,
+                        MoreInfo = Common.Resource.Resource.UserMsg_ServerError
                     }
                 };
             }
@@ -294,8 +294,8 @@ namespace AutoPro.BL.BaseBL
                     Data = new ErrorResult
                     {
                         ErrorCode = Common.Enum.ErrorCode.InvalidData,
-                        DevMsg = "",
-                        UserMsg = "",
+                        DevMsg = Common.Resource.DataResource.DevMsg_InvalidData,
+                        UserMsg = Common.Resource.DataResource.UserMsg_InvalidData,
                         MoreInfo = errorList
                     }
                 };
