@@ -18,7 +18,23 @@ import DetailsProduct from '@/views/user/DetailsProduct.vue'
 import DetailsNews from '@/views/user/DetailsNews.vue'
 import DetailsUser from '@/views/user/DetailsUser.vue'
 import ProductByCategory from '@/views/user/ProductByCategory.vue'
+
+// Admin
+import AdminHome from '@/views/admin/AdminHome.vue'
+import AdminAccount from '@/views/admin/AdminAccount.vue'
+import AdminBrand from '@/views/admin/AdminBrand.vue'
+import AdminCategory from '@/views/admin/AdminCategory.vue'
+import AdminContact from '@/views/admin/AdminContact.vue'
+import AdminNews from '@/views/admin/AdminNews.vue'
+import AdminOrder from '@/views/admin/AdminOrder.vue'
+import AdminProduct from '@/views/admin/AdminProduct.vue'
+import AdminDashload from '@/views/admin/AdminDashload.vue'
+import AdminRevenueStatistics from '@/views/admin/AdminRevenueStatistics.vue'
+
+// 403,403 Error
+import ForBidden from '@/views/ForBidden.vue'
 import NotFound from '@/views/NotFound.vue'
+
 const routes = [
     { path: '/home', component: Home },
     { path: '', component: Home },
@@ -49,6 +65,27 @@ const routes = [
     { path: '/list-product-favorite', component: FavoriteProduct },
     { path: '/category/:id', component: ProductByCategory },
     { path: '/purchase', component: Purchase },
+
+    //Admin
+    { 
+        path: '/admin', 
+        component: AdminHome,
+        children:
+        [
+            {path: '/admin/account',component:AdminAccount},
+            {path: '/admin/brand',component:AdminBrand},
+            {path: '/admin/category',component:AdminCategory},
+            {path: '/admin/contact',component:AdminContact},
+            {path: '/admin/order',component:AdminOrder},
+            {path: '/admin/news',component:AdminNews},
+            {path: '/admin/product',component:AdminProduct},
+            {path: '/admin/dashload',component:AdminDashload},
+            {path: '/admin/revenue-statistics',component:AdminRevenueStatistics},
+        ]
+    },
+
+    // Error 403 404
+    { path: '/forbidden', component: ForBidden },
     {
         path: '/:catchAll(.*)',
         component: NotFound

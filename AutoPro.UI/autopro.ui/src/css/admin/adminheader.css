@@ -1,0 +1,29 @@
+.aheader {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #faeaea;
+}
+
+.aheader-left {
+    width: 251px;
+    height: 100%;
+    /* border-right: 1px solid #bbb; */
+}
+
+.aheader-left img {
+    width: 250px;
+    height: 100%;
+}
+
+.aheader-right {
+    /* width: calc(100% - 251px); */
+    display: flex;
+    align-items: center;
+}
+
+.a-account{
+    padding: 0 40px;
+}

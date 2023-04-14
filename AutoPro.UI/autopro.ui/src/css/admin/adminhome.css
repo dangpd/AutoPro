@@ -1,0 +1,19 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.ahomecontent{
+    display: flex;
+}
+
+
+.arouter-view-content{
+    width: calc(100% - 250px);
+}
+
+.admin-content{
+    width: 100%;
+    padding: 0 20px;
+    height: auto;
+}

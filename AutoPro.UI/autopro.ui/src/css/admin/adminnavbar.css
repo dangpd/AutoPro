@@ -1,0 +1,42 @@
+.nav {
+    width: 250px;
+    height: calc(100vh - 60px);
+}
+
+.anav-list {
+    height: 100%;
+    width: 100%;
+    padding-top: 20px;
+    padding-left: 12px;
+    padding-right: 12px;
+    box-sizing: border-box;
+    border-right: 1px solid #bbb;
+    overflow-y: auto;
+    background-color: #041434;
+}
+
+.anav-item {
+    display: flex;
+    align-items: center;
+    height: 38px;
+    border-radius: 4px;
+    cursor: pointer;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.anav-item+.anav-item {
+    margin-top: 4px;
+}
+
+.anav-item:hover {
+    background-color: #3395FF;
+}
+
+.anav-item i{
+    color: white;
+}
+
+.anav__text {
+    color: rgb(255, 254, 254);
+}

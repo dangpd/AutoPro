@@ -1,0 +1,65 @@
+.table-admin {
+    width: 100%;
+    height: auto;
+}
+
+.table-toolbar {
+    width: 100%;
+    /* height: 60px; */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 20px;
+}
+
+.search-toolbar {
+    display: flex;
+}
+
+.search-toolbar button {
+    margin-left: 10px;
+    padding: 0 20px;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+}
+
+.add-toolbar button {
+    padding: 0 20px;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    height: 36px;
+}
+
+.table-admin table {
+    background-color: azure;
+    width: 100%;
+    border: 1px solid #bbb;
+}
+
+.table-admin table tbody tr,
+.table-admin table thead tr {
+    height: 40px;
+    border-top: 1px solid #bbb;
+    border-bottom: 1px solid #bbb;
+}
+
+/* .table-admin table tbody tr td{
+    height: 40px;
+    border: 1px solid #bbb;
+} */
+
+.tbmethods{
+    display: flex;
+}
+
+.tbmethods button{
+    /* margin-left: 10px; */
+    padding: 0 10px;
+    border-radius: 4px;
+    border: 1px solid #bbb;
+}
+
+.list-name-table{
+    font-size: 20px;
+    margin-bottom: 10px;
+}
