@@ -1,4 +1,5 @@
 ﻿using AutoPro.BL.BaseBL;
+using AutoPro.BL.ProductFavoriteBL;
 using AutoPro.Common.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,8 +10,10 @@ namespace AutoPro.API.Controllers
     [ApiController]
     public class ProductFavoriteController : BaseController<ProductFavorite>
     {
-        public ProductFavoriteController(IBaseBL<ProductFavorite> baseBL) : base(baseBL)
+        private IProductFavoriteBL _productFavorite;
+        public ProductFavoriteController(IProductFavoriteBL productFavoriteBL) : base(productFavoriteBL)
         {
+            _productFavorite = productFavoriteBL;
         }
     }
 }

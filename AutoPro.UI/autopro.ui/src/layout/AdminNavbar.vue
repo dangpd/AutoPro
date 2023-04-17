@@ -18,12 +18,12 @@
                     <i class="fa-solid fa-caret-down"></i>
                 </div>
             </router-link>
-            <router-link to="/admin/" style="text-decoration: none;">
+            <!-- <router-link to="/admin/" style="text-decoration: none;">
                 <div class="anav-item">
                     <div class="anav__text">Quản lí nhà sản xuất</div>
                     <i class="fa-solid fa-caret-down"></i>
                 </div>
-            </router-link>
+            </router-link> -->
             <router-link to="/admin/order" style="text-decoration: none;">
                 <div class="anav-item">
                     <div class="anav__text">Quản lí đơn hàng</div>

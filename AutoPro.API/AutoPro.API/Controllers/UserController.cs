@@ -41,15 +41,9 @@ namespace AutoPro.API.Controllers
                         TraceId = HttpContext.TraceIdentifier
                     });
                 }
-                else
-                {
-                    HttpContext.Session.SetString("User", result.ToString());
-                    // Thành công return id record
-                    return StatusCode(StatusCodes.Status200OK, result);
-                }
-               
+                return StatusCode(StatusCodes.Status200OK, result);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 // Lỗi exception
                 Console.WriteLine(ex.ToString());

@@ -71,6 +71,7 @@
     text-decoration: none;
     color: rgb(0, 0, 0);
     position: relative;
+    width: 180px;
 }
 
 .user:hover {
@@ -118,6 +119,7 @@
     cursor: pointer;
     border-radius: 4px;
     text-decoration: none;
+    width: 100%;    
     color: rgb(0, 0, 0);
 }
 
@@ -173,4 +175,13 @@
 .item-header {
     text-decoration: none;
     color: black;
+}
+
+
+.isLogin{
+    display: none !important;
+}
+
+.isNoLogin{
+    display: none !important;
 }

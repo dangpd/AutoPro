@@ -1,4 +1,5 @@
 ﻿using AutoPro.BL.BaseBL;
+using AutoPro.BL.NewsBL;
 using AutoPro.Common.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,8 +10,10 @@ namespace AutoPro.API.Controllers
     [ApiController]
     public class NewsController : BaseController<News>
     {
-        public NewsController(IBaseBL<News> baseBL) : base(baseBL)
+        private INewsBL _newsBL;
+        public NewsController(INewsBL newsBL) : base(newsBL)
         {
+            _newsBL = newsBL;
         }
     }
 }

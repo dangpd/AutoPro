@@ -1,4 +1,5 @@
 ﻿using AutoPro.BL.BaseBL;
+using AutoPro.BL.CartBL;
 using AutoPro.Common.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,8 +10,10 @@ namespace AutoPro.API.Controllers
     [ApiController]
     public class CartController : BaseController<Cart>
     {
-        public CartController(IBaseBL<Cart> baseBL) : base(baseBL)
+        private ICartBL _cartBL;
+        public CartController(ICartBL cartBL) : base(cartBL)
         {
+            _cartBL = cartBL;
         }
     }
 }

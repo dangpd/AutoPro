@@ -24,5 +24,7 @@ namespace AutoPro.Common.Entities
 
         [ContactContentNotEmpty]
         public string? ContactContent { get; set; }
+
+        public DateTime CreatedDate { get; set; }
     }
 }

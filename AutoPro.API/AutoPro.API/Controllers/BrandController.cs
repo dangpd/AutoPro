@@ -1,5 +1,7 @@
 ﻿using AutoPro.BL.BaseBL;
+using AutoPro.BL.BrandBL;
 using AutoPro.Common.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,8 +11,10 @@ namespace AutoPro.API.Controllers
     [ApiController]
     public class BrandController : BaseController<Brand>
     {
-        public BrandController(IBaseBL<Brand> baseBL) : base(baseBL)
+        private IBrandBL _brandBL;
+        public BrandController(IBrandBL brandBL) : base(brandBL)
         {
+            _brandBL = brandBL;
         }
     }
 }

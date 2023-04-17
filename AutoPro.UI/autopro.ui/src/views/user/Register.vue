@@ -38,6 +38,19 @@
                             styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                         </MInput>
                     </div>
+                    <div class="register-account">
+                        <div class="text">Avatar :</div>
+                        <!-- <input type="file" ref="Avatar" @change="onFileInputChange" accept="image/*" />
+                        <img v-if="imageUrl" :src="imageUrl" alt="Uploaded Image" /> -->
+                        <!-- <input type="file" ref="fileInput" @change="handleFileUpload">
+                        <button @click="uploadFile">Upload</button> -->
+                        <!-- 
+                        <input type="file" @change="handleImageChange">
+                        <img :src="imageUrl" v-if="imageUrl"> -->
+
+                        <input type="file" ref="fileInput" @change="handleFileUpload" />
+                        <button type="button" @click="uploadFile">Upload</button>
+                    </div>
                     <div class="register-birth">
                         <div class="text">Ngày sinh :</div>
                         <MInput type="date"
@@ -64,7 +77,7 @@
                     </div>
                 </div>
                 <div class="submit">
-                    <input type="submit" value="Đăng kí" style="padding: 4px ;">
+                    <input type="submit" value="Đăng kí" style="padding: 4px ;" @click="register">
                 </div>
                 <div class="orther">
                     <router-link to="/account/sign-up" class="sign-up">Đăng nhập</router-link>
@@ -82,7 +95,7 @@ import TheHeader from '@/layout/TheHeader.vue';
 import TheNavbar from '@/layout/TheNavbar.vue';
 import MInput from '@/components/MInput.vue';
 import TheLineLink from '@/layout/TheLineLink.vue';
-
+import axios from 'axios';
 export default {
     /**
      * Tên component
@@ -108,7 +121,8 @@ export default {
      */
     data() {
         return {
-
+            file: null,
+            imageUrl: null
         }
     },
     /**
@@ -116,6 +130,47 @@ export default {
      */
     methods: {
 
+        handleFileUpload() {
+            this.file = this.$refs.fileInput.files[0];
+        },
+        uploadFile() {
+            const formData = new FormData();
+            formData.append('file', this.file);
+            axios.post('https://localhost:7129/api/Upload/upload-image', formData).then(response => {
+                console.log(response.data);
+            });
+        }
+        // handleFileUpload() {
+        //     this.file = this.$refs.fileInput.files[0];
+        //     this.imageUrl = URL.createObjectURL(this.file);
+        //     console.log(this.imageUrl);
+        //     this.$store.dispatch('saveImageUrl', this.imageUrl);
+        // },
+        // uploadFile() {
+        //     let formData = new FormData();
+        //     formData.append('image', this.file);
+        //     this.$store.dispatch('uploadImage', formData);
+        // },
+        // // ...mapActions(['saveImageUrl']),
+
+        // onFileInputChange(event) {
+        //     const file = event.target.files[0];
+        //     const reader = new FileReader();
+        //     reader.onload = (event) => {
+        //         this.imageUrl = event.target.result;
+        //     };
+        //     reader.readAsDataURL(file);
+        // },
+
+        // handleImageChange(event) {
+        //     const file = event.target.files[0];
+        //     const reader = new FileReader();
+        //     reader.onload = (e) => {
+        //         this.imageUrl = e.target.result;
+        //         console.log(this.imageUrl);
+        //     };
+        //     reader.readAsDataURL(file);
+        // },
     },
     created() {
 

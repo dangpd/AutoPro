@@ -1,6 +1,6 @@
 <template>
     <div>
-        <input class="m-input" :type="type" :placeholder="placeholder" :style="styleInput">
+        <input class="m-input" :type="type" :placeholder="placeholder" :style="styleInput" v-model="value">
     </div>
 </template>
   
@@ -13,7 +13,7 @@ export default {
     /**
      * Hứng nhận
      */
-    props: ["placeholder", "styleInput", "type"],
+    props: ["placeholder", "styleInput", "type", "modelValue"],
     /**
      * Component được sử dụng
      */
@@ -21,7 +21,7 @@ export default {
     /**
      * Emit sự thay đổi
      */
-    emits: [""],
+    emits: ["update:modelValue"],
     directives: {
 
     },
@@ -30,7 +30,7 @@ export default {
      */
     data() {
         return {
-
+            value: "",
         }
     },
     /**
@@ -40,13 +40,18 @@ export default {
 
     },
     created() {
-
+        this.value = this.modelValue
     },
     /**
      * Theo dõi sự thay đổi
      */
     watch: {
-
+        value(newVal) {
+            this.$emit("update:modelValue", newVal);
+        },
+        modelValue(newVal) {
+            this.value = newVal;
+        }
     }
 }
 </script>

@@ -1,4 +1,5 @@
 ﻿using AutoPro.Common.Enum;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -33,6 +34,10 @@ namespace AutoPro.Common.Entities
         [FullNameNotEmpty]
         public string? FullName { get; set; }
 
+        /// <summary>
+        /// File ảnh
+        /// </summary>
+        //public IFormFile Img { get; set; }
         public string? Image { get; set; }
 
         [DateOfBirthLongerNow]

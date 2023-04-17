@@ -1,4 +1,5 @@
 ﻿using AutoPro.BL.BaseBL;
+using AutoPro.BL.ContactBL;
 using AutoPro.Common.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,8 +10,10 @@ namespace AutoPro.API.Controllers
     [ApiController]
     public class ContactController : BaseController<Contact>
     {
-        public ContactController(IBaseBL<Contact> baseBL) : base(baseBL)
+        private IContactBL _contactBL;
+        public ContactController(IContactBL contactBL) : base(contactBL)
         {
+            _contactBL = contactBL;
         }
     }
 }

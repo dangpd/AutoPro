@@ -15,4 +15,8 @@
     <ProjectReference Include="..\AutoPro.DL\AutoPro.DL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
 </Project>
