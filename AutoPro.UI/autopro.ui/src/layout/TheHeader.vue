@@ -61,7 +61,6 @@
 import MInput from '@/components/MInput.vue'
 import axios from 'axios';
 import ApiUser from '../js/apiUser';
-import { Use } from 'webpack-chain';
 export default {
     /**
        * Tên component

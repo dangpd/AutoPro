@@ -102,7 +102,7 @@
 
 .form-register {
     width: 700px;
-    height: 550px;
+    height: auto;
     margin: 0 auto;
     position: absolute;
     top: 50%;
