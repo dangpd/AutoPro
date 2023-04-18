@@ -51,9 +51,9 @@
             style="display: flex; align-items: center"
           >
             <div class="text">Avatar :</div>
-            <div style="display: flex;align-items: center;">
+            <div style="display: flex; align-items: center">
               <input type="file" ref="fileInput" @change="handleFileUpload()" />
-              <p style="color: blue; padding-left: 20px;padding-top: 16px;">
+              <p style="color: blue; padding-left: 20px; padding-top: 16px">
                 {{ this.labelProcess }}
               </p>
             </div>
@@ -69,26 +69,51 @@
           <div class="register-gender">
             <div class="text">Giới tính :</div>
             <div class="gender">
-                <input type="radio" name="" id="" style="margin-right: 10px;" ref="male">Nam
-                <input type="radio" name="" id="" style="margin:0 10px;" ref="male">Nữ
-                <input type="radio" name="" id="" style="margin-left: 10px;margin-right: 10px" ref="male">Khác
+              <input
+                type="radio"
+                name=""
+                id=""
+                style="margin-right: 10px"
+                ref="male"
+              />Nam
+              <input
+                type="radio"
+                name=""
+                id=""
+                style="margin: 0 10px"
+                ref="male"
+              />Nữ
+              <input
+                type="radio"
+                name=""
+                id=""
+                style="margin-left: 10px; margin-right: 10px"
+                ref="male"
+              />Khác
             </div>
           </div>
           <div class="register-password">
             <div class="text">Mật khẩu :</div>
             <MInput
-              type="password"
+              :type="showPassword1 ? 'text' : 'password'"
               styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
+              ref="passwords"
             >
             </MInput>
+            <div class="register-show-password" @click="showPasswords1">
+              {{ showPassword1 ? 'Ẩn' : 'Hiện' }}
+            </div>
           </div>
           <div class="register-password">
             <div class="text">Nhập lại mật khẩu :</div>
             <MInput
-              type="password"
+              :type="showPassword2 ? 'text' : 'password'"
               styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
             >
             </MInput>
+            <div class="register-show-password" @click="showPasswords2">
+              {{ showPassword2 ? 'Ẩn' : 'Hiện' }}
+            </div>
           </div>
         </div>
         <div class="submit">
@@ -154,6 +179,10 @@ export default {
       //   file: null,
       imageUrl: null,
       labelProcess: "",
+      // password1: '',
+      // password2: '',
+      showPassword1: false,
+      showPassword2: false
     };
   },
   /**
@@ -169,13 +198,13 @@ export default {
       //   });
       let file = this.$refs.fileInput.files[0];
       const storage = getStorage();
-    //   const metadata = {
-    //     contentType: "image/jpeg/png",
-    //   };
+      //   const metadata = {
+      //     contentType: "image/jpeg/png",
+      //   };
       const storageRef = ref(storage, "Users/" + file.name);
       const uploadTask = uploadBytesResumable(
         storageRef,
-        this.$refs.fileInput.files[0],
+        this.$refs.fileInput.files[0]
         // metadata
       );
       uploadTask.on(
@@ -204,15 +233,18 @@ export default {
         }
       );
     },
-    
+    showPasswords1() {
+      this.showPassword1 = !this.showPassword1;
+    },
+    showPasswords2() {
+      this.showPassword2 = !this.showPassword2;
+    },
   },
   created() {},
   /**
    * Theo dõi sự thay đổi
    */
-  watch: {
-    
-  },
+  watch: {},
 };
 </script>
 

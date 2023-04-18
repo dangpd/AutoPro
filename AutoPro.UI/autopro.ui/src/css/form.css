@@ -63,6 +63,21 @@
     margin: 15px 0;
 }
 
+.login-password{
+    position: relative;
+}
+
+.login-show-password{
+    position: absolute;
+    top: 4px;
+    right: 20px;
+}
+
+.login-show-password:hover{
+    color: red;
+    cursor: pointer;
+}
+
 .text {
     width: 150px;
 }
@@ -90,6 +105,26 @@
 .register-password {
     display: flex;
     margin: 10px 0;
+}
+
+.register-password{
+    position: relative;
+    display: flex;
+}
+
+.register-show-password{
+    position: absolute;
+    right: 120px;
+    height: 28px;
+    width: 28px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.register-show-password:hover{
+    color: red;
+    cursor: pointer;
 }
 
 .sign-up:hover {

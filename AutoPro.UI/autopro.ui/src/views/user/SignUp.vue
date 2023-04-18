@@ -15,10 +15,14 @@
                 </div>
                 <div class="login-password">
                     <div class="text">Mật khẩu :</div>
-                    <MInput type="password"
+                    <MInput 
+                        :type="showPassword3 ? 'text' : 'password'"
                         styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
                         v-model="user.password">
                     </MInput>
+                    <div class="login-show-password" @click="togglePasswordVisibility">
+                        {{ showPassword3 ? 'Ẩn' : 'Hiện' }}
+                    </div>
                 </div>
             </div>
             <div class="submit" @click="loginApp">
@@ -70,7 +74,9 @@ export default {
             user: {
                 account: "",
                 password: ""
-            }
+            },
+            showPassword3:false,
+
         }
     },
     /**
@@ -93,6 +99,9 @@ export default {
                     console.log(err);
                 })
         },
+        togglePasswordVisibility(){
+            this.showPassword3 =! this.showPassword3;
+        }
     },
     created() {
 
