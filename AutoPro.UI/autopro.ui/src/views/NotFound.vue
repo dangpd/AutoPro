@@ -1,7 +1,5 @@
 <template>
     <div>
-        <TheHeader></TheHeader>
-        <TheNavbar></TheNavbar>
         <div class="not-found">
             <img src="../assets/Image/404.jpg" alt="">
         </div>
@@ -9,8 +7,6 @@
 </template>
 
 <script>
-import TheHeader from '@/layout/TheHeader.vue';
-import TheNavbar from '@/layout/TheNavbar.vue';
 
 export default {
     /**
@@ -24,7 +20,7 @@ export default {
     /**
      * Component được sử dụng
      */
-    components: { TheHeader, TheNavbar },
+    components: { },
     /**
      * Emit sự thay đổi
      */
@@ -63,7 +59,7 @@ export default {
     margin: 140px 100px 0;
 }
 
-.not-found img{
+.not-found img {
     display: flex;
     align-items: center;
     margin: 0 auto;

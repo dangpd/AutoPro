@@ -4,10 +4,12 @@
         <div class="table-admin">
             <div class="table-toolbar">
                 <div class="search-toolbar">
-                    <MInput styleInput="width:400px; height:36px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;" placeholder="Tìm kiếm danh mục"></MInput>
+                    <MInput
+                        styleInput="width:400px; height:36px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
+                        placeholder="Tìm kiếm danh mục"></MInput>
                     <button>Tìm kiếm</button>
                 </div>
-                <div class="add-toolbar">
+                <div class="add-toolbar" @click="addCategory">
                     <button>Thêm mới</button>
                 </div>
             </div>
@@ -18,28 +20,20 @@
                 <thead>
                     <tr>
                         <th style="width: 50px;padding-left: 10px;">STT</th>
-                        <th style="width: 150px;">Tên tài khoản</th>
-                        <th style="width: 100px;">Mật khẩu</th>
-                        <th style="width: 150px;">Họ và tên</th>
-                        <th style="width: 100px;">Ngày sinh</th>
-                        <th style="width: 100px;">Giới tính</th>
-                        <th style="width: 200px;">Địa chỉ</th>
-                        <th style="width: 150px;">Email</th>
-                        <th style="width: 100px;">Số điện thoại</th>
+                        <th style="width: 150px;">Mã danh mục</th>
+                        <th style="width: 250px;">Tên danh mục</th>
+                        <th style="width: 500px;">Mô tả</th>
+                        <th style="width: 150px;">Ngày tạo</th>
                         <th>Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td style="padding-left: 10px;">1</td>
-                        <td>user1</td>
-                        <td>12345678</td>
-                        <td>Phạm Đức Đăng</td>
+                        <td>DM1</td>
+                        <td>Danh mục 1</td>
+                        <td>Mô tả</td>
                         <td>17/03/2001</td>
-                        <td>Nam</td>
-                        <td>Nam Định</td>
-                        <td>phamducdang@gmail.com</td>
-                        <td>031245678</td>
                         <td>
                             <div class="tbmethods">
                                 <button>Sửa</button>
@@ -51,12 +45,14 @@
             </table>
             <div class="see-more" style="margin-top: 10px;">Xem thêm</div>
         </div>
+        <AdminCategoryDetail v-if="showPopup" @onClose="showPopup = false"></AdminCategoryDetail>
     </div>
 </template>
 
 <script>
 import AdminLineLink from '@/layout/AdminLineLink.vue';
 import MInput from '@/components/MInput.vue';
+import AdminCategoryDetail from './AdminCategoryDetail.vue';
 export default {
     /**
            * Tên component
@@ -69,7 +65,7 @@ export default {
     /**
      * Component được sử dụng
      */
-    components: { AdminLineLink,MInput },
+    components: { AdminLineLink, MInput, AdminCategoryDetail },
     /**
      * Emit sự thay đổi
      */
@@ -82,14 +78,16 @@ export default {
      */
     data() {
         return {
-
+            showPopup: false,
         }
     },
     /**
      * Phương thức
      */
     methods: {
-
+        addCategory() {
+            this.showPopup = true;
+        }
     },
     created() {
 

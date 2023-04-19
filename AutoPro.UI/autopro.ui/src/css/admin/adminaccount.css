@@ -80,17 +80,59 @@
   width: 100%;
   align-items: center;
 }
-.aform-account{
-    background-color: aqua;
-    height: auto;
-    width: 80%;
-    margin: auto;
-    margin-top: 10%;
-    margin-bottom: 10%;
+
+.aform-account {
+  height: auto;
+  width: 80%;
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 3px;
+  padding: 24px;
+  width: 80%;
+  background-color: #fff;
+  box-sizing: border-box;
 }
+
+.aform-title {
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  box-sizing: border-box;
+}
+
 .acol1,
 .acol2 {
   width: 45%;
   margin: 16px 20px;
   display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.acol1-text,
+.acol2-text {
+  width: 150px;
+}
+
+.onClose {
+  cursor: pointer;
+}
+
+.onClose:hover {
+  color: blue;
+}
+
+.aformSave {
+  width: 100%;
+  text-align: center;
+}
+
+.aformSave button {
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 1px solid #bbb;
 }

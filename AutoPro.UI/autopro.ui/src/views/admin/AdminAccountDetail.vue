@@ -1,76 +1,156 @@
 <template>
   <div class="aform-detail">
     <div class="aform-account">
-      <div class="aform-title">Tiêu đề form</div>
-      <div class="agroup1">
-        <div class="acol1">
-          Account :
-          <MInput></MInput>
+      <div class="aform-title">
+        <div class="aform-title-left">
+          Tiêu đề form
         </div>
-        <div class="acol2">
-          Password :
-          <MInput></MInput>
+        <div class="onClose" @click="onClose">
+          <i class="fa-regular fa-circle-xmark"></i>
         </div>
       </div>
       <div class="agroup1">
         <div class="acol1">
-          Tài khoản :
-          <MInput></MInput>
+          <div class="acol1-text">
+            Account :
+          </div>
+          <MInput type="text"
+            styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
+            v-model="user">
+          </MInput>
         </div>
         <div class="acol2">
-          Mật khẩu :
-          <MInput></MInput>
+          <div class="acol2-text">
+            Password :
+          </div>
+          <MInput type="text"
+            styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
+            v-model="user">
+          </MInput>
         </div>
       </div>
       <div class="agroup1">
         <div class="acol1">
-          Họ :
-          <MInput></MInput>
+          <div class="acol1-text">
+            Tài khoản :
+          </div>
+          <MInput type="text"
+            styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
+            v-model="user">
+          </MInput>
         </div>
         <div class="acol2">
-          Tên :
-          <MInput></MInput>
+          <div class="acol2-text">
+            Mật khẩu :
+          </div>
+          <MInput type="text"
+            styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
+            v-model="user">
+          </MInput>
         </div>
       </div>
       <div class="agroup1">
         <div class="acol1">
-          Họ và tên :
-          <MInput></MInput>
+          <div class="acol1-text">
+            Họ :
+          </div>
+          <MInput type="text"
+            styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
+            v-model="user">
+          </MInput>
         </div>
         <div class="acol2">
-          Ngày sinh :
-          <MInput></MInput>
+          <div class="acol2-text">
+            Tên :
+          </div>
+          <MInput type="text"
+            styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
+            v-model="user">
+          </MInput>
         </div>
       </div>
       <div class="agroup1">
         <div class="acol1">
-          Ngày sinh :
-          <MInput></MInput>
+          <div class="acol1-text">
+            Họ và tên :
+          </div>
+          <MInput type="text"
+            styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
+            v-model="user">
+          </MInput>
         </div>
         <div class="acol2">
-          Giới tính :
-          <MInput></MInput>
+          <div class="acol2-text">
+            Ngày sinh :
+          </div>
+          <MInput type="text"
+            styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
+            v-model="user">
+          </MInput>
         </div>
       </div>
       <div class="agroup1">
         <div class="acol1">
-          Địa chỉ :
-          <MInput></MInput>
+          <div class="acol1-text">
+            Ngày sinh :
+          </div>
+          <MInput type="text"
+            styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
+            v-model="user">
+          </MInput>
         </div>
         <div class="acol2">
-          Điện thoại :
-          <MInput></MInput>
+          <div class="acol2-text">
+            Giới tính :
+          </div>
+          <MInput type="text"
+            styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
+            v-model="user">
+          </MInput>
         </div>
       </div>
       <div class="agroup1">
         <div class="acol1">
-          Email :
-          <MInput></MInput>
+          <div class="acol1-text">
+            Địa chỉ :
+          </div>
+          <MInput type="text"
+            styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
+            v-model="user">
+          </MInput>
         </div>
         <div class="acol2">
-          Ảnh :
-          <MInput></MInput>
+          <div class="acol2-text">
+            Điện thoại :
+          </div>
+          <MInput type="text"
+            styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
+            v-model="user">
+          </MInput>
         </div>
+      </div>
+      <div class="agroup1">
+        <div class="acol1">
+          <div class="acol1-text">
+            Email :
+          </div>
+          <MInput type="text"
+            styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
+            v-model="user">
+          </MInput>
+        </div>
+        <div class="acol2">
+          <div class="acol2-text">
+            Ảnh :
+          </div>
+          <MInput type="text"
+            styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
+            v-model="user">
+          </MInput>
+        </div>
+      </div>
+      <div class="aformSave">
+        <button>Lưu</button>
       </div>
     </div>
   </div>
@@ -94,21 +174,25 @@ export default {
   /**
    * Emit sự thay đổi
    */
-  emits: [""],
+  emits: ["onClose"],
   directives: {},
   /**
    * Data
    */
   data() {
     return {
+      user: ''
     };
   },
   /**
    * Phương thức
    */
   methods: {
+    onClose() {
+      this.$emit("onClose");
+    }
   },
-  created() {},
+  created() { },
   /**
    * Theo dõi sự thay đổi
    */

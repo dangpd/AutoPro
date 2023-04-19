@@ -9,7 +9,7 @@
                         placeholder="Tìm kiếm sản phẩm"></MInput>
                     <button>Tìm kiếm</button>
                 </div>
-                <div class="add-toolbar">
+                <div class="add-toolbar" @click="addProduct">
                     <button>Thêm mới</button>
                 </div>
             </div>
@@ -20,14 +20,14 @@
                 <thead>
                     <tr>
                         <th style="width: 50px;padding-left: 10px;">STT</th>
-                        <th style="width: 150px;">Tên tài khoản</th>
-                        <th style="width: 100px;">Mật khẩu</th>
-                        <th style="width: 150px;">Họ và tên</th>
-                        <th style="width: 100px;">Ngày sinh</th>
-                        <th style="width: 100px;">Giới tính</th>
-                        <th style="width: 200px;">Địa chỉ</th>
-                        <th style="width: 150px;">Email</th>
-                        <th style="width: 100px;">Số điện thoại</th>
+                        <th style="width: 100px;">Mã sản phẩm</th>
+                        <th style="width: 150px;">Tên sản phẩm</th>
+                        <th style="width: 150px;">Giá</th>
+                        <th style="width: 100px;">Nơi xuất xứ</th>
+                        <th style="width: 100px;">Trạng thái</th>
+                        <th style="width: 200px;">Hình ảnh</th>
+                        <th style="width: 100px;">Số lượng</th>
+                        <th style="width: 100px;">Mô tả</th>
                         <th>Thao tác</th>
                     </tr>
                 </thead>
@@ -40,7 +40,7 @@
                         <td>17/03/2001</td>
                         <td>Nam</td>
                         <td>Nam Định</td>
-                        <td>phamducdang@gmail.com</td>
+                        <td>100</td>
                         <td>031245678</td>
                         <td>
                             <div class="tbmethods">
@@ -53,12 +53,14 @@
             </table>
             <div class="see-more" style="margin-top: 10px;">Xem thêm</div>
         </div>
+        <AdminProductDetail v-if="showPopup" @onClose="showPopup = false"></AdminProductDetail>
     </div>
 </template>
 
 <script>
 import AdminLineLink from '@/layout/AdminLineLink.vue';
 import MInput from '@/components/MInput.vue';
+import AdminProductDetail from './AdminProductDetail.vue';
 export default {
     /**
            * Tên component
@@ -71,7 +73,7 @@ export default {
     /**
      * Component được sử dụng
      */
-    components: { AdminLineLink, MInput },
+    components: { AdminLineLink, MInput, AdminProductDetail },
     /**
      * Emit sự thay đổi
      */
@@ -84,14 +86,16 @@ export default {
      */
     data() {
         return {
-
+            showPopup: false,
         }
     },
     /**
      * Phương thức
      */
     methods: {
-
+        addProduct() {
+            this.showPopup = true;
+        }
     },
     created() {
 
@@ -106,4 +110,5 @@ export default {
 </script>
 
 <style>
-@import url(../../css/admin/adminproduct.css);</style>
+@import url(../../css/admin/adminproduct.css);
+</style>

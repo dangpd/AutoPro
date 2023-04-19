@@ -9,7 +9,7 @@
                         placeholder="Tìm kiếm đơn hàng"></MInput>
                     <button>Tìm kiếm</button>
                 </div>
-                <div class="add-toolbar">
+                <div class="add-toolbar" @click="addOrder">
                     <button>Thêm mới</button>
                 </div>
             </div>
@@ -20,14 +20,12 @@
                 <thead>
                     <tr>
                         <th style="width: 50px;padding-left: 10px;">STT</th>
-                        <th style="width: 150px;">Tên tài khoản</th>
-                        <th style="width: 100px;">Mật khẩu</th>
-                        <th style="width: 150px;">Họ và tên</th>
-                        <th style="width: 100px;">Ngày sinh</th>
-                        <th style="width: 100px;">Giới tính</th>
-                        <th style="width: 200px;">Địa chỉ</th>
-                        <th style="width: 150px;">Email</th>
-                        <th style="width: 100px;">Số điện thoại</th>
+                        <th style="width: 150px;">Mã đơn hàng</th>
+                        <th style="width: 100px;">Ngày tạo</th>
+                        <th style="width: 350px;">Sản phẩm</th>
+                        <th style="width: 150px;">Giá</th>
+                        <th style="width: 100px;">Số lượng</th>
+                        <th style="width: 200px;">Tổng tiền</th>
                         <th>Thao tác</th>
                     </tr>
                 </thead>
@@ -40,8 +38,6 @@
                         <td>17/03/2001</td>
                         <td>Nam</td>
                         <td>Nam Định</td>
-                        <td>phamducdang@gmail.com</td>
-                        <td>031245678</td>
                         <td>
                             <div class="tbmethods">
                                 <button>Sửa</button>
@@ -53,11 +49,13 @@
             </table>
             <div class="see-more" style="margin-top: 10px;">Xem thêm</div>
         </div>
+        <AdminOrderDetail v-if="showPopup" @onClose="showPopup = false"></AdminOrderDetail>
     </div>
 </template>
 
 <script>
 import AdminLineLink from '@/layout/AdminLineLink.vue';
+import AdminOrderDetail from './AdminOrderDetail.vue';
 import MInput from '@/components/MInput.vue';
 export default {
     /**
@@ -71,7 +69,7 @@ export default {
     /**
      * Component được sử dụng
      */
-    components: { AdminLineLink ,MInput},
+    components: { AdminLineLink, MInput, AdminOrderDetail },
     /**
      * Emit sự thay đổi
      */
@@ -84,14 +82,16 @@ export default {
      */
     data() {
         return {
-
+            showPopup: false,
         }
     },
     /**
      * Phương thức
      */
     methods: {
-
+        addOrder() {
+            this.showPopup = true;
+        }
     },
     created() {
 
@@ -106,4 +106,5 @@ export default {
 </script>
 
 <style>
-@import url(../../css/admin/adminorder.css);</style>
+@import url(../../css/admin/adminorder.css);
+</style>

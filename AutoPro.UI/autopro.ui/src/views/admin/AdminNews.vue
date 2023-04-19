@@ -9,7 +9,7 @@
                         placeholder="Tìm kiếm tin tức"></MInput>
                     <button>Tìm kiếm</button>
                 </div>
-                <div class="add-toolbar">
+                <div class="add-toolbar" @click="addNews">
                     <button>Thêm mới</button>
                 </div>
             </div>
@@ -20,28 +20,20 @@
                 <thead>
                     <tr>
                         <th style="width: 50px;padding-left: 10px;">STT</th>
-                        <th style="width: 150px;">Tên tài khoản</th>
-                        <th style="width: 100px;">Mật khẩu</th>
-                        <th style="width: 150px;">Họ và tên</th>
-                        <th style="width: 100px;">Ngày sinh</th>
-                        <th style="width: 100px;">Giới tính</th>
-                        <th style="width: 200px;">Địa chỉ</th>
-                        <th style="width: 150px;">Email</th>
-                        <th style="width: 100px;">Số điện thoại</th>
+                        <th style="width: 250px;">Tiêu đề tin tức</th>
+                        <th style="width: 100px;">Ngày tạo</th>
+                        <th style="width: 250px;">Nội dung ngắn</th>
+                        <th style="width: 450px;">Nội dung chính</th>
                         <th>Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td style="padding-left: 10px;">1</td>
-                        <td>user1</td>
-                        <td>12345678</td>
-                        <td>Phạm Đức Đăng</td>
-                        <td>17/03/2001</td>
-                        <td>Nam</td>
-                        <td>Nam Định</td>
-                        <td>phamducdang@gmail.com</td>
-                        <td>031245678</td>
+                        <td>Tiêu đề</td>
+                        <td>Ngày tạo</td>
+                        <td>Nội dung ngắn</td>
+                        <td>Nội dung</td>
                         <td>
                             <div class="tbmethods">
                                 <button>Sửa</button>
@@ -53,12 +45,14 @@
             </table>
             <div class="see-more" style="margin-top: 10px;">Xem thêm</div>
         </div>
+        <AdminNewsDetail v-if="showPopup" @onClose="showPopup = false"></AdminNewsDetail>
     </div>
 </template>
 
 <script>
 import AdminLineLink from '@/layout/AdminLineLink.vue';
 import MInput from '../../components/MInput.vue';
+import AdminNewsDetail from './AdminNewsDetail.vue';
 
 export default {
     /**
@@ -72,7 +66,7 @@ export default {
     /**
      * Component được sử dụng
      */
-    components: { AdminLineLink,MInput },
+    components: { AdminLineLink, MInput, AdminNewsDetail },
     /**
      * Emit sự thay đổi
      */
@@ -85,14 +79,16 @@ export default {
      */
     data() {
         return {
-
+            showPopup: false,
         }
     },
     /**
      * Phương thức
      */
     methods: {
-
+        addNews() {
+            this.showPopup = true;
+        }
     },
     created() {
 
@@ -107,4 +103,5 @@ export default {
 </script>
 
 <style>
-@import url(../../css/admin/adminnews.css);</style>
+@import url(../../css/admin/adminnews.css);
+</style>

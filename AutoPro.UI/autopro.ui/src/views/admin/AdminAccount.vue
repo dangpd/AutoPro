@@ -52,7 +52,7 @@
       </table>
       <div class="see-more" style="margin-top: 10px">Xem thêm</div>
     </div>
-    <AdminAccountDetail v-if="isShowDetailAccount"></AdminAccountDetail>
+    <AdminAccountDetail v-if="showPopup" @onClose="showPopup = false"></AdminAccountDetail>
   </div>
 </template>
 
@@ -84,7 +84,7 @@ export default {
    */
   data() {
     return {
-      isShowDetailAccount: false,
+      showPopup: false,
     };
   },
   /**
@@ -92,7 +92,7 @@ export default {
    */
   methods: {
     addUser() {
-      this.isShowDetailAccount = true;
+      this.showPopup = true;
     },
   },
   created() {},

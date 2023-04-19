@@ -216,6 +216,7 @@ export default {
           }
         },
         (error) => {
+          console.log(error);
           alert("Tải ảnh lỗi");
         },
         () => {

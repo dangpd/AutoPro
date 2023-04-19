@@ -37,7 +37,7 @@
                 <i class="fa-solid fa-newspaper"></i>
                 <div class="nav-text" style="padding-left: 8px;">Tin tức</div>
             </router-link>
-            <router-link to="/helps" class="nav-item" style="display: flex;">
+            <router-link to="/helps/pay-ment" class="nav-item" style="display: flex;">
                 <i class="fa-solid fa-headset"></i>
                 <div class="nav-text" style="padding-left: 8px;">Trợ giúp</div>
             </router-link>

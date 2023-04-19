@@ -13,6 +13,8 @@ namespace AutoPro.Common.Entities
         [Key]
         public int BrandID { get; set; }
 
+        public string? BrandCode { get; set; }
+
         [BrandNameNotEmpty]
         public string? BrandName { get; set; }
 

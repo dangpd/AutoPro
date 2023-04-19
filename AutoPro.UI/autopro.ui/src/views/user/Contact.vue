@@ -5,7 +5,10 @@
         <div class="content">
             <TheLineLink name="Liên hệ"></TheLineLink>
             <div class="content-contact">
-                sitemap
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.6681061035583!2d105.72515037492835!3d21.005937180637723!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313453724d4e75c1%3A0x5105c875ecde97a5!2sThe%20Golden%20An%20Khanh%2032T!5e0!3m2!1svi!2s!4v1681904654277!5m2!1svi!2s"
+                    width="100%" height="500px" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
             <div class="contact-email">
                 <div>
@@ -46,7 +49,8 @@
                             </MInput>
                         </div>
                         <div class="contact-submit">
-                            <MInput type="submit" styleInput="width: 50px; height: 36px; font-size:13px;margin-top:8px;margin-left:350px">
+                            <MInput type="submit"
+                                styleInput="width: 50px; height: 36px; font-size:13px;margin-top:8px;margin-left:350px">
                             </MInput>
                         </div>
                     </div>
@@ -110,6 +114,4 @@ export default {
 }
 </script>
 
-<style>
-@import url(../../css/contact.css);
-</style>
+<style>@import url(../../css/contact.css);</style>

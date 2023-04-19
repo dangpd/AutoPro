@@ -1,6 +1,27 @@
 <template>
     <div class="nav">
+        <div class="anav-header">
+            <router-link to="/admin/dashload">
+                <div class="aheader-left">
+                    <img src="../assets/Image/logo4.jpg" alt="">
+                </div>
+            </router-link>
+        </div>
         <div class="anav-list">
+            <div class="admin-info">
+                <img src="../assets/Image/giamsoc.jpg" alt="">
+            </div>
+            <div class="adminname">
+                <div>Xin chào, Đăng</div>
+                <div><i class="fa-solid fa-caret-down" style="margin-left: 8px"></i>
+                </div>
+                <div class="under-admin-info" @click="infoAdmin">
+                    <div class="details-user">Tài khoản của tôi</div>
+                    <router-link to="/" class="item-header" @click="logout">
+                        <div class="logout">Đăng xuất</div>
+                    </router-link>
+                </div>
+            </div>
             <router-link to="/admin/dashload" style="text-decoration: none;">
                 <div class="anav-item">
                     <div class="anav__text">Tổng quan</div>
@@ -82,7 +103,7 @@ export default {
     /**
      * Emit sự thay đổi
      */
-    emits: [""],
+    emits: ["infoAdmin"],
     directives: {
 
     },
@@ -91,17 +112,25 @@ export default {
      */
     data() {
         return {
-
+            idAdmin: '',
         }
     },
     /**
      * Phương thức
      */
     methods: {
-
+        logout() {
+            localStorage.removeItem('UserID');
+            localStorage.removeItem('Role');
+            this.$router.push('/');
+        },
+        infoAdmin() {
+            this.$emit("infoAdmin");
+        }
     },
     created() {
-
+        const adminID = localStorage.getItem("UserID");
+        this.idAdmin = adminID;
     },
     /**
      * Theo dõi sự thay đổi
@@ -112,4 +141,6 @@ export default {
 }
 </script>
 
-<style>@import url(../css/admin/adminnavbar.css);</style>
+<style>
+@import url(../css/admin/adminnavbar.css);
+</style>

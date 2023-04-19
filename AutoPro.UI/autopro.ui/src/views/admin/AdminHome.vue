@@ -1,62 +1,64 @@
 <template>
   <div>
-    <AdminHeader></AdminHeader>
     <div class="ahomecontent">
-        <AdminNavbar></AdminNavbar>
-        <div class="arouter-view-content">
-            <router-view></router-view>
-        </div>
+      <AdminNavbar @infoAdmin="infoAdmin"></AdminNavbar>
+      <div class="arouter-view-content">
+        <router-view></router-view>
+      </div>
     </div>
+    <AdminInfo v-if="showPopup" @onClose="showPopup = false"></AdminInfo>
   </div>
 </template>
 
 <script>
-import AdminHeader from '@/layout/AdminHeader.vue';
 import AdminNavbar from '@/layout/AdminNavbar.vue';
+import AdminInfo from './AdminInfo.vue';
 
 export default {
-/**
-       * Tên component
-       */
-       name: 'AdminHome',
-    /**
-     * Hứng nhận
-     */
-    props: [""],
-    /**
-     * Component được sử dụng
-     */
-    components: { AdminHeader, AdminNavbar },
-    /**
-     * Emit sự thay đổi
-     */
-    emits: [""],
-    directives: {
+  /**
+         * Tên component
+         */
+  name: 'AdminHome',
+  /**
+   * Hứng nhận
+   */
+  props: [""],
+  /**
+   * Component được sử dụng
+   */
+  components: { AdminNavbar, AdminInfo },
+  /**
+   * Emit sự thay đổi
+   */
+  emits: [""],
+  directives: {
 
-    },
-    /**
-     * Data
-     */
-    data() {
-        return {
-
-        }
-    },
-    /**
-     * Phương thức
-     */
-    methods: {
-
-    },
-    created() {
-
-    },
-    /**
-     * Theo dõi sự thay đổi
-     */
-    watch: {
-
+  },
+  /**
+   * Data
+   */
+  data() {
+    return {
+      showPopup: false,
     }
+  },
+  /**
+   * Phương thức
+   */
+  methods: {
+    infoAdmin() {
+      this.showPopup = true;
+    }
+  },
+  created() {
+
+  },
+  /**
+   * Theo dõi sự thay đổi
+   */
+  watch: {
+
+  }
 }
 </script>
 

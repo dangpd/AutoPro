@@ -11,7 +11,7 @@ export default {
     /**
                * Tên component
                */
-    name: 'AdminDashload',
+    name: 'AdminRevenueStatistics',
     /**
      * Hứng nhận
      */

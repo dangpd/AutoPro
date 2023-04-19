@@ -1,6 +1,6 @@
 <template>
     <div class="div-link" style="margin: 10px 0;">
-        <router-link to="/admin" class="line-link">Trang chủ </router-link>/ {{ this.name }} {{ this.detail }}
+        <router-link to="/admin/dashload" class="line-link">Trang chủ </router-link>/ {{ this.name }} {{ this.detail }}
     </div>
 </template>
 

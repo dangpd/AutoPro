@@ -15,8 +15,7 @@
                 </div>
                 <div class="login-password">
                     <div class="text">Mật khẩu :</div>
-                    <MInput 
-                        :type="showPassword3 ? 'text' : 'password'"
+                    <MInput :type="showPassword3 ? 'text' : 'password'"
                         styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
                         v-model="user.password">
                     </MInput>
@@ -75,7 +74,7 @@ export default {
                 account: "",
                 password: ""
             },
-            showPassword3:false,
+            showPassword3: false,
 
         }
     },
@@ -88,8 +87,12 @@ export default {
                 .then((res) => {
                     if (res.status == 200) {
                         localStorage.setItem('UserID', res.data.UserID);
-                        localStorage.setItem('Role',res.data.Role);
-                        this.$router.push('/');
+                        localStorage.setItem('Role', res.data.Role);
+                        if (res.data.Role == "Admin") {
+                            this.$router.push('/admin/dashload');
+                        } else if (res.data.Role == "User") {
+                            this.$router.push('/');
+                        }
                     }
                     else if (res.status == 400) {
                         console.log(res.moreInfo);
@@ -99,8 +102,8 @@ export default {
                     console.log(err);
                 })
         },
-        togglePasswordVisibility(){
-            this.showPassword3 =! this.showPassword3;
+        togglePasswordVisibility() {
+            this.showPassword3 = !this.showPassword3;
         }
     },
     created() {
