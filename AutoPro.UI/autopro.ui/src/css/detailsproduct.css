@@ -94,7 +94,7 @@
   display: flex;
 }
 
-.write-comment {
+/* .write-comment {
   display: flex;
   width: 100%;
   align-items: center;
@@ -104,7 +104,7 @@
     padding: 0 10px;
     border: 1px solid #bbb;
     border-radius: 4px;
-}
+} */
 .details-item-brand {
   border: 1px solid black;
   height: 150px;

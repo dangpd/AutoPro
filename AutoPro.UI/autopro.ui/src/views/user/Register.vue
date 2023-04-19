@@ -179,8 +179,6 @@ export default {
       //   file: null,
       imageUrl: null,
       labelProcess: "",
-      // password1: '',
-      // password2: '',
       showPassword1: false,
       showPassword2: false
     };
@@ -211,7 +209,7 @@ export default {
         "state_changed",
         (snapshot) => {
           let process = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log(process);
+          // console.log(process);
           this.labelProcess = "Đang tải : " + process + "%";
           if (process == 100) {
             this.labelProcess = "Đã tải xong : " + process + "%";

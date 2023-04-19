@@ -51,17 +51,17 @@
               </div>
               <div class="user-comment-conten">
                 <div class="username-comment">Pham Đức Đăng</div>
-                <div class="user-content-comment">Nội dung comment</div>
+                <div class="user-content-comment">Nội dung đánh giá</div>
               </div>
             </div>
           </div>
-          <div class="write-comment">
+          <!-- <div class="write-comment">
             <div style="display: flex;align-items: center;">
               Viết đánh giá
               <MInput></MInput>
             </div>
             <button>Gửi</button>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="line-footer"></div>

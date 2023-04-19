@@ -179,7 +179,7 @@
 			stereotype 	"include"
 			supplier   	"Use Case View::DangNhap"
 			quidu      	"574DC3720129")))
-	    (object UseCase "Quan li san pham theo danh muc"
+	    (object UseCase "Quan li san pham"
 		quid       	"574DCB6C0158"
 		visible_modules 	(list dependency_list
 		    (object Dependency_Relationship
@@ -227,29 +227,29 @@
 			stereotype 	"extend"
 			supplier   	"Use Case View::Quan li danh muc san pham"
 			quidu      	"574DCB47004F")))
-	    (object UseCase "Them san pham theo danh muc"
+	    (object UseCase "Them san pham"
 		quid       	"574DCDA0031D"
 		visible_modules 	(list dependency_list
 		    (object Dependency_Relationship
 			quid       	"574DCE84005E"
 			stereotype 	"extend"
-			supplier   	"Use Case View::Quan li san pham theo danh muc"
+			supplier   	"Use Case View::Quan li san pham"
 			quidu      	"574DCB6C0158")))
-	    (object UseCase "Sua san pham theo danh muc"
+	    (object UseCase "Sua san pham"
 		quid       	"574DCDA2002F"
 		visible_modules 	(list dependency_list
 		    (object Dependency_Relationship
 			quid       	"574DCE850262"
 			stereotype 	"extend"
-			supplier   	"Use Case View::Quan li san pham theo danh muc"
+			supplier   	"Use Case View::Quan li san pham"
 			quidu      	"574DCB6C0158")))
-	    (object UseCase "Xoa san pham theo danh muc"
+	    (object UseCase "Xoa san pham"
 		quid       	"574DCDA3005E"
 		visible_modules 	(list dependency_list
 		    (object Dependency_Relationship
 			quid       	"574DCE870281"
 			stereotype 	"extend"
-			supplier   	"Use Case View::Quan li san pham theo danh muc"
+			supplier   	"Use Case View::Quan li san pham"
 			quidu      	"574DCB6C0158")))
 	    (object UseCase "Them tin tuc"
 		quid       	"574DCDA403D9"
@@ -334,9 +334,21 @@
 	    (object UseCase "San pham yeu rhich"
 		quid       	"574DC970039A")
 	    (object UseCase "Binh luan tin tuc"
-		quid       	"574DCCF900CB")
+		quid       	"574DCCF900CB"
+		visible_modules 	(list dependency_list
+		    (object Dependency_Relationship
+			quid       	"574DDD2003D8"
+			stereotype 	"extend"
+			supplier   	"Use Case View::Xem tin tuc"
+			quidu      	"574DC5250158")))
 	    (object UseCase "Binh luan san pham"
-		quid       	"574DCD070271")
+		quid       	"574DCD070271"
+		visible_modules 	(list dependency_list
+		    (object Dependency_Relationship
+			quid       	"574DDD280271"
+			stereotype 	"extend"
+			supplier   	"Use Case View::Xem chi tiet san pham"
+			quidu      	"574DC3ED037B")))
 	    (object UseCase "Xem thong tin admin"
 		quid       	"574DCD4403B9"
 		visible_modules 	(list dependency_list
@@ -347,6 +359,38 @@
 			quidu      	"574DC3720129")))
 	    (object UseCase "Quen mat khau"
 		quid       	"574DDAC8001F")
+	    (object UseCase "Tim kiem danh muc"
+		quid       	"574DDEA6010A"
+		visible_modules 	(list dependency_list
+		    (object Dependency_Relationship
+			quid       	"574DDEE100BB"
+			stereotype 	"extend"
+			supplier   	"Use Case View::Quan li danh muc san pham"
+			quidu      	"574DCB47004F")))
+	    (object UseCase "TIm kiem san pham"
+		quid       	"574DDEA801B5"
+		visible_modules 	(list dependency_list
+		    (object Dependency_Relationship
+			quid       	"574DDEDE02A0"
+			stereotype 	"extend"
+			supplier   	"Use Case View::Quan li san pham"
+			quidu      	"574DCB6C0158")))
+	    (object UseCase "Tim kiem tin tuc"
+		quid       	"574DDEF402AF"
+		visible_modules 	(list dependency_list
+		    (object Dependency_Relationship
+			quid       	"574DDF23008D"
+			stereotype 	"extend"
+			supplier   	"Use Case View::Quan li tin tuc"
+			quidu      	"574DCB57011A")))
+	    (object UseCase "Tim kiem user"
+		quid       	"574DDF06035B"
+		visible_modules 	(list dependency_list
+		    (object Dependency_Relationship
+			quid       	"574DDF210204"
+			stereotype 	"extend"
+			supplier   	"Use Case View::Xem danh sach user"
+			quidu      	"574DCB6300EB")))
 	    (object Association "$UNNAMED$0"
 		quid       	"574DCAEC0252"
 		roles      	(list role_list
@@ -484,7 +528,7 @@
 		roles      	(list role_list
 		    (object Role "$UNNAMED$34"
 			quid       	"574DCC0002A0"
-			supplier   	"Use Case View::Quan li san pham theo danh muc"
+			supplier   	"Use Case View::Quan li san pham"
 			quidu      	"574DCB6C0158"
 			is_navigable 	TRUE)
 		    (object Role "$UNNAMED$35"
@@ -594,8 +638,8 @@
 		zoom       	90
 		max_height 	28350
 		max_width  	21600
-		origin_x   	170
-		origin_y   	365
+		origin_x   	14
+		origin_y   	1228
 		items      	(list diagram_item_list
 		    (object UseCaseView "Use Case View::Xem chi tiet san pham" @1
 			location   	(861, 422)
@@ -837,8 +881,8 @@
 			fill_color 	13434879
 			quidu      	"574DC3720129"
 			height     	118)
-		    (object UseCaseView "Use Case View::Quan li san pham theo danh muc" @11
-			location   	(3174, 607)
+		    (object UseCaseView "Use Case View::Quan li san pham" @11
+			location   	(3347, 600)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -850,19 +894,19 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@11
-			    location   	(3174, 745)
+			    location   	(3347, 738)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	630
 			    justify    	0
-			    label      	"Quan li san pham theo danh muc")
+			    label      	"Quan li san pham")
 			icon_style 	"Icon"
 			line_color 	3342489
 			fill_color 	13434879
 			quidu      	"574DCB6C0158"
 			height     	118)
 		    (object UseCaseView "Use Case View::Quan li danh muc san pham" @12
-			location   	(3190, 392)
+			location   	(3276, 163)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -874,7 +918,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@12
-			    location   	(3190, 530)
+			    location   	(3276, 301)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	630
@@ -982,7 +1026,7 @@
 			quidu      	"574DCBC90197"
 			height     	118)
 		    (object UseCaseView "Use Case View::Sua danh muc san pham" @17
-			location   	(2431, 130)
+			location   	(2451, 123)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -994,7 +1038,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@17
-			    location   	(2431, 268)
+			    location   	(2451, 261)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	630
@@ -1006,7 +1050,7 @@
 			quidu      	"574DCD56004F"
 			height     	118)
 		    (object UseCaseView "Use Case View::Them danh muc san pham" @18
-			location   	(2435, 352)
+			location   	(2140, 213)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -1018,7 +1062,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@18
-			    location   	(2435, 490)
+			    location   	(2140, 351)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	630
@@ -1030,7 +1074,7 @@
 			quidu      	"574DCD5702B0"
 			height     	118)
 		    (object UseCaseView "Use Case View::Xoa danh muc san pham" @19
-			location   	(2455, 555)
+			location   	(2232, 433)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -1042,7 +1086,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@19
-			    location   	(2455, 693)
+			    location   	(2232, 571)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	630
@@ -1053,7 +1097,7 @@
 			fill_color 	13434879
 			quidu      	"574DCD5800CC"
 			height     	118)
-		    (object UseCaseView "Use Case View::Them san pham theo danh muc" @20
+		    (object UseCaseView "Use Case View::Them san pham" @20
 			location   	(2782, 979)
 			font       	(object Font
 			    size       	10
@@ -1071,14 +1115,14 @@
 			    nlines     	2
 			    max_width  	630
 			    justify    	0
-			    label      	"Them san pham theo danh muc")
+			    label      	"Them san pham")
 			icon_style 	"Icon"
 			line_color 	3342489
 			fill_color 	13434879
 			quidu      	"574DCDA0031D"
 			height     	118)
-		    (object UseCaseView "Use Case View::Sua san pham theo danh muc" @21
-			location   	(2890, 1198)
+		    (object UseCaseView "Use Case View::Sua san pham" @21
+			location   	(2963, 1214)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -1090,19 +1134,19 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@21
-			    location   	(2890, 1336)
+			    location   	(2963, 1352)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	630
 			    justify    	0
-			    label      	"Sua san pham theo danh muc")
+			    label      	"Sua san pham")
 			icon_style 	"Icon"
 			line_color 	3342489
 			fill_color 	13434879
 			quidu      	"574DCDA2002F"
 			height     	118)
-		    (object UseCaseView "Use Case View::Xoa san pham theo danh muc" @22
-			location   	(3320, 1339)
+		    (object UseCaseView "Use Case View::Xoa san pham" @22
+			location   	(3349, 1221)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -1114,12 +1158,12 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@22
-			    location   	(3320, 1477)
+			    location   	(3349, 1359)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	630
 			    justify    	0
-			    label      	"Xoa san pham theo danh muc")
+			    label      	"Xoa san pham")
 			icon_style 	"Icon"
 			line_color 	3342489
 			fill_color 	13434879
@@ -1198,7 +1242,7 @@
 			quidu      	"574DCDA60233"
 			height     	118)
 		    (object UseCaseView "Use Case View::Xac nhan don hang" @26
-			location   	(2523, 2452)
+			location   	(2189, 2491)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -1210,7 +1254,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@26
-			    location   	(2523, 2590)
+			    location   	(2189, 2629)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	630
@@ -1222,7 +1266,7 @@
 			quidu      	"574DCE280252"
 			height     	118)
 		    (object UseCaseView "Use Case View::Xoa don hang" @27
-			location   	(2552, 2681)
+			location   	(2224, 2732)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -1234,7 +1278,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@27
-			    location   	(2552, 2819)
+			    location   	(2224, 2870)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	630
@@ -1257,7 +1301,7 @@
 			    default_color 	TRUE)
 			stereotype 	(object SegLabel @29
 			    Parent_View 	@28
-			    location   	(2864, 270)
+			    location   	(2839, 134)
 			    font       	(object Font
 				size       	10
 				face       	"Arial"
@@ -1281,8 +1325,8 @@
 			client     	@17
 			supplier   	@12
 			vertices   	(list Points
-			    (2674, 211)
-			    (3080, 352))
+			    (2559, 126)
+			    (3166, 156))
 			line_style 	0)
 		    (object DependencyView "" @30
 			font       	(object Font
@@ -1296,7 +1340,7 @@
 			    default_color 	TRUE)
 			stereotype 	(object SegLabel @31
 			    Parent_View 	@30
-			    location   	(2734, 363)
+			    location   	(2576, 189)
 			    font       	(object Font
 				size       	10
 				face       	"Arial"
@@ -1320,8 +1364,8 @@
 			client     	@18
 			supplier   	@12
 			vertices   	(list Points
-			    (2543, 355)
-			    (3079, 383))
+			    (2248, 206)
+			    (3166, 164))
 			line_style 	0)
 		    (object DependencyView "" @32
 			font       	(object Font
@@ -1335,7 +1379,7 @@
 			    default_color 	TRUE)
 			stereotype 	(object SegLabel @33
 			    Parent_View 	@32
-			    location   	(2703, 465)
+			    location   	(2608, 300)
 			    font       	(object Font
 				size       	10
 				face       	"Arial"
@@ -1359,8 +1403,8 @@
 			client     	@19
 			supplier   	@12
 			vertices   	(list Points
-			    (2563, 528)
-			    (2917, 450))
+			    (2340, 402)
+			    (3003, 231))
 			line_style 	0)
 		    (object DependencyView "" @34
 			font       	(object Font
@@ -1374,7 +1418,7 @@
 			    default_color 	TRUE)
 			stereotype 	(object SegLabel @35
 			    Parent_View 	@34
-			    location   	(2975, 1007)
+			    location   	(3088, 1002)
 			    font       	(object Font
 				size       	10
 				face       	"Arial"
@@ -1398,8 +1442,8 @@
 			client     	@21
 			supplier   	@11
 			vertices   	(list Points
-			    (2914, 1139)
-			    (3080, 797))
+			    (2995, 1155)
+			    (3243, 764))
 			line_style 	0)
 		    (object DependencyView "" @36
 			font       	(object Font
@@ -1413,7 +1457,7 @@
 			    default_color 	TRUE)
 			stereotype 	(object SegLabel @37
 			    Parent_View 	@36
-			    location   	(3264, 1095)
+			    location   	(3342, 1019)
 			    font       	(object Font
 				size       	10
 				face       	"Arial"
@@ -1437,8 +1481,8 @@
 			client     	@22
 			supplier   	@11
 			vertices   	(list Points
-			    (3304, 1281)
-			    (3210, 797))
+			    (3346, 1162)
+			    (3347, 790))
 			line_style 	0)
 		    (object DependencyView "" @38
 			font       	(object Font
@@ -1569,7 +1613,7 @@
 			    default_color 	TRUE)
 			stereotype 	(object SegLabel @45
 			    Parent_View 	@44
-			    location   	(2817, 2486)
+			    location   	(2623, 2507)
 			    font       	(object Font
 				size       	10
 				face       	"Arial"
@@ -1593,8 +1637,8 @@
 			client     	@26
 			supplier   	@15
 			vertices   	(list Points
-			    (2631, 2463)
-			    (3073, 2518))
+			    (2297, 2493)
+			    (3075, 2526))
 			line_style 	0)
 		    (object DependencyView "" @46
 			font       	(object Font
@@ -1608,7 +1652,7 @@
 			    default_color 	TRUE)
 			stereotype 	(object SegLabel @47
 			    Parent_View 	@46
-			    location   	(2853, 2607)
+			    location   	(2678, 2634)
 			    font       	(object Font
 				size       	10
 				face       	"Arial"
@@ -1632,8 +1676,8 @@
 			client     	@27
 			supplier   	@15
 			vertices   	(list Points
-			    (2660, 2653)
-			    (3075, 2557))
+			    (2332, 2706)
+			    (3075, 2553))
 			line_style 	0)
 		    (object UseCaseView "Use Case View::Thong ke theo doanh so" @48
 			location   	(2532, 2927)
@@ -1836,7 +1880,7 @@
 			    default_color 	TRUE)
 			stereotype 	(object SegLabel @58
 			    Parent_View 	@57
-			    location   	(2674, 900)
+			    location   	(2801, 881)
 			    font       	(object Font
 				size       	10
 				face       	"Arial"
@@ -1860,8 +1904,8 @@
 			client     	@11
 			supplier   	@10
 			vertices   	(list Points
-			    (2897, 764)
-			    (2107, 1218))
+			    (3070, 738)
+			    (2116, 1219))
 			line_style 	0)
 		    (object DependencyView "" @59
 			font       	(object Font
@@ -2128,7 +2172,7 @@
 			    default_color 	TRUE)
 			stereotype 	(object SegLabel @73
 			    Parent_View 	@72
-			    location   	(2881, 880)
+			    location   	(2929, 878)
 			    font       	(object Font
 				size       	10
 				face       	"Arial"
@@ -2152,8 +2196,8 @@
 			client     	@20
 			supplier   	@11
 			vertices   	(list Points
-			    (2838, 920)
-			    (2972, 797))
+			    (2863, 921)
+			    (3070, 785))
 			line_style 	0)
 		    (object DependencyView "" @74
 			font       	(object Font
@@ -2206,7 +2250,7 @@
 			    default_color 	TRUE)
 			stereotype 	(object SegLabel @77
 			    Parent_View 	@76
-			    location   	(2388, 1002)
+			    location   	(2419, 925)
 			    font       	(object Font
 				size       	10
 				face       	"Arial"
@@ -2230,8 +2274,8 @@
 			client     	@12
 			supplier   	@10
 			vertices   	(list Points
-			    (2971, 556)
-			    (2083, 1218))
+			    (3088, 327)
+			    (2071, 1218))
 			line_style 	0)
 		    (object UseCaseView "Use Case View::Xoa san pham o gio hang" @78
 			location   	(1558, 374)
@@ -2384,7 +2428,7 @@
 			quidu      	"574DC970039A"
 			height     	118)
 		    (object UseCaseView "Use Case View::Binh luan tin tuc" @85
-			location   	(1316, 1680)
+			location   	(1638, 1690)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -2396,7 +2440,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@85
-			    location   	(1316, 1818)
+			    location   	(1638, 1828)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	630
@@ -2408,7 +2452,7 @@
 			quidu      	"574DCCF900CB"
 			height     	118)
 		    (object UseCaseView "Use Case View::Binh luan san pham" @86
-			location   	(1264, 1896)
+			location   	(1420, 159)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -2420,7 +2464,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@86
-			    location   	(1264, 2034)
+			    location   	(1420, 297)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	630
@@ -2499,7 +2543,7 @@
 				    (4219, 653))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$33" @91
-			location   	(3749, 622)
+			location   	(3837, 618)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -2515,30 +2559,30 @@
 			roleview_list 	(list RoleViews
 			    (object RoleView "$UNNAMED$34" @92
 				Parent_View 	@91
-				location   	(3344, -2112)
+				location   	(3432, -2116)
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"574DCC0002A0"
 				client     	@91
 				supplier   	@11
 				vertices   	(list Points
-				    (3749, 622)
-				    (3282, 608))
+				    (3837, 618)
+				    (3455, 602))
 				line_style 	0)
 			    (object RoleView "$UNNAMED$35" @93
 				Parent_View 	@91
-				location   	(3344, -2112)
+				location   	(3432, -2116)
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"574DCC0002A2"
 				client     	@91
 				supplier   	@87
 				vertices   	(list Points
-				    (3749, 622)
-				    (4217, 636))
+				    (3837, 618)
+				    (4219, 634))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$36" @94
-			location   	(3839, 537)
+			location   	(3883, 449)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -2554,27 +2598,27 @@
 			roleview_list 	(list RoleViews
 			    (object RoleView "$UNNAMED$37" @95
 				Parent_View 	@94
-				location   	(3434, -2197)
+				location   	(3478, -2285)
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"574DCC110158"
 				client     	@94
 				supplier   	@12
 				vertices   	(list Points
-				    (3839, 537)
-				    (3462, 451))
+				    (3883, 449)
+				    (3548, 290))
 				line_style 	0)
 			    (object RoleView "$UNNAMED$38" @96
 				Parent_View 	@94
-				location   	(3434, -2197)
+				location   	(3478, -2285)
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"574DCC11015A"
 				client     	@94
 				supplier   	@87
 				vertices   	(list Points
-				    (3839, 537)
-				    (4217, 624))
+				    (3883, 449)
+				    (4219, 608))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$39" @97
 			location   	(3712, 1452)
@@ -2768,7 +2812,7 @@
 			    default_color 	TRUE)
 			stereotype 	(object SegLabel @111
 			    Parent_View 	@110
-			    location   	(2536, 2429)
+			    location   	(2637, 2385)
 			    font       	(object Font
 				size       	10
 				face       	"Arial"
@@ -2784,8 +2828,8 @@
 			    max_width  	450
 			    justify    	0
 			    label      	"<<include>>"
-			    pctDist    	0.500000
-			    height     	120
+			    pctDist    	0.494212
+			    height     	9
 			    orientation 	0)
 			line_color 	3342489
 			quidu      	"574DCD5403B9"
@@ -3353,7 +3397,337 @@
 				vertices   	(list Points
 				    (585, 1654)
 				    (383, 1088))
-				line_style 	0)))))))
+				line_style 	0)))
+		    (object DependencyView "" @153
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			stereotype 	(object SegLabel @154
+			    Parent_View 	@153
+			    location   	(1209, 1612)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    anchor     	10
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	450
+			    justify    	0
+			    label      	"<<extend>>"
+			    pctDist    	0.500000
+			    height     	120
+			    orientation 	0)
+			line_color 	3342489
+			quidu      	"574DDD2003D8"
+			client     	@85
+			supplier   	@5
+			vertices   	(list Points
+			    (1527, 1634)
+			    (996, 1374))
+			line_style 	0)
+		    (object DependencyView "" @155
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			stereotype 	(object SegLabel @156
+			    Parent_View 	@155
+			    location   	(1147, 416)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    anchor     	10
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	450
+			    justify    	0
+			    label      	"<<extend>>"
+			    pctDist    	0.500000
+			    height     	120
+			    orientation 	0)
+			line_color 	3342489
+			quidu      	"574DDD280271"
+			client     	@86
+			supplier   	@1
+			vertices   	(list Points
+			    (1225, 247)
+			    (969, 367))
+			line_style 	0)
+		    (object UseCaseView "Use Case View::Tim kiem danh muc" @157
+			location   	(2242, 659)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@157
+			    location   	(2242, 797)
+			    anchor_loc 	1
+			    nlines     	2
+			    max_width  	630
+			    justify    	0
+			    label      	"Tim kiem danh muc")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"574DDEA6010A"
+			height     	118)
+		    (object UseCaseView "Use Case View::TIm kiem san pham" @158
+			location   	(2821, 690)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@158
+			    location   	(2821, 828)
+			    anchor_loc 	1
+			    nlines     	2
+			    max_width  	630
+			    justify    	0
+			    label      	"TIm kiem san pham")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"574DDEA801B5"
+			height     	118)
+		    (object DependencyView "" @159
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			stereotype 	(object SegLabel @160
+			    Parent_View 	@159
+			    location   	(3020, 562)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    anchor     	10
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	450
+			    justify    	0
+			    label      	"<<extend>>"
+			    pctDist    	0.345019
+			    height     	90
+			    orientation 	0)
+			line_color 	3342489
+			quidu      	"574DDEDE02A0"
+			client     	@158
+			supplier   	@11
+			vertices   	(list Points
+			    (2929, 669)
+			    (3237, 616))
+			line_style 	0)
+		    (object DependencyView "" @161
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			stereotype 	(object SegLabel @162
+			    Parent_View 	@161
+			    location   	(2601, 455)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    anchor     	10
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	450
+			    justify    	0
+			    label      	"<<extend>>"
+			    pctDist    	0.401699
+			    height     	26
+			    orientation 	0)
+			line_color 	3342489
+			quidu      	"574DDEE100BB"
+			client     	@157
+			supplier   	@12
+			vertices   	(list Points
+			    (2350, 604)
+			    (3003, 292))
+			line_style 	0)
+		    (object UseCaseView "Use Case View::Tim kiem tin tuc" @163
+			location   	(2707, 1527)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@163
+			    location   	(2707, 1665)
+			    anchor_loc 	1
+			    nlines     	2
+			    max_width  	630
+			    justify    	0
+			    label      	"Tim kiem tin tuc")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"574DDEF402AF"
+			height     	118)
+		    (object UseCaseView "Use Case View::Tim kiem user" @164
+			location   	(2242, 2256)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@164
+			    location   	(2242, 2394)
+			    anchor_loc 	1
+			    nlines     	2
+			    max_width  	630
+			    justify    	0
+			    label      	"Tim kiem user")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"574DDF06035B"
+			height     	118)
+		    (object DependencyView "" @165
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			stereotype 	(object SegLabel @166
+			    Parent_View 	@165
+			    location   	(2690, 2241)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    anchor     	10
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	450
+			    justify    	0
+			    label      	"<<extend>>"
+			    pctDist    	0.474748
+			    height     	2
+			    orientation 	0)
+			line_color 	3342489
+			quidu      	"574DDF210204"
+			client     	@164
+			supplier   	@13
+			vertices   	(list Points
+			    (2350, 2250)
+			    (3066, 2226))
+			line_style 	0)
+		    (object DependencyView "" @167
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			stereotype 	(object SegLabel @168
+			    Parent_View 	@167
+			    location   	(2904, 1538)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    anchor     	10
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	450
+			    justify    	0
+			    label      	"<<extend>>"
+			    pctDist    	0.219290
+			    height     	1
+			    orientation 	0)
+			line_color 	3342489
+			quidu      	"574DDF23008D"
+			client     	@163
+			supplier   	@14
+			vertices   	(list Points
+			    (2815, 1532)
+			    (3221, 1557))
+			line_style 	0)))))
     root_category 	(object Class_Category "Logical View"
 	quid       	"574DC3110244"
 	exportControl 	"Public"
