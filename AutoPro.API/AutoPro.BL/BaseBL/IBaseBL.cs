@@ -16,7 +16,7 @@ namespace AutoPro.BL.BaseBL
         /// </summary>
         /// <returns> Danh sách tất cả bản ghi </returns>
         public List<T> GetAllRecords();
-
+        public object Filter(string? textSearch, long pageSize, long pageNumber);
         /// <summary>
         /// Lấy 1 bản ghi
         /// </summary>

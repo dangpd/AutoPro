@@ -59,6 +59,10 @@
   border: 1px solid #bbb;
 }
 
+.tbmethods button:hover {
+  color: blue;
+}
+
 .list-name-table {
   font-size: 20px;
   margin-bottom: 10px;
@@ -115,6 +119,22 @@
 .acol1-text,
 .acol2-text {
   width: 150px;
+}
+
+.acol2-link {
+  width: 100%;
+  display: flex;
+}
+
+.acol1-image {
+  height: 150px;
+  width: 45%;
+  /* border: 1px solid #bbb; */
+  margin: 16px 20px;
+}
+
+.aco1-image-file {
+  display: flex;
 }
 
 .onClose {

@@ -21,7 +21,70 @@ namespace AutoPro.API.Controllers
         }
         #endregion
         #region Method
+        [HttpGet("Filter")]
+        public IActionResult FilterEmployee([FromQuery] string? textSearch, [FromQuery] long pageSize =10, [FromQuery] long pageNumber =1)
+        {
+            try
+            {
+                // Lấy kết quả trả về bên Bussiness Layer
+                var filterEmployee = _baseBL.Filter(textSearch, pageSize, pageNumber);
 
+                // Thành công return danh sách record
+                if (filterEmployee != null)
+                {
+                    return StatusCode(StatusCodes.Status200OK, filterEmployee);
+                }else if(filterEmployee == null)
+                {
+                    return StatusCode(StatusCodes.Status204NoContent, new ErrorResult
+                    {
+                        ErrorCode = Common.Enum.ErrorCode.NoContent,
+                        DevMsg = Common.Resource.DataResource.DevMsg_ServerError,
+                        UserMsg = Common.Resource.DataResource.UserMsg_ServerError,
+                        MoreInfo = Common.Resource.Resource.NoContent,
+                        TraceId = HttpContext.TraceIdentifier
+                    });
+                }
+                // Nếu null thất bại return lỗi nhập liệu
+                //else if ((object)filterEmployee == null)
+                //{
+                //    return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult
+                //    {
+                //        ErrorCode = Common.Enum.ErrorCode.InvalidData,
+                //        DevMsg = Common.Resource.DataResource.DevMsg_InvalidData,
+                //        UserMsg = Common.Resource.DataResource.UserMsg_InvalidData,
+                //        MoreInfo = Common.Resource.Resource.UserMsg_PasswordMaxlength,
+                //        TraceId = HttpContext.TraceIdentifier
+                //    });
+                //}
+                else
+                {
+                    // Nếu kq trả về null return lỗi server
+                    return StatusCode(StatusCodes.Status204NoContent, new ErrorResult
+                    {
+                        ErrorCode = Common.Enum.ErrorCode.NoContent,
+                        DevMsg = Common.Resource.DataResource.DevMsg_ServerError,
+                        UserMsg = Common.Resource.DataResource.UserMsg_ServerError,
+                        MoreInfo = Common.Resource.Resource.NoContent,
+                        TraceId = HttpContext.TraceIdentifier
+                    });
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                // Lỗi exception
+                Console.WriteLine(ex.ToString());
+                return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResult
+                {
+                    ErrorCode = Common.Enum.ErrorCode.Exception,
+                    DevMsg = Common.Resource.DataResource.DevMsg_ServerError,
+                    UserMsg = Common.Resource.DataResource.UserMsg_ServerError,
+                    MoreInfo = Common.Resource.Resource.UserMsg_ServerError,
+                    TraceId = HttpContext.TraceIdentifier
+                });
+            }
+        }
         /// <summary>
         /// Lấy tất cả bản ghi 
         /// </summary>

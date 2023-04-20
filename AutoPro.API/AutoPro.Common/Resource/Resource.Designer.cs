@@ -61,6 +61,15 @@ namespace AutoPro.Common.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to e013.
+        /// </summary>
+        public static string NoContent {
+            get {
+                return ResourceManager.GetString("NoContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to e001.
         /// </summary>
         public static string UserMsg_AccountEmpty {

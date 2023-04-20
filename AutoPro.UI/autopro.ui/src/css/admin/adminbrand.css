@@ -1,0 +1,6 @@
+.ImageNone{
+    display: block !important;
+}
+.row-selected {
+    background-color: #e5f3ff;
+}

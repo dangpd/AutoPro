@@ -29,7 +29,21 @@ namespace AutoPro.BL.BaseBL
         #endregion
 
         #region Method
-
+        public object Filter(string? textSearch, long pageSize = 10, long pageNumber = 1)
+        {
+            // Nếu trang được chọn truyền vào là 0 thì set trang chọn là trang 1
+            if (pageNumber == 0)
+            {
+                pageNumber = 1;
+            }
+            // Số bản ghi trên trang = 0 return null bắn lỗi nhập liệu
+            if (pageSize == 0)
+            {
+                pageSize =  10;
+            }
+            //Gọi DL lấy danh sách
+            return _baseDL.Filter(textSearch, pageSize, pageNumber);
+        }
         /// <summary>
         /// Lấy tất cả bản ghi <typeparamref name="T"/>
         /// </summary>

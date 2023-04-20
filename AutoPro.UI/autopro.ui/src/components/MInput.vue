@@ -51,6 +51,7 @@ export default {
         },
         modelValue(newVal) {
             this.value = newVal;
+            // this.$emit("update:modelValue", newVal);
         }
     }
 }

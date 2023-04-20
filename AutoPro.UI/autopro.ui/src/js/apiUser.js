@@ -1,5 +1,3 @@
-import axios from "axios";
-
 import base from "./baseService";
 class UserService extends base {
     getAll() {

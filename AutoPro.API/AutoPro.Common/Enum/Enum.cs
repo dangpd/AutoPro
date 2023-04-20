@@ -32,6 +32,8 @@ namespace AutoPro.Common.Enum
         /// </summary>
         DeleteFail = 3,
 
+        NoContent = 204,
+
         /// <summary>
         /// Lỗi dữ liệu đầu vào không hợp lệ
         /// </summary>

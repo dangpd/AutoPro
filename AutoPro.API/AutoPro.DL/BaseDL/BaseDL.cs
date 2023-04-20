@@ -1,4 +1,5 @@
-﻿using AutoPro.Common.ProceduceName;
+﻿using AutoPro.Common.Entities.DTO;
+using AutoPro.Common.ProceduceName;
 using Dapper;
 using MySqlConnector;
 using System;
@@ -19,6 +20,43 @@ namespace AutoPro.DL.BaseDL
         // Khởi tạo lấy kết nối đường dẫn database
         string connectionString = DatabaseContext.ConnectionString;
 
+        /// <summary>
+        /// Filter và paging
+        /// </summary>
+        /// <param name="textSearch"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="pageNumber"></param>
+        /// <returns></returns>
+        public object Filter(string? textSearch, long  pageSize, long pageNumber)
+        {
+            // Chuẩn bị tên stored proceduce
+            string queryFilter = String.Format(ProceduceName.PagingAndFilter, typeof(T).Name);
+
+            // Tham số đầu vào
+            var parameters = new DynamicParameters();
+            parameters.Add("p_TextSearch", textSearch);
+            parameters.Add("p_PageSize", pageSize);
+            parameters.Add("p_PageNumber", pageNumber);
+
+            // Kết nối db
+            using (var mySqlConnection = new MySqlConnection(connectionString))
+            {
+                var multiResults = mySqlConnection.QueryMultiple(queryFilter, parameters, commandType: System.Data.CommandType.StoredProcedure);
+                var data = multiResults.Read<T>().ToList();
+                var totalCount = multiResults.Read<long>().Single();
+                //if(data.Count == 0)
+                //{
+                //    return null;
+                //}
+                // Return kêt quả
+                return new PagingData<T>
+                {
+                    TotalRecord = totalCount,
+                    TotalPage = (totalCount % pageSize) > 0 ? ((totalCount / pageSize) + 1) : (totalCount / pageSize),
+                    Data = data,
+                };
+            }
+        }
 
         public List<T> GetAllRecord()
         {

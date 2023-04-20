@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div >
         <svg class="pl" width="240" height="240" viewBox="0 0 240 240">
             <circle class="pl__ring pl__ring--a" cx="120" cy="120" r="105" fill="none" stroke="#000" stroke-width="20"
                 stroke-dasharray="0 660" stroke-dashoffset="-330" stroke-linecap="round"></circle>
@@ -61,9 +61,15 @@ export default {
 </script>
 
 <style>
+
 .pl {
-    width: 6em;
-    height: 6em;
+    width: 10em;
+    height: 10em;
+    position: fixed;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .pl__ring {

@@ -14,6 +14,7 @@ namespace AutoPro.DL.BaseDL
         /// <returns>Tất cả bản ghi của list</returns>
         public List<T> GetAllRecord();
 
+        public object Filter(string? textSearch, long pageSize, long pageNumber);
         /// <summary>
         /// Lấy 1 bản ghi theo id
         /// </summary>
