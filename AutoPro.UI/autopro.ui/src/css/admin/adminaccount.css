@@ -1,8 +1,32 @@
 .table-admin {
   width: 100%;
-  height: auto;
+  /* height: auto; */
+  /* width: calc(100% - 20px); */
+  height: calc(100vh - 48px - 170px);
+  overflow-y: auto;
+  overflow-x: auto;
+}
+::-webkit-scrollbar {
+  width: 8px;
+  border-radius: 4px;
+  height: 8px;
 }
 
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
 .table-toolbar {
   width: 100%;
   /* height: 60px; */
@@ -10,9 +34,9 @@
   align-items: center;
   justify-content: space-between;
   padding-bottom: 20px;
-  position: sticky;
+  /* position: sticky;
   left: 250px;
-  top: 60px;
+  top: 60px; */
   background-color: #fff;
 }
 
@@ -71,6 +95,11 @@
 /* .table-admin table thead {
   text-align: center;
 } */
+.table-admin table thead {
+  position: sticky;
+  top: 0px;
+  background-color: #bbb;
+}
 
 .table-admin table tbody tr,
 .table-admin table thead tr {
@@ -82,6 +111,7 @@
 .table-admin tbody tr:hover {
   background-color: #e8edf4;
 }
+
 /* .table-admin table tbody tr td{
     height: 40px;
     border: 1px solid #bbb;
@@ -105,9 +135,9 @@
 .list-name-table {
   font-size: 20px;
   margin-bottom: 10px;
-  position: sticky;
+  /* position: sticky;
   left: 250px;
-  top: 120px;
+  top: 120px; */
   background-color: #fff;
   display: flex;
   align-items: center;
@@ -206,10 +236,84 @@
 
 .nodata {
   width: 100%;
-  height: calc(100vh - 202px);
+  height: calc(100vh - 260px);
 }
 
 .nodata img {
   width: 100%;
-  height: calc(100vh - 202px);
+  height: calc(100vh - 260px);
+}
+
+
+/*Table paing*/
+.table__paging {
+  width: 100%;
+  height: 48px;
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  border: 1px solid #bbb;
+}
+
+.paging__left {
+  margin-left: 16px;
+}
+
+.paging__right {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.m-pagding-right-left {
+  margin: 0 6px;
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+}
+
+.m-pagding-right-right {
+  display: flex;
+  align-items: center;
+  margin: 16px;
+  cursor: pointer;
+  justify-content: space-between;
+}
+
+.m-pagding-right-left .m-page-select {
+  height: 36px;
+  width: 200px;
+  border-radius: 4px;
+  border: unset;
+  cursor: pointer;
+}
+
+.m-pagding-right-left .m-page-select option {
+  height: 36px;
+  line-height: 36px;
+}
+
+.m-pagding-right-right .m-page-number-group {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 20px;
+}
+
+.m-pagding-right-right .m-page-number-group .m-page-number {
+  border: unset;
+  background-color: #fff;
+  cursor: pointer;
+  padding: 0 5px;
+}
+
+.m-page-number-select {
+  border: 1px solid black !important;
+  cursor: pointer;
+  background-color: #019160;
+  border-radius: 2px;
+  height: 25px;
+  width: 25px;
 }

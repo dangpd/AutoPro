@@ -1,7 +1,7 @@
 <template>
     <div class="admin-content">
-        <AdminLineLink name="Liên hệ"></AdminLineLink>
-        <div class="table-admin">
+        <div class="atable-header">
+            <AdminLineLink name="Liên hệ"></AdminLineLink>
             <div class="table-toolbar">
                 <div class="search-toolbar">
                     <MInput v-model="textSearch" ref="inputSearch"
@@ -17,6 +17,8 @@
             <div class="list-name-table">
                 Danh sách liên hệ
             </div>
+        </div>
+        <div class="table-admin">
             <table>
                 <thead>
                     <tr>
@@ -51,7 +53,38 @@
             <div class="nodata" v-show="noData">
                 <img src="../../assets/Image/Nodata.jpg" alt="">
             </div>
-            <div class="see-more" style="margin-top: 10px;" @click="seeMore" v-show="showSeeMore">Xem thêm</div>
+            <!-- <div class="see-more" style="margin-top: 10px;" @click="seeMore" v-show="showSeeMore">Xem thêm</div> -->
+        </div>
+        <div class="table__paging" v-if="showTablePaging">
+            <div class="paging__left">
+                Tống số bản ghi : <b>{{ totalRecord }}</b>
+            </div>
+            <div class="paging__right">
+                <div class="m-pagding-right-left">
+                    <div>
+                        <MSelectBox :data="[
+                            { feildShow: '10 bản ghi trên trang', feildValue: 10 },
+                            { feildShow: '20 bản ghi trên trang', feildValue: 20 },
+                            { feildShow: '50 bản ghi trên trang', feildValue: 50 },
+                            { feildShow: '70 bản ghi trên trang', feildValue: 70 },
+                            { feildShow: '100 bản ghi trên trang', feildValue: 100 },
+                        ]" v-model="pageSize"></MSelectBox>
+                    </div>
+                </div>
+                <div class="m-pagding-right-right">
+                    <div class="m-page-number-group">
+                        <button class="m-page-number" v-for="(item, index) in pageNumber" :key="item"
+                            :class="{ 'm-page-number-select': pageChoice == item }" @click="changePageChoice(
+                                    pageNumber[index - 1],
+                                    item,
+                                    pageNumber[index + 1]
+                                )
+                                ">
+                            {{ item }}
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
         <AdminContactDetail v-if="showPopup" @onClose="showPopup = false" :id="id" :type="type" @success="success">
         </AdminContactDetail>
@@ -70,6 +103,7 @@ import { formatDate } from '@/js/gCommon'
 import MLoading from '@/components/MLoading.vue';
 import { getStorage, ref, deleteObject } from "firebase/storage";
 import ApiContact from '../../js/apiContact';
+import MSelectBox from '@/components/MSelectBox.vue';
 export default {
     /**
            * Tên component
@@ -82,7 +116,7 @@ export default {
     /**
      * Component được sử dụng
      */
-    components: { AdminLineLink, MInput, AdminContactDetail, MLoading },
+    components: { AdminLineLink, MInput, AdminContactDetail, MLoading, MSelectBox },
     /**
      * Emit sự thay đổi
      */
@@ -107,6 +141,20 @@ export default {
             pageSize: 10,
             pageNumber: 1,
             showSeeMore: false,
+            showTablePaging: false,
+
+            pageSize: 10,
+            // Số trang được tính
+            pageNumber: [],
+            // Vị trí trang là 1
+            pageChoice: 1,
+            // Số bản ghi là 0
+            totalRecord: 0,
+            // Số trang là  0
+            currentPage: 0,
+            // Số trang trả về
+            totalPage: 0,
+            //Popup
         }
     },
     /**
@@ -174,7 +222,7 @@ export default {
         filterAndPaging() {
             this.showLoading = true;
             setTimeout(() => {
-                axios.get(ApiContact.filterContact(this.textSearch, this.pageSize, this.pageNumber))
+                axios.get(ApiContact.filterContact(this.textSearch, this.pageSize, this.pageChoice))
                     .then((res) => {
                         if (res.status == 200) {
                             if (res.data.totalRecord > 0) {
@@ -183,11 +231,22 @@ export default {
                                 this.dataContact = res.data.data;
                                 this.showSeeMore = true;
                                 // console.log(res);
+                                this.showTablePaging = true;
+                                // Gán dữ liệu số trang trả về bằng Data trả về
+                                this.totalPage = res.data.totalPage;
+                                // Gán dữ liệu số bản ghi cho form bằng Data trả về
+                                this.totalRecord = res.data.totalRecord;
+                                // Gán số trang được chọn bằng số trang được chọn
+                                this.currentPage = this.pageChoice;
+                                // Set số page
+                                this.setPageNumber();
+                                // console.log(res);
                             } else {
                                 this.showLoading = false;
                                 this.noData = true;
-                                this.dataContact = null; 
+                                this.dataContact = null;
                                 this.showSeeMore = false;
+                                this.showTablePaging = false;
                             }
                         }
                     })
@@ -211,7 +270,121 @@ export default {
             this.pageSize = this.pageSize + 10;
             this.pageNumber = 1;
             this.filterAndPaging();
-        }
+        },
+
+        changePageChoice(pagePrev, pageNumber, pageNext) {
+            try {
+                // Khởi tạo lại page number
+                var a = parseInt(this.totalRecord / this.pageSize);
+                if (this.totalRecord % this.pageSize != 0) a++;
+
+                // Click vào số trang
+                if (parseInt(pageNumber)) {
+                    this.pageChoice = pageNumber;
+                    if (a > 5) {
+                        this.pageNumber = []; // Khỏi tạo lại danh sách số trang
+                        this.pageNumber.push(1);
+                        if (this.pageChoice <= 2) {
+                            this.pageNumber.push(2);
+                            this.pageNumber.push(3);
+                            this.pageNumber.push("...");
+                        } else if (this.pageChoice > 2 && this.pageChoice < a - 2) {
+                            this.pageNumber.push("...");
+                            this.pageNumber.push(this.pageChoice);
+                            this.pageNumber.push(this.pageChoice + 1);
+                            this.pageNumber.push(this.pageChoice + 2);
+                            this.pageNumber.push("...");
+                        } else {
+                            this.pageNumber.push("...");
+                            this.pageNumber.push(a - 2);
+                            this.pageNumber.push(a - 1);
+                        }
+                        this.pageNumber.push(a);
+                    }
+                    // Load bảng khi chọn trang
+                    // this.$emit("update:modelValue", true);
+                }
+                // Khi click vào ...
+                else if (pageNext && pagePrev) {
+                    if (parseInt(pageNext) == a) {
+                        this.pageNumber = []; // Khỏi tạo lại danh sách số trang
+                        this.pageNumber.push(1);
+                        if (parseInt(pagePrev) >= a - 3) {
+                            this.pageNumber.push("...");
+                            this.pageNumber.push(a - 2);
+                            this.pageNumber.push(a - 1);
+                        } else if (parseInt(pagePrev) >= 3 && parseInt(pagePrev) < a - 3) {
+                            this.pageNumber.push("...");
+                            this.pageNumber.push(parseInt(pagePrev) + 1);
+                            this.pageNumber.push(parseInt(pagePrev) + 2);
+                            this.pageNumber.push(parseInt(pagePrev) + 3);
+                            this.pageNumber.push("...");
+                        } else {
+                            this.pageNumber.push(2);
+                            this.pageNumber.push(3);
+                            this.pageNumber.push("...");
+                        }
+                        this.pageNumber.push(a);
+                    } else if (parseInt(pagePrev) == 1) {
+                        this.pageNumber = []; // Khỏi tạo lại danh sách số trang
+                        this.pageNumber.push(1);
+                        if (parseInt(pageNext) <= 4) {
+                            this.pageNumber.push(2);
+                            this.pageNumber.push(3);
+                            this.pageNumber.push("...");
+                        } else if (parseInt(pageNext) > 4 && parseInt(pageNext) <= a - 2) {
+                            this.pageNumber.push("...");
+                            this.pageNumber.push(parseInt(pageNext) - 3);
+                            this.pageNumber.push(parseInt(pageNext) - 2);
+                            this.pageNumber.push(parseInt(pageNext) - 1);
+                            this.pageNumber.push("...");
+                        } else {
+                            this.pageNumber.push("...");
+                            this.pageNumber.push(a - 2);
+                            this.pageNumber.push(a - 1);
+                        }
+                        this.pageNumber.push(a);
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        /**
+         * Hiển thị số trang của paging
+         * CreateBY : Đăng(23/1/2023)
+         */
+        setPageNumber() {
+            this.pageNumber = []; // Khỏi tạo lại danh sách số trang
+            if (this.totalPage > 5) {
+                if (this.pageChoice >= 1 && this.pageChoice < 3) {
+                    this.pageNumber.push(1);
+                    this.pageNumber.push(2);
+                    this.pageNumber.push(3);
+                    this.pageNumber.push("...");
+                    this.pageNumber.push(this.totalPage);
+                } else if (this.pageChoice < this.totalPage - 2) {
+                    this.pageNumber.push(1);
+                    this.pageNumber.push("...");
+                    this.pageNumber.push(this.pageChoice);
+                    this.pageNumber.push(this.pageChoice + 1);
+                    this.pageNumber.push(this.pageChoice + 2);
+                    this.pageNumber.push("...");
+                    this.pageNumber.push(this.totalPage);
+                } else {
+                    this.pageNumber.push(1);
+                    this.pageNumber.push("...");
+                    this.pageNumber.push(this.totalPage - 2);
+                    this.pageNumber.push(this.totalPage - 1);
+                    this.pageNumber.push(this.totalPage);
+                }
+            } else {
+                for (let i = 1; i <= this.totalPage; i++) {
+                    this.pageNumber.push(i);
+                }
+            }
+        },
+
     },
     created() {
         this.filterAndPaging();
@@ -220,6 +393,47 @@ export default {
      * Theo dõi sự thay đổi
      */
     watch: {
+        // Thực hiện reload table khi dữ liệu trong table thay đổi
+        reloadTable(newVal) {
+            try {
+                if (newVal) {
+                    this.reloadTable = newVal;
+                    this.filterAndPaging();
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        // Bắt sự kiện thay đổi số trang được chọn thì hiển thị lại dữ liệu theo số trang
+        pageChoice() {
+            try {
+                this.changePageChoice();
+                this.filterAndPaging();
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
+        //Bắt sự kiện thay đổi số lượng bản ghi trong 1 trang
+        pageSize() {
+            try {
+                this.pageSize = this.pageSize;
+                this.filterAndPaging();
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
+        // Bắt sự kiện người dùng nhập giá trị tìm kiếm
+        textSearch() {
+            if (this.$refs.inputSearch.value) {
+                this.pageChoice = 1;
+                clearTimeout(this.setSearchTime);
+                this.setSearchTime = setTimeout(async () => {
+                    this.filterAndPaging();
+                }, 500);
+            }
+        },
 
     }
 }

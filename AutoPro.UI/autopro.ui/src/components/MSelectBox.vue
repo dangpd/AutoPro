@@ -15,7 +15,7 @@
   </div>
 </template>
 <script>
-// import enumMISA from "@/js/base/enum";
+import enumAUTO from "@/js/gEnum";
 import { clickoutside } from "@/js/gCommon";
 export default {
   name: "MSelectBox",
@@ -48,9 +48,7 @@ export default {
   props: ["modelValue", "data"],
   created() {
     this.dataMain = this.data;
-    // Gán giá trị cho pagezise từ local storage
-    const valuePageSize = localStorage.getItem("pageSize");
-    let result = Number.parseFloat(valuePageSize);
+    let result = this.modelValue;
     let entitySelected = this.dataMain.find(
       (item) => item.feildValue == result
     );
@@ -113,26 +111,26 @@ export default {
       const keyCode = event.keyCode;
       switch (keyCode) {
         // Án enter
-        case enumMISA.KEY_CODE.ENTER:
+        case enumAUTO.KEY_CODE.ENTER:
           // Gán giá trị item trên data search
           const item = this.dataMain[this.indexItemSelect];
           this.itemOnSelect(item);
           break;
-        case enumMISA.KEY_CODE.ROW_UP:
+        case enumAUTO.KEY_CODE.ROW_UP:
           // Hiển thị data
           this.isShowData = true;
           if (this.indexItemSelect > 0) {
             this.indexItemSelect--;
           }
           break;
-        case enumMISA.KEY_CODE.ROW_DOWN:
+        case enumAUTO.KEY_CODE.ROW_DOWN:
           // Chạy giá trị xuống dưới
           let maxLength = this.dataMain.length;
           if (this.indexItemSelect < maxLength - 1) {
             this.indexItemSelect++;
           }
           break;
-        case enumMISA.KEY_CODE.TAB:
+        case enumAUTO.KEY_CODE.TAB:
           this.isShowData = false;
           break;
         default:
@@ -148,7 +146,7 @@ export default {
       const keyCode = event.keyCode;
       switch (keyCode) {
         // Án enter
-        case enumMISA.KEY_CODE.ENTER:
+        case enumAUTO.KEY_CODE.ENTER:
           // Gán giá trị item trên data search
           const item = this.dataMain[this.indexItemSelect];
           this.itemOnSelect(item);
@@ -156,21 +154,21 @@ export default {
             this.isShowData = false;
           }, 0);
           break;
-        case enumMISA.KEY_CODE.ROW_UP:
+        case enumAUTO.KEY_CODE.ROW_UP:
           // Hiển thị data
           this.isShowData = true;
           if (this.indexItemSelect > 0) {
             this.indexItemSelect--;
           }
           break;
-        case enumMISA.KEY_CODE.ROW_DOWN:
+        case enumAUTO.KEY_CODE.ROW_DOWN:
           // Chạy giá trị xuống dưới
           let maxLength = this.dataMain.length;
           if (this.indexItemSelect < maxLength - 1) {
             this.indexItemSelect++;
           }
           break;
-        case enumMISA.KEY_CODE.TAB:
+        case enumAUTO.KEY_CODE.TAB:
           this.isShowData = false;
           break;
         default:
