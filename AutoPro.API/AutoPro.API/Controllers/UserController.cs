@@ -3,6 +3,7 @@ using AutoPro.BL.UserBL;
 using AutoPro.Common.Entities;
 using AutoPro.Common.Entities.DTO;
 using AutoPro.Common.Entities.Param;
+using AutoPro.DL.BaseDL;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,7 +14,6 @@ namespace AutoPro.API.Controllers
     public class UserController : BaseController<User>
     {
         private IUserBL _userBL;
-
         public UserController(IUserBL userBL) : base(userBL)
         {
             _userBL = userBL;
@@ -46,6 +46,65 @@ namespace AutoPro.API.Controllers
             catch (Exception ex)
             {
                 // Lỗi exception
+                Console.WriteLine(ex.ToString());
+                return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResult
+                {
+                    ErrorCode = Common.Enum.ErrorCode.Exception,
+                    DevMsg = Common.Resource.DataResource.DevMsg_Exception,
+                    UserMsg = Common.Resource.DataResource.UserMsg_Exception,
+                    MoreInfo = Common.Resource.Resource.UserMsg_ServerError,
+                    TraceId = HttpContext.TraceIdentifier
+                });
+            }
+        }
+        /// <summary>
+        /// Cập nhập 1 bản ghi 
+        /// </summary>
+        /// <param name="record"> Thông tin bản ghi cần cập nhập <typeparamref name="T"/> </param>
+        /// <param name="idRecord"> id bản ghi cần cập nhập </param>
+        /// <returns> Số bản ghi bị tác động </returns>
+        [HttpPut("admin/{idRecord}")]
+        public IActionResult UpdateAdminRecord([FromBody] User record, [FromRoute] int idRecord)
+        {
+            // Lấy kết quả trả về bên Bussiness Layer
+            var result = _userBL.UpdateAdmin(record, idRecord);
+            try
+            {
+                // Thành công return 1
+                if (result.IsSuccess)
+                {
+                    return StatusCode(StatusCodes.Status200OK, 1);
+                }
+
+                // Nếu result bằng false và errorcode == invalid data return lỗi nhập liệu
+                else if (!result.IsSuccess && result.Data.ErrorCode == Common.Enum.ErrorCode.InvalidData)
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult
+                    {
+                        ErrorCode = Common.Enum.ErrorCode.InvalidData,
+                        DevMsg = Common.Resource.DataResource.DevMsg_InvalidData,
+                        UserMsg = Common.Resource.DataResource.UserMsg_InvalidData,
+                        MoreInfo = result.Data.MoreInfo,
+                        TraceId = HttpContext.TraceIdentifier
+                    });
+                }
+
+                // Nếu kq trả về null return lỗi server
+                else
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResult
+                    {
+                        ErrorCode = Common.Enum.ErrorCode.ServerError,
+                        DevMsg = Common.Resource.DataResource.DevMsg_ServerError,
+                        UserMsg = Common.Resource.DataResource.UserMsg_ServerError,
+                        MoreInfo = Common.Resource.Resource.UserMsg_ServerError,
+                        TraceId = HttpContext.TraceIdentifier
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                // lỗi exception
                 Console.WriteLine(ex.ToString());
                 return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResult
                 {

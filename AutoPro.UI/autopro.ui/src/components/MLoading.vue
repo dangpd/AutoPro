@@ -1,5 +1,5 @@
 <template>
-    <div >
+    <div class="mloading">
         <svg class="pl" width="240" height="240" viewBox="0 0 240 240">
             <circle class="pl__ring pl__ring--a" cx="120" cy="120" r="105" fill="none" stroke="#000" stroke-width="20"
                 stroke-dasharray="0 660" stroke-dashoffset="-330" stroke-linecap="round"></circle>
@@ -61,6 +61,16 @@ export default {
 </script>
 
 <style>
+.mloading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.311);
+    box-sizing: border-box;
+    z-index: 101;
+}
 
 .pl {
     width: 10em;

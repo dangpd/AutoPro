@@ -1,6 +1,6 @@
 <template>
     <div class="admin-content">
-        <AdminLineLink name="Dashload"></AdminLineLink>
+        <AdminLineLink name="Tổng quan"></AdminLineLink>
         <table></table>
     </div>
 </template>

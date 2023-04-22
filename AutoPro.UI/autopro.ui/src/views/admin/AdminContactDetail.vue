@@ -3,7 +3,7 @@
         <div class="aform-account">
             <div class="aform-title">
                 <div class="aform-title-left">
-                    Tiêu đề form
+                    {{ this.title }}
                 </div>
                 <div class="onClose" @click="onClose">
                     <i class="fa-regular fa-circle-xmark"></i>
@@ -14,18 +14,16 @@
                     <div class="acol1-text">
                         Người gửi :
                     </div>
-                    <MInput type="text"
-                        styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-                        v-model="category">
+                    <MInput type="text" v-model="contact.contactName"
+                        styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                     </MInput>
                 </div>
                 <div class="acol2">
                     <div class="acol2-text">
                         Email :
                     </div>
-                    <MInput type="text"
-                        styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-                        v-model="category">
+                    <MInput type="text" v-model="contact.contactEmail"
+                        styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                     </MInput>
                 </div>
             </div>
@@ -34,30 +32,40 @@
                     <div class="acol1-text">
                         Số điện thoại :
                     </div>
-                    <MInput type="text"
-                        styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-                        v-model="category">
+                    <MInput type="text" v-model="contact.contactPhone"
+                        styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                     </MInput>
                 </div>
                 <div class="acol2">
                     <div class="acol2-text">
                         Mô tả :
                     </div>
-                    <MInput type="text"
-                        styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-                        v-model="category">
+                    <MInput type="text" v-model="contact.contactContent"
+                        styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                     </MInput>
                 </div>
             </div>
-            <div class="aformSave">
+            <div class="aformSave" @click="saveContact">
                 <button>Lưu</button>
             </div>
         </div>
+        <MLoading v-if="showLoading"></MLoading>
     </div>
 </template>
   
 <script>
 import MInput from '@/components/MInput.vue';
+import Resource from '../../js/gResource';
+import axios from 'axios';
+import ApiBrand from '../../js/apiBrand';
+import {
+    getDownloadURL,
+    getStorage,
+    ref,
+    uploadBytesResumable,
+} from "firebase/storage";
+import MLoading from '@/components/MLoading.vue';
+import ApiContact from '../../js/apiContact';
 export default {
     /**
      * Tên component
@@ -66,22 +74,24 @@ export default {
     /**
      * Hứng nhận
      */
-    props: [""],
+    props: ["id", "type"],
     /**
      * Component được sử dụng
      */
-    components: { MInput },
+    components: { MInput, MLoading },
     /**
      * Emit sự thay đổi
      */
-    emits: ["onClose"],
+    emits: ["onClose", "success"],
     directives: {},
     /**
      * Data
      */
     data() {
         return {
-            category: ''
+            contact: {},
+            showLoading: false,
+            title: '',
         };
     },
     /**
@@ -89,10 +99,56 @@ export default {
      */
     methods: {
         onClose() {
+            // uploadTask.cancel();
             this.$emit("onClose");
+        },
+
+        async saveContact() {
+            if (this.type == Resource.FormAdminType.Add) {
+                await axios.post(ApiContact.addContact(), this.contact)
+                    .then((res) => {
+                        if (res.status == 201) {
+                            this.$emit("onClose");
+                            this.$emit("success");
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    })
+            } else {
+                await axios.put(ApiContact .updateContact(this.id), this.contact)
+                    .then((res) => {
+                        if (res.status == 200) {
+                            this.$emit("success");
+                            this.$emit("onClose");
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    })
+            }
         }
     },
-    created() { },
+    created() {
+        if (this.id) {
+            // Bật loadding
+            this.showLoading = true;
+            setTimeout(() => {
+                this.title = Resource.TitleFormAdmin.UpdateAccount;
+                //Lấy dữ liệu
+                axios.get(ApiContact.getContactByID(this.id))
+                    .then((res) => {
+                        this.showLoading = false;
+                        this.contact = res.data;
+                        // this.srcImage = res.data.image;
+                        // this.ImageNone = true;
+                        // console.log(this.srcImage);
+                    })
+            }, 1000)
+        } else {
+            this.title = Resource.TitleFormAdmin.AddAccount;
+        }
+    },
     /**
      * Theo dõi sự thay đổi
      */

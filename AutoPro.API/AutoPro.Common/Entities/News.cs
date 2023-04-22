@@ -18,6 +18,8 @@ namespace AutoPro.Common.Entities
 
         public DateTime NewsDate { get; set; }
 
+        public string? Image { get; set; }
+
         [ContentShortedNewsNotEmpty]
         public string? ContentShorted { get; set; }
 

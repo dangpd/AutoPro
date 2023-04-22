@@ -147,6 +147,7 @@
     text-align: center;
     border-radius: 4px;
     cursor: pointer;
+    margin-bottom: 10px;
 }
 
 .see-more:hover{

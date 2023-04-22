@@ -8,10 +8,10 @@ using static AutoPro.Common.Attributes.Attributes;
 
 namespace AutoPro.Common.Entities
 {
-    public class Contact
+    public class Contact : BaseEntity
     {
         [Key]
-        public int ContactId { get; set; }
+        public int ContactID { get; set; }
 
         [ContactNameNotEmpty]
         public string? ContactName { get; set; }
@@ -25,6 +25,5 @@ namespace AutoPro.Common.Entities
         [ContactContentNotEmpty]
         public string? ContactContent { get; set; }
 
-        public DateTime CreatedDate { get; set; }
     }
 }

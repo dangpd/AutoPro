@@ -12,6 +12,8 @@ namespace AutoPro.DL.UserDL
     {
         public object checkLogin(string Account, string Password);
 
+        public int UpdateAdmin(User record, int idRecord);
+
         public bool IsExistAccount(User? record);
 
         public bool IsExistEmail(User? record);

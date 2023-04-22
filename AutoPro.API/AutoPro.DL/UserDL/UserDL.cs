@@ -6,7 +6,9 @@ using Dapper;
 using MySqlConnector;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -85,6 +87,41 @@ namespace AutoPro.DL.UserDL
                 }
                 return false;
             }
+        }
+
+        public int UpdateAdmin(User record, int idRecord)
+        {
+            // Chuẩn bị tên store procedure
+            string updateStoredProcedureName = String.Format(ProceduceName.Update, typeof(User).Name);
+
+            var properties = typeof(User).GetProperties();
+            var parameters = new DynamicParameters();
+
+            // Lấy key attribute
+            foreach (var property in properties)
+            {
+                // Set key id cập nhật bằng id truyền vào
+                var keyAttribute = (KeyAttribute?)property.GetCustomAttribute(typeof(KeyAttribute), false);
+                if (keyAttribute != null)
+                {
+                    parameters.Add($"v_{property.Name}", idRecord);
+                }
+                var propertyName = $"v_{property.Name}"; // Tạo biến cho đầu vào cho store procedure
+                var propertyValue = property.GetValue(record); // Lấy giá có thuộc tính propertyName của record
+                parameters.Add(propertyName, propertyValue);
+            }
+            parameters.Add("v_Role", "Admin");
+            parameters.Add("v_ModifiedDate", DateTime.Now);
+            parameters.Add("v_ModifiedBy", "DangPD");
+
+            // Số bản ghi bị ảnh hưởng
+            int numberOfAffectedRow = 0;
+            using (var mySqlConnection = new MySqlConnection(connectionString))
+            {
+                // Số bản ghi bị tác động
+                numberOfAffectedRow = mySqlConnection.Execute(updateStoredProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
+            }
+            return numberOfAffectedRow;
         }
     }
 }

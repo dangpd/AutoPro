@@ -132,7 +132,7 @@ export default {
             uploadTask.on(
                 "state_changed",
                 (snapshot) => {
-                    console.log(snapshot);
+                    // console.log(snapshot);
                     let process = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                     // console.log(process);
                     if (process == 100) {
@@ -147,12 +147,12 @@ export default {
                     // uploadTask.pause();
                     // Handle successful uploads on complete
                     // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-                    alert("Đã tải ảnh xong");
                     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                         // console.log(downloadURL);
-                        this.srcImage = downloadURL;
                         this.ImageNone = true;
                         this.brand.image = downloadURL;
+                        this.srcImage = downloadURL;
+                        alert("Đã tải ảnh xong");
                     });
                 }
             );
@@ -213,7 +213,7 @@ export default {
                         this.ImageNone = true;
                         // console.log(this.srcImage);
                     })
-            },1000)
+            }, 1000)
         } else {
             this.title = Resource.TitleFormAdmin.AddBrand;
         }

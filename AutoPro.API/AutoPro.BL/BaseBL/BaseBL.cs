@@ -316,12 +316,12 @@ namespace AutoPro.BL.BaseBL
             }
 
             // Kiểm tra custom validate(trường kiểm tra trùng mã)
-            var validateCustom = ValidateCustom(record);
+            //var validateCustom = ValidateCustom(record);
             // Có lõi trùng return lỗi
-            if (!validateCustom.IsSuccess)
-            {
-                return validateCustom;
-            }
+            //if (!validateCustom.IsSuccess)
+            //{
+            //    return validateCustom;
+            //}
 
             return null;
         }

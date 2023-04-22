@@ -9,10 +9,10 @@
         </div>
         <div class="anav-list">
             <div class="admin-info">
-                <img src="../assets/Image/giamsoc.jpg" alt="">
+                <img :src="this.srcImageAdmin" alt="">
             </div>
             <div class="adminname">
-                <div>Xin chào, Đăng</div>
+                <div>Xin chào, {{ admin.lastName }}</div>
                 <div><i class="fa-solid fa-caret-down" style="margin-left: 8px"></i>
                 </div>
                 <div class="under-admin-info" @click="infoAdmin">
@@ -81,12 +81,16 @@
                     <i class="fa-solid fa-caret-down"></i>
                 </div>
             </router-link>
-
         </div>
+        <MLoading v-if="showLoading"></MLoading>
     </div>
 </template>
 
 <script>
+import axios from 'axios';
+import ApiUser from '@/js/apiUser';
+import MLoading from '@/components/MLoading.vue';
+
 export default {
     /**
            * Tên component
@@ -99,7 +103,7 @@ export default {
     /**
      * Component được sử dụng
      */
-    components: {},
+    components: { MLoading },
     /**
      * Emit sự thay đổi
      */
@@ -113,6 +117,9 @@ export default {
     data() {
         return {
             idAdmin: '',
+            admin: {},
+            showLoading: false,
+            srcImageAdmin: '',
         }
     },
     /**
@@ -131,6 +138,18 @@ export default {
     created() {
         const adminID = localStorage.getItem("UserID");
         this.idAdmin = adminID;
+        this.showLoading = true;
+        setTimeout(() => {
+            axios.get(ApiUser.getUserById(adminID))
+                .then((res) => {
+                    this.showLoading = false;
+                    if (res.status == 200) {
+                        this.admin = res.data;
+                        this.srcImageAdmin = res.data.image;
+                        // console.log(this.admin);
+                    }
+                })
+        }, 1000)
     },
     /**
      * Theo dõi sự thay đổi

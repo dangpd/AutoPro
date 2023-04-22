@@ -12,5 +12,7 @@ namespace AutoPro.BL.UserBL
     public interface IUserBL : IBaseBL<User>
     {
         public object checkLogin(string Account, string Password);
+
+        public ServiceResult UpdateAdmin(User record, int idRecord);
     }
 }

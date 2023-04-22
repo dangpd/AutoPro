@@ -9,12 +9,32 @@ class UserService extends base {
         return `${this.getAll()}/${id}`;
     }
 
-    register() {
+    addUser() {
         return `${this.getAll()}/`
     }
 
     login() {
         return `${this.getAll()}/login`
+    }
+
+    updateUser(id){
+        return `${this.getAll()}/${id}`;
+    }
+
+    updateAdmin(id){
+        return `${this.getAll()}/admin/${id}`;
+    }
+
+    updateAdmin(id){
+        return `${this.getAll()}/${id}`;
+    }
+
+    deleteUserByID(id) {
+        return `${this.getAll()}/${id}`;
+    }
+
+    filterUser(key = '', pageSize, pageNumber) {
+        return `${this.getAll()}/Filter?textSearch=${key}&pageSize=${pageSize}&pageNumber=${pageNumber}`;
     }
 
 }
