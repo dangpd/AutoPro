@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import { getStorage } from "firebase/storage";
 export default {
   name: 'App',
   data() {
@@ -16,23 +15,16 @@ export default {
   components: {
   },
   created() {
-    const storage = getStorage();
-    const role = localStorage.getItem("Role");
-    this.roleApp = role;
-    if (this.roleApp == "Admin") {
-      this.$router.push('/admin/dashload');
-    } else if (this.roleApp == "User" || this.roleApp == null) {
-      this.$router.push('/');
-    } 
+
   },
   watch: {
-    roleApp(newVal) {
-      if (newVal == "Admin") {
-        this.$router.push('/admin/dashload');
-      } else if (newVal == "User" || newVal == null) {
-        this.$router.push('/');
-      }
-    }
+    // roleApp(newVal) {
+    //   if (newVal == "Admin") {
+    //     this.$router.push('/admin/dashload');
+    //   } else if (newVal == "User" || newVal == null) {
+    //     this.$router.push('/');
+    //   }
+    // }
   }
 }
 </script>

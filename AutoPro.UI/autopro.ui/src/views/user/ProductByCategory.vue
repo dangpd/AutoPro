@@ -3,6 +3,7 @@
         <TheHeader></TheHeader>
         <TheNavbar></TheNavbar>
         <div class="content">
+            <MLoading v-if="showLoading"></MLoading>
             <TheLineLink name="Hệ thống gầm phanh"></TheLineLink>
             <div class="products-category">
                 <div class="product-category-filter">
@@ -95,6 +96,7 @@ import TheHeader from '@/layout/TheHeader.vue';
 import TheLineLink from '@/layout/TheLineLink.vue';
 import TheNavbar from '@/layout/TheNavbar.vue';
 import MCombobox from '@/components/MCombobox.vue'
+import MLoading from '@/components/MLoading.vue';
 
 export default {
     /**
@@ -108,7 +110,7 @@ export default {
     /**
      * Component được sử dụng
      */
-    components: { TheHeader, TheNavbar, TheFooter, TheLineLink, MCombobox },
+    components: { TheHeader, TheNavbar, TheFooter, TheLineLink, MCombobox, MLoading },
     /**
      * Emit sự thay đổi
      */
@@ -121,7 +123,7 @@ export default {
      */
     data() {
         return {
-
+            showLoading: false,
         }
     },
     /**
@@ -131,13 +133,16 @@ export default {
 
     },
     created() {
-
+        this.showLoading = true;
+        setTimeout(async () => {
+            this.showLoading = false;
+        }, 1000);
     },
     /**
      * Theo dõi sự thay đổi
      */
     watch: {
-
+        
     }
 }
 </script>

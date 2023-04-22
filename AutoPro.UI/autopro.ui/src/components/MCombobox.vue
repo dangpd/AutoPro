@@ -24,7 +24,7 @@
 </template>
 <script>
 import axios from "axios";
-// import enumMISA from "@/js/base/enum";
+import enumAUTO from "@/js/gEnum";
 import { clickoutside } from "@/js/gCommon";
 export default {
   name: "MCombobox",
@@ -36,14 +36,13 @@ export default {
     "modelValue",
     "required",
     "messError",
-    "typeForm",
     "tabIndex",
     "focus",
   ],
   directives: {
     clickoutside,
   },
-  emits: ["update:modelValue", "update:typeForm"],
+  emits: ["update:modelValue",],
   data() {
     return {
       isShowData: false,
@@ -125,23 +124,20 @@ export default {
             // Gán data tìm kiếm bằng data load được
             this.entitySearch = data.data;
             // Nếu là form thêm mới thì focus dữ liệu lên dòng đầu tiên
-            if (this.typeForm == process.env.VUE_APP_PROCESS_ADD) {
-              //Focus giá trị đầu tiên của combobox
-              if (this.entities.length > 0) {
-                // Hiển thị tên phần tử đầu tiên
-                const text = this.entities[0][this.propName];
-                // Lấy giá trị đầu tiên
-                const value = this.entities[0][this.propValue];
-                // Gán lên form detail
-                this.textSelected = text; // Hiển thị text lên input.
-                // update giá trị
-                this.$emit("update:modelValue", value);
-              }
-            } else {
-              // bingding dữ liệu lên data load được
-              // Hiển thị giá trị data load được
-              this.setItemSelected();
+            //Focus giá trị đầu tiên của combobox
+            if (this.entities.length > 0) {
+              // Hiển thị tên phần tử đầu tiên
+              const text = this.entities[0][this.propName];
+              // Lấy giá trị đầu tiên
+              const value = this.entities[0][this.propValue];
+              // Gán lên form detail
+              this.textSelected = text; // Hiển thị text lên input.
+              // update giá trị
+              this.$emit("update:modelValue", value);
             }
+            // bingding dữ liệu lên data load được
+            // Hiển thị giá trị data load được
+            this.setItemSelected();
           })
           .catch((res) => {
             console.log(res);
@@ -311,26 +307,26 @@ export default {
       const keyCode = event.keyCode;
       switch (keyCode) {
         // Án enter
-        case enumMISA.KEY_CODE.ENTER:
+        case enumAUTO.KEY_CODE.ENTER:
           // Gán giá trị item trên data search
           const item = this.entitySearch[this.indexItemSelect];
           this.itemOnSelect(item);
           break;
-        case enumMISA.KEY_CODE.ROW_UP:
+        case enumAUTO.KEY_CODE.ROW_UP:
           // Hiển thị data
           this.isShowData = true;
           if (this.indexItemSelect > 0) {
             this.indexItemSelect--;
           }
           break;
-        case enumMISA.KEY_CODE.ROW_DOWN:
+        case enumAUTO.KEY_CODE.ROW_DOWN:
           // Chạy giá trị xuống dưới
           let maxLength = this.entitySearch.length;
           if (this.indexItemSelect < maxLength - 1) {
             this.indexItemSelect++;
           }
           break;
-        case enumMISA.KEY_CODE.TAB:
+        case enumAUTO.KEY_CODE.TAB:
           this.isShowData = false;
           break;
         default:
@@ -348,7 +344,7 @@ export default {
       const keyCode = event.keyCode;
       switch (keyCode) {
         // Án enter
-        case enumMISA.KEY_CODE.ENTER:
+        case enumAUTO.KEY_CODE.ENTER:
           // Gán giá trị item trên data search
           const item = this.entitySearch[this.indexItemSelect];
           this.itemOnSelect(item);
@@ -356,21 +352,21 @@ export default {
             this.isShowData = false;
           }, 0);
           break;
-        case enumMISA.KEY_CODE.ROW_UP:
+        case enumAUTO.KEY_CODE.ROW_UP:
           // Hiển thị data
           this.isShowData = true;
           if (this.indexItemSelect > 0) {
             this.indexItemSelect--;
           }
           break;
-        case enumMISA.KEY_CODE.ROW_DOWN:
+        case enumAUTO.KEY_CODE.ROW_DOWN:
           // Chạy giá trị xuống dưới
           let maxLength = this.entitySearch.length;
           if (this.indexItemSelect < maxLength - 1) {
             this.indexItemSelect++;
           }
           break;
-        case enumMISA.KEY_CODE.TAB:
+        case enumAUTO.KEY_CODE.TAB:
           // Ẩn data show
           this.isShowData = false;
           break;
@@ -388,5 +384,5 @@ export default {
 };
 </script>
 <style scoped>
-@import url(../css/combobox.css);
+@import url(../css/components/combobox.css);
 </style>

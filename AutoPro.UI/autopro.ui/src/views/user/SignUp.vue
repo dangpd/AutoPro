@@ -102,12 +102,12 @@ export default {
                     console.log(err);
                 })
         },
+        
         togglePasswordVisibility() {
             this.showPassword3 = !this.showPassword3;
         }
     },
     created() {
-
     },
     /**
      * Theo dõi sự thay đổi

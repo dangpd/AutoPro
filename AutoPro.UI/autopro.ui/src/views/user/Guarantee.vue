@@ -1,5 +1,6 @@
 <template>
     <div class="help-guarantee">
+        <MLoading v-if="showLoading"></MLoading>
         <div class="title-help-guarantee" style="font-weight: 600;">I. CHÍNH SÁCH BẢO HÀNH</div>
         <div class="content-help-guarantee">
             <p>1. Với mỗi chủng loại phụ tùng AutoPro sẽ có một chính sách bảo hành khác nhau. Khách hàng sẽ được cung
@@ -24,12 +25,15 @@
             <p>9. Bugi</p>
             <p>10. Lốp</p>
         </div>
-        <p>Mọi thắc mắc Quý khách vui lòng liên hệ đến số điện thoại Hotline <b style="font-weight: 800;">0394061318</b> để biết thêm thông tin chi tiết.</p>
+        <p>Mọi thắc mắc Quý khách vui lòng liên hệ đến số điện thoại Hotline <b style="font-weight: 800;">0394061318</b> để
+            biết thêm thông tin chi tiết.</p>
         <p>Cảm ơn Quý khách đã sử dụng sản phẩm và dịch vụ của <b style="font-weight: 800;">AutoPro</b> !</p>
     </div>
 </template>
 
 <script>
+import MLoading from '@/components/MLoading.vue';
+
 export default {
     /**
      * Tên component
@@ -42,7 +46,7 @@ export default {
     /**
      * Component được sử dụng
      */
-    components: {},
+    components: { MLoading },
     /**
      * Emit sự thay đổi
      */
@@ -55,7 +59,7 @@ export default {
      */
     data() {
         return {
-
+            showLoading: false
         }
     },
     /**
@@ -65,7 +69,10 @@ export default {
 
     },
     created() {
-
+        this.showLoading = true;
+        setTimeout(async () => {
+            this.showLoading = false;
+        }, 500);
     },
     /**
      * Theo dõi sự thay đổi

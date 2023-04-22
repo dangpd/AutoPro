@@ -3,6 +3,7 @@
         <TheHeader></TheHeader>
         <TheNavbar></TheNavbar>
         <div class="content-help">
+            <MLoading v-if="showLoading"></MLoading>
             <TheLineLink name="Trợ giúp"></TheLineLink>
             <div class="help">
                 <div class="nav-help">
@@ -34,6 +35,7 @@ import TheHeader from '@/layout/TheHeader.vue';
 import TheLineLink from '@/layout/TheLineLink.vue';
 import TheNavbar from '@/layout/TheNavbar.vue';
 import Payment from './Payment.vue';
+import MLoading from '@/components/MLoading.vue';
 export default {
     /**
          * Tên component
@@ -46,7 +48,7 @@ export default {
     /**
      * Component được sử dụng
      */
-    components: { TheHeader, TheNavbar, TheLineLink, TheFooter, Payment },
+    components: { TheHeader, TheNavbar, TheLineLink, TheFooter, Payment, MLoading },
     /**
      * Emit sự thay đổi
      */
@@ -59,7 +61,7 @@ export default {
      */
     data() {
         return {
-
+            showLoading: false,
         }
     },
     /**
@@ -69,7 +71,10 @@ export default {
 
     },
     created() {
-
+        this.showLoading = true;
+        setTimeout(async () => {
+            this.showLoading = false;
+        }, 500);
     },
     /**
      * Theo dõi sự thay đổi

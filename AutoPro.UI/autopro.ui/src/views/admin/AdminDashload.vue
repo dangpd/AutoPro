@@ -43,7 +43,10 @@ export default {
 
     },
     created() {
-
+        const role = localStorage.getItem("Role");
+        if(role == "User"){
+            this.$router.push('/forbidden');
+        }
     },
     /**
      * Theo dõi sự thay đổi

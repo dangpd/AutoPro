@@ -1,5 +1,6 @@
 <template>
     <div class="help-freeship">
+        <MLoading v-if="showLoading"></MLoading>
         <div class="title-help-freeship" style="font-weight: 600;">Miễn phí vận chuyển - Free Shipping
         </div>
         <div class="content-help-freeship">
@@ -18,6 +19,8 @@
 </template>
 
 <script>
+import MLoading from '@/components/MLoading.vue';
+
 export default {
     /**
      * Tên component
@@ -30,7 +33,7 @@ export default {
     /**
      * Component được sử dụng
      */
-    components: {},
+    components: { MLoading },
     /**
      * Emit sự thay đổi
      */
@@ -43,7 +46,7 @@ export default {
      */
     data() {
         return {
-
+            showLoading: false
         }
     },
     /**
@@ -53,7 +56,10 @@ export default {
 
     },
     created() {
-
+        this.showLoading = true;
+        setTimeout(async () => {
+            this.showLoading = false;
+        }, 500);
     },
     /**
      * Theo dõi sự thay đổi

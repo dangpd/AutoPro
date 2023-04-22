@@ -181,5 +181,5 @@ export default {
 };
 </script>
 <style scoped>
-@import url(../css/combobox.css);
+@import url(../css/components/combobox.css);
 </style>

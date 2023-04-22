@@ -9,92 +9,89 @@
                     <i class="fa-regular fa-circle-xmark"></i>
                 </div>
             </div>
-            <div class="agroup1">
-                <div class="acol1">
-                    <div class="acol1-text">
+            <div class="agroup1" style="padding: 0 20px;">
+                <div class="acol11" style="margin: 15px 0;">
+                    <div class="acol1-text" style="margin-left: 15px;">
                         Mã sản phẩm :
                     </div>
-                    <MInput type="text"
-                        styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-                        v-model="product.productCode">
+                    <MInput type="text" v-model="product.productCode"
+                        styleInput="width: 250px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                     </MInput>
                 </div>
-                <div class="acol2">
-                    <div class="acol2-text">
+                <div class="acol12" style="margin: 15px 0;">
+                    <div class="acol2-text" style="margin-left: 15px;">
                         Tên sản phẩm :
                     </div>
-                    <MInput type="text"
-                        styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-                        v-model="product.productName">
+                    <MInput type="text" v-model="product.productName"
+                        styleInput="width: 250px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                     </MInput>
                 </div>
-            </div>
-            <div class="agroup1">
-                <div class="acol1">
-                    <div class="acol1-text">
+                <div class="acol11" style="margin: 15px 0;">
+                    <div class="acol1-text" style="margin-left: 15px;">
                         Giá :
                     </div>
-                    <MInput type="text"
-                        styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-                        v-model="product.price">
+                    <MInput type="text" v-model="product.price"
+                        styleInput="width: 250px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                     </MInput>
                 </div>
-                <div class="acol1">
-                    <div class="acol1-text">
+            </div>
+            <div class="agroup1" style="padding: 0 20px;">
+                <div class="acol11" style="margin: 15px 0;">
+                    <div class="acol1-text" style="margin-left: 15px;">
                         Nơi xuất xứ :
                     </div>
-                    <MInput type="text"
-                        styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-                        v-model="product.placeOrigin">
+                    <MInput type="text" v-model="product.placeOrigin"
+                        styleInput="width: 250px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                     </MInput>
                 </div>
-            </div>
-            <div class="agroup1">
-                <div class="acol1">
-                    <div class="acol1-text">
-                        Trạng thái :
+                <div class="acol11" style="margin: 15px 0;">
+                    <div class="acol1-text" style="margin-left: 15px;">
+                        Số lượng nhập :
                     </div>
-                    <MInput type="text"
-                        styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-                        v-model="product.status">
+                    <MInput type="text" v-model="product.quantity"
+                        styleInput="width: 250px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                     </MInput>
                 </div>
-                <div class="acol2">
-                    <div class="acol2-text">
+                <div class="acol12" style="margin: 15px 0;">
+                    <div class="acol2-text" style="margin-left: 15px;">
                         Mô tả :
                     </div>
-                    <MInput type="text"
-                        styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-                        v-model="product.description">
+                    <MInput type="text" v-model="product.description"
+                        styleInput="width: 250px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                     </MInput>
                 </div>
             </div>
-            <div class="agroup1">
-                <div class="acol1">
-                    <div class="acol1-text">
+            <div class="agroup1" style="padding:0 20px;">
+                <div class="acol11" style="margin: 15px 0;">
+                    <div class="acol1-text" style="margin-left: 15px;">
+                        Trạng thái :
+                    </div>
+                    <MInput type="text" v-model="product.status"
+                        styleInput="width: 250px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
+                    </MInput>
+                </div>
+                <div class="acol11" style="margin: 15px 0;">
+                    <div class="acol1-text" style="margin-left: 15px;">
                         Nhãn hàng :
                     </div>
-                    <MInput type="text"
-                        styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-                        v-model="product.brandID">
-                    </MInput>
+                    <MCombobox api="https://localhost:7129/api/v1/Brand" v-model="product.brandID" propValue="brandID"
+                        propName="brandName" ref="cbxBrand"></MCombobox>
+                    <!-- <MInput type="text" v-model="product.brandID"
+                        styleInput="width: 250px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
+                    </MInput> -->
                 </div>
-            </div>
-            <div class="agroup1">
-                <div class="acol1">
-                    <div class="acol1-text">
+                <div class="acol11" style="margin: 15px 0;">
+                    <div class="acol1-text" style="margin-left: 15px;">
                         Danh mục :
                     </div>
-                    <MInput type="text"
-                        styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-                        v-model="product.categoryID">
-                    </MInput>
+                    <MCombobox api="https://localhost:7129/api/v1/ProductCategory" v-model="product.categoryID"
+                        propValue="categoryID" propName="categoryName" ref="cbxCategory"></MCombobox>
                 </div>
             </div>
             <div class="agroup1">
                 <div class="acol1-image">
                     <div class="aco1-image-file">
-                        <div class="acol1-text">
+                        <div class="acol1-text" style="margin-left: 15px;">
                             Hình ảnh :
                         </div>
                         <input type="file" ref="fileInput" @change="handleFileUpload()" />
@@ -130,6 +127,7 @@ import {
 } from "firebase/storage";
 import MLoading from '@/components/MLoading.vue';
 import ApiProduct from '../../js/apiProduct';
+import MCombobox from '@/components/MCombobox.vue';
 export default {
     /**
      * Tên component
@@ -142,7 +140,7 @@ export default {
     /**
      * Component được sử dụng
      */
-    components: { MInput, MLoading },
+    components: { MInput, MLoading, MCombobox },
     /**
      * Emit sự thay đổi
      */
@@ -204,7 +202,7 @@ export default {
                     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                         // console.log(downloadURL);
                         this.ImageNone = true;
-                        this.brand.image = downloadURL;
+                        this.product.image = downloadURL;
                         this.srcImage = downloadURL;
                         alert("Đã tải ảnh xong");
                     });
@@ -223,7 +221,7 @@ export default {
                 console.log(error);
             }
         },
-        async saveProduuct() {
+        async saveProduct() {
             if (this.type == Resource.FormAdminType.Add) {
                 await axios.post(ApiProduct.addProduct(), this.product)
                     .then((res) => {

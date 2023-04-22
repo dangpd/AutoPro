@@ -28,7 +28,7 @@
                     <div class="account">
                         <i class="fa-regular fa-user " style=""></i>
                         <div class="info">
-                            <div class="">Xin chào , {{ this.user.role }}</div>
+                            <div class="">Xin chào , {{ this.user.fullName }}</div>
                             <div class="under-user">
                                 <router-link :to="'/user/' + userID" class="item-header">
                                     <div class="details-user">Tài khoản của tôi</div>

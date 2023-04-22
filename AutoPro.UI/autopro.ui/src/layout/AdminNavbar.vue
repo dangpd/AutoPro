@@ -27,6 +27,12 @@
                     <div class="anav__text">Tổng quan</div>
                 </div>
             </router-link>
+            <router-link to="/admin/revenue-statistics" style="text-decoration: none;">
+                <div class="anav-item">
+                    <div class="anav__text">Thống kê doanh thu</div>
+                    <i class="fa-solid fa-caret-down"></i>
+                </div>
+            </router-link>
             <router-link to="/admin/brand" style="text-decoration: none;">
                 <div class="anav-item">
                     <div class="anav__text">Quản lí nhãn hàng</div>
@@ -66,12 +72,6 @@
             <router-link to="/admin/contact" style="text-decoration: none;">
                 <div class="anav-item">
                     <div class="anav__text">Quản lí liên hệ</div>
-                    <i class="fa-solid fa-caret-down"></i>
-                </div>
-            </router-link>
-            <router-link to="/admin/revenue-statistics" style="text-decoration: none;">
-                <div class="anav-item">
-                    <div class="anav__text">Thống kê doanh thu</div>
                     <i class="fa-solid fa-caret-down"></i>
                 </div>
             </router-link>

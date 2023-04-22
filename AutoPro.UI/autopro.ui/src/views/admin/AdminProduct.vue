@@ -27,8 +27,8 @@
                         <th style="width: 100px;">Nơi xuất xứ</th>
                         <th style="width: 100px;">Hình ảnh</th>
                         <th style="width: 100px;">Đã bán</th>
-                        <th style="width: 100px;">Còn</th>
-                        <th style="width: 100px;">Số lượng</th>
+                        <th style="width: 100px;">Số lượng tồn</th>
+                        <th style="width: 120px;">Số lượng nhập</th>
                         <th style="width: 100px;">Trạng thái</th>
                         <th style="width: 150px;">Mô tả</th>
                         <th>Thao tác</th>
@@ -42,11 +42,11 @@
                         <td style="padding-left: 10px;">{{ index + 1 }}</td>
                         <td>{{ item.productCode }}</td>
                         <td>{{ item.productName }}</td>
-                        <td>{{ item.price }}</td>
+                        <td>{{ formatMoney(item.price) }}</td>
                         <td>{{ item.placeOrigin }}</td>
                         <td><img :src="item.image" alt="" style="width: 100px;height: 100px;"></td>
-                        <td>{{ item.quantity }}</td>
-                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.quantitySell }}</td>
+                        <td>{{ this.numberOfInventory }}</td>
                         <td>{{ item.quantity }}</td>
                         <td>{{ item.status }}</td>
                         <td>{{ item.description }}</td>
@@ -76,7 +76,7 @@ import AdminProductDetail from './AdminProductDetail.vue';
 import Resource from '../../js/gResource';
 import axios from 'axios';
 import ApiBrand from '../../js/apiBrand';
-import { formatDate } from '@/js/gCommon'
+import { formatDate, formatMoney } from '@/js/gCommon'
 import MLoading from '@/components/MLoading.vue';
 import { getStorage, ref, deleteObject } from "firebase/storage";
 import ApiProduct from '../../js/apiProduct';
@@ -117,6 +117,7 @@ export default {
             pageSize: 10,
             pageNumber: 1,
             showSeeMore: false,
+            numberOfInventory: 0, // Số lượng tồn kho
         }
     },
     /**
@@ -181,6 +182,10 @@ export default {
             }
         },
 
+        formatMoney(money) {
+            return formatMoney(money);
+        },
+
         filterAndPaging() {
             this.showLoading = true;
             setTimeout(() => {
@@ -192,8 +197,10 @@ export default {
                                 this.noData = false;
                                 this.dataProduct = res.data.data;
                                 this.showSeeMore = true;
-
                                 // console.log(res);
+                                res.data.data.forEach(element => {
+                                    this.numberOfInventory = element.quantity - element.quantitySell;
+                                });
                             } else {
                                 this.showLoading = false;
                                 this.noData = true;
@@ -232,7 +239,6 @@ export default {
      * Theo dõi sự thay đổi
      */
     watch: {
-
     }
 }
 </script>

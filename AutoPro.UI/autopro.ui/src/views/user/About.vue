@@ -3,6 +3,7 @@
         <TheHeader></TheHeader>
         <TheNavbar></TheNavbar>
         <div class="about">
+            <MLoading v-if="showLoading"></MLoading>
             <TheLineLink name="Giới thiệu"></TheLineLink>
             <div class="about1">
                 <div class="title-about">GIỚI THIỆU VỀ AUTOPRO</div>
@@ -73,6 +74,7 @@ import TheFooter from '@/layout/TheFooter.vue';
 import TheHeader from '@/layout/TheHeader.vue';
 import TheLineLink from '@/layout/TheLineLink.vue';
 import TheNavbar from '@/layout/TheNavbar.vue';
+import MLoading from '@/components/MLoading.vue';
 
 export default {
     /**
@@ -86,11 +88,11 @@ export default {
     /**
      * Component được sử dụng
      */
-    components: { TheHeader, TheNavbar, TheFooter, TheLineLink },
+    components: { TheHeader, TheNavbar, TheFooter, TheLineLink, MLoading },
     /**
      * Emit sự thay đổi
      */
-    emits: [""],
+    emits: ["update:showLoading"],
     directives: {
 
     },
@@ -99,7 +101,7 @@ export default {
      */
     data() {
         return {
-
+            showLoading: false,
         }
     },
     /**
@@ -109,12 +111,18 @@ export default {
 
     },
     created() {
-
+        this.showLoading = true;
+        setTimeout(async () => {
+            this.showLoading = false;
+        }, 500);
     },
     /**
      * Theo dõi sự thay đổi
      */
     watch: {
+
+    },
+    mounted() {
 
     }
 }

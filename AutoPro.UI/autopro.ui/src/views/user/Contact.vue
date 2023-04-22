@@ -3,6 +3,7 @@
         <TheHeader></TheHeader>
         <TheNavbar></TheNavbar>
         <div class="content">
+            <MLoading v-if="showLoading"></MLoading>
             <TheLineLink name="Liên hệ"></TheLineLink>
             <div class="content-contact">
                 <iframe
@@ -68,6 +69,7 @@ import TheLineLink from '@/layout/TheLineLink.vue';
 import TheNavbar from '@/layout/TheNavbar.vue';
 import MInput from '@/components/MInput.vue';
 import TheFooter from '@/layout/TheFooter.vue';
+import MLoading from '@/components/MLoading.vue';
 export default {
     /**
      * Tên component
@@ -80,7 +82,7 @@ export default {
     /**
      * Component được sử dụng
      */
-    components: { TheHeader, TheNavbar, TheLineLink, MInput, TheFooter },
+    components: { TheHeader, TheNavbar, TheLineLink, MInput, TheFooter, MLoading },
     /**
      * Emit sự thay đổi
      */
@@ -93,7 +95,7 @@ export default {
      */
     data() {
         return {
-
+            showLoading: false
         }
     },
     /**
@@ -103,7 +105,10 @@ export default {
 
     },
     created() {
-
+        this.showLoading = true;
+        setTimeout(async () => {
+            this.showLoading = false;
+        }, 500);
     },
     /**
      * Theo dõi sự thay đổi
@@ -114,4 +119,6 @@ export default {
 }
 </script>
 
-<style>@import url(../../css/contact.css);</style>
+<style>
+@import url(../../css/contact.css);
+</style>

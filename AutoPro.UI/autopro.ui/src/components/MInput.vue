@@ -58,5 +58,5 @@ export default {
 </script>
   
 <style>
-@import url(../css/input.css);
+@import url(../css/components/input.css);
 </style>

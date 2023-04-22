@@ -61,7 +61,7 @@ function formatDate(datetime) {
         if (datetime != null && datetime != undefined) {
             //Chuyển thành dữ liệu ngày tháng
             datetime = new Date(datetime);
-            let date = datetime.getDate() ;
+            let date = datetime.getDate();
             date = date < 10 ? `0${date}` : date;
             let month = datetime.getMonth() + 1;
             month = month < 10 ? `0${month}` : month;
@@ -71,6 +71,15 @@ function formatDate(datetime) {
             return "";
         }
     } catch (error) {
+        return "";
+    }
+}
+
+function formatMoney(money) {
+    try {
+        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(money);
+    } catch (error) {
+        console.log(error);
         return "";
     }
 }
@@ -108,4 +117,4 @@ function fetchAPI(url, method, fnCallBack, data, typeRes) {
         })
         .catch(err => console.log(err));
 }
-export {  clickoutside, formatDate, formatGender, fetchAPI };
+export { clickoutside, formatMoney, formatDate, formatGender, fetchAPI };

@@ -9,27 +9,11 @@
                 <i class="fa-solid fa-bars"></i>
                 <div class="nav-text" style="padding-left: 8px;">Danh mục sản phẩm</div>
                 <div class="sub-menu">
-                    <router-link to="/category/:id" class="no-link">
-                        <div class="nav-item-submenu">
-                            <div class="nav-text">Hệ thống gầm, phanh</div>
-                        </div>
-                    </router-link>
-                    <div class="nav-item-submenu">
-                        <div class="nav-text">Hệ thống động cơ, hộp số</div>
+                    <div class="nav-item-submenu" v-for="(item, index) in dataCategory" :key="index">
+                        <router-link :to="'/category/' + item.categoryID" class="no-link" style="cursor: pointer;width: 220px;height: 40px;line-height:40px;">
+                            <div class="nav-text">{{ item.categoryName }}</div>
+                        </router-link>
                     </div>
-                    <div class="nav-item-submenu">
-                        <div class="nav-text">Hệ thống điện, điều hòa</div>
-                    </div>
-                    <div class="nav-item-submenu">
-                        <div class="nav-text">Hệ thống làm mát, nhiên liệu</div>
-                    </div>
-                    <div class="nav-item-submenu">
-                        <div class="nav-text">Hệ thống thân, vỏ , gương đèn</div>
-                    </div>
-                    <div class="nav-item-submenu">
-                        <div class="nav-text">Nội thất ,phụ kiện </div>
-                    </div>
-
                 </div>
             </div>
             <router-link to="/about" class="nav-item">Giới thiệu</router-link>
@@ -50,6 +34,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+import ApiProductCategory from '../js/apiProductCategory';
 export default {
     /**
      * Tên component
@@ -72,13 +58,28 @@ export default {
      * Data
      */
     data() {
-        return {};
+        return {
+            dataCategory: {},
+        };
     },
     /**
      * Phương thức
      */
-    methods: {},
-    created() { },
+    methods: {
+        getAllCategory() {
+            axios.get(ApiProductCategory.getAll())
+                .then((res) => {
+                    if (res.status == 200) {
+                        this.dataCategory = res.data;
+                    } else {
+                        this.dataCategory = null;
+                    }
+                })
+        }
+    },
+    created() {
+        this.getAllCategory();
+    },
     /**
      * Theo dõi sự thay đổi
      */

@@ -30,6 +30,7 @@ namespace AutoPro.Common.Entities
 
         [ProductImageNotEmpty]
         public string? Image { get; set; }
+        public int QuantitySell { get; set; }
 
         [ProductQuantityNotEmpty]
         public int Quantity { get; set; }
@@ -38,6 +39,10 @@ namespace AutoPro.Common.Entities
 
         public int BrandID { get; set; }
 
+        public string? BrandName { get; set; }
+
         public int CategoryID { get; set; }
+
+        public string? CategoryName { get; set; }
     }
 }

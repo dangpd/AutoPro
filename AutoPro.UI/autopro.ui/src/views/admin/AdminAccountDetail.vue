@@ -66,17 +66,22 @@
           <div class="acol1-text">
             Ngày sinh :
           </div>
-          <MInput type="text" v-model="user.dateOfBirth"
-            styleInput="width: calc(250px); height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;margin-right:15px;">
-          </MInput>
+          <MDatePicker v-model="user.dateOfBirth" ref="dateOfBirth"
+            styleVal="width: calc(250px); height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;margin-right:15px;">
+          </MDatePicker>
         </div>
         <div class="acol12" style="margin: 15px 0;">
           <div class="acol2-text">
             Giới tính :
           </div>
-          <MInput type="text" v-model="user.gender"
+          <MRadio :data="[
+              { Gender: 'Nam', GenderValue: 0 },
+              { Gender: 'Nữ', GenderValue: 1 },
+              { Gender: 'Khác', GenderValue: 2 },
+            ]" v-model="user.gender"></MRadio>
+          <!-- <MInput type="text" v-model="user.gender"
             styleInput="width: calc(250px); height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;margin-right:15px;">
-          </MInput>
+          </MInput> -->
         </div>
         <div class="acol11" style="margin:15px 0">
           <div class="acol1-text">
@@ -136,6 +141,8 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
+import MDatePicker from '@/components/MDatePicker.vue';
+import MRadio from '@/components/MRadio.vue';
 export default {
   /**
    * Tên component
@@ -148,7 +155,7 @@ export default {
   /**
    * Component được sử dụng
    */
-  components: { MInput, MLoading },
+  components: { MInput, MLoading, MDatePicker, MRadio },
   /**
    * Emit sự thay đổi
    */
@@ -161,7 +168,6 @@ export default {
     return {
       showLoading: false,
       user: {},
-      title: '',
       title: '',
       srcImage: "",
       ImageNone: false
