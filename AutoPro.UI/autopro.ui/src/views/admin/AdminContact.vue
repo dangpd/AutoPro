@@ -98,7 +98,6 @@ import MInput from '@/components/MInput.vue';
 import AdminContactDetail from './AdminContactDetail.vue';
 import Resource from '../../js/gResource';
 import axios from 'axios';
-import ApiBrand from '../../js/apiBrand';
 import { formatDate } from '@/js/gCommon'
 import MLoading from '@/components/MLoading.vue';
 import { getStorage, ref, deleteObject } from "firebase/storage";
@@ -417,6 +416,7 @@ export default {
         //Bắt sự kiện thay đổi số lượng bản ghi trong 1 trang
         pageSize() {
             try {
+                this.pageChoice = 1;
                 this.pageSize = this.pageSize;
                 this.filterAndPaging();
             } catch (error) {

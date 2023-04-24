@@ -270,7 +270,9 @@ export default {
             this.user = res.data;
             // console.log(this.user);
             this.srcImage = res.data.image;
-            this.ImageNone = true;
+            if (this.srcImage) {
+              this.ImageNone = true;
+            }
             // console.log(this.srcImage);
           })
       }, 1000)

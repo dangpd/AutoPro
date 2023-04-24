@@ -58,32 +58,34 @@ const routes = [
     { path: '/account/sign-up', component: SignUp },
     { path: '/account/register', component: Register },
     { path: '/account/forgot-password', component: ForgotPassword },
+    // { path: '/cart', name: 'cart', component: Cart, props: { productCart: {} } },
+    // { path: '/cart', name: 'cart', component: Cart, props: true },
     { path: '/cart', component: Cart },
     { path: '/order', component: Order },
     { path: '/orderplaced', component: OrderPlaced },
-    { path: '/product/:id', component: DetailsProduct },
-    { path: '/news/:id', component: DetailsNews },
-    { path: '/user/:id', component: DetailsUser },
+    { path: '/product/:id', name: 'product', component: DetailsProduct, props: true },
+    { path: '/news/:id', name: 'news', component: DetailsNews, props: true },
+    { path: '/user/:id', name: 'user', component: DetailsUser, props: true },
     { path: '/list-product-favorite', component: FavoriteProduct },
-    { path: '/category/:id', component: ProductByCategory },
+    { path: '/category/:id', name: 'category', component: ProductByCategory, props: true },
     { path: '/purchase', component: Purchase },
 
     //Admin
-    { 
-        path: '/admin', 
+    {
+        path: '/admin',
         component: AdminHome,
         children:
-        [
-            {path: '/admin/account',component:AdminAccount},
-            {path: '/admin/brand',component:AdminBrand},
-            {path: '/admin/category',component:AdminCategory},
-            {path: '/admin/contact',component:AdminContact},
-            {path: '/admin/order',component:AdminOrder},
-            {path: '/admin/news',component:AdminNews},
-            {path: '/admin/product',component:AdminProduct},
-            {path: '/admin/dashload',component:AdminDashload},
-            {path: '/admin/revenue-statistics',component:AdminRevenueStatistics},
-        ]
+            [
+                { path: '/admin/account', component: AdminAccount },
+                { path: '/admin/brand', component: AdminBrand },
+                { path: '/admin/category', component: AdminCategory },
+                { path: '/admin/contact', component: AdminContact },
+                { path: '/admin/order', component: AdminOrder },
+                { path: '/admin/news', component: AdminNews },
+                { path: '/admin/product', component: AdminProduct },
+                { path: '/admin/dashload', component: AdminDashload },
+                { path: '/admin/revenue-statistics', component: AdminRevenueStatistics },
+            ]
     },
 
     // Error 403 404

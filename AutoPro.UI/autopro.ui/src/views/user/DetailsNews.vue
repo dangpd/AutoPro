@@ -3,15 +3,16 @@
         <TheHeader></TheHeader>
         <TheNavbar></TheNavbar>
         <div class="content">
-            <TheLineLink name="Tin tức" detail="/ Chi tiết tin tức"></TheLineLink>
-                <div class="details-news-title">Tiêu đề tin tức</div>
-                <div class="details-news-time">Thời gian</div>
-                <div class="details-news-image">
-                    <img src="../../assets/Image/giamsoc.jpg" alt="">
-                </div>
-                <div class="details-news-content">Chi tiết nội dung</div>
+            <TheLineLink name="Tin tức" :detail="'/ ' + news.newsTitle"></TheLineLink>
+            <div class="details-news-title">Tiêu đề: {{ news.newsTitle }}</div>
+            <div class="details-news-time">Ngày tạo: {{ formatDate(news.newsDate) }}</div>
+            <div class="details-news-image">
+                <img :src="news.image" alt="">
+            </div>
+            <div class="details-news-content">Nội dung: {{ news.content }}</div>
         </div>
         <TheFooter></TheFooter>
+        <MLoading v-if="showLoading"></MLoading>
     </div>
 </template>
 
@@ -20,7 +21,16 @@ import TheFooter from '@/layout/TheFooter.vue';
 import TheHeader from '@/layout/TheHeader.vue';
 import TheLineLink from '@/layout/TheLineLink.vue';
 import TheNavbar from '@/layout/TheNavbar.vue';
-
+import {
+    getDownloadURL,
+    getStorage,
+    ref,
+    uploadBytesResumable,
+} from "firebase/storage";
+import MLoading from '@/components/MLoading.vue';
+import ApiNews from '../../js/apiNews';
+import axios from 'axios';
+import { formatDate } from '@/js/gCommon'
 export default {
     /**
      * Tên component
@@ -29,11 +39,16 @@ export default {
     /**
      * Hứng nhận
      */
-    props: [""],
+    props: {
+        id: {
+            type: String,
+            required: true
+        }
+    },
     /**
      * Component được sử dụng
      */
-    components: { TheHeader, TheNavbar, TheFooter, TheLineLink },
+    components: { TheHeader, TheNavbar, TheFooter, TheLineLink, MLoading },
     /**
      * Emit sự thay đổi
      */
@@ -46,16 +61,40 @@ export default {
      */
     data() {
         return {
-
+            news: {},
+            showLoading: false,
         }
     },
     /**
      * Phương thức
      */
     methods: {
-
+        formatDate(datetime) {
+            try {
+                return formatDate(datetime);
+            } catch (error) {
+                console.log(error);
+            }
+        },
     },
     created() {
+        // Khởi tạo lấy giá trị id truyền vào
+        if (this.id) {
+            // Bật loadding
+            this.showLoading = true;
+            setTimeout(async () => {
+                //Lấy dữ liệu
+                await axios.get(ApiNews.getNewsByID(this.id))
+                    .then((res) => {
+                        this.showLoading = false;
+                        this.news = res.data;
+                        // console.log("news", this.news);
+                        // console.log(res);
+                    })
+            }, 1000)
+        }
+    },
+    mounted() {
 
     },
     /**

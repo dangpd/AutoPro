@@ -420,6 +420,9 @@ export default {
         //Bắt sự kiện thay đổi số lượng bản ghi trong 1 trang
         pageSize() {
             try {
+                if (this.pageChoice > (this.totalRecord / this.pageSize)) {
+                    this.pageChoice = 1;
+                }
                 this.pageSize = this.pageSize;
                 this.filterAndPaging();
             } catch (error) {

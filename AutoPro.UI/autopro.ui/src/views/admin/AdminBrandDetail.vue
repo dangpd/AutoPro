@@ -210,7 +210,9 @@ export default {
                         this.showLoading = false;
                         this.brand = res.data;
                         this.srcImage = res.data.image;
-                        this.ImageNone = true;
+                        if (this.srcImage) {
+                            this.ImageNone = true;
+                        }
                         // console.log(this.srcImage);
                     })
             }, 1000)

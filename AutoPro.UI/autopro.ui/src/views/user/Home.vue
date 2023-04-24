@@ -20,240 +20,56 @@
       <div class="new-products-imported">
         <div class="title">SẢN PHẨM MỚI NHẬP VỀ</div>
         <div class="list-product-impoted">
-          <router-link to="/product/:id" style="text-decoration: none;color: black;">
-            <div class="product">
-              <div class="product-image">
-                <img src="../../assets/Image/giamsoc.jpg" alt="">
-                <div class="favourtive">
-                  <i class="fa-solid fa-heart"></i>
+          <div v-for="(item, index) in dataProductNews" :key="index"
+            :class="{ 'row-selected': rowSelected == item.productID }">
+            <!-- <router-link :to="'/product/' + item.productID" style="text-decoration: none;color: black;"> -->
+            <div>
+              <div class="product">
+                <div class="product-image">
+                  <img :src="item.image" alt="">
+                  <div class="favourtive" @click="favoriteProduct(ỉtem)">
+                    <i class="fa-solid fa-heart"></i>
+                  </div>
+                </div>
+                <div class="product-name">{{ item.productName }}</div>
+                <div class="price">{{ item.price }}</div>
+                <div class="product-buttom">
+                  <div class="product-detail" @click="detailProduct(item.productID)">Xem chi tiết</div>
+                  <div class="add-cart" @click="addCart(item)">Thêm vào giỏ hàng</div>
                 </div>
               </div>
-              <div class="product-name">Lốc gió</div>
-              <div class="price">Giá : 330.000Vnd</div>
-              <div class="product-buttom">
-                <div class="product-detail">Xem chi tiết</div>
-                <div class="add-cart">Thêm vào giỏ hàng</div>
-              </div>
-            </div>
-          </router-link>
-          <div class="product">
-            <div class="product-image">
-              <img src="../../assets/Image/giamsoc.jpg" alt="">
-              <div class="favourtive">
-                <i class="fa-solid fa-heart"></i>
-              </div>
-            </div>
-            <div class="product-name">Lốc gió</div>
-            <div class="price">Giá : 330.000Vnd</div>
-            <div class="product-buttom">
-              <div class="product-detail">Xem chi tiết</div>
-              <div class="add-cart">Thêm vào giỏ hàng</div>
-            </div>
-          </div>
-          <div class="product">
-            <div class="product-image">
-              <img src="../../assets/Image/giamsoc.jpg" alt="">
-              <div class="favourtive">
-                <i class="fa-solid fa-heart"></i>
-              </div>
-            </div>
-            <div class="product-name">Lốc gió</div>
-            <div class="price">Giá : 330.000Vnd</div>
-            <div class="product-buttom">
-              <div class="product-detail">Xem chi tiết</div>
-              <div class="add-cart">Thêm vào giỏ hàng</div>
-            </div>
-          </div>
-          <div class="product">
-            <div class="product-image">
-              <img src="../../assets/Image/giamsoc.jpg" alt="">
-              <div class="favourtive">
-                <i class="fa-solid fa-heart"></i>
-              </div>
-            </div>
-            <div class="product-name">Lốc gió</div>
-            <div class="price">Giá : 330.000Vnd</div>
-            <div class="product-buttom">
-              <div class="product-detail">Xem chi tiết</div>
-              <div class="add-cart">Thêm vào giỏ hàng</div>
-            </div>
-          </div>
-          <div class="product">
-            <div class="product-image">
-              <img src="../../assets/Image/giamsoc.jpg" alt="">
-              <div class="favourtive">
-                <i class="fa-solid fa-heart"></i>
-              </div>
-            </div>
-            <div class="product-name">Lốc gió</div>
-            <div class="price">Giá : 330.000Vnd</div>
-            <div class="product-buttom">
-              <div class="product-detail">Xem chi tiết</div>
-              <div class="add-cart">Thêm vào giỏ hàng</div>
-            </div>
-          </div>
-          <div class="product">
-            <div class="product-image">
-              <img src="../../assets/Image/giamsoc.jpg" alt="">
-              <div class="favourtive">
-                <i class="fa-solid fa-heart"></i>
-              </div>
-            </div>
-            <div class="product-name">Lốc gió</div>
-            <div class="price">Giá : 330.000Vnd</div>
-            <div class="product-buttom">
-              <div class="product-detail">Xem chi tiết</div>
-              <div class="add-cart">Thêm vào giỏ hàng</div>
-            </div>
-          </div>
-          <div class="product">
-            <div class="product-image">
-              <img src="../../assets/Image/giamsoc.jpg" alt="">
-              <div class="favourtive">
-                <i class="fa-solid fa-heart"></i>
-              </div>
-            </div>
-            <div class="product-name">Lốc gió</div>
-            <div class="price">Giá : 330.000Vnd</div>
-            <div class="product-buttom">
-              <div class="product-detail">Xem chi tiết</div>
-              <div class="add-cart">Thêm vào giỏ hàng</div>
-            </div>
-          </div>
-          <div class="product">
-            <div class="product-image">
-              <img src="../../assets/Image/giamsoc.jpg" alt="">
-              <div class="favourtive">
-                <i class="fa-solid fa-heart"></i>
-              </div>
-            </div>
-            <div class="product-name">Lốc gió</div>
-            <div class="price">Giá : 330.000Vnd</div>
-            <div class="product-buttom">
-              <div class="product-detail">Xem chi tiết</div>
-              <div class="add-cart">Thêm vào giỏ hàng</div>
+              <!-- </router-link> -->
             </div>
           </div>
         </div>
-        <div class="see-more">Xem thêm</div>
+        <div class="see-more" @click="seeMoreImported">Xem thêm</div>
       </div>
       <div class="new-products-imported">
         <div class="title">PHỤ TÙNG BÁN NHIỀU NHẤT</div>
         <div class="list-product-impoted">
-          <div class="product">
-            <div class="product-image">
-              <img src="../../assets/Image/giamsoc.jpg" alt="">
-              <div class="favourtive">
-                <i class="fa-solid fa-heart"></i>
+          <div v-for="(item, index) in dataProductNews" :key="index"
+            :class="{ 'row-selected': rowSelected == item.productID }">
+            <!-- <router-link :to="'/product/' + item.productID" style="text-decoration: none;color: black;"> -->
+            <div>
+              <div class="product">
+                <div class="product-image">
+                  <img :src="item.image" alt="">
+                  <div class="favourtive">
+                    <i class="fa-solid fa-heart"></i>
+                  </div>
+                </div>
+                <div class="product-name">{{ item.productName }}</div>
+                <div class="price">{{ item.price }}</div>
+                <div class="product-buttom">
+                  <div class="product-detail" @click="detailProduct(item.productID)">Xem chi tiết</div>
+                  <div class="add-cart" @click="addCart(item)">Thêm vào giỏ hàng</div>
+                </div>
               </div>
             </div>
-            <div class="product-name">Lốc gió</div>
-            <div class="price">Giá : 330.000Vnd</div>
-            <div class="product-buttom">
-              <div class="product-detail">Xem chi tiết</div>
-              <div class="add-cart">Thêm vào giỏ hàng</div>
-            </div>
-          </div>
-          <div class="product">
-            <div class="product-image">
-              <img src="../../assets/Image/giamsoc.jpg" alt="">
-              <div class="favourtive">
-                <i class="fa-solid fa-heart"></i>
-              </div>
-            </div>
-            <div class="product-name">Lốc gió</div>
-            <div class="price">Giá : 330.000Vnd</div>
-            <div class="product-buttom">
-              <div class="product-detail">Xem chi tiết</div>
-              <div class="add-cart">Thêm vào giỏ hàng</div>
-            </div>
-          </div>
-          <div class="product">
-            <div class="product-image">
-              <img src="../../assets/Image/giamsoc.jpg" alt="">
-              <div class="favourtive">
-                <i class="fa-solid fa-heart"></i>
-              </div>
-            </div>
-            <div class="product-name">Lốc gió</div>
-            <div class="price">Giá : 330.000Vnd</div>
-            <div class="product-buttom">
-              <div class="product-detail">Xem chi tiết</div>
-              <div class="add-cart">Thêm vào giỏ hàng</div>
-            </div>
-          </div>
-          <div class="product">
-            <div class="product-image">
-              <img src="../../assets/Image/giamsoc.jpg" alt="">
-              <div class="favourtive">
-                <i class="fa-solid fa-heart"></i>
-              </div>
-            </div>
-            <div class="product-name">Lốc gió</div>
-            <div class="price">Giá : 330.000Vnd</div>
-            <div class="product-buttom">
-              <div class="product-detail">Xem chi tiết</div>
-              <div class="add-cart">Thêm vào giỏ hàng</div>
-            </div>
-          </div>
-          <div class="product">
-            <div class="product-image">
-              <img src="../../assets/Image/giamsoc.jpg" alt="">
-              <div class="favourtive">
-                <i class="fa-solid fa-heart"></i>
-              </div>
-            </div>
-            <div class="product-name">Lốc gió</div>
-            <div class="price">Giá : 330.000Vnd</div>
-            <div class="product-buttom">
-              <div class="product-detail">Xem chi tiết</div>
-              <div class="add-cart">Thêm vào giỏ hàng</div>
-            </div>
-          </div>
-          <div class="product">
-            <div class="product-image">
-              <img src="../../assets/Image/giamsoc.jpg" alt="">
-              <div class="favourtive">
-                <i class="fa-solid fa-heart"></i>
-              </div>
-            </div>
-            <div class="product-name">Lốc gió</div>
-            <div class="price">Giá : 330.000Vnd</div>
-            <div class="product-buttom">
-              <div class="product-detail">Xem chi tiết</div>
-              <div class="add-cart">Thêm vào giỏ hàng</div>
-            </div>
-          </div>
-          <div class="product">
-            <div class="product-image">
-              <img src="../../assets/Image/giamsoc.jpg" alt="">
-              <div class="favourtive">
-                <i class="fa-solid fa-heart"></i>
-              </div>
-            </div>
-            <div class="product-name">Lốc gió</div>
-            <div class="price">Giá : 330.000Vnd</div>
-            <div class="product-buttom">
-              <div class="product-detail">Xem chi tiết</div>
-              <div class="add-cart">Thêm vào giỏ hàng</div>
-            </div>
-          </div>
-          <div class="product">
-            <div class="product-image">
-              <img src="../../assets/Image/giamsoc.jpg" alt="">
-              <div class="favourtive">
-                <i class="fa-solid fa-heart"></i>
-              </div>
-            </div>
-            <div class="product-name">Lốc gió</div>
-            <div class="price">Giá : 330.000Vnd</div>
-            <div class="product-buttom">
-              <div class="product-detail">Xem chi tiết</div>
-              <div class="add-cart">Thêm vào giỏ hàng</div>
-            </div>
+            <!-- </router-link> -->
           </div>
         </div>
-        <div class="see-more">Xem thêm</div>
+        <div class="see-more" @click="seeMoreImported2">Xem thêm</div>
       </div>
     </div>
     <TheFooter></TheFooter>
@@ -266,6 +82,7 @@ import TheHeader from '@/layout/TheHeader.vue';
 import TheNavbar from '@/layout/TheNavbar.vue';
 import axios from 'axios';
 import ApiBrand from '../../js/apiBrand';
+import ApiProduct from '../../js/apiProduct';
 export default {
   /**
    * Tên component
@@ -292,14 +109,21 @@ export default {
   data() {
     return {
       showPopup: false,
+      role: '',
       id: '',
       dataBrand: {},
       rowSelected: -1,
       showLoading: false,
       textSearch: "",
-      pageSize: 10,
+      pageSize: 8,
       pageNumber: 1,
       showSeeMore: false,
+      dataProductNews: {},
+      productCart: {
+        quantitys: ''
+      },
+      number: 1,
+      productFavorite: {},
     }
   },
   mounted() {
@@ -318,15 +142,65 @@ export default {
           }
         })
     },
+
+    getProductNews() {
+      this.showLoading = true;
+      setTimeout(() => {
+        axios.get(ApiProduct.filterProduct('', this.pageSize, this.pageNumber))
+          .then((res) => {
+            if (res.status == 200) {
+              this.showLoading = false;
+              this.dataProductNews = res.data.data;
+            } else {
+              this.showLoading = false;
+              this.dataProductNews = null;
+            }
+          })
+      }, 500);
+    },
+
+    seeMoreImported() {
+      this.pageSize = this.pageSize + 8;
+      this.getProductNews();
+    },
+
+    seeMoreImported2() {
+      this.pageSize = this.pageSize + 8;
+      this.getProductNews();
+    },
+
+    detailProduct(item) {
+      this.$router.push({ name: 'product', params: { id: item } })
+    },
+
+    addCart(data) {
+      this.productCart = data;
+      this.productCart.quantitys = this.number;
+      // console.log(this.productCart);
+      this.$store.commit('addToCart', this.productCart);
+      this.$router.push('/cart');
+    },
+
+    favoriteProduct(data) {
+      if (!this.role) {
+        alert("Bạn chưa đăng nhập");
+      } else {
+        this.productFavorite = data;
+        this.$store.commit('addToCart', this.productFavorite);
+      }
+    }
   },
+
   created() {
     const role = localStorage.getItem("Role");
+    this.role = role;
     if (role == "Admin") {
       this.$router.push('/forbidden');
     }
     this.showLoading = true;
     setTimeout(() => {
       this.getAllBrand();
+      this.getProductNews();
       this.showLoading = false;
     }, 1000)
   },

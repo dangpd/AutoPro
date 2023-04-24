@@ -106,6 +106,8 @@
   height: 40px;
   border-top: 1px solid #bbb;
   border-bottom: 1px solid #bbb;
+  min-height: 100px;
+  overflow-y: auto;
 }
 
 .table-admin tbody tr:hover {

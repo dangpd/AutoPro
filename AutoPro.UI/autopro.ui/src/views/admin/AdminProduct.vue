@@ -151,7 +151,7 @@ export default {
             pageSize: 10,
             pageNumber: 1,
             showSeeMore: false,
-            numberOfInventory: 0, // Số lượng tồn kho
+            numberOfInventory: '', // Số lượng tồn kho
 
             showTablePaging: false,
 
@@ -246,10 +246,13 @@ export default {
                                 this.noData = false;
                                 this.dataProduct = res.data.data;
                                 this.showSeeMore = true;
-                                // console.log(res);
-                                res.data.data.forEach(element => {
-                                    this.numberOfInventory = element.quantity - element.quantitySell;
-                                });
+                                console.log(res.data.data.length);
+                                for (let i = 0; i < res.data.data.length; i++) {
+                                    this.numberOfInventory = res.data.data[i].quantity - res.data.data[i].quantitySell;
+                                }
+                                // res.data.data.forEach(element => {
+                                //     this.numberOfInventory = element.quantity[i] - element.quantitySell[i];
+                                // });
 
                                 this.showTablePaging = true;
                                 // Gán dữ liệu số trang trả về bằng Data trả về
@@ -413,6 +416,9 @@ export default {
      * Theo dõi sự thay đổi
      */
     watch: {
+        numberOfInventory(newVal){
+            this.numberOfInventory = newVal;
+        },
         // Thực hiện reload table khi dữ liệu trong table thay đổi
         reloadTable(newVal) {
             try {
@@ -437,6 +443,9 @@ export default {
         //Bắt sự kiện thay đổi số lượng bản ghi trong 1 trang
         pageSize() {
             try {
+                if (this.pageChoice > (this.totalRecord / this.pageSize)) {
+                    this.pageChoice = 1;
+                }
                 this.pageSize = this.pageSize;
                 this.filterAndPaging();
             } catch (error) {

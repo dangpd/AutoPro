@@ -24,10 +24,10 @@
                     <tr>
                         <th style="width: 50px;padding-left: 10px;">STT</th>
                         <th style="width: 250px;">Tiêu đề tin tức</th>
-                        <th style="width: 100px;">Ngày tạo</th>
                         <th style="width: 130px;">Hình ảnh</th>
                         <th style="width: 200px;">Nội dung ngắn</th>
                         <th style="width: 400px;">Nội dung chính</th>
+                        <th style="width: 100px;">Ngày tạo</th>
                         <th>Thao tác</th>
                     </tr>
                 </thead>
@@ -38,10 +38,10 @@
                             }">
                         <td style="padding-left: 10px;text-align:center">{{ index + 1 }}</td>
                         <td>{{ item.newsTitle }}</td>
-                        <td>{{ formatDate(item.newsDate) }}</td>
                         <td><img :src="item.image" alt="" style="width: 100px;height: 100px;"></td>
                         <td>{{ item.contentShorted }} </td>
-                        <td>{{ item.content }}</td>
+                        <td style= "height: 100px;word-wrap: break-word;">{{ item.content }}</td>
+                        <td>{{ formatDate(item.newsDate) }}</td>
                         <td>
                             <div class="tbmethods">
                                 <button style="margin-left: 10px;" @click="deleteItem(item)">Xóa</button>
@@ -418,6 +418,9 @@ export default {
         //Bắt sự kiện thay đổi số lượng bản ghi trong 1 trang
         pageSize() {
             try {
+                if (this.pageChoice > (this.totalRecord / this.pageSize)) {
+                    this.pageChoice = 1;
+                }
                 this.pageSize = this.pageSize;
                 this.filterAndPaging();
             } catch (error) {

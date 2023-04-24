@@ -18,13 +18,22 @@
     width: 150px;
 }
 
-.details-user-update{
+.details-user-update {
     width: 700px;
     text-align: center;
 }
 
-.details-user-update button{
+.details-user-update button {
     padding: 8px;
     border: 1px solid #bbb;
     border-radius: 4px;
+}
+
+.details-form-input {
+    display: flex;
+    width: 100%;
+}
+
+.udetails-user-firstname{
+    width: 400px;
 }

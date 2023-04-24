@@ -25,19 +25,19 @@
                         <h6 style="font-weight: 600;">Email cho chúng tôi</h6>
                         <div class="contact-name">
                             <div class="text">Họ và tên:</div>
-                            <MInput type="text"
+                            <MInput type="text" v-model="contact.contactName"
                                 styleInput="width: 300px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                             </MInput>
                         </div>
                         <div class="contact-email">
                             <div class="text">Email :</div>
-                            <MInput type="email"
+                            <MInput type="email" v-model="contact.contactEmail"
                                 styleInput="width: 300px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                             </MInput>
                         </div>
                         <div class="contact-phone">
                             <div class="text">Số điện thoại:</div>
-                            <MInput type="text"
+                            <MInput type="text" v-model="contact.contactPhone"
                                 styleInput="width: 300px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                             </MInput>
                         </div>
@@ -45,14 +45,12 @@
                     <div style="margin-top: 26px; padding-left: 8px;">
                         <div class="contact-noidung">
                             <div class="text">Nội dung:</div>
-                            <MInput type="text"
+                            <MInput type="text" v-model="contact.contactContent"
                                 styleInput="width: 400px; height: 90px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                             </MInput>
                         </div>
-                        <div class="contact-submit">
-                            <MInput type="submit"
-                                styleInput="width: 50px; height: 36px; font-size:13px;margin-top:8px;margin-left:350px">
-                            </MInput>
+                        <div class="contact-submit" @click="sendContact">
+                            <button>Gửi</button>
                         </div>
                     </div>
                 </div>
@@ -70,6 +68,11 @@ import TheNavbar from '@/layout/TheNavbar.vue';
 import MInput from '@/components/MInput.vue';
 import TheFooter from '@/layout/TheFooter.vue';
 import MLoading from '@/components/MLoading.vue';
+import Resource from '../../js/gResource';
+import axios from 'axios';
+import { formatDate } from '@/js/gCommon'
+import { getStorage, ref, deleteObject } from "firebase/storage";
+import ApiContact from '../../js/apiContact';
 export default {
     /**
      * Tên component
@@ -95,14 +98,30 @@ export default {
      */
     data() {
         return {
-            showLoading: false
+            showLoading: false,
+            contact: {},
         }
     },
     /**
      * Phương thức
      */
     methods: {
-
+        sendContact() {
+            this.showLoading = true;
+            setTimeout(() => {
+                this.showLoading = false;
+                axios.post(ApiContact.addContact(), this.contact)
+                    .then((res) => {
+                        if (res.status == 201) {
+                            alert("Gửi thành công");
+                            this.contact = {};
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    })
+            }, 500);
+        }
     },
     created() {
         this.showLoading = true;

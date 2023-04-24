@@ -18,14 +18,6 @@
                         styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                     </MInput>
                 </div>
-                <div class="acol2">
-                    <div class="acol2-text">
-                        Ngày tạo :
-                    </div>
-                    <MInput type="date" v-model="news.newsDate"
-                        styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
-                    </MInput>
-                </div>
             </div>
             <div class="agroup1">
                 <div class="acol1">
@@ -40,8 +32,7 @@
                     <div class="acol1-text">
                         Nội dung :
                     </div>
-                    <MInput type="text" v-model="news.content"
-                        styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
+                    <MInput type="text" v-model="news.content" styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;">
                     </MInput>
                 </div>
             </div>
@@ -75,7 +66,6 @@
 <script>
 import MInput from '@/components/MInput.vue'; import Resource from '../../js/gResource';
 import axios from 'axios';
-import ApiBrand from '../../js/apiBrand';
 import {
     getDownloadURL,
     getStorage,
@@ -84,6 +74,7 @@ import {
 } from "firebase/storage";
 import MLoading from '@/components/MLoading.vue';
 import ApiNews from '../../js/apiNews';
+import MDatePicker from '@/components/MDatePicker.vue';
 export default {
     /**
      * Tên component
@@ -96,7 +87,7 @@ export default {
     /**
      * Component được sử dụng
      */
-    components: { MInput, MLoading },
+    components: { MInput, MLoading, MDatePicker },
     /**
      * Emit sự thay đổi
      */
@@ -107,7 +98,9 @@ export default {
      */
     data() {
         return {
-            news: {},
+            news: {
+                newsDate: new Date(),
+            },
             showLoading: false,
             title: '',
             srcImage: "",
@@ -220,7 +213,9 @@ export default {
                         this.showLoading = false;
                         this.news = res.data;
                         this.srcImage = res.data.image;
-                        this.ImageNone = true;
+                        if (this.srcImage) {
+                            this.ImageNone = true;
+                        }
                         // console.log(this.srcImage);
                     })
             }, 1000)

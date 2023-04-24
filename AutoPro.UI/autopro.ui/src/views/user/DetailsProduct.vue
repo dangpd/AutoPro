@@ -3,30 +3,30 @@
     <TheHeader></TheHeader>
     <TheNavbar></TheNavbar>
     <div class="content">
-      <TheLineLink name="Sản phẩm" detail="/ Chi tiết sản phẩm"></TheLineLink>
+      <TheLineLink name="Sản phẩm" :detail="'/ ' + product.productName"></TheLineLink>
       <div class="details-product">
         <div class="details-product-image">
-          <img src="../../assets/Image/giamsoc.jpg" alt="" />
+          <img :src="product.image" alt="" />
         </div>
         <div class="details-product-right">
           <div class="details-product-name">
-            Giảm sóc akdnj sdjnc sdfkjn sdfkjnsd sdfkjn
+            Tên sản phẩm: {{ product.productName }}
           </div>
-          <div class="details-product-code">Mã sản phẩm : 1234567</div>
-          <div class="details-product-brand">Thương hiệu : Toyata</div>
-          <div class="details-product-price">Giá tièn : 900.000 vnd</div>
+          <div class="details-product-code">Mã sản phẩm: {{ product.productCode }}</div>
+          <div class="details-product-brand">Thương hiệu: {{ brand.brandName }}</div>
+          <div class="details-product-brand">Xuất xứ: {{ product.placeOrigin }}</div>
+          <div class="details-product-price">Giá tiền: {{ formatMoney(product.price) }} </div>
+          <div class="details-product-sell">Đã bán: {{ product.quantitySell }}</div>
           <div class="details-product-status">Tình trạng : Còn hàng</div>
           <div class="details-product-number">
-            <i class="fa-solid fa-minus"></i>
-            <MInput style="width: 50px; border-radius: 1px"></MInput>
-            <i class="fa-solid fa-plus"></i>
+            <i class="fa-solid fa-minus" style="cursor: pointer;" @click="minusQuantity"></i>
+            <MInput style="width: 50px; border-radius: 1px" v-model="this.number"></MInput>
+            <i class="fa-solid fa-plus" style="cursor: pointer;" @click="addQuantity"></i>
           </div>
-          <div class="details-product-order">
-            <router-link to="/cart">
-              <button>Đặt hàng</button>
-            </router-link>
+          <div class="details-product-order" @click="addCart">
+            <button>Đặt hàng</button>
           </div>
-          <div class="details-product-describe">Mô tả</div>
+          <div class="details-product-describe">Mô tả : {{ product.description }}</div>
           <div class="details-product-commit">
             Thông tin thêm
             <p>
@@ -55,95 +55,53 @@
               </div>
             </div>
           </div>
-          <!-- <div class="write-comment">
-            <div style="display: flex;align-items: center;">
-              Viết đánh giá
-              <MInput></MInput>
-            </div>
-            <button>Gửi</button>
-          </div> -->
         </div>
       </div>
       <div class="line-footer"></div>
       <div class="new-products-imported">
         <div class="title">SẢN PHẨM TƯƠNG TỰ</div>
         <div class="list-product-impoted">
-          <router-link
-            to="/product/:id"
-            style="text-decoration: none; color: black"
-          >
-            <div class="product">
-              <div class="product-image">
-                <img src="../../assets/Image/giamsoc.jpg" alt="" />
-                <div class="favourtive">
-                  <i class="fa-solid fa-heart"></i>
+          <div v-for="(item, index) in dataProductNews" :key="index">
+            <div>
+              <!-- <router-link :to="'/product/' + item.productID" style="text-decoration: none;color: black;"
+              @click="detailProduct(item.productID)"> -->
+              <div class="product">
+                <div class="product-image">
+                  <img :src="item.image" alt="">
+                  <div class="favourtive">
+                    <i class="fa-solid fa-heart"></i>
+                  </div>
+                </div>
+                <div class="product-name">{{ item.productName }}</div>
+                <div class="price">{{ item.price }}</div>
+                <div class="product-buttom">
+                  <div class="product-detail" @click="detailProduct(item.productID)">Xem chi tiết</div>
+                  <div class="add-cart" @click="addCart2(item)">Thêm vào giỏ hàng</div>
                 </div>
               </div>
-              <div class="product-name">Lốc gió</div>
-              <div class="price">Giá : 330.000Vnd</div>
-              <div class="product-buttom">
-                <div class="product-detail">Xem chi tiết</div>
-                <div class="add-cart">Thêm vào giỏ hàng</div>
-              </div>
-            </div>
-          </router-link>
-          <div class="product">
-            <div class="product-image">
-              <img src="../../assets/Image/giamsoc.jpg" alt="" />
-              <div class="favourtive">
-                <i class="fa-solid fa-heart"></i>
-              </div>
-            </div>
-            <div class="product-name">Lốc gió</div>
-            <div class="price">Giá : 330.000Vnd</div>
-            <div class="product-buttom">
-              <div class="product-detail">Xem chi tiết</div>
-              <div class="add-cart">Thêm vào giỏ hàng</div>
-            </div>
-          </div>
-          <div class="product">
-            <div class="product-image">
-              <img src="../../assets/Image/giamsoc.jpg" alt="" />
-              <div class="favourtive">
-                <i class="fa-solid fa-heart"></i>
-              </div>
-            </div>
-            <div class="product-name">Lốc gió</div>
-            <div class="price">Giá : 330.000Vnd</div>
-            <div class="product-buttom">
-              <div class="product-detail">Xem chi tiết</div>
-              <div class="add-cart">Thêm vào giỏ hàng</div>
-            </div>
-          </div>
-          <div class="product">
-            <div class="product-image">
-              <img src="../../assets/Image/giamsoc.jpg" alt="" />
-              <div class="favourtive">
-                <i class="fa-solid fa-heart"></i>
-              </div>
-            </div>
-            <div class="product-name">Lốc gió</div>
-            <div class="price">Giá : 330.000Vnd</div>
-            <div class="product-buttom">
-              <div class="product-detail">Xem chi tiết</div>
-              <div class="add-cart">Thêm vào giỏ hàng</div>
+              <!-- </router-link> -->
             </div>
           </div>
         </div>
-        <div class="see-more">Xem thêm</div>
+        <div class="see-more" @click="seeMoreImported">Xem thêm</div>
       </div>
     </div>
     <TheFooter></TheFooter>
+    <MLoading v-if="showLoading"></MLoading>
   </div>
 </template>
   
 <script>
 import MInput from "@/components/MInput.vue";
+import MLoading from "@/components/MLoading.vue";
 import TheFooter from "@/layout/TheFooter.vue";
 import TheHeader from "@/layout/TheHeader.vue";
 import TheLineLink from "@/layout/TheLineLink.vue";
 import TheNavbar from "@/layout/TheNavbar.vue";
-
+import axios from 'axios';
+import { formatDate, formatMoney } from '@/js/gCommon'
+import ApiProduct from '../../js/apiProduct';
+import ApiBrand from '../../js/apiBrand';
 export default {
   /**
    * Tên component
@@ -152,11 +110,16 @@ export default {
   /**
    * Hứng nhận
    */
-  props: [""],
+  props: {
+    id: {
+      type: String,
+      required: true
+    }
+  },
   /**
    * Component được sử dụng
    */
-  components: { TheHeader, TheNavbar, TheFooter, TheLineLink, MInput },
+  components: { TheHeader, TheNavbar, TheFooter, TheLineLink, MInput, MLoading },
   /**
    * Emit sự thay đổi
    */
@@ -167,18 +130,113 @@ export default {
    */
   data() {
     return {
-      nameproduct: "dang",
+      showLoading: false,
+      product: {},
+      brand: {},
+      dataProductNews: {},
+      pageSize: 4,
+      productCart: {
+        quantitys: ''
+      },
+      number: 1,
+      productCart2: {
+        quantitys2: ''
+      },
+      number2: 1,
     };
   },
   /**
    * Phương thức
    */
-  methods: {},
-  created() {},
+  methods: {
+    formatMoney(money) {
+      return formatMoney(money);
+    },
+
+    async getBrand(id) {
+      await axios.get(ApiBrand.getBrandByID(id))
+        .then((res) => {
+          this.brand = res.data;
+          // console.log(this.brand);
+        })
+    },
+
+    detailProduct(item) {
+      this.getProductByID(item);
+    },
+
+    getProductNews() {
+      this.showLoading = true;
+      setTimeout(() => {
+        axios.get(ApiProduct.filterProduct('', this.pageSize, 1))
+          .then((res) => {
+            if (res.status == 200) {
+              this.showLoading = false;
+              this.dataProductNews = res.data.data;
+            } else {
+              this.showLoading = false;
+              this.dataProductNews = null;
+            }
+          })
+      }, 500);
+    },
+
+    seeMoreImported() {
+      this.pageSize = this.pageSize + 4;
+      this.getProductNews();
+    },
+
+    addCart() {
+      this.productCart = { ...this.product };
+      this.productCart.quantitys = this.number;
+      // console.log(this.productCart);
+      this.$store.commit('addToCart', this.productCart);
+      this.$router.push('/cart');
+    },
+
+    addCart2(data) {
+      this.productCart2 = data;
+      this.productCart2.quantitys2 = this.number2;
+      // console.log(this.productCart);
+      this.$store.commit('addToCart', this.productCart2);
+      this.$router.push('/cart');
+    },
+
+    minusQuantity() {
+      this.number = this.number - 1;
+    },
+
+    addQuantity() {
+      this.number = this.number + 1;
+    },
+
+    getProductByID(value) {
+      // Khởi tạo lấy giá trị id truyền vào
+      if (value) {
+        // Bật loadding
+        this.showLoading = true;
+        setTimeout(async () => {
+          //Lấy dữ liệu
+          await axios.get(ApiProduct.getProductByID(value))
+            .then((res) => {
+              this.showLoading = false;
+              this.product = res.data;
+              this.getBrand(this.product.brandID);
+              this.getProductNews();
+              // console.log("pro", this.product);
+            })
+        }, 1000)
+      }
+    }
+  },
+  created() {
+    this.getProductByID(this.id);
+  },
   /**
    * Theo dõi sự thay đổi
    */
-  watch: {},
+  watch: {
+  },
 };
 </script>
   
