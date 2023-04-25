@@ -209,20 +209,22 @@ export default {
         this.showLoading = true;
         const userID = localStorage.getItem("UserID");
         this.id = userID;
-        axios.get(ApiUser.getUserById(userID))
-            .then((res) => {
-                if (res.status == 200) {
-                    this.showLoading = false;
-                    this.userDetail = res.data;
-                    this.srcImage = res.data.image;
-                    console.log(this.srcImage);
-                    if (this.srcImage) {
-                        this.ImageNone = true;
+        setTimeout(() => {
+            axios.get(ApiUser.getUserById(userID))
+                .then((res) => {
+                    if (res.status == 200) {
+                        this.showLoading = false;
+                        this.userDetail = res.data;
+                        this.srcImage = res.data.image;
+                        console.log(this.srcImage);
+                        if (this.srcImage) {
+                            this.ImageNone = true;
+                        }
+                    } else if (res.status == 400) {
+                        console.log(res.moreInfo);
                     }
-                } else if (res.status == 400) {
-                    console.log(res.moreInfo);
-                }
-            })
+                })
+        }, 500);
     },
     /**
      * Theo dõi sự thay đổi

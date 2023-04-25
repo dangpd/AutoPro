@@ -253,7 +253,7 @@ export default {
                             }
                         }
                     })
-            }, 1000)
+            }, 500)
         },
 
         success() {

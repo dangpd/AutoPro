@@ -1,7 +1,6 @@
 using AutoPro.BL.BaseBL;
 using AutoPro.BL.BrandBL;
 using AutoPro.BL.CartBL;
-using AutoPro.BL.CartDetailBL;
 using AutoPro.BL.ContactBL;
 using AutoPro.BL.NewsBL;
 using AutoPro.BL.NewsCommentBL;
@@ -15,7 +14,6 @@ using AutoPro.BL.UserBL;
 using AutoPro.DL;
 using AutoPro.DL.BaseDL;
 using AutoPro.DL.BrandDL;
-using AutoPro.DL.CartDetailDL;
 using AutoPro.DL.CartDL;
 using AutoPro.DL.ContactDL;
 using AutoPro.DL.NewsCommentDL;
@@ -56,8 +54,6 @@ builder.Services.AddScoped<IBrandDL, BrandDL>();
 builder.Services.AddScoped<ICartBL, CartBL>();
 builder.Services.AddScoped<ICartDL, CartDL>();
 
-builder.Services.AddScoped<ICartDetailBL, CartDetailBL>();
-builder.Services.AddScoped<ICartDetailDL, CartDetailDL>();
 
 builder.Services.AddScoped<IContactBL, ContactBL>();
 builder.Services.AddScoped<IContactDL, ContactDL>();

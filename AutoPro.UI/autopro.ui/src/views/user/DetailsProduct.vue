@@ -143,6 +143,7 @@ export default {
         quantitys2: ''
       },
       number2: 1,
+      textSearch: '',
     };
   },
   /**
@@ -157,6 +158,7 @@ export default {
       await axios.get(ApiBrand.getBrandByID(id))
         .then((res) => {
           this.brand = res.data;
+          this.textSearch = res.data.brandName;
           // console.log(this.brand);
         })
     },
@@ -168,7 +170,7 @@ export default {
     getProductNews() {
       this.showLoading = true;
       setTimeout(() => {
-        axios.get(ApiProduct.filterProduct('', this.pageSize, 1))
+        axios.get(ApiProduct.filterProduct(this.textSearch, this.pageSize, 1))
           .then((res) => {
             if (res.status == 200) {
               this.showLoading = false;
@@ -225,7 +227,7 @@ export default {
               this.getProductNews();
               // console.log("pro", this.product);
             })
-        }, 1000)
+        }, 500)
       }
     }
   },

@@ -175,5 +175,6 @@ namespace AutoPro.Common.Attributes
 
         //[AttributeUsage(AttributeTargets.Property)]
         //public class NewsTitleNotEmpty : Attribute { }
+
     }
 }

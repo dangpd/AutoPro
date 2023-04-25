@@ -149,7 +149,7 @@ export default {
                         // console.log(this.admin);
                     }
                 })
-        }, 1000)
+        }, 500)
     },
     /**
      * Theo dõi sự thay đổi

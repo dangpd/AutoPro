@@ -246,6 +246,15 @@
   height: calc(100vh - 260px);
 }
 
+.acol1n{
+  width: 100%;
+  display: flex;
+  margin: 10px 0;
+}
+
+.acol1n-text{
+  width: 150px;
+}
 
 /*Table paing*/
 .table__paging {

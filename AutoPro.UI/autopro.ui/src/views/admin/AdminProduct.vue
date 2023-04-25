@@ -48,7 +48,7 @@
                         <td>{{ item.placeOrigin }}</td>
                         <td><img :src="item.image" alt="" style="width: 100px;height: 100px;"></td>
                         <td>{{ item.quantitySell }}</td>
-                        <td>{{ this.numberOfInventory }}</td>
+                        <td>{{ item.quantity - item.quantitySell }}</td>
                         <td>{{ item.quantity }}</td>
                         <td>{{ item.status }}</td>
                         <td>{{ item.description }}</td>
@@ -151,7 +151,6 @@ export default {
             pageSize: 10,
             pageNumber: 1,
             showSeeMore: false,
-            numberOfInventory: '', // Số lượng tồn kho
 
             showTablePaging: false,
 
@@ -246,10 +245,11 @@ export default {
                                 this.noData = false;
                                 this.dataProduct = res.data.data;
                                 this.showSeeMore = true;
-                                console.log(res.data.data.length);
-                                for (let i = 0; i < res.data.data.length; i++) {
-                                    this.numberOfInventory = res.data.data[i].quantity - res.data.data[i].quantitySell;
-                                }
+                                // console.log(res.data.data.length);
+                                // for (let i = 0; i < res.data.data.length; i++) {
+                                //     this.quantity = res.data.data[i].quantity
+                                //     this.quantitySell = res.data.data[i].quantitySell;
+                                // }
                                 // res.data.data.forEach(element => {
                                 //     this.numberOfInventory = element.quantity[i] - element.quantitySell[i];
                                 // });
@@ -273,7 +273,7 @@ export default {
                             }
                         }
                     })
-            }, 1000)
+            }, 500)
         },
 
         success() {
@@ -416,7 +416,7 @@ export default {
      * Theo dõi sự thay đổi
      */
     watch: {
-        numberOfInventory(newVal){
+        numberOfInventory(newVal) {
             this.numberOfInventory = newVal;
         },
         // Thực hiện reload table khi dữ liệu trong table thay đổi
@@ -463,7 +463,12 @@ export default {
                 }, 500);
             }
         },
-    }
+    },
+    computed:{
+        // numberQuantity(){
+        //     return this.quantity - this.quantitySell;
+        // }
+    },
 }
 </script>
 

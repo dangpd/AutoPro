@@ -91,7 +91,7 @@ export default {
                         // console.log("news", this.news);
                         // console.log(res);
                     })
-            }, 1000)
+            }, 500)
         }
     },
     mounted() {

@@ -32,7 +32,7 @@
                   </div>
                 </div>
                 <div class="product-name">{{ item.productName }}</div>
-                <div class="price">{{ item.price }}</div>
+                <div class="price">{{ formatMoney(item.price) }}</div>
                 <div class="product-buttom">
                   <div class="product-detail" @click="detailProduct(item.productID)">Xem chi tiết</div>
                   <div class="add-cart" @click="addCart(item)">Thêm vào giỏ hàng</div>
@@ -59,7 +59,7 @@
                   </div>
                 </div>
                 <div class="product-name">{{ item.productName }}</div>
-                <div class="price">{{ item.price }}</div>
+                <div class="price">{{ formatMoney(item.price) }}</div>
                 <div class="product-buttom">
                   <div class="product-detail" @click="detailProduct(item.productID)">Xem chi tiết</div>
                   <div class="add-cart" @click="addCart(item)">Thêm vào giỏ hàng</div>
@@ -83,6 +83,7 @@ import TheNavbar from '@/layout/TheNavbar.vue';
 import axios from 'axios';
 import ApiBrand from '../../js/apiBrand';
 import ApiProduct from '../../js/apiProduct';
+import { formatMoney } from '@/js/gCommon';
 export default {
   /**
    * Tên component
@@ -132,6 +133,10 @@ export default {
    * Phương thức
    */
   methods: {
+    formatMoney(money) {
+      return formatMoney(money);
+    },
+
     getAllBrand() {
       axios.get(ApiBrand.getAll())
         .then((res) => {
@@ -202,7 +207,7 @@ export default {
       this.getAllBrand();
       this.getProductNews();
       this.showLoading = false;
-    }, 1000)
+    }, 500)
   },
   /**
    * Theo dõi sự thay đổi

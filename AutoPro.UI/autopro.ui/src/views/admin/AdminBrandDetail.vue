@@ -215,7 +215,7 @@ export default {
                         }
                         // console.log(this.srcImage);
                     })
-            }, 1000)
+            }, 500)
         } else {
             this.title = Resource.TitleFormAdmin.AddBrand;
         }

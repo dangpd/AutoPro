@@ -156,7 +156,7 @@ export default {
                             }
                         }
                     })
-            }, 1000)
+            }, 500)
         },
 
         filterAndPaging2() {
@@ -179,7 +179,7 @@ export default {
                             }
                         }
                     })
-            }, 1000)
+            }, 500)
         },
 
         seeMore() {

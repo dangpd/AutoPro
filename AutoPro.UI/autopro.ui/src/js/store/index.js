@@ -1,7 +1,7 @@
 // Khai báo Vuex store
 import { createApp } from 'vue'
 import { createStore } from 'vuex'
-
+import createPersistedState from 'vuex-persistedstate'
 const store = createStore({
     state() {
         return {
@@ -59,7 +59,9 @@ const store = createStore({
                 }
             }
         },
-    }
+    },
+
+    plugins: [createPersistedState()],
 });
 
 export default store;

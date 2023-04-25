@@ -9,31 +9,32 @@
                     <i class="fa-regular fa-circle-xmark"></i>
                 </div>
             </div>
-            <div class="agroup1">
-                <div class="acol1">
-                    <div class="acol1-text">
-                        Tiêu đề :
+            <div style="display: flex;width:100%;height: 300px;">
+                <div class="agroup1n" style="width: 48%;">
+                    <div class="acol1n">
+                        <div class="acol1n-text">
+                            Tiêu đề :
+                        </div>
+                        <MInput type="text" v-model="news.newsTitle"
+                            styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
+                        </MInput>
                     </div>
-                    <MInput type="text" v-model="news.newsTitle"
-                        styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
-                    </MInput>
+                    <div class="acol1n">
+                        <div class="acol1n-text">
+                            Nội dung ngắn :
+                        </div>
+                        <textarea type="text" v-model="news.contentShorted"
+                            style="width: 400px;height:250px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"></textarea>
+                    </div>
                 </div>
-            </div>
-            <div class="agroup1">
-                <div class="acol1">
-                    <div class="acol1-text">
-                        Nội dung ngắn :
+                <div class="agroup1n" style="width: 50%;">
+                    <div class="acol1n">
+                        <div class="acol1n-text">
+                            Nội dung :
+                        </div>
+                        <textarea type="text" v-model="news.content"
+                            style="width: 500px;height: 290px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"></textarea>
                     </div>
-                    <MInput type="text" v-model="news.contentShorted"
-                        styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
-                    </MInput>
-                </div>
-                <div class="acol1">
-                    <div class="acol1-text">
-                        Nội dung :
-                    </div>
-                    <MInput type="text" v-model="news.content" styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;">
-                    </MInput>
                 </div>
             </div>
             <div class="agroup1">
@@ -196,7 +197,7 @@ export default {
                             console.log(err);
                         })
                 }
-            }, 1000)
+            }, 500)
         }
     },
     created() {
@@ -218,7 +219,7 @@ export default {
                         }
                         // console.log(this.srcImage);
                     })
-            }, 1000)
+            }, 500)
         } else {
             this.title = Resource.TitleFormAdmin.AddNews;
         }

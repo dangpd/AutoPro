@@ -185,19 +185,11 @@ namespace AutoPro.Common.Enum
         NotPay = 2,
     }
 
-    public enum OrderType
-    {
-        [Display(Name = "Mua trực tiếp tại chi nhánh")]
-        Direct = 1,
-
-        [Display(Name = "Mua online")]
-        Online = 2,
-    }
-
     public enum Gender
     {
         Male = 0,
         Female = 1,
         Orther = 2
     }
+
 }

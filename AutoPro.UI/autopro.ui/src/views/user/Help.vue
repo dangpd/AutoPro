@@ -4,10 +4,10 @@
         <TheNavbar></TheNavbar>
         <div class="content-help">
             <MLoading v-if="showLoading"></MLoading>
-            <TheLineLink name="Trợ giúp"></TheLineLink>
+            <TheLineLink name="Chính sách"></TheLineLink>
             <div class="help">
                 <div class="nav-help">
-                    <div class="nav-title">AUTOPRO trợ giúp</div>
+                    <div class="nav-title">AUTOPRO Chính sách</div>
                     <div>
                         <div class="nav-help-item">
                             <router-link to="/helps/pay-ment" class="payment">Phương thức thanh toán</router-link>

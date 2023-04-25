@@ -9,7 +9,7 @@
                     <thead>
                         <tr>
                             <th style="min-width: 50px;padding-left: 16px;">
-                                <input type="checkbox">
+                                STT
                             </th>
                             <th style="min-width: 300px;">Sản phẩm</th>
                             <th style="min-width: 200px;">Đơn giá</th>
@@ -21,7 +21,7 @@
                     <tbody>
                         <tr v-for="(item, index) in listCart" :key="index">
                             <td style="min-width: 50px; padding-left: 16px;">
-                                <input type="checkbox">
+                                {{ index + 1 }}
                             </td>
                             <td style="min-width: 300px;">
                                 <div class="product-cart">
@@ -46,7 +46,10 @@
                     <div class="total-pay">
                         Tổng thanh toán(tạm tính) :{{ formatMoney(totalAmount) }}
                     </div>
-                    <router-link to="/purchase" class="purchase"><button>Mua hàng</button></router-link>
+                    <div class="purchase" @click="purchase">
+                        <button>Mua hàng</button>
+                    </div>
+                    <!-- <router-link to="/purchase" ></router-link> -->
                 </div>
             </div>
             <div class="nocart" v-show="noCart">
@@ -57,8 +60,8 @@
                 </router-link>
             </div>
         </div>
-
         <TheFooter></TheFooter>
+        <MLoading v-if="showLoading"></MLoading>
     </div>
 </template>
   
@@ -70,6 +73,7 @@ import TheLineLink from '@/layout/TheLineLink.vue';
 import TheNavbar from '@/layout/TheNavbar.vue';
 import { formatMoney } from '@/js/gCommon'
 import MQuantity from '@/components/MQuantity.vue';
+import MLoading from '@/components/MLoading.vue';
 export default {
     /**
      * Tên component
@@ -82,7 +86,7 @@ export default {
     /**
      * Component được sử dụng
      */
-    components: { TheHeader, TheNavbar, MInput, TheFooter, TheLineLink, MQuantity },
+    components: { TheHeader, TheNavbar, MInput, TheFooter, TheLineLink, MQuantity, MLoading },
     /**
      * Emit sự thay đổi
      */
@@ -98,6 +102,7 @@ export default {
             totalCartItem: 0,
             showCart: false,
             noCart: false,
+            showLoading: false,
         }
     },
     /**
@@ -112,18 +117,31 @@ export default {
             this.$store.commit('removeCart', item);
         },
 
+        purchase() {
+            const id = localStorage.getItem("UserID");
+            if (!id) {
+                alert("Bạn chưa đăng nhập!Vui lòng đăng nhập để sử dụng");
+                this.$router.push('/account/sign-up');
+            } else {
+                this.$router.push('/purchase');
+            }
+        }
 
     },
     created() {
-        this.listCart = this.$store.state.cart.items;
-        this.totalCartItem = this.$store.state.cart.totalCartItem;
-        if (this.totalCartItem > 0) {
-            this.showCart = true;
-            this.noCart = false;
-        } else {
-            this.showCart = false;
-            this.noCart = true;
-        }
+        this.showLoading = true;
+        setTimeout(() => {
+            this.showLoading = false
+            this.listCart = this.$store.state.cart.items;
+            this.totalCartItem = this.$store.state.cart.totalCartItem;
+            if (this.totalCartItem > 0) {
+                this.showCart = true;
+                this.noCart = false;
+            } else {
+                this.showCart = false;
+                this.noCart = true;
+            }
+        }, 400);
     },
     /**
      * Theo dõi sự thay đổi

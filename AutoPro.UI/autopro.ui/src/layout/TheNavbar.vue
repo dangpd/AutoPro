@@ -23,7 +23,7 @@
             </router-link>
             <router-link to="/helps/pay-ment" class="nav-item" style="display: flex;">
                 <i class="fa-solid fa-headset"></i>
-                <div class="nav-text" style="padding-left: 8px;">Trợ giúp</div>
+                <div class="nav-text" style="padding-left: 8px;">Chính sách</div>
             </router-link>
             <router-link to="/contact" class="nav-item" style="display: flex;">
                 <i class="fa-solid fa-circle-info"></i>

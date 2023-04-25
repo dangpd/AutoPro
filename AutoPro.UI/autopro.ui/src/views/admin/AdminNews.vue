@@ -39,8 +39,16 @@
                         <td style="padding-left: 10px;text-align:center">{{ index + 1 }}</td>
                         <td>{{ item.newsTitle }}</td>
                         <td><img :src="item.image" alt="" style="width: 100px;height: 100px;"></td>
-                        <td>{{ item.contentShorted }} </td>
-                        <td style= "height: 100px;word-wrap: break-word;">{{ item.content }}</td>
+                        <td>
+                            <div>
+                                <textarea style="height: 100px;width: 200px;" :value="item.contentShorted"></textarea>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <textarea style="height: 100px;width: 400px;" :value="item.content"></textarea>
+                            </div>
+                        </td>
                         <td>{{ formatDate(item.newsDate) }}</td>
                         <td>
                             <div class="tbmethods">
@@ -251,7 +259,7 @@ export default {
                             }
                         }
                     })
-            }, 1000)
+            }, 500)
         },
 
         success() {

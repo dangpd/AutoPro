@@ -255,7 +255,7 @@ export default {
                     .catch((err) => {
                         console.log(err);
                     })
-            }, 1000)
+            }, 500)
         }
     },
     created() {
@@ -278,7 +278,7 @@ export default {
                         }
                         // console.log(this.srcImage);
                     })
-            }, 1000)
+            }, 500)
         }
     },
     /**

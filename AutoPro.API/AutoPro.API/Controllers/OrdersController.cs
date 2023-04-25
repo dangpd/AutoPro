@@ -6,14 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AutoPro.API.Controllers
 {
-    [Route("api/v1/[controller]")]
-    [ApiController]
-    public class OrdersController : BaseController<Orders>
-    {
-        private IOrdersBL _ordersBL;
-        public OrdersController(IOrdersBL ordersBL) : base(ordersBL)
-        {
-            _ordersBL = ordersBL;
-        }
-    }
+    //[Route("api/v1/[controller]")]
+    //[ApiController]
+    //public class OrdersController : BaseController<Orders>
+    //{
+    //    private IOrdersBL _ordersBL;
+    //    public OrdersController(IOrdersBL ordersBL) : base(ordersBL)
+    //    {
+    //        _ordersBL = ordersBL;
+    //    }
+    //}
 }
