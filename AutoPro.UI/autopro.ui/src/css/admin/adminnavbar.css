@@ -92,3 +92,26 @@
 .anav__text {
     color: rgb(255, 254, 254);
 }
+
+.anav-menu{
+    position: relative;
+}
+
+.anav-submenu{
+    position: absolute;
+    display: none;
+    background-color: #ffffff;
+    width: 100%;
+    top: 36px;
+    left: 0;
+    border-radius: 4px;
+}
+
+.anav__texts {
+    color: rgb(0, 0, 0);
+}
+
+
+.anav-menu:hover .anav-submenu{
+    display: block;
+}

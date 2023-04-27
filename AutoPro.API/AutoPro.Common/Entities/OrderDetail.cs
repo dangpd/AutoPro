@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,14 +10,18 @@ namespace AutoPro.Common.Entities
 {
     public class OrderDetail
     {
-        public int OrderID { get; set; }
+        [Key]
+        public int orderDetailID { get; set; }
+        public int orderID { get; set; }
 
-        public int ProductID { get; set; }
+        public int productID { get; set; }
 
-        public string? ProductName { get; set; }
+        public string? productCode { get; set; }
 
-        public decimal? Price { get; set; }
+        public string? productName { get; set; }
 
-        public int Quantity { get; set; }
+        public decimal? price { get; set; }
+
+        public int quantitys { get; set; }
     }
 }

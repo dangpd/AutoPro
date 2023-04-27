@@ -17,6 +17,7 @@
           <div class="details-product-brand">Xuất xứ: {{ product.placeOrigin }}</div>
           <div class="details-product-price">Giá tiền: {{ formatMoney(product.price) }} </div>
           <div class="details-product-sell">Đã bán: {{ product.quantitySell }}</div>
+          <div class="details-product-sell">Số lượng còn: {{ product.quantity }}</div>
           <div class="details-product-status">Tình trạng : Còn hàng</div>
           <div class="details-product-number">
             <i class="fa-solid fa-minus" style="cursor: pointer;" @click="minusQuantity"></i>
@@ -232,7 +233,8 @@ export default {
     }
   },
   created() {
-    this.getProductByID(this.id);
+    let id = this.$route.params.id;
+    this.getProductByID(id);
   },
   /**
    * Theo dõi sự thay đổi

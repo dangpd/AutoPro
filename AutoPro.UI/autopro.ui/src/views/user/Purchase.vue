@@ -13,29 +13,29 @@
                     <div class="content-purcharse-user">
                         <div class="purcharse-name">
                             <h6>Họ và tên: </h6>
-                            <input type="text" class="m-inputp" v-model="orders.fullName"
+                            <input type="text" class="m-inputp" v-model="fullName"
                                 style="width: 350px;height: 30px;padding-left: 10px;border-radius: 4px;border: 1px solid #bbb;">
                         </div>
                         <div class="purcharse-address">
                             <h6>Địa chỉ: </h6>
-                            <input type="text" class="m-inputp" v-model="orders.address"
+                            <input type="text" class="m-inputp" v-model="address"
                                 style="width: 350px;height: 30px;padding-left: 10px;border-radius: 4px;border: 1px solid #bbb;">
                         </div>
                         <div class="purcharse-phone-number">
                             <h6>Số điện toại: </h6>
-                            <input type="text" class="m-inputp" v-model="orders.phoneNumber"
+                            <input type="text" class="m-inputp" v-model="phoneNumber"
                                 style="width: 350px;height: 30px;padding-left: 10px;border-radius: 4px;border: 1px solid #bbb;">
                         </div>
                         <div class="purcharse-payment-methods">
                             <h6>Phương thức thanh toán</h6>
                             <MRadio :data="[
-                                    { Gender: 'Thanh toán tại nhà', GenderValue: 0 },
                                     { Gender: 'Thanh toán qua VNPay', GenderValue: 1 },
-                                ]" v-model="orders.paymentsID"></MRadio>
+                                    { Gender: 'Thanh toán tại nhà', GenderValue: 2 },
+                                ]" v-model="checkOutTypeID"></MRadio>
                         </div>
                         <div class="purcharse-phone-number">
                             <h6>Ghi chú</h6>
-                            <textarea v-model="orders.description"
+                            <textarea v-model="description"
                                 style="width: 350px;height: 100px;padding-left: 10px;border-radius: 4px;border: 1px solid #bbb;word-break: break-word;margin-top: 70px;"></textarea>
                         </div>
                         <div style="position: absolute;bottom: 0;right: 40px;" v-if="showPayVnPay">
@@ -69,11 +69,11 @@
                     </div>
                 </div>
             </div>
-            <router-link to="/order">
-                <div class="order-purchase">
-                    <button>Đặt hàng</button>
-                </div>
-            </router-link>
+            <!-- <router-link to="/order"> -->
+            <div class="order-purchase" @click="orderProduct">
+                <button>Đặt hàng</button>
+            </div>
+            <!-- </router-link> -->
         </div>
         <TheFooter></TheFooter>
         <MLoading v-if="showLoading"></MLoading>
@@ -91,6 +91,7 @@ import axios from 'axios';
 import ApiUser from '../../js/apiUser';
 import MLoading from '@/components/MLoading.vue';
 import MRadio from '@/components/MRadio.vue';
+import ApiOrder from '../../js/apiOrder';
 
 export default {
     /**
@@ -117,16 +118,21 @@ export default {
      */
     data() {
         return {
-            listCart: [],
             user: {},
             description: '',
             showPayVnPay: false,
             showLoading: false,
-            orders: {
-                fullName: '',
-                address: '',
-                phoneNumber: '',
-            },
+            customerInfo: {},
+            orderDate: new Date(),
+            deliveryDate: '',
+            userID: '',
+            fullName: '',
+            address: '',
+            phoneNumber: '',
+            checkOutTypeID: '',
+            description: '',
+            listCart: [],
+            listOrderDetail:[],
         }
     },
     /**
@@ -136,6 +142,117 @@ export default {
         formatMoney(menoy) {
             return formatMoney(menoy);
         },
+
+        validateBeforeSave(data) {
+            /**
+             * Kiểm tra dữ liệu trước khi lưu
+             */
+            this.$refs.form.validate();
+            if (
+                !this.validForm ||
+                !dataSave ||
+                (dataSave && Object.keys(dataSave).length === 0)
+            ) {
+                return false;
+            }
+            if (!this.radios) {
+                this.$toast.warning("Vui lòng chọn hình thức thanh toán");
+                return false;
+            }
+            return true;
+        },
+        // Click nút Đặt hàng
+        orderProduct() {
+            // Check validate -- làm sau
+            // let isValid = this.validateBeforeSave(this.customerInfo);
+            // if (!isValid) {
+            //     return;
+            // }
+            this.handleOrder();
+        },
+
+        handleOrder() {
+            const me = this;
+            this.prepareBeforeHandle();
+            // Lưu vào db đơn hàng ở trạng thái chờ tiếp nhận, với trạng thái thanh toán: Chưa thanh toán
+            // sessionStorage.setItem(
+            //     "customerCheckoutInfo",
+            //     JSON.stringify(this.customerInfo)
+            // );
+            // console.log(this.customerInfo);
+            // console.log(this.listCart);
+            let orderParam = {
+                order: JSON.stringify(this.customerInfo),
+                orderdetail: JSON.stringify(this.listOrderDetail),
+            };
+            console.log(orderParam);
+
+            axios.post("https://localhost:7129/api/v1/Orders/insertOrderDetail", orderParam)
+                .then((res) => {
+                    console.log(res);
+                })
+            // OrderService.insertOrderDetail(orderParam).then((result) => {
+            //     if (result && result.data) {
+            //         if (result.data.success) {
+            //             if (me.checkOutTypeID == 1) {
+            //                 // thanh toán qua vnpay
+            //                 let param = {
+            //                     Amount: me.totalAmount,
+            //                 };
+
+            //                 PaymentService.getVNPayLink(param)
+            //                     .then((result) => {
+            //                         if (result && result.data) {
+            //                             let vnpayUrl = result.data.data;
+            //                             window.location.href = vnpayUrl;
+            //                         }
+            //                     })
+            //                     .catch((e) => {
+            //                         console.log(e);
+            //                     });
+            //             } else {
+            //                 me.$toast.success("Đặt mua hàng thành công!");
+            //                 this.$router.push({
+            //                     name: "c-checkout-result",
+            //                 });
+            //             }
+            //         } else {
+            //             me.$toast.error(result.data.errorMessage);
+            //         }
+            //     }
+            // });
+        },
+
+        /**\
+         * Chuẩn bị dữ liệu trước khi đặt hàng
+         */
+        prepareBeforeHandle() {
+            this.customerInfo["orderCode"] = '';
+            this.customerInfo["orderDate"] = new Date();
+            this.customerInfo["idUser"] = this.userID;
+            this.customerInfo["fullName"] = this.fullName;
+            this.customerInfo["address"] = this.address;
+            this.customerInfo["phoneNumber"] = this.phoneNumber;
+            this.customerInfo["totalAmount"] = this.totalAmount;
+            this.customerInfo["statusOrders"] = 2; // chờ tiếp nhận
+            this.customerInfo["checkOutTypeID"] = this.checkOutTypeID; // Thanh toán tại nhà
+            this.customerInfo["CheckOutStatusID"] = 2 // Chưa thanh toán
+
+            // this.customerInfo["totalprice"] = this.totalAmount;
+            // Xử lý danh sách các hàng hóa mua
+            console.log(this.customerInfo);
+            // Xử lý danh sách các hàng hóa mua
+            this.listOrderDetail = this.listCart.map((x) => ({
+                idOrderDetail:"",
+                price: x.price,
+                productCode: x.productCode,
+                productID: x.productID,
+                productName: x.productName,
+                quantitys: x.quantitys
+            }));
+            console.log(this.listOrderDetail);
+        },
+
     },
     created() {
         this.showLoading = true;
@@ -147,9 +264,10 @@ export default {
                     if (res.status == 200) {
                         this.user = res.data;
                         // console.log(this.user);
-                        this.orders.fullName = this.user.fullName
-                        this.orders.address = this.user.address
-                        this.orders.phoneNumber = this.user.phoneNumber
+                        this.userID = this.user.userID;
+                        this.fullName = this.user.fullName
+                        this.address = this.user.address
+                        this.phoneNumber = this.user.phoneNumber
                     }
                 })
             this.listCart = this.$store.state.cart.items;
@@ -159,6 +277,14 @@ export default {
      * Theo dõi sự thay đổi
      */
     watch: {
+        checkOutTypeID(newVal) {
+            this.checkOutTypeID = newVal;
+            if (newVal == 1) {
+                this.showPayVnPay = true;
+            } else {
+                this.showPayVnPay = false;
+            }
+        }
     },
     computed: {
         totalAmount() {

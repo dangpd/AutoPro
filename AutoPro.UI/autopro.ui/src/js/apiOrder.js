@@ -1,7 +1,7 @@
 import base from "./baseService";
 class OrderService extends base {
     getAll() {
-        let urlMain = `${this.getBaseService()}Order`;
+        let urlMain = `${this.getBaseService()}Orders`;
         return urlMain;
     }
 

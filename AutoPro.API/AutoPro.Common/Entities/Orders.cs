@@ -5,50 +5,86 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static AutoPro.Common.Enum.Enumration;
+using AutoPro.Common.Enum;
 
 namespace AutoPro.Common.Entities
 {
     public class Orders : BaseEntity
     {
         [Key]
-        public int OrderID { get; set; }
+        public int orderID { get; set; }
 
-        public string? OrderCode { get; set; }
+        public string? orderCode { get; set; }
 
-        public string? OrderDate { get; set; }
+        public DateTime orderDate { get; set; }
 
-        public int Delivery { get; set; }
+        public int idUser { get; set; }
 
-        public DateTime DeliveryDate { get; set; }
+        public string? fullName { get; set; }
 
-        public int UserID { get; set; }
+        public string? address { get; set; }
 
-        public string? FullName { get; set; }
+        public string? phoneNumber { get; set; }
 
-        public string? Address { get; set; }
-
-        public string? PhoneNumber { get; set; }
+        public int totalAmount { get; set; }
 
         /// <summary>
         /// Trạng thái đơn hàng
+        /// 1-Thành công,2-Chờ tiếp nhận,3-Đã tiếp nhận,4-Chờ giao hàng,5-Đang giao hàng,6-Giao hàng thất bại,7-Đổi hàng,8-Trả hàng,9-Hủy
         /// </summary>
-        public int StatusOrders { get; set; }
+        public int statusOrders { get; set; }
 
-        public string? StatusOrdersName { get; set; }   
+        public string? statusOrdersName
+        {
+            get
+            {
+                foreach(OrderStatus item in System.Enum.GetValues(typeof(OrderStatus)))
+                {
+                    if (statusOrders == (int)item)
+                    {
+                        return item.GetDisplayName();
+                    }
+                }
+                return "";
+            }
+        }
+        /// <summary>
+        /// HÌnh thức thanh toán (1-VNPay - 2-Tại nhà)
+        /// </summary>
+        public int checkOutTypeID { get; set; }
+
+        public string? CheckOutTypeName
+        {
+            get
+            {
+                foreach (CheckoutType item in System.Enum.GetValues(typeof(CheckoutType)))
+                {
+                    if (checkOutTypeID == (int)item)
+                    {
+                        return item.GetDisplayName();
+                    }
+                }
+                return "";
+            }
+        }
 
         /// <summary>
-        /// Trạng thái thanh toán
+        /// Trạng thái thanh toán(1-ok 2-chưa)
         /// </summary>
-        public int CheckOutStatusID { get; set; }
-        public string? CheckoutStatusName { get; set; }
-
-        /// <summary>
-        /// HÌnh thức thanh toán
-        /// </summary>
-        public int CheckOutTypeID { get; set; }
-
-        public string? CheckOutTypeName { get; set; }
-
+        public int checkOutStatusID { get; set; }
+        public string? CheckoutStatusName 
+        {
+            get
+            {
+                foreach (CheckoutStatus item in System.Enum.GetValues(typeof(CheckoutStatus)))
+                {
+                    if (checkOutTypeID == (int)item)
+                    {
+                        return item.GetDisplayName();
+                    }
+                }
+                return "";
+            }
+        }
     }
 }

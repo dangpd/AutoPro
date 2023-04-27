@@ -175,7 +175,7 @@ export default {
     },
 
     detailProduct(item) {
-      this.$router.push({ name: 'product', params: { id: item } })
+      this.$router.push({ name: 'product', params: { id: item } });
     },
 
     addCart(data) {
@@ -183,7 +183,6 @@ export default {
       this.productCart.quantitys = this.number;
       // console.log(this.productCart);
       this.$store.commit('addToCart', this.productCart);
-      this.$router.push('/cart');
     },
 
     favoriteProduct(data) {

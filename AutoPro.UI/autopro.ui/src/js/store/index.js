@@ -5,7 +5,6 @@ import createPersistedState from 'vuex-persistedstate'
 const store = createStore({
     state() {
         return {
-            count: 100,
             cart: {
                 items: [],
                 totalCartItem: 0,
@@ -15,13 +14,22 @@ const store = createStore({
             }
         }
     },
+    // Hoạt động thưc hiện mutations 
+    actions: {
+        // commit tại đây thực hiện mutation
+        //Example
+        // addToCart({ commit }, item) {
+        //     commit('ADD_ITEM', item) // Gửi action ADD_ITEM đến store để thêm sản phẩm vào giỏ hàng
+        // }
+    },
+
     mutations: {
         addToCart(state, product) {
             // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng hay chưa
             console.log(product);
             var item = state.cart.items.find((item) => item.productID === product.productID);
             if (item) {
-                item.quantitys = item.quantitys + product.quantitys;
+                item.quantitys =  parseInt(item.quantitys + product.quantitys);
             } else {
                 state.cart.items.push(product);
                 state.cart.totalCartItem++;
@@ -60,7 +68,6 @@ const store = createStore({
             }
         },
     },
-
     plugins: [createPersistedState()],
 });
 

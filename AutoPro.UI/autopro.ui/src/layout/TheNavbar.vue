@@ -1,7 +1,7 @@
 <template>
     <div class="navbar">
         <div class="nav-list">
-            <router-link to="/" class="nav-item" style="display: flex;">
+            <router-link to="/" class="nav-item" style="display: flex;" :key="$route.fullPath">
                 <i class="fa-solid fa-house"></i>
                 <div class="nav-text" style="padding-left: 8px;">Trang chủ</div>
             </router-link>

@@ -44,7 +44,8 @@ import TheFooter from '@/layout/TheFooter.vue';
 import TheLineLink from '@/layout/TheLineLink.vue';
 import ApiUser from '../../js/apiUser';
 import axios from 'axios';
-
+import { fetchAPI } from '../../js/gCommon';
+import { axiosServiceDefault } from '@/js/axiosService'
 export default {
     /**
      * Tên component
@@ -82,9 +83,36 @@ export default {
      * Phương thức
      */
     methods: {
-        async loginApp() {
+        loginApp() {
+            // fetchAPI(
+            //     ApiUser.login(),
+            //     'POST',
+            //     (res) => {
+            //         if (res.errorCode == 400) {
+            //             alert("Tài khoản hoặc mật khẩu sai");
+            //         } else if (res.errorCode == 500) {
+            //             alert("Tài khoản hoặc mật khẩu sai");
+            //         } else {
+            //             localStorage.setItem('UserID', res.UserID);
+            //             localStorage.setItem('Role', res.Role);
+            //             if (res.Role == "Admin") {
+            //                 this.$router.push('/admin/dashload');
+            //             } else if (res.Role == "User") {
+            //                 this.$router.push('/');
+            //             }
+            //         }
+            //     },
+            //     this.user
+            // )
+
+
+            // const res = axiosServiceDefault.postRequest(ApiUser.login(), this.user)
+            // console.log(res);
+
+
             axios.post(ApiUser.login(), { account: this.user.account, password: this.user.password })
                 .then((res) => {
+                    // console.log('res', res);
                     if (res.status == 200) {
                         localStorage.setItem('UserID', res.data.UserID);
                         localStorage.setItem('Role', res.data.Role);
@@ -94,15 +122,12 @@ export default {
                             this.$router.push('/');
                         }
                     }
-                    else if (res.status == 400) {
-                        console.log(res.moreInfo);
-                    }
                 })
-                .catch((err) => {
-                    console.log(err);
+                .catch(() => {
+                    alert("Tài khoản hoặc mật khẩu sai");
                 })
         },
-        
+
         togglePasswordVisibility() {
             this.showPassword3 = !this.showPassword3;
         }

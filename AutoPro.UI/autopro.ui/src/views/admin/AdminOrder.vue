@@ -25,11 +25,13 @@
                         <th style="width: 50px;padding-left: 10px;">STT</th>
                         <th style="width: 150px;">Mã đơn hàng</th>
                         <th style="width: 100px;">Ngày tạo</th>
-                        <th style="width: 350px;">Sản phẩm</th>
-                        <th style="width: 150px;">Giá</th>
-                        <th style="width: 100px;">Số lượng</th>
-                        <th style="width: 200px;">Tổng tiền</th>
-                        <th>Thao tác</th>
+                        <th style="width: 100px;">Người nhận</th>
+                        <th style="width: 250px;">Địa chỉ</th>
+                        <th style="width: 100px;">Tổng tiền</th>
+                        <th style="width: 200px;">Hình thức thanh toán</th>
+                        <th style="width: 150px;">Trạng thái thanh toán</th>
+                        <th style="width: 150px;">Trạng thái đơn hàng</th>
+                        <!-- <th>Thao tác</th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -38,17 +40,19 @@
                                 'row-selected': rowSelected == item.orderID,
                             }">
                         <td style="padding-left: 10px;">{{ index + 1 }}</td>
-                        <td>{{ index }}</td>
-                        <td>{{ index }}</td>
-                        <td>{{ index }}</td>
-                        <td>{{ index }}</td>
-                        <td>{{ index }}</td>
-                        <td>{{ index }}</td>
-                        <td>
+                        <td>{{ item.orderCode }}</td>
+                        <td>{{ formatDate(item.orderDate) }}</td>
+                        <td>{{ item.fullName }}</td>
+                        <td>{{ item.address }}</td>
+                        <td>{{ formatMoney(item.totalAmount) }}</td>
+                        <td>{{ item.checkOutTypeName }}</td>
+                        <td>{{ item.checkoutStatusName }}</td>
+                        <td>{{ item.statusOrdersName }}</td>
+                        <!-- <td>
                             <div class="tbmethods" @click="deleteItem(item)">
                                 <button style="margin-left: 10px;">Xóa</button>
                             </div>
-                        </td>
+                        </td> -->
                     </tr>
                 </tbody>
             </table>
@@ -101,7 +105,7 @@ import MInput from '@/components/MInput.vue';
 import Resource from '../../js/gResource';
 import axios from 'axios';
 import ApiBrand from '../../js/apiBrand';
-import { formatDate } from '@/js/gCommon'
+import { formatDate, formatMoney } from '@/js/gCommon'
 import MLoading from '@/components/MLoading.vue';
 import { getStorage, ref, deleteObject } from "firebase/storage";
 import ApiOrder from '../../js/apiOrder';
@@ -163,6 +167,10 @@ export default {
      * Phương thức
      */
     methods: {
+        formatMoney(moeny) {
+            return formatMoney(moeny);
+        },
+        
         trClick(idRow) {
             this.rowSelected = idRow;
         },
@@ -225,7 +233,7 @@ export default {
             this.showLoading = true;
             setTimeout(() => {
                 // axios.get(ApiOrder.filterOrder(this.textSearch, this.pageSize, this.pageNumber))
-                axios.get(ApiBrand.filterBrand(this.textSearch, this.pageSize, this.pageChoice))
+                axios.get(ApiOrder.filterOrder(this.textSearch, this.pageSize, this.pageChoice))
                     .then((res) => {
                         if (res.status == 200) {
                             if (res.data.totalRecord > 0) {
