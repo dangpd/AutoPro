@@ -31,7 +31,9 @@ namespace AutoPro.DL.OrdersDL
         /// <param name="order"></param>
         /// <param name="listOrderDetail"></param>
         /// <returns></returns>
-        public Orders UpdateOrderDetail(Orders order, List<OrderDetail> listOrderDetail);
+        public bool UpdateOrderDetail(Orders order, List<OrderDetail> listOrderDetail,List<Product> listProduct);
+
+        public object Filter(string? textSearch, long pageSize, long pageNumber,int status);
 
         /// <summary>
         /// lấy thông order code cuối ucngf

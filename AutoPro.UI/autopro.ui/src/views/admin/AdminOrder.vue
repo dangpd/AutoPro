@@ -92,7 +92,8 @@
                 </div>
             </div>
         </div>
-        <AdminOrderDetail v-if="showPopup" @onClose="showPopup = false" :id="id" :type="type" :statusOrder="statusOrder" @success="success">
+        <AdminOrderDetail v-if="showPopup" @onClose="showPopup = false" :id="id" :type="type" :statusOrder="statusOrder"
+            @success="success">
         </AdminOrderDetail>
         <MLoading v-if="showLoading"></MLoading>
     </div>
@@ -149,6 +150,7 @@ export default {
             pageNumber: 1,
             showSeeMore: false,
             showTablePaging: false,
+            statusFilter: 0,
 
             pageSize: 10,
             // Số trang được tính
@@ -236,6 +238,41 @@ export default {
             setTimeout(() => {
                 // axios.get(ApiOrder.filterOrder(this.textSearch, this.pageSize, this.pageNumber))
                 axios.get(ApiOrder.filterOrder(this.textSearch, this.pageSize, this.pageChoice))
+                    .then((res) => {
+                        if (res.status == 200) {
+                            if (res.data.totalRecord > 0) {
+                                this.showLoading = false;
+                                this.noData = false;
+                                this.dataOrder = res.data.data;
+                                this.showSeeMore = true;
+                                // console.log(res);
+                                this.showTablePaging = true;
+                                // Gán dữ liệu số trang trả về bằng Data trả về
+                                this.totalPage = res.data.totalPage;
+                                // Gán dữ liệu số bản ghi cho form bằng Data trả về
+                                this.totalRecord = res.data.totalRecord;
+                                // Gán số trang được chọn bằng số trang được chọn
+                                this.currentPage = this.pageChoice;
+                                // Set số page
+                                this.setPageNumber();
+                                // console.log(res);
+                            } else {
+                                this.showLoading = false;
+                                this.noData = true;
+                                this.dataOrder = null;
+                                this.showSeeMore = false;
+                                this.showTablePaging = false
+                            }
+                        }
+                    })
+            }, 500)
+        },
+
+        filterAndPagingByStatus() {
+            this.showLoading = true;
+            setTimeout(() => {
+                // axios.get(ApiOrder.filterOrder(this.textSearch, this.pageSize, this.pageNumber))
+                axios.get(ApiOrder.filterOrderByStatus(this.textSearch, this.pageSize, this.pageChoice, this.statusFilter))
                     .then((res) => {
                         if (res.status == 200) {
                             if (res.data.totalRecord > 0) {
@@ -400,12 +437,30 @@ export default {
 
     },
     created() {
-        this.filterAndPaging();
+        if (this.id) {
+            this.statusFilter = id;
+            this.filterAndPagingByStatus();
+        } else {
+            this.filterAndPaging();
+        }
     },
+
     /**
      * Theo dõi sự thay đổi
      */
     watch: {
+        '$route.params.id': function (newVal) {
+            this.pageSize = 10;
+            this.pageChoice = 1;
+            this.$refs.inputSearch.value = '';
+            if (newVal === undefined) {
+                this.filterAndPaging();
+            } else {
+                this.statusFilter = newVal;
+                this.filterAndPagingByStatus();
+            }
+        },
+
         // Thực hiện reload table khi dữ liệu trong table thay đổi
         reloadTable(newVal) {
             try {

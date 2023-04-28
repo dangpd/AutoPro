@@ -21,6 +21,27 @@ namespace AutoPro.BL.OrdersBL
             _ordersDL = ordersDL;
         }
 
+
+        public object Filter(string? textSearch, long pageSize = 10, long pageNumber = 1,int status = 1)
+        {
+            // Nếu trang được chọn truyền vào là 0 thì set trang chọn là trang 1
+            if (pageNumber == 0)
+            {
+                pageNumber = 1;
+            }
+            // Số bản ghi trên trang = 0 return null bắn lỗi nhập liệu
+            if (pageSize == 0)
+            {
+                pageSize = 10;
+            }
+            if(status == 0)
+            {
+                status = 1;
+            }
+            //Gọi DL lấy danh sách
+            return _ordersDL.Filter(textSearch, pageSize, pageNumber,status);
+        }
+
         public string CreateAutoOrderCode()
         {
             string newCode = "";
@@ -110,14 +131,46 @@ namespace AutoPro.BL.OrdersBL
 
         public ServiceResult UpdateOrderDetail(OrderDetailParam param)
         {
-            ServiceResult serviceResult = new ServiceResult();
             Orders order = new Orders();
             List<OrderDetail> listOrderDetail = new List<OrderDetail>();
             order = JsonSerializer.Deserialize<Orders>(param.order);
             listOrderDetail = JsonSerializer.Deserialize<List<OrderDetail>>(param.orderdetail);
-            Orders? result = _ordersDL.UpdateOrderDetail(order, listOrderDetail);
+            List<Product> listProduct = new List<Product>();
+            foreach (var item in listOrderDetail)
+            {
+                var kqs = _ordersDL.GetListProductByListID(item.productID);
+                if (kqs != null)
+                {
+                    listProduct.Add(kqs);
+                }
+                else
+                {
+                    return new ServiceResult
+                    {
+                        IsSuccess = false,
+                        Data = new ErrorResult
+                        {
+                            ErrorCode = Common.Enum.ErrorCode.InvalidData,
+                            UserMsg = "Sản phẩm không tồn tại trong hệ thống"
+                        }
+                    };
+                }
+            }
+            bool result = _ordersDL.UpdateOrderDetail(order, listOrderDetail,listProduct);
+            if (!result)
+            {
+                return new ServiceResult
+                {
+                    IsSuccess = false,
+                    Data = new ErrorResult
+                    {
+                        ErrorCode = Common.Enum.ErrorCode.InvalidData,
+                        UserMsg = "Cập nhật sản phẩm thất bại"
+                    }
+                };
+            }
             //serviceResult.Data = (Orders)result;
-            return serviceResult;
+            return new ServiceResult { IsSuccess = true};
         }
         /// <summary>
         /// 

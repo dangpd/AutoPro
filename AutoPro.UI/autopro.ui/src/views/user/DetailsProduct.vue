@@ -18,7 +18,8 @@
           <div class="details-product-price">Giá tiền: {{ formatMoney(product.price) }} </div>
           <div class="details-product-sell">Đã bán: {{ product.quantitySell }}</div>
           <div class="details-product-sell">Số lượng còn: {{ product.quantity }}</div>
-          <div class="details-product-status">Tình trạng : Còn hàng</div>
+          <div class="details-product-status">Tình trạng : {{ formatStatusProduct(product.quantity - product.quantitySell)
+          }}</div>
           <div class="details-product-number">
             <i class="fa-solid fa-minus" style="cursor: pointer;" @click="minusQuantity"></i>
             <MInput style="width: 50px; border-radius: 1px" v-model="this.number"></MInput>
@@ -100,7 +101,7 @@ import TheHeader from "@/layout/TheHeader.vue";
 import TheLineLink from "@/layout/TheLineLink.vue";
 import TheNavbar from "@/layout/TheNavbar.vue";
 import axios from 'axios';
-import { formatDate, formatMoney } from '@/js/gCommon'
+import { formatStatusProduct, formatDate, formatMoney } from '@/js/gCommon'
 import ApiProduct from '../../js/apiProduct';
 import ApiBrand from '../../js/apiBrand';
 export default {
@@ -153,6 +154,9 @@ export default {
   methods: {
     formatMoney(money) {
       return formatMoney(money);
+    },
+    formatStatusProduct(status) {
+      return formatStatusProduct(status);
     },
 
     async getBrand(id) {
@@ -240,6 +244,9 @@ export default {
    * Theo dõi sự thay đổi
    */
   watch: {
+    '$route.params.id': function (newVal) {
+      this.getProductByID(newVal);
+    },
   },
 };
 </script>

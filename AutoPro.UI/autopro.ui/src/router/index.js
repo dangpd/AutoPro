@@ -80,7 +80,14 @@ const routes = [
                 { path: '/admin/brand', component: AdminBrand },
                 { path: '/admin/category', component: AdminCategory },
                 { path: '/admin/contact', component: AdminContact },
-                { path: '/admin/order', component: AdminOrder },
+                {
+                    path: '/admin/order',
+                    component: AdminOrder,
+                    children:
+                        [
+                            { path: 'statusOrders/:id',name:'orderStatus', component: AdminOrder, props: true }
+                        ]
+                },
                 { path: '/admin/news', component: AdminNews },
                 { path: '/admin/product', component: AdminProduct },
                 { path: '/admin/dashload', component: AdminDashload },

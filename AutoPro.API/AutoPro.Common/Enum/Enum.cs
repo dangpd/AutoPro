@@ -138,13 +138,13 @@ namespace AutoPro.Common.Enum
 
     public enum OrderStatus
     {
-        [Display(Name = "Thành công")]
+        [Display(Name = "Đặt hàng thành công")]
         Success = 1,
 
-        [Display(Name = "Đang xử lí")]
+        [Display(Name = "Đang chờ xử lí")]
         WaitingReceive = 2,
 
-        [Display(Name = "Hủy")]
+        [Display(Name = "Đơn hàng đã bị hủy")]
         Destroy = 3,
 
         [Display(Name = "Chờ giao hàng")]

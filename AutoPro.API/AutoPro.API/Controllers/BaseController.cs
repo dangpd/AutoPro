@@ -22,7 +22,7 @@ namespace AutoPro.API.Controllers
         #endregion
         #region Method
         [HttpGet("Filter")]
-        public IActionResult FilterEmployee([FromQuery] string? textSearch, [FromQuery] long pageSize =10, [FromQuery] long pageNumber =1)
+        public IActionResult Filter([FromQuery] string? textSearch, [FromQuery] long pageSize =10, [FromQuery] long pageNumber =1)
         {
             try
             {

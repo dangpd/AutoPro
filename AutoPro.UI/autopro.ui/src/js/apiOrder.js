@@ -21,12 +21,24 @@ class OrderService extends base {
         return `${this.getAll()}/${id}`;
     }
 
-    getOrderDeatilByID(id){
+    getOrderDeatilByID(id) {
         return `${this.getAll()}/getOrderDetail/${id}`;
+    }
+
+    insertOrderDetail() {
+        return `${this.getAll()}/insertOrderDetail`;
+    }
+    
+    updateOrderDetail() {
+        return `${this.getAll()}/updateOrderDetail`;
     }
 
     filterOrder(key = '', pageSize, pageNumber) {
         return `${this.getAll()}/Filter?textSearch=${key}&pageSize=${pageSize}&pageNumber=${pageNumber}`;
+    }
+
+    filterOrderByStatus(key = '', pageSize, pageNumber,status){
+        return `${this.getAll()}/FilterByStatus?textSearch=${key}&pageSize=${pageSize}&pageNumber=${pageNumber}&status=${status}`;
     }
 }
 

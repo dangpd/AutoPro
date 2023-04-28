@@ -46,28 +46,28 @@
                 </div>
             </router-link>
             <!-- <router-link to="/admin/order" style="text-decoration: none;"> -->
-                <div class="anav-item anav-menu">
-                    <div class="anav__text">Quản lí đơn hàng</div>
-                    <i class="fa-solid fa-caret-down"></i>
-                    <div class="anav-submenu">
-                        <div class="anav-item" @click="allOrder">
-                            <div class="anav__texts">Tất cả đơn hàng</div>
-                            <i class="fa-solid fa-caret-down" style="color: black;" ></i>
-                        </div>
-                        <div class="anav-item" @click="orderProcess">
-                            <div class="anav__texts">Đơn hàng chờ xử lí</div>
-                            <i class="fa-solid fa-caret-down" style="color: black;" ></i>
-                        </div>
-                        <div class="anav-item" @click="orderDone">
-                            <div class="anav__texts">Đơn hàng đã duyệt</div>
-                            <i class="fa-solid fa-caret-down" style="color: black;" ></i>
-                        </div>
-                        <div class="anav-item" @click="orderCacel">
-                            <div class="anav__texts">Đơn hàng đã hủy</div>
-                            <i class="fa-solid fa-caret-down" style="color: black;" ></i>
-                        </div>
+            <div class="anav-item anav-menu">
+                <div class="anav__text">Quản lí đơn hàng</div>
+                <i class="fa-solid fa-caret-down"></i>
+                <div class="anav-submenu">
+                    <div class="anav-item" @click="allOrder">
+                        <div class="anav__texts">Tất cả đơn hàng</div>
+                        <i class="fa-solid fa-caret-down" style="color: black;"></i>
+                    </div>
+                    <div class="anav-item" @click="orderProcess">
+                        <div class="anav__texts">Đơn hàng chờ xử lí</div>
+                        <i class="fa-solid fa-caret-down" style="color: black;"></i>
+                    </div>
+                    <div class="anav-item" @click="orderDone">
+                        <div class="anav__texts">Đơn hàng đã duyệt</div>
+                        <i class="fa-solid fa-caret-down" style="color: black;"></i>
+                    </div>
+                    <div class="anav-item" @click="orderCacel">
+                        <div class="anav__texts">Đơn hàng đã hủy</div>
+                        <i class="fa-solid fa-caret-down" style="color: black;"></i>
                     </div>
                 </div>
+            </div>
             <!-- </router-link> -->
             <router-link to="/admin/account" style="text-decoration: none;">
                 <div class="anav-item">
@@ -147,19 +147,20 @@ export default {
             this.$emit("infoAdmin");
         },
 
-        allOrder(){
+        allOrder() {
             this.$router.push('/admin/order');
         },
 
-        orderDone(){
-            this.$router.push('/admin/order');
-        },
-        orderProcess(){
-            this.$router.push('/admin/order');
+        orderDone() {
+            this.$router.push({ name: 'orderStatus', params: { id: 1 } });
         },
 
-        orderCacel(){
-            this.$router.push('/admin/order');
+        orderProcess() {
+            this.$router.push({ name: 'orderStatus', params: { id: 2 } });
+        },
+
+        orderCacel() {
+            this.$router.push({ name: 'orderStatus', params: { id: 3 } });
         }
     },
     created() {

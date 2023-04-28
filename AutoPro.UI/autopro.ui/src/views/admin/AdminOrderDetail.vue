@@ -16,7 +16,7 @@
                     </div>
                     <MInput type="text"
                         styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-                        v-model="orders.orderCode">
+                        v-model="customer.orderCode">
                     </MInput>
                 </div>
                 <div class="acol1">
@@ -25,7 +25,7 @@
                     </div>
                     <MInput type="text"
                         styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-                        v-model="orders.fullName">
+                        v-model="customer.fullName">
                     </MInput>
                 </div>
             </div>
@@ -34,7 +34,7 @@
                     <div class="acol2-text">
                         Ngày đặt :
                     </div>
-                    <MDatePicker v-model="orders.orderDate"
+                    <MDatePicker v-model="customer.orderDate"
                         styleVal="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                     </MDatePicker>
                 </div>
@@ -44,7 +44,7 @@
                     </div>
                     <MInput type="text"
                         styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-                        v-model="orders.phoneNumber">
+                        v-model="customer.phoneNumber">
                     </MInput>
                 </div>
             </div>
@@ -55,7 +55,7 @@
                     </div>
                     <MInput type="text"
                         styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-                        v-model="orders.description">
+                        v-model="customer.description">
                     </MInput>
                 </div>
                 <div class="acol2">
@@ -64,7 +64,7 @@
                     </div>
                     <MInput type="text"
                         styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-                        v-model="orders.checkOutTypeName">
+                        v-model="customer.checkOutTypeName">
                     </MInput>
                 </div>
             </div>
@@ -75,7 +75,7 @@
                     </div>
                     <MInput type="text"
                         styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-                        v-model="orders.checkoutStatusName">
+                        v-model="customer.checkoutStatusName">
                     </MInput>
                 </div>
                 <div class="acol1">
@@ -84,7 +84,7 @@
                     </div>
                     <MInput type="text"
                         styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-                        v-model="orders.statusOrdersName">
+                        v-model="customer.statusOrdersName">
                     </MInput>
                 </div>
             </div>
@@ -113,17 +113,17 @@
                     </tr>
                 </tbody>
             </table>
-            <div style="margin:20px 0;">Tổng tiền cần thanh toán: <b>{{ formatMoney(orders.totalAmount) }}</b></div>
+            <div style="margin:20px 0;">Tổng tiền cần thanh toán: <b>{{ formatMoney(customer.totalAmount) }}</b></div>
             <div class="aformSave" v-show="processOrder">
                 <button style="background-color: #019160;color: white;" @click="approveOrderDetail">Duyệt đơn hàng</button>
                 <button style="background-color: #BA031A;margin-left: 40px;color: white;" @click="cancelOrderDetail">Hủy đơn
                     hàng</button>
             </div>
             <div class="aformSave" v-show="doneOrder">
-                <button style="background-color: #019160;color: white;">Đơn hàng đã được duyệt</button>
+                <button style="background-color: #019160;color: white;" @click="onClose">Đơn hàng đã được duyệt</button>
             </div>
             <div class="aformSave" v-show="cancelOrder">
-                <button style="background-color: #BA031A;color: white;">Đơn hàng đã bị hủy</button>
+                <button style="background-color: #BA031A;color: white;" @click="onClose">Đơn hàng đã bị hủy</button>
             </div>
         </div>
         <MLoading v-if="showLoading"></MLoading>
@@ -162,7 +162,7 @@ export default {
     data() {
         return {
             orderDetail: {},
-            orders: {},
+            customer: {},
             showLoading: false,
             title: '',
             processOrder: false,
@@ -181,31 +181,75 @@ export default {
         formatMoney(money) {
             return formatMoney(money);
         },
+        /**\
+         * Chuẩn bị dữ liệu trước khi đặt hàng
+         */
+        prepareBeforeHandle() {
+            this.customer["orderCode"] = this.customer.orderCode;
+            this.customer["orderDate"] = this.customer.orderDate,
+            this.customer["idUser"] = this.customer.idUser;
+            this.customer["fullName"] = this.customer.fullName;
+            this.customer["address"] = this.customer.address;
+            this.customer["phoneNumber"] = this.customer.phoneNumber;
+            this.customer["description"] = this.customer.description;
+            this.customer["totalAmount"] = this.customer.totalAmount;
+            this.customer["checkOutTypeID"] = this.customer.checkOutTypeID; // Thanh toán tại nhà
+            this.customer["CheckOutStatusID"] = this.customer.CheckOutStatusID // Chưa thanh toán
+            // Xử lý danh sách các hàng hóa mua
+        },
 
-        async approveOrderDetail() {
+        approveOrderDetail() {
             const me = this;
             this.prepareBeforeHandle();
+            this.customer["statusOrders"] = 1; // chờ tiếp nhận
             let orderParam = {
-                order: JSON.stringify(this.orders),
+                order: JSON.stringify(this.customer),
                 orderdetail: JSON.stringify(this.orderDetail),
             };
+            console.log(this.customer);
+            console.log(this.orderDetail);
             console.log(orderParam);
-            // if (this.type == Resource.FormAdminType.Add) {
-            //     await axios.post(ApiContact.addContact(), this.contact)
-            //         .then((res) => {
-            //             if (res.status == 201) {
-            //                 this.$emit("onClose");
-            //                 this.$emit("success");
-            //             }
-            //         })
-            //         .catch((err) => {
-            //             console.log(err);
-            //         })
-            // }
+            // Xác nhận đơn hàng
+            axios.post(ApiOrder.updateOrderDetail(), orderParam)
+                .then((res) => {
+                    if (res.status === 200) {
+                        alert("Đơn hàng đã được xác nhận");
+                        this.$emit("success")
+                        this.$emit("onClose");
+                    } else {
+                        alert("Xác nhận đơn hàng thất bại");
+                        this.$emit("onClose");
+                    }
+                })
         },
 
         cancelOrderDetail() {
+            const me = this;
+            this.prepareBeforeHandle();
+            this.customer["statusOrders"] = 3; // chờ tiếp nhận
+            let orderParam = {
+                order: JSON.stringify(this.customer),
+                orderdetail: JSON.stringify(this.orderDetail),
+            };
+            console.log(this.customer);
+            console.log(this.orderDetail);
+            console.log(orderParam);
+            // Xác nhận đơn hàng
+            axios.post(ApiOrder.updateOrderDetail(), orderParam)
+                .then((res) => {
+                    if (res.status === 200) {
+                        alert("Hủy đơn hàng thành công");
+                        this.$emit("success")
+                        this.$emit("onClose");
+                    } else {
+                        alert("Hủy đơn hàng thất bại");
+                        this.$emit("onClose");
+                    }
+                })
+        },
 
+        onClose() {
+            this.$emit("onClose")
         }
     },
     created() {
@@ -219,7 +263,7 @@ export default {
                     .then((res) => {
                         console.log(res);
                         this.showLoading = false;
-                        this.orders = res.data.orders;
+                        this.customer = res.data.orders;
                         this.orderDetail = res.data.orderDetail;
                         if (this.statusOrder == 2) {
                             this.processOrder = true;

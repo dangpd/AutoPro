@@ -134,7 +134,7 @@ export default {
             this.showLoading = false
             this.listCart = this.$store.state.cart.items;
             this.totalCartItem = this.$store.state.cart.totalCartItem;
-            if (this.totalCartItem > 0) {
+            if (this.listCart.length > 0) {
                 this.showCart = true;
                 this.noCart = false;
             } else {
@@ -155,12 +155,12 @@ export default {
         }
     },
     computed: {
-        totalAmount() {
+        totalAmount() { 
             return this.$store.state.cart.items.reduce((total, item) => total + (item.price * item.quantitys), 0);
         },
 
         totalRecord() {
-            return this.$store.state.cart.totalCartItem;
+            return this.$store.state.cart.items.length;
         }
     },
 }

@@ -179,7 +179,8 @@ export default {
             };
             console.log(orderParam);
 
-            axios.post("https://localhost:7129/api/v1/Orders/insertOrderDetail", orderParam)
+            // axios.post("https://localhost:7129/api/v1/Orders/insertOrderDetail", orderParam)
+            axios.post(ApiOrder.insertOrderDetail(), orderParam)
                 .then((res) => {
                     console.log(res);
                     if(res.status == 201){
