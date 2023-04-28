@@ -66,8 +66,12 @@ export default {
             if (res.status == 200) {
               this.admin = res.data;
               // console.log(this.admin);
+              this.$router.push('/admin/dashload')
             }
           })
+      }
+      else {
+        this.$router.push('/account/sign-up')
       }
     }
   },

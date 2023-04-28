@@ -16,6 +16,7 @@ const Resource = {
         UpdateContact: "Thông tin contact",
         AddProduct: "Thêm mới sản phẩm",
         UpdateProduct: "Thông tin sản phẩm",
+        updateOrderDetail: "Thông tin chi tiết đơn hàng",
     },
 
     InfoUser: {

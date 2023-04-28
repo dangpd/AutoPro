@@ -21,6 +21,10 @@ class OrderService extends base {
         return `${this.getAll()}/${id}`;
     }
 
+    getOrderDeatilByID(id){
+        return `${this.getAll()}/getOrderDetail/${id}`;
+    }
+
     filterOrder(key = '', pageSize, pageNumber) {
         return `${this.getAll()}/Filter?textSearch=${key}&pageSize=${pageSize}&pageNumber=${pageNumber}`;
     }

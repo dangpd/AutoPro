@@ -28,7 +28,7 @@
                         <th style="width: 100px;">Giá</th>
                         <th style="width: 100px;">Nơi xuất xứ</th>
                         <th style="width: 100px;">Hình ảnh</th>
-                        <th style="width: 100px;">Đã bán</th>
+                        <th style="width: 80px;">Đã bán</th>
                         <th style="width: 100px;">Số lượng tồn</th>
                         <th style="width: 120px;">Số lượng nhập</th>
                         <th style="width: 100px;">Trạng thái</th>
@@ -50,8 +50,13 @@
                         <td>{{ item.quantitySell }}</td>
                         <td>{{ item.quantity - item.quantitySell }}</td>
                         <td>{{ item.quantity }}</td>
-                        <td>{{ item.status }}</td>
-                        <td>{{ item.description }}</td>
+                        <td>
+                            <div :class="{ 'statusProduct': statusProduct }"
+                                style="border: 1px solid #bbb;padding-left: 10px;border-radius: 4px;background-color: #075FC6;color:white;font-size: 14px;width: 110px;">
+                                {{ formatStatus(item.quantity) }}
+                            </div>
+                        </td>
+                        <td style="padding-left: 10px;font-size: 14px;">{{ item.description }}</td>
                         <td>
                             <div class="tbmethods">
                                 <button style="margin-left: 10px;" @click="deleteItem(item)">Xóa</button>
@@ -109,7 +114,7 @@ import AdminProductDetail from './AdminProductDetail.vue';
 import Resource from '../../js/gResource';
 import axios from 'axios';
 import ApiBrand from '../../js/apiBrand';
-import { formatDate, formatMoney } from '@/js/gCommon'
+import { formatStatusProduct, formatDate, formatMoney } from '@/js/gCommon'
 import MLoading from '@/components/MLoading.vue';
 import { getStorage, ref, deleteObject } from "firebase/storage";
 import ApiProduct from '../../js/apiProduct';
@@ -151,6 +156,7 @@ export default {
             pageSize: 10,
             pageNumber: 1,
             showSeeMore: false,
+            statusProduct:false,
 
             showTablePaging: false,
 
@@ -232,6 +238,10 @@ export default {
 
         formatMoney(money) {
             return formatMoney(money);
+        },
+
+        formatStatus(quantity) {
+            return formatStatusProduct(quantity);
         },
 
         filterAndPaging() {
@@ -464,7 +474,7 @@ export default {
             }
         },
     },
-    computed:{
+    computed: {
         // numberQuantity(){
         //     return this.quantity - this.quantitySell;
         // }

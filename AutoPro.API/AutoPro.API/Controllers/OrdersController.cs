@@ -18,7 +18,6 @@ namespace AutoPro.API.Controllers
             _ordersBL = ordersBL;
         }
 
-
         /// <summary>
         /// Thêm mới dữ liệu hàng hóa
         /// </summary>
@@ -84,14 +83,19 @@ namespace AutoPro.API.Controllers
             try
             {
                 var result = _ordersBL.getOrderDetail(entityId);
-                return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResult
+                if(result == null)
                 {
-                    ErrorCode = Common.Enum.ErrorCode.Exception,
-                    DevMsg = Common.Resource.DataResource.DevMsg_Exception,
-                    UserMsg = Common.Resource.DataResource.UserMsg_Exception,
-                    MoreInfo = Common.Resource.Resource.UserMsg_ServerError,
-                    TraceId = HttpContext.TraceIdentifier
-                });
+                    return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResult
+                    {
+                        ErrorCode = Common.Enum.ErrorCode.Exception,
+                        DevMsg = Common.Resource.DataResource.DevMsg_Exception,
+                        UserMsg = Common.Resource.DataResource.UserMsg_Exception,
+                        MoreInfo = Common.Resource.Resource.UserMsg_ServerError,
+                        TraceId = HttpContext.TraceIdentifier
+                    });
+                }
+                return StatusCode(StatusCodes.Status200OK, result);
+
             }
             catch (Exception ex)
             {

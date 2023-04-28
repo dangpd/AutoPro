@@ -75,6 +75,20 @@ function formatDate(datetime) {
     }
 }
 
+function formatStatusProduct(quantity) {
+    try {
+        if (quantity <= 0) {
+            return 'Đã hết hàng';
+        } else if (quantity > 0 && quantity <= 10) {
+            return 'Sắp hết hàng';
+        } else {
+            return 'Còn hàng';
+        }
+        return '';
+    }catch(err){
+        console.log(err);
+    }
+}
 function formatMoney(money) {
     try {
         return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(money);
@@ -117,4 +131,4 @@ function fetchAPI(url, method, fnCallBack, data, typeRes) {
         })
         .catch(err => console.log(err));
 }
-export { clickoutside, formatMoney, formatDate, formatGender, fetchAPI };
+export { clickoutside,formatStatusProduct, formatMoney, formatDate, formatGender, fetchAPI };

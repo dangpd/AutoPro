@@ -1,17 +1,20 @@
 ﻿using AutoPro.Common.Entities;
+using AutoPro.Common.Entities.DTO;
 using AutoPro.Common.ProceduceName;
 using AutoPro.DL.BaseDL;
 using Dapper;
 using MySqlConnector;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace AutoPro.DL.OrdersDL
 {
-    public class OrdersDL : BaseDL<Orders>,IOrdersDL
+    public class OrdersDL : BaseDL<Orders>, IOrdersDL
     {
         // Khởi tạo lấy kết nối đường dẫn database
         string connectionString = DatabaseContext.ConnectionString;
@@ -30,15 +33,24 @@ namespace AutoPro.DL.OrdersDL
 
         public object getOrderDetail(int entityId)
         {
-            //Orders order = GetEntityById(entityId);
-            //string sql = "select pd.* from orderdetail pd inner join saleorder p on pd.idsaleorder  = p.idsaleorder and p.idsaleorder = @idsaleorder";
-            //DynamicParameters param = new DynamicParameters();
-            //param.Add("@idsaleorder", entityId);
-            //List<OrderDetail> listOrderDetail = _dbHelper.Query<OrderDetail>(sql, param);
+            string sql = "Proc_OrderDetail_GetByID";
+            DynamicParameters param = new DynamicParameters();
+            param.Add("v_OrderID", entityId);
+            string sql2 = "Proc_Orders_GetByID";
+            DynamicParameters param2 = new DynamicParameters();
+            param2.Add("v_OrderID", entityId);
+            List<OrderDetail> listOrderDetail = new List<OrderDetail>();
+            Orders orders = new Orders();
+            using (var mySqlConnection = new MySqlConnection(connectionString))
+            {
+                // Query
+                listOrderDetail = mySqlConnection.Query<OrderDetail>(sql, param, commandType: System.Data.CommandType.StoredProcedure).ToList();
+                orders = mySqlConnection.QueryFirstOrDefault<Orders>(sql2, param2, commandType: System.Data.CommandType.StoredProcedure);
+            }
             return new
             {
-                //SaleOrder = order,
-                //OrderDetail = listOrderDetail
+                Orders = orders,
+                OrderDetail = listOrderDetail
             };
         }
 
@@ -68,7 +80,7 @@ namespace AutoPro.DL.OrdersDL
                 numberOfAffectedRows = mySqlConnection.Execute(insertStoreProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
             }
 
-            if(numberOfAffectedRows > 0)
+            if (numberOfAffectedRows > 0)
             {
                 return orders;
             }
@@ -77,7 +89,7 @@ namespace AutoPro.DL.OrdersDL
                 return null;
             }
         }
-
+        // Insert Orderdetail
         public object InsertOrdersDetail(OrderDetail record)
         {
             // Chuẩn bị tên store procedure
@@ -138,7 +150,7 @@ namespace AutoPro.DL.OrdersDL
         public bool InsertBulk<OrderDetail>(IEnumerable<OrderDetail> listInsert)
         {
             int total = 0;
-            foreach(var orderDetail in listInsert)
+            foreach (var orderDetail in listInsert)
             {
                 // Chuẩn bị tên store procedure
                 string insertStoreProcedureName = String.Format(ProceduceName.Insert, typeof(OrderDetail).Name);
@@ -165,7 +177,7 @@ namespace AutoPro.DL.OrdersDL
                 }
             }
             int totalList = Convert.ToInt16(listInsert.Count());
-            if(total != totalList)
+            if (total != totalList)
             {
                 return false;
             }
@@ -174,7 +186,7 @@ namespace AutoPro.DL.OrdersDL
 
         public Orders InsertOrderDetail(Orders order, List<OrderDetail> listOrderDetail, List<Product> listProductDetail)
         {
-            
+
             var result = InsertOrder(order);
             if (result != null)
             {
@@ -212,6 +224,11 @@ namespace AutoPro.DL.OrdersDL
             return null;
         }
 
+        /// <summary>
+        /// Lấy sản phẩm theo id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Product GetListProductByListID(int id)
         {
             string query = "Proc_Product_GetByID";
@@ -220,10 +237,11 @@ namespace AutoPro.DL.OrdersDL
             using (var mySqlConnection = new MySqlConnection(connectionString))
             {
                 // Query
-                var result = mySqlConnection.QueryFirstOrDefault<Product>(query,dynamicParam,commandType:System.Data.CommandType.StoredProcedure);
+                var result = mySqlConnection.QueryFirstOrDefault<Product>(query, dynamicParam, commandType: System.Data.CommandType.StoredProcedure);
 
                 return result;
             }
         }
+
     }
 }

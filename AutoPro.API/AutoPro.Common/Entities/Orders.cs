@@ -25,7 +25,7 @@ namespace AutoPro.Common.Entities
         public string? address { get; set; }
 
         public string? phoneNumber { get; set; }
-
+        public string? description { get; set; }
         public int totalAmount { get; set; }
 
         /// <summary>

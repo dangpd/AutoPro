@@ -92,7 +92,7 @@
                 </div>
             </div>
         </div>
-        <AdminOrderDetail v-if="showPopup" @onClose="showPopup = false" :id="id" :type="type" @success="success">
+        <AdminOrderDetail v-if="showPopup" @onClose="showPopup = false" :id="id" :type="type" :statusOrder="statusOrder" @success="success">
         </AdminOrderDetail>
         <MLoading v-if="showLoading"></MLoading>
     </div>
@@ -138,6 +138,7 @@ export default {
             showPopup: false,
             noData: false,
             id: '',
+            statusOrder: '',
             type: '',
             dataOrder: {},
             rowSelected: -1,
@@ -170,7 +171,7 @@ export default {
         formatMoney(moeny) {
             return formatMoney(moeny);
         },
-        
+
         trClick(idRow) {
             this.rowSelected = idRow;
         },
@@ -192,6 +193,7 @@ export default {
             try {
                 this.showPopup = true;
                 this.id = data.orderID;
+                this.statusOrder = data.statusOrders;
                 this.type = Resource.FormAdminType.Update;
             } catch (error) {
                 console.log(error);

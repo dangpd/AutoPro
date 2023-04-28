@@ -141,11 +141,11 @@ namespace AutoPro.Common.Enum
         [Display(Name = "Thành công")]
         Success = 1,
 
-        [Display(Name = "Chờ tiếp nhận")]
+        [Display(Name = "Đang xử lí")]
         WaitingReceive = 2,
 
-        [Display(Name = "Đã tiếp nhận")]
-        Received = 3,
+        [Display(Name = "Hủy")]
+        Destroy = 3,
 
         [Display(Name = "Chờ giao hàng")]
         WaitingDeliver = 4,
@@ -162,8 +162,6 @@ namespace AutoPro.Common.Enum
         [Display(Name = "Trả hàng")]
         Return = 8,
 
-        [Display(Name = "Hủy")]
-        Destroy = 9,
 
     }
 

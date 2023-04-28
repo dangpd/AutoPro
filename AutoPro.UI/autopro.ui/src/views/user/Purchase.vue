@@ -119,7 +119,6 @@ export default {
     data() {
         return {
             user: {},
-            description: '',
             showPayVnPay: false,
             showLoading: false,
             customerInfo: {},
@@ -174,13 +173,6 @@ export default {
         handleOrder() {
             const me = this;
             this.prepareBeforeHandle();
-            // Lưu vào db đơn hàng ở trạng thái chờ tiếp nhận, với trạng thái thanh toán: Chưa thanh toán
-            // sessionStorage.setItem(
-            //     "customerCheckoutInfo",
-            //     JSON.stringify(this.customerInfo)
-            // );
-            // console.log(this.customerInfo);
-            // console.log(this.listCart);
             let orderParam = {
                 order: JSON.stringify(this.customerInfo),
                 orderdetail: JSON.stringify(this.listOrderDetail),
@@ -190,6 +182,11 @@ export default {
             axios.post("https://localhost:7129/api/v1/Orders/insertOrderDetail", orderParam)
                 .then((res) => {
                     console.log(res);
+                    if(res.status == 201){
+                        alert("Đơn hàng đã được đặt thành công");
+                    }else{
+                        alert("Có lỗi xảy ra")
+                    }
                 })
             // OrderService.insertOrderDetail(orderParam).then((result) => {
             //     if (result && result.data) {
@@ -233,6 +230,7 @@ export default {
             this.customerInfo["fullName"] = this.fullName;
             this.customerInfo["address"] = this.address;
             this.customerInfo["phoneNumber"] = this.phoneNumber;
+            this.customerInfo["description"] = this.description;
             this.customerInfo["totalAmount"] = this.totalAmount;
             this.customerInfo["statusOrders"] = 2; // chờ tiếp nhận
             this.customerInfo["checkOutTypeID"] = this.checkOutTypeID; // Thanh toán tại nhà

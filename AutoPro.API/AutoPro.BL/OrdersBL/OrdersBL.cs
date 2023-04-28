@@ -67,6 +67,7 @@ namespace AutoPro.BL.OrdersBL
                         IsSuccess = false,
                         Data = new ErrorResult
                         {
+                            ErrorCode = Common.Enum.ErrorCode.InvalidData,
                             UserMsg = "Sản phẩm không tồn tại trong hệ thống"
                         }
                     };

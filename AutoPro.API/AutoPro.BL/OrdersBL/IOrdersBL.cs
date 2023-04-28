@@ -41,6 +41,7 @@ namespace AutoPro.BL.OrdersBL
         /// <returns></returns>
         public string CreateAutoOrderCode();
 
+
         ///// <summary>
         ///// lấy báo cáo doanh thu theo chi nhánh từng năm
         ///// </summary>
