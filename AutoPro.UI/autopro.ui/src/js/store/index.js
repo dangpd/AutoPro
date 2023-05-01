@@ -11,7 +11,8 @@ const store = createStore({
             },
             favorite: {
                 items: [],
-            }
+            },
+            search: ''
         }
     },
     // Hoạt động thưc hiện mutations 
@@ -29,7 +30,7 @@ const store = createStore({
             console.log(product);
             var item = state.cart.items.find((item) => item.productID === product.productID);
             if (item) {
-                item.quantitys =  parseInt(item.quantitys + product.quantitys);
+                item.quantitys = parseInt(item.quantitys + product.quantitys);
             } else {
                 state.cart.items.push(product);
                 state.cart.totalCartItem++;
@@ -67,6 +68,10 @@ const store = createStore({
                 }
             }
         },
+
+        updateSearch(state,textSearch){
+            state.search = textSearch;
+        }
     },
     plugins: [createPersistedState()],
 });

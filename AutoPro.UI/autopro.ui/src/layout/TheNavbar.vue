@@ -1,7 +1,7 @@
 <template>
     <div class="navbar">
         <div class="nav-list">
-            <router-link to="/" class="nav-item" style="display: flex;" :key="$route.fullPath">
+            <router-link to="/" class="nav-item" style="display: flex;">
                 <i class="fa-solid fa-house"></i>
                 <div class="nav-text" style="padding-left: 8px;">Trang chủ</div>
             </router-link>
@@ -10,9 +10,13 @@
                 <div class="nav-text" style="padding-left: 8px;">Danh mục sản phẩm</div>
                 <div class="sub-menu">
                     <div class="nav-item-submenu" v-for="(item, index) in dataCategory" :key="index">
-                        <router-link :to="'/category/' + item.categoryID" class="no-link" style="cursor: pointer;width: 220px;height: 40px;line-height:40px;">
+                        <div style="cursor: pointer;width: 220px;height: 40px;line-height:40px;"
+                            @click="productCategory(item)">
+                            <!-- <router-link :to="'/category/' + item.categoryID" class="no-link"
+                                style="cursor: pointer;width: 220px;height: 40px;line-height:40px;"> -->
                             <div class="nav-text">{{ item.categoryName }}</div>
-                        </router-link>
+                            <!-- </router-link> -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -75,6 +79,12 @@ export default {
                         this.dataCategory = null;
                     }
                 })
+        },
+
+        productCategory(data) {
+            this.$emit("onSearch", data.categoryID);
+            console.log(data.categoryID);
+            this.$router.push({ path: 'category/:id', name: 'productCategory', params: { id: data.categoryID } })
         }
     },
     created() {
@@ -83,7 +93,9 @@ export default {
     /**
      * Theo dõi sự thay đổi
      */
-    watch: {}
+    watch: {
+
+    }
 };
 </script>
 

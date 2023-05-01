@@ -7,10 +7,11 @@
                     <h6 style="font-weight: 700;">Hệ thống ô tô phụ tùng uy tín chính hãng</h6>
                 </router-link>
                 <div class="search">
-                    <MInput placeholder="Nhập từ khóa tìm kiếm" type="text"
+                    <MInput placeholder="Nhập từ khóa tìm kiếm" type="text" v-model="keySeach"
+                        v-on:keyup.enter="searchProductHeader"
                         styleInput="width:350px; height:36px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                     </MInput>
-                    <div class="icon">
+                    <div class="icon" @click="searchProductHeader">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </div>
                 </div>
@@ -69,7 +70,7 @@ export default {
     /**
      * Hứng nhận
      */
-    props: [""],
+    props: [''],
     /**
      * Component được sử dụng
      */
@@ -90,6 +91,8 @@ export default {
             isLogin: false,
             user: {},
             userID: '',
+            keySeach: '',
+            listFilter: [],
         }
     },
     /**
@@ -103,6 +106,11 @@ export default {
             this.isNoLogin = false;
             this.$router.push('/');
         },
+
+        searchProductHeader() {
+            this.$store.commit('updateSearch', this.keySeach);
+            this.$router.push({ path: 'search/', name: 'productFilter', query: { key: this.keySeach } })
+        }
     },
     created() {
         const login = localStorage.getItem("UserID");
@@ -136,7 +144,7 @@ export default {
             } else {
                 // this.userID = newVal;
             }
-        }
+        },
     }
 }
 </script>

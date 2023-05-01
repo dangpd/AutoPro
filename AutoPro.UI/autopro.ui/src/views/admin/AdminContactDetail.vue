@@ -45,7 +45,7 @@
                     </MInput>
                 </div>
             </div>
-            <div class="aformSave" @click="saveContact">
+            <div class="aformSave" @click="questionSaveItem(contact)">
                 <button>Lưu</button>
             </div>
         </div>
@@ -98,6 +98,15 @@ export default {
      * Phương thức
      */
     methods: {
+        questionSaveItem(item) {
+            let text = `Bạn có muốn lưu liên hệ này không ?`;
+            if (confirm(text) == true) {
+                this.saveContact();
+            } else {
+                this.$emit("onClose");
+            }
+        },
+
         onClose() {
             // uploadTask.cancel();
             this.$emit("onClose");
@@ -116,7 +125,7 @@ export default {
                         console.log(err);
                     })
             } else {
-                await axios.put(ApiContact .updateContact(this.id), this.contact)
+                await axios.put(ApiContact.updateContact(this.id), this.contact)
                     .then((res) => {
                         if (res.status == 200) {
                             this.$emit("success");

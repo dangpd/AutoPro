@@ -45,7 +45,7 @@
                         <td>{{ formatDate(item.modifiedDate) }}</td>
                         <td>
                             <div class="tbmethods">
-                                <button style="margin-left: 10px;" @click="deleteItem(item)">Xóa</button>
+                                <button style="margin-left: 10px;" @click="questionDeleteItem(item)">Xóa</button>
                             </div>
                         </td>
                     </tr>
@@ -161,6 +161,12 @@ export default {
      * Phương thức
      */
     methods: {
+        questionDeleteItem(item) {
+            let text = `Bạn có muỗn xóa danh mục ${item.categoryName} không ?`;
+            if (confirm(text) == true) {
+                this.deleteItem(item);
+            }
+        },
         addCategory() {
             this.showPopup = true;
             this.id = null;

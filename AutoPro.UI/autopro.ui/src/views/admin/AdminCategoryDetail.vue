@@ -37,7 +37,7 @@
                     </MInput>
                 </div>
             </div>
-            <div class="aformSave" @click="saveCategory">
+            <div class="aformSave" @click="questionSaveItem(category)">
                 <button>Lưu</button>
             </div>
         </div>
@@ -83,6 +83,15 @@ export default {
      * Phương thức
      */
     methods: {
+        questionSaveItem(item) {
+            let text = `Bạn có muốn lưu danh mục ${item.categoryCode} không ?`;
+            if (confirm(text) == true) {
+                this.saveCategory();
+            } else {
+                this.$emit("onClose");
+            }
+        },
+
         onClose() {
             this.$emit("onClose");
         },

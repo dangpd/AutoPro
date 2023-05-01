@@ -88,7 +88,7 @@
                         propValue="categoryID" propName="categoryName" ref="cbxCategory"></MCombobox>
                 </div>
             </div>
-            <div class="agroup1">
+            <div class="agroup1image">
                 <div class="acol1-image">
                     <div class="aco1-image-file">
                         <div class="acol1-text" style="margin-left: 15px;">
@@ -107,7 +107,7 @@
                 <MInput type="text" v-model="product.image" styleInput="width: 900px; height: 30px;">
                 </MInput>
             </div>
-            <div class="aformSave" @click="saveProduct">
+            <div class="aformSave" @click="questionSaveItem(product)">
                 <button>Lưu</button>
             </div>
         </div>
@@ -162,6 +162,15 @@ export default {
      * Phương thức
      */
     methods: {
+        questionSaveItem(item) {
+            let text = `Bạn có muốn lưu sản phẩm ${item.productCode} không ?`;
+            if (confirm(text) == true) {
+                this.saveProduct();
+            } else {
+                this.$emit("onClose");
+            }
+        },
+
         async handleFileUpload() {
             //   const storageRef = ref(storage, "user/" + this.file.name);
             //   console.log(this.$refs.fileInput.files[0]);

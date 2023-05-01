@@ -59,7 +59,7 @@
                         <td style="padding-left: 10px;font-size: 14px;">{{ item.description }}</td>
                         <td>
                             <div class="tbmethods">
-                                <button style="margin-left: 10px;" @click="deleteItem(item)">Xóa</button>
+                                <button style="margin-left: 10px;" @click="questionDeleteItem(item)">Xóa</button>
                             </div>
                         </td>
                     </tr>
@@ -156,7 +156,7 @@ export default {
             pageSize: 10,
             pageNumber: 1,
             showSeeMore: false,
-            statusProduct:false,
+            statusProduct: false,
 
             showTablePaging: false,
 
@@ -178,6 +178,12 @@ export default {
      * Phương thức
      */
     methods: {
+        questionDeleteItem(item) {
+            let text = `Bạn có muỗn xóa sản phẩm "${item.productCode}" không ?`;
+            if (confirm(text) == true) {
+                this.deleteItem(item);
+            }
+        },
         trClick(idRow) {
             this.rowSelected = idRow;
         },

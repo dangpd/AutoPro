@@ -115,8 +115,9 @@
             </table>
             <div style="margin:20px 0;">Tổng tiền cần thanh toán: <b>{{ formatMoney(customer.totalAmount) }}</b></div>
             <div class="aformSave" v-show="processOrder">
-                <button style="background-color: #019160;color: white;" @click="approveOrderDetail">Duyệt đơn hàng</button>
-                <button style="background-color: #BA031A;margin-left: 40px;color: white;" @click="cancelOrderDetail">Hủy đơn
+                <button style="background-color: #019160;color: white;" @click="questionSaveItem">Duyệt đơn hàng</button>
+                <button style="background-color: #BA031A;margin-left: 40px;color: white;" @click="questionCancelItem">Hủy
+                    đơn
                     hàng</button>
             </div>
             <div class="aformSave" v-show="doneOrder">
@@ -174,6 +175,24 @@ export default {
      * Phương thức
      */
     methods: {
+        questionSaveItem(item) {
+            let text = `Bạn có muốn duyệt đơn hàng này không không ?`;
+            if (confirm(text) == true) {
+                this.approveOrderDetail();
+            } else {
+                this.$emit("onClose");
+            }
+        },
+
+        questionCancelItem(item) {
+            let text = `Bạn có muốn hủy đơn hàng này không ?`;
+            if (confirm(text) == true) {
+                this.cancelOrderDetail();
+            } else {
+                this.$emit("onClose");
+            }
+        },
+
         onClose() {
             this.$emit("onClose");
         },

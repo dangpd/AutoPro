@@ -36,7 +36,7 @@
                             <td style="min-width: 150px;">
                                 {{ formatMoney(item.price * item.quantitys) }}
                             </td>
-                            <td style="min-width: 100px; cursor: pointer;" @click="removeProduct(item)">
+                            <td style="min-width: 100px; cursor: pointer;" @click="deleteProdoctCart(item)">
                                 <div class="cart-method">Xóa</div>
                             </td>
                         </tr>
@@ -109,6 +109,13 @@ export default {
      * Phương thức
      */
     methods: {
+        deleteProdoctCart(item) {
+            let text = "Bạn có muỗn xóa sản phẩm khỏi giỏ hàng không ?";
+            if (confirm(text) == true) {
+                this.removeProduct(item);
+            }
+        },
+
         formatMoney(menoy) {
             return formatMoney(menoy);
         },
@@ -155,7 +162,7 @@ export default {
         }
     },
     computed: {
-        totalAmount() { 
+        totalAmount() {
             return this.$store.state.cart.items.reduce((total, item) => total + (item.price * item.quantitys), 0);
         },
 

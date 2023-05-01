@@ -164,6 +164,10 @@
   max-height: 50px;
 }
 
+.agroup1image{
+  max-height: 150px;
+}
+
 .aform-account {
   height: auto;
   width: 80%;

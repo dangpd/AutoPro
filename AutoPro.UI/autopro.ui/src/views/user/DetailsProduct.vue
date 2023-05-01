@@ -2,7 +2,7 @@
   <div>
     <TheHeader></TheHeader>
     <TheNavbar></TheNavbar>
-    <div class="content">
+    <div class="content" id="main">
       <TheLineLink name="Sản phẩm" :detail="'/ ' + product.productName"></TheLineLink>
       <div class="details-product">
         <div class="details-product-image">
@@ -155,6 +155,7 @@ export default {
     formatMoney(money) {
       return formatMoney(money);
     },
+
     formatStatusProduct(status) {
       return formatStatusProduct(status);
     },

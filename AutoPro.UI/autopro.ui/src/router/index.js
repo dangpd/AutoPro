@@ -67,7 +67,8 @@ const routes = [
     { path: '/news/:id', name: 'news', component: DetailsNews, props: true },
     { path: '/user/:id', name: 'user', component: DetailsUser, props: true },
     { path: '/list-product-favorite', component: FavoriteProduct },
-    { path: '/category/:id', name: 'category', component: ProductByCategory, props: true },
+    { path: '/product/category/:id', name: 'productCategory', component: ProductByCategory, props: true },
+    { path: '/product/search/', name: 'productFilter', component: ProductByCategory, props: (route) => ({ query: route.query.key }) },
     { path: '/purchase', component: Purchase },
 
     //Admin
@@ -85,7 +86,7 @@ const routes = [
                     component: AdminOrder,
                     children:
                         [
-                            { path: 'statusOrders/:id',name:'orderStatus', component: AdminOrder, props: true }
+                            { path: 'statusOrders/:id', name: 'orderStatus', component: AdminOrder, props: true }
                         ]
                 },
                 { path: '/admin/news', component: AdminNews },
@@ -103,11 +104,20 @@ const routes = [
     },
 ]
 const router = createRouter({
-    scrollBehavior(to, from, savedPosition) {
-        return { x: 0, y: 0 }
-    },
     history: createWebHistory(),
-    routes: routes
+    routes: routes,
+    scrollBehavior(to, from, savedPosition) {
+        // if (savedPosition) {
+        //     return savedPosition
+        // } else {
+        //     return { top: 0 }
+        // }
+        // always scroll to top
+        return {
+            el: '#main',
+            top: 140,
+        }
+    },
 })
 
 export default router

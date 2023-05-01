@@ -2,7 +2,7 @@
     <div class="admin-content">
         <AdminLineLink name="Tổng quan"></AdminLineLink>
         <div class="dashloadheader">
-            <div class="iconh">
+            <div class="iconh" @click="adminOrder">
                 <div class="i1" style="background-color: #17a2b8;">
                     <div class="i12">
                         <div style="font-size: 18px;">
@@ -21,7 +21,7 @@
                     <i class="fa-regular fa-circle-right" style="margin-left: 4px;"></i>
                 </div>
             </div>
-            <div class="iconh">
+            <div class="iconh" @click="adminUser">
                 <div class="i1" style="background-color: #11DC99;">
                     <div class="i12">
                         <div style="font-size: 18px;">
@@ -40,7 +40,7 @@
                     <i class="fa-regular fa-circle-right" style="margin-left: 4px;"></i>
                 </div>
             </div>
-            <div class="iconh">
+            <div class="iconh" @click="adminBrand">
                 <div class="i1" style="background-color: #EFF427;">
                     <div class="i12">
                         <div style="font-size: 18px;">
@@ -59,7 +59,7 @@
                     <i class="fa-regular fa-circle-right" style="margin-left: 4px;"></i>
                 </div>
             </div>
-            <div class="iconh">
+            <div class="iconh" @click="adminNews">
                 <div class="i1" style="background-color: #F3482B;">
                     <div class="i12">
                         <div style="font-size: 18px;">
@@ -79,23 +79,63 @@
                 </div>
             </div>
         </div>
-        <div class="iconh" style="margin-top: 10px;">
-            <div class="i1" style="background-color: #2E95EC;">
-                <div class="i12">
-                    <div style="font-size: 18px;">
-                        Tổng doanh thu
+        <div style="margin-top: 10px;display: flex;">
+            <div class="iconh" @click="adminProduct">
+                <div class="i1" style="background-color: #2371EC;">
+                    <div class="i12">
+                        <div style="font-size: 18px;">
+                            Tổng sản phẩm
+                        </div>
+                        <div style="font-size: 30px;">
+                            {{ dashload.tongSanPham }}
+                        </div>
                     </div>
-                    <div style="font-size: 30px;">
-                        {{ formatMoney(dashload.tongDoanhThu) }}
+                    <div class="i13">
+                        <img src="../../assets/Image/product.png" style="padding-right: 10px;" alt="">
                     </div>
                 </div>
-                <div class="i13">
-                    <img src="../../assets/Image/revenue.png" alt="">
+                <div class="i2" style="background-color: #1347DE;">
+                    Xem chi tiết
+                    <i class="fa-regular fa-circle-right" style="margin-left: 4px;"></i>
                 </div>
             </div>
-            <div class="i2" style="background-color: #004B98;">
-                Xem chi tiết
-                <i class="fa-regular fa-circle-right" style="margin-left: 4px;"></i>
+            <div class="iconh" @click="adminCategory" style="margin-left: 10px;">
+                <div class="i1" style="background-color: #34EC52;">
+                    <div class="i12">
+                        <div style="font-size: 18px;">
+                            Tổng danh mục
+                        </div>
+                        <div style="font-size: 30px;">
+                            {{ dashload.tongDanhMuc }}
+                        </div>
+                    </div>
+                    <div class="i13">
+                        <img src="../../assets/Image/category.png" style="padding-right: 10px;" alt="">
+                    </div>
+                </div>
+                <div class="i2" style="background-color: #08901E;">
+                    Xem chi tiết
+                    <i class="fa-regular fa-circle-right" style="margin-left: 4px;"></i>
+                </div>
+            </div>
+            <div class="iconh" @click="adminRevenue" style="margin-left: 10px;">
+                <div class="i1" style="background-color: #E79434;">
+                    <div class="i12">
+                        <div style="font-size: 18px;">
+                            Tổng doanh thu
+                        </div>
+                        <div style="font-size: 30px;">
+                            {{ formatMoney(dashload.tongDoanhThu) }}
+                        </div>
+                    </div>
+                    <div class="i13">
+                        <img src="../../assets/Image/revenue.png" alt="">
+                    </div>
+                </div>
+                <div class="i2" style="background-color: #C97310;">
+                    Xem chi tiết
+                    <i class="fa-regular fa-circle-right" style="margin-left: 4px;"></i>
+                </div>
             </div>
         </div>
         <MLoading v-if="showLoading"></MLoading>
@@ -143,6 +183,34 @@ export default {
     methods: {
         formatMoney(money) {
             return formatMoney(money);
+        },
+
+        adminOrder() {
+            this.$router.push('/admin/order');
+        },
+
+        adminUser() {
+            this.$router.push('/admin/account');
+        },
+
+        adminBrand() {
+            this.$router.push('/admin/brand');
+        },
+
+        adminNews() {
+            this.$router.push('/admin/news');
+        },
+
+        adminProduct() {
+            this.$router.push('/admin/product');
+        },
+
+        adminRevenue() {
+            this.$router.push('/admin/revenue-statistics');
+        },
+
+        adminCategory(){
+            this.$router.push('/admin/category');
         }
     },
     created() {
@@ -153,10 +221,10 @@ export default {
         this.showLoading = true;
         setTimeout(() => {
             axios.get("https://localhost:7129/api/v1/Dashload")
-            .then((res) => {
-                this.showLoading = false;
-                this.dashload = res.data;
-            })
+                .then((res) => {
+                    this.showLoading = false;
+                    this.dashload = res.data;
+                })
         }, 500);
     },
     /**

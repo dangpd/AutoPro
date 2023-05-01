@@ -44,7 +44,7 @@
                         <td>{{ formatDate(item.createdDate) }}</td>
                         <td>
                             <div class="tbmethods">
-                                <button style="margin-left: 10px;" @click="deleteItem(item)">Xóa</button>
+                                <button style="margin-left: 10px;" @click="questionDeleteItem(item)">Xóa</button>
                             </div>
                         </td>
                     </tr>
@@ -160,6 +160,13 @@ export default {
      * Phương thức
      */
     methods: {
+        questionDeleteItem(item) {
+            let text = `Bạn có muỗn xóa liên hệ này không ?`;
+            if (confirm(text) == true) {
+                this.deleteItem(item);
+            }
+        },
+
         trClick(idRow) {
             this.rowSelected = idRow;
         },

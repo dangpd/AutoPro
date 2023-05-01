@@ -37,7 +37,7 @@
                     </div>
                 </div>
             </div>
-            <div class="agroup1">
+            <div class="agroup1image">
                 <div class="acol1-image">
                     <div class="aco1-image-file">
                         <div class="acol1-text">
@@ -56,7 +56,7 @@
                 <MInput type="text" v-model="news.image" styleInput="width: 900px; height: 30px;">
                 </MInput>
             </div>
-            <div class="aformSave" @click="saveNews">
+            <div class="aformSave" @click="questionSaveItem(news)">
                 <button>Lưu</button>
             </div>
         </div>
@@ -112,6 +112,15 @@ export default {
      * Phương thức
      */
     methods: {
+        questionSaveItem(item) {
+            let text = `Bạn có muốn lưu tin tức ${item.newsTitle} không ?`;
+            if (confirm(text) == true) {
+                this.saveNews();
+            } else {
+                this.$emit("onClose");
+            }
+        },
+
         async handleFileUpload() {
             //   const storageRef = ref(storage, "user/" + this.file.name);
             //   console.log(this.$refs.fileInput.files[0]);

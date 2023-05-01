@@ -53,7 +53,7 @@
                         <td>{{ formatDate(item.createdDate) }}</td>
                         <td>{{ formatDate(item.modifiedDate) }}</td>
                         <td>
-                            <div class="tbmethods" @click="deleteItem(item)">
+                            <div class="tbmethods" @click="questionDeleteItem(item)">
                                 <button style="margin-left: 10px;">Xóa</button>
                             </div>
                         </td>
@@ -172,6 +172,12 @@ export default {
      * Phương thức
      */
     methods: {
+        questionDeleteItem(item) {
+            let text = `Bạn có muỗn xóa nhãn hàng ${item.brandName} không ?`;
+            if (confirm(text) == true) {
+                this.deleteItem(item);
+            }
+        },
         trClick(idRow) {
             this.rowSelected = idRow;
         },

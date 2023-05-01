@@ -58,6 +58,11 @@ const enumAUTO = {
         exception: 0,
         serverError: 500,
         getSuccess: 200,
+    },
+
+    Operator: {
+        Equal: 1,
+        Like: 2,
     }
 }
 export default enumAUTO

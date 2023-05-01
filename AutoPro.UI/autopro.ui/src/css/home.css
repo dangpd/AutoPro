@@ -79,6 +79,7 @@
     height: 300px;
     /* width: 24.5%; */
     border: 1px solid black;
+    background-color: #A5D7E8;
     margin: 0 15px;
     text-align: center;
     box-sizing: border-box;
@@ -118,11 +119,13 @@
 
 .product-name {
     font-size: 17px;
-    font-weight: 600;
+    /* font-weight: 600; */
+    color: #0B2447;
 }
 
 .price {
     font-size: 14px;
+    color: #0B2447;
 }
 
 .favourtive {
@@ -155,12 +158,14 @@
 }
 
 .add-cart:hover {
-    background-color: aqua;
+    background-color: #19376D;
+    color: white;
     cursor: pointer;
 }
 
 .product-detail:hover {
-    background-color: aqua;
+    background-color: #19376D;
+    color: white;
     cursor: pointer;
 }
 

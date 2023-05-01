@@ -10,5 +10,6 @@ namespace AutoPro.DL.ProductDL
 {
     public interface IProductDL : IBaseDL<Product>
     {
+        public object returnObject(string filter,string order,int pageSize);
     }
 }

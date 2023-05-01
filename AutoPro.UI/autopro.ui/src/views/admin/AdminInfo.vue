@@ -105,7 +105,7 @@
                     </MInput>
                 </div>
             </div>
-            <div class="agroup1">
+            <div class="agroup1image">
                 <div class="acol1-image">
                     <div class="aco1-image-file">
                         <div class="acol1-text">
@@ -124,7 +124,7 @@
                 <MInput type="text" v-model="user.image" styleInput="width: 900px; height: 30px;">
                 </MInput>
             </div>
-            <div class="aformSave" @click="saveAdmin">
+            <div class="aformSave" @click="questionSaveItem(user)">
                 <button>Lưu</button>
             </div>
         </div>
@@ -181,6 +181,15 @@ export default {
      * Phương thức
      */
     methods: {
+        questionSaveItem(item) {
+            let text = `Bạn có muốn lưu tài khoản ${item.account} không ?`;
+            if (confirm(text) == true) {
+                this.saveAdmin();
+            } else {
+                this.$emit("onClose");
+            }
+        },
+
         async handleFileUpload() {
             //   const storageRef = ref(storage, "user/" + this.file.name);
             //   console.log(this.$refs.fileInput.files[0]);
