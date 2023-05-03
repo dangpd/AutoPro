@@ -85,7 +85,7 @@ function formatStatusProduct(quantity) {
             return 'Còn hàng';
         }
         return '';
-    }catch(err){
+    } catch (err) {
         console.log(err);
     }
 }
@@ -96,6 +96,10 @@ function formatMoney(money) {
         console.log(error);
         return "";
     }
+}
+
+function formatNumber(number) {
+    return new Intl.NumberFormat("de-DE").format(number);
 }
 
 /**
@@ -131,4 +135,4 @@ function fetchAPI(url, method, fnCallBack, data, typeRes) {
         })
         .catch(err => console.log(err));
 }
-export { clickoutside,formatStatusProduct, formatMoney, formatDate, formatGender, fetchAPI };
+export { clickoutside, formatNumber, formatStatusProduct, formatMoney, formatDate, formatGender, fetchAPI };

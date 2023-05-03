@@ -69,7 +69,7 @@
               @click="detailProduct(item.productID)"> -->
               <div class="product">
                 <div class="product-image">
-                  <img :src="item.image" alt="">
+                  <img :src="item.image" alt="" @click="favoriteProduct(item)">
                   <div class="favourtive">
                     <i class="fa-solid fa-heart"></i>
                   </div>
@@ -146,6 +146,7 @@ export default {
       },
       number2: 1,
       textSearch: '',
+      productFavorite: {},
     };
   },
   /**
@@ -235,6 +236,11 @@ export default {
             })
         }, 500)
       }
+    },
+
+    favoriteProduct(data) {
+      this.productFavorite = data;
+      this.$store.commit('addToFavorite', this.productFavorite);
     }
   },
   created() {

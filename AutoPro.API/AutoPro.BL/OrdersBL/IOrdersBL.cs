@@ -28,6 +28,7 @@ namespace AutoPro.BL.OrdersBL
 
         public object getOrderDetail(int entityId);
 
+        public object getByUserID(int userId);
         /// <summary>
         /// Cập nhật đơn hàng
         /// </summary>

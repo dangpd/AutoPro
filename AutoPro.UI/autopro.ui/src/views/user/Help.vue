@@ -2,7 +2,7 @@
     <div>
         <TheHeader></TheHeader>
         <TheNavbar></TheNavbar>
-        <div class="content-help">
+        <div class="content-help" id="main">
             <MLoading v-if="showLoading"></MLoading>
             <TheLineLink name="Chính sách"></TheLineLink>
             <div class="help">

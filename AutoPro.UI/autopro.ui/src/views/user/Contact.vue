@@ -2,7 +2,7 @@
     <div>
         <TheHeader></TheHeader>
         <TheNavbar></TheNavbar>
-        <div class="content">
+        <div class="content" id="main">
             <MLoading v-if="showLoading"></MLoading>
             <TheLineLink name="Liên hệ"></TheLineLink>
             <div class="content-contact">

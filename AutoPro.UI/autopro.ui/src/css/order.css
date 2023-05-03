@@ -14,6 +14,10 @@
     border: 1px solid #bbb;
 }
 
+.m-table-order tbody tr:hover{
+    background-color: #e8edf4;
+}
+
 .m-table-order thead tr {
     height: 30px;
     padding: 10px;
@@ -45,10 +49,13 @@
 .product-order-method {
     cursor: pointer;
     border: 1px solid black;
-    width: 50px;
+    width: 80px;
+    height: 30px;
+    display: flex;
+    align-items: center;
     padding-left: 10px;
     border-radius: 4px;
-    background-color: aqua;
+    background-color: #A5D7E8;
 }
 
 .product-order-method:hover {

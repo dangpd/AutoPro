@@ -2,26 +2,37 @@
     <div>
         <TheHeader></TheHeader>
         <TheNavbar></TheNavbar>
-        <div class="content">
+        <div class="content" id="main">
             <TheLineLink name="Sản phẩm yêu thích"></TheLineLink>
-            <div class="products-favorite">
-                <div class="productf">
-                    <div class="productf-image">
-                        <img src="../../assets/Image/giamsoc.jpg" alt="">
-                    </div>
-                    <div class="productf-name">Lốc gió</div>
-                    <div class="productf-price">Giá : 330.000Vnd</div>
-                    <div class="productf-buttom">
-                        <div class="productf-dis-favorite">Bỏ yêu thích</div>
-                        <div class="productf-detail">Xem chi tiết</div>
-                        <router-link to="/cart" class="productf-add-cart">
-                            <div class="">Thêm vào giỏ hàng</div>
-                        </router-link>
+            <div class="list-product-impoted">
+                <div v-for="(item, index) in listFavorite" :key="index">
+                    <!-- <router-link :to="'/product/' + item.productID" style="text-decoration: none;color: black;"> -->
+                    <div>
+                        <div class="product">
+                            <div class="product-image">
+                                <img :src="item.image" alt="">
+                                <div class="favourtive">
+                                    <i class="fa-solid fa-heart" style="color: red;" @click="removeFavorite(item)"></i>
+                                </div>
+                            </div>
+                            <div class="product-name">{{ item.productName }}</div>
+                            <div class="price">{{ formatMoney(item.price) }}</div>
+                            <div class="product-buttom">
+                                <div class="product-detail" @click="detailProduct(item.productID)">Xem chi tiết</div>
+                                <div class="add-cart" @click="addCart(item)">Thêm vào giỏ hàng</div>
+                            </div>
+                        </div>
+                        <!-- </router-link> -->
                     </div>
                 </div>
             </div>
+            <div class="nocart" v-show="noCart">
+                <img src="../../assets/Image/nocart.png" alt="">
+                <h4>Không có sản phẩm yêu thích nào</h4>
+            </div>
         </div>
         <TheFooter></TheFooter>
+        <MLoading v-if="showLoading"></MLoading>
     </div>
 </template>
 
@@ -30,6 +41,9 @@ import TheFooter from '@/layout/TheFooter.vue';
 import TheHeader from '@/layout/TheHeader.vue';
 import TheLineLink from '@/layout/TheLineLink.vue';
 import TheNavbar from '@/layout/TheNavbar.vue';
+import { formatMoney } from '@/js/gCommon'
+import MQuantity from '@/components/MQuantity.vue';
+import MLoading from '@/components/MLoading.vue';
 
 export default {
     /**
@@ -43,7 +57,7 @@ export default {
     /**
      * Component được sử dụng
      */
-    components: { TheHeader, TheNavbar, TheFooter, TheLineLink },
+    components: { TheHeader, TheNavbar, TheFooter, TheLineLink, MLoading },
     /**
      * Emit sự thay đổi
      */
@@ -56,26 +70,78 @@ export default {
      */
     data() {
         return {
-
+            listFavorite: [],
+            totalCartItem: 0,
+            showCart: false,
+            noCart: false,
+            showLoading: false,
+            productCart: {
+                quantitys: ''
+            },
+            number: 1,
         }
     },
     /**
      * Phương thức
      */
     methods: {
+        detailProduct(item) {
+            this.$router.push({ name: 'product', params: { id: item } });
+        },
 
+        addCart(data) {
+            this.productCart = data;
+            this.productCart.quantitys = this.number;
+            // console.log(this.productCart);
+            this.$store.commit('addToCart', this.productCart);
+        },
+
+        formatMoney(money) {
+            return formatMoney(money);
+        },
+
+        removeFavorite(data) {
+            this.showLoading = true;
+            setTimeout(() => {
+                this.showLoading = false;
+                this.$store.commit('removeFavorite', data);
+            }, 100);
+        }
     },
     created() {
-
+        this.showLoading = true;
+        setTimeout(() => {
+            this.showLoading = false
+            this.listFavorite = this.$store.state.favorite.listFavorite;
+            if (this.listFavorite.length > 0) {
+                this.showCart = true;
+                this.noCart = false;
+            } else {
+                this.showCart = false;
+                this.noCart = true;
+            }
+        }, 400);
     },
     /**
      * Theo dõi sự thay đổi
      */
     watch: {
+        totalRecord(newVal) {
+            if (newVal == 0) {
+                this.showCart = false;
+                this.noCart = true;
+            }
+        }
+    },
 
+    computed: {
+        totalRecord() {
+            return this.$store.state.favorite.listFavorite.length;
+        }
     }
 }
 </script>
 
 <style>
-@import url(../../css/productfavorite.css);</style>
+@import url(../../css/productfavorite.css);
+</style>

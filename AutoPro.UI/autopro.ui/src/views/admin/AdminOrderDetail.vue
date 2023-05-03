@@ -91,7 +91,7 @@
             <div class="agroup1" style="margin:10px 0;">
                 Danh sách sản phẩm đơn hàng
             </div>
-            <table border="1" style="height: auto;">
+            <table border="1" style="height: auto;" class="m-table-order">
                 <thead style="line-height: 40px;">
                     <tr>
                         <th style="width: 100px;padding-left: 10px;">STT</th>

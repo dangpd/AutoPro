@@ -1,20 +1,27 @@
 <template>
   <div>
     <router-view />
-  </div>
+  </div> 
 </template>
 
 <script>
+import {useToast} from "vue-toastification";
 export default {
-  name: 'App',
+  setup(){
+    const toast = useToast(); 
+    return { toast }
+  }, 
+  name: 'App', 
   data() {
-    return {
-      roleApp: '',
+    return { 
+      roleApp: '', 
     }
   },
   components: {
   },
   created() {
+    // this.$toast.success("ToastPlugin")   
+    // this.toast.success("Thành công")   
   },
   watch: {
     // roleApp(newVal) {

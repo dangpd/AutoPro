@@ -130,6 +130,7 @@
 </template>
 
 <script>
+import { useToast } from "vue-toastification";
 import MInput from '@/components/MInput.vue';
 import MLoading from '@/components/MLoading.vue';
 import Resource from '../../js/gResource';
@@ -238,6 +239,7 @@ export default {
     },
 
     async saveUser() {
+      const me = this;
       if (this.type == Resource.FormAdminType.Add) {
         await axios.post(ApiUser.addUser(), this.user)
           .then((res) => {

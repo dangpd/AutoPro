@@ -263,6 +263,7 @@ export default {
     },
 
     success() {
+      this.$toast.success("Thành công")
       this.filterAndPaging();
       this.reloadTable = false;
     },

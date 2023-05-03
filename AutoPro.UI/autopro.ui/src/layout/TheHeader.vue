@@ -78,7 +78,7 @@ export default {
     /**
      * Emit sự thay đổi
      */
-    emits: [""],
+    emits: ["update:keySearch"],
     directives: {
 
     },
@@ -145,6 +145,12 @@ export default {
                 // this.userID = newVal;
             }
         },
+
+        keySeach(newVal) {
+            this.keySeach = newVal;
+            this.$emit("update:modelValue", newVal);
+            this.$store.commit('updateSearch', newVal);
+        }
     }
 }
 </script>

@@ -42,6 +42,6 @@ namespace AutoPro.DL.OrdersDL
         public Orders GetLastestOrder();
 
         public Product GetListProductByListID(int id);
-
+        object getOrderByUserID(int userId);
     }
 }

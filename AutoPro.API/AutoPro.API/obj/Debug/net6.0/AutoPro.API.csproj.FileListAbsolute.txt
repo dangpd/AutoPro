@@ -20,7 +20,6 @@ D:\Do An Tot Nghiep\AutoPro.API\AutoPro.API\obj\Debug\net6.0\AutoPro.API.Generat
 D:\Do An Tot Nghiep\AutoPro.API\AutoPro.API\obj\Debug\net6.0\AutoPro.API.AssemblyInfoInputs.cache
 D:\Do An Tot Nghiep\AutoPro.API\AutoPro.API\obj\Debug\net6.0\AutoPro.API.AssemblyInfo.cs
 D:\Do An Tot Nghiep\AutoPro.API\AutoPro.API\obj\Debug\net6.0\AutoPro.API.csproj.CoreCompileInputs.cache
-D:\Do An Tot Nghiep\AutoPro.API\AutoPro.API\obj\Debug\net6.0\AutoPro.API.MvcApplicationPartsAssemblyInfo.cs
 D:\Do An Tot Nghiep\AutoPro.API\AutoPro.API\obj\Debug\net6.0\AutoPro.API.MvcApplicationPartsAssemblyInfo.cache
 D:\Do An Tot Nghiep\AutoPro.API\AutoPro.API\obj\Debug\net6.0\staticwebassets.build.json
 D:\Do An Tot Nghiep\AutoPro.API\AutoPro.API\obj\Debug\net6.0\staticwebassets.development.json
@@ -131,3 +130,7 @@ E:\Dang\Do an\AutoPro\AutoPro.API\AutoPro.API\obj\Debug\net6.0\refint\AutoPro.AP
 E:\Dang\Do an\AutoPro\AutoPro.API\AutoPro.API\obj\Debug\net6.0\AutoPro.API.pdb
 E:\Dang\Do an\AutoPro\AutoPro.API\AutoPro.API\obj\Debug\net6.0\AutoPro.API.genruntimeconfig.cache
 E:\Dang\Do an\AutoPro\AutoPro.API\AutoPro.API\obj\Debug\net6.0\ref\AutoPro.API.dll
+D:\Do An Tot Nghiep\AutoPro.API\AutoPro.API\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\Do An Tot Nghiep\AutoPro.API\AutoPro.API\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
+D:\Do An Tot Nghiep\AutoPro.API\AutoPro.API\bin\Debug\net6.0\VNpay.dll
+D:\Do An Tot Nghiep\AutoPro.API\AutoPro.API\bin\Debug\net6.0\VNpay.pdb

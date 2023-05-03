@@ -60,7 +60,7 @@
 }
 
 .product-purchase {
-    height: 145px;
+    height: 130px;
     display: flex;
     width: 100%;
     margin: 10px 0;
@@ -83,6 +83,14 @@
 
 .product-purchase-totalmoney {
     width: 150px;
+    position: relative;
+}
+
+.thungracdonhang{
+    position: absolute;
+    top: 60px;
+    cursor: pointer;
+    right: 40px;
 }
 
 .total {
@@ -97,9 +105,10 @@
     border-bottom: 1px solid #bbb;
 }
 
+
 .order-purchase {
     margin-top: 10px;
-    /* margin-left: 1200px; */
+    margin-left: 1200px;
 }
 
 .order-purchase button {

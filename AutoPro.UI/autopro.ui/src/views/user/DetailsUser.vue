@@ -2,7 +2,7 @@
     <div>
         <TheHeader></TheHeader>
         <TheNavbar></TheNavbar>
-        <div class="content">
+        <div class="content" id="main">
             <TheLineLink name="Thông tin cá nhân" :detail="'/ ' + this.userDetail.fullName"></TheLineLink>
             <div class="details-form-user">
                 <div class="details-header">

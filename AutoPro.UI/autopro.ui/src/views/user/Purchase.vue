@@ -46,7 +46,10 @@
                 </div>
                 <div class="information-product">
                     <h6>Thông tin đơn hàng</h6>
-                    <div class="list-purchase-product" v-for="(item, index) in listCart" :key="index">
+                    <div class="list-purchase-product" v-for="(item, index) in listCart" :key="index"
+                        @click="detailProduct(item)" style="cursor: pointer;" :class="{
+                                'row-selected': rowSelected == item.productID
+                            }">
                         <div class="product-purchase">
                             <div class="product-purchase-image">
                                 <img :src="item.image" alt="">
@@ -60,6 +63,9 @@
                             </div>
                             <div class="product-purchase-totalmoney">
                                 {{ formatMoney(item.price * item.quantitys) }}
+                                <div class="thungracdonhang" @click="deleteProdoctCart(item)">
+                                    <img src="../../assets/Image/thungrac.png" alt="">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -128,10 +134,10 @@ export default {
             fullName: '',
             address: '',
             phoneNumber: '',
-            checkOutTypeID: '',
+            checkOutTypeID: 2,
             description: '',
             listCart: [],
-            listOrderDetail:[],
+            listOrderDetail: [],
         }
     },
     /**
@@ -140,6 +146,17 @@ export default {
     methods: {
         formatMoney(menoy) {
             return formatMoney(menoy);
+        },
+
+        deleteProdoctCart(item) {
+            let text = `Bạn có muỗn xóa sản phẩm "${item.productName}" khỏi đơn hàng không ?`;
+            if (confirm(text) == true) {
+                this.removeProduct(item);
+            }
+        },
+
+        removeProduct(item) {
+            this.$store.commit('removeCart', item);
         },
 
         validateBeforeSave(data) {
@@ -159,6 +176,9 @@ export default {
                 return false;
             }
             return true;
+        },
+        detailProduct(data) {
+            this.$router.push({ name: 'product', params: { id: data.productID } });
         },
         // Click nút Đặt hàng
         orderProduct() {
@@ -183,9 +203,10 @@ export default {
             axios.post(ApiOrder.insertOrderDetail(), orderParam)
                 .then((res) => {
                     console.log(res);
-                    if(res.status == 201){
+                    if (res.status == 201) {
                         alert("Đơn hàng đã được đặt thành công");
-                    }else{
+                        this.$router.push('/order');
+                    } else {
                         alert("Có lỗi xảy ra")
                     }
                 })
@@ -242,7 +263,7 @@ export default {
             console.log(this.customerInfo);
             // Xử lý danh sách các hàng hóa mua
             this.listOrderDetail = this.listCart.map((x) => ({
-                idOrderDetail:"",
+                idOrderDetail: "",
                 price: x.price,
                 productCode: x.productCode,
                 productID: x.productID,

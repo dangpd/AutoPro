@@ -7,32 +7,51 @@
             <div class="products-category">
                 <div class="product-category-filter">
                     <div class="product-category-filter-header">Bộ lọc</div>
-                    <div style="display: flex;align-items: center;">
-                        Sắp xếp theo:
-                        <MSelectBoxDown :data="[
-                            { feildShow: 'Ngày tạo gần nhất', feildValue: 'p.createdDate DESC' },
-                            { feildShow: 'Ngày sửa gần nhất', feildValue: 'p.modifiedDate DESC' },
-                            { feildShow: 'Theo giá tăng dần', feildValue: 'p.price ASC' },
-                            { feildShow: 'Theo giá giảm dần', feildValue: 'p.price DESC' },
-                            { feildShow: 'Tên sản phẩm a-z', feildValue: 'p.productName ASC' },
-                            { feildShow: 'Tên sản phẩm z-a', feildValue: 'p.productName DESC' },
-                        ]" v-model="orderBy"></MSelectBoxDown>
+                    <div>
+                        <label>Bộ lọc giá:</label>
                     </div>
-                    Lọc giá
-                    <div class="product-category-apply">
-                        <button>Áp dụng</button>
+                    <input type="range" v-model="priceRange" :min="minPrice" :max="maxPrice" style="width: 100%;" />
+                    <br>
+                    <span>Từ: {{ formatNumber(priceRange) }} - {{ formatNumber(maxPrice) }}</span>
+                    <div>
+                        <label for="">
+                            Theo nhà sản xuất:
+                        </label>
+                        <div v-for="(item, index) in dataBrand" :key="index">
+                            <input type="checkbox" :id="'checkbox-' + index" :value="item.brandID"
+                                :checked="selectedItem == item.brandID" @change="trChange(item.brandID)">
+                            <label :for="'checkbox-' + index" style="margin-left: 4px;">
+                                {{ item.brandName }}
+                            </label>
+                        </div>
                     </div>
                 </div>
                 <div class="product-category-content">
-                    <div class="product-category-title">Danh sách sản phẩm tìm được</div>
+                    <div class="product-category-title"
+                        style="display: flex;align-items: center;height: 40px;justify-content: space-between;">
+                        <div>
+                            Danh sách sản phẩm
+                        </div>
+                        <div style="display: flex;align-items: center;">
+                            Sắp xếp theo:
+                            <MSelectBoxDown :data="[
+                                    { feildShow: 'Ngày tạo gần nhất', feildValue: 'p.createdDate DESC' },
+                                    { feildShow: 'Ngày sửa gần nhất', feildValue: 'p.modifiedDate DESC' },
+                                    { feildShow: 'Theo giá tăng dần', feildValue: 'p.price ASC' },
+                                    { feildShow: 'Theo giá giảm dần', feildValue: 'p.price DESC' },
+                                    { feildShow: 'Tên sản phẩm a-z', feildValue: 'p.productName ASC' },
+                                    { feildShow: 'Tên sản phẩm z-a', feildValue: 'p.productName DESC' },
+                                ]" v-model="orderBy"></MSelectBoxDown>
+                        </div>
+                    </div>
                     <div class="list-product-category">
-                        <div v-for="(item, index) in dataSearch" :key="index"
+                        <div v-for="(item, index) in filteredProducts" :key="index"
                             :class="{ 'row-selected': rowSelected == item.productID }">
                             <div>
                                 <div class="product">
                                     <div class="product-image">
                                         <img :src="item.image" alt="">
-                                        <div class="favourtive" @click="favoriteProduct(ỉtem)">
+                                        <div class="favourtive" @click="favoriteProduct(item)">
                                             <i class="fa-solid fa-heart"></i>
                                         </div>
                                     </div>
@@ -66,8 +85,9 @@ import MCombobox from '@/components/MCombobox.vue'
 import MLoading from '@/components/MLoading.vue';
 import enumAUTO from '../../js/gEnum';
 import axios from 'axios';
-import { formatMoney } from '@/js/gCommon';
+import { formatMoney, formatNumber } from '@/js/gCommon';
 import MSelectBoxDown from '@/components/MSelectBoxDown.vue';
+import ApiBrand from '../../js/apiBrand';
 
 export default {
     /**
@@ -99,14 +119,22 @@ export default {
             orderBy: 'p.modifiedDate DESC',
             pageIndex: 1,
             pageSize: 8,
-            dataSearch: {},
+            dataSearch: [],
             rowSelected: -1,
+            priceRange: 0,
+            dataBrand: [],
+            selectedItem: null,
+            keySearch: '',
         }
     },
     /**
      * Phương thức
      */
     methods: {
+        formatNumber(number) {
+            return formatNumber(number);
+        },
+
         formatMoney(money) {
             return formatMoney(money);
         },
@@ -147,22 +175,49 @@ export default {
             this.getDataRes();
         },
 
+        getValueCategory() {
+            this.listFilter = [
+                {
+                    FieldName: "ProductCode",
+                    Operator: enumAUTO.Operator.Like,
+                    FilterValue: this.$store.state.search,
+                },
+                {
+                    FieldName: "ProductName",
+                    Operator: enumAUTO.Operator.Like,
+                    FilterValue: this.$store.state.search,
+                },
+                {
+                    FieldName: "PlaceOrigin",
+                    Operator: enumAUTO.Operator.Like,
+                    FilterValue: this.$store.state.search,
+                },
+                // {
+                //     FieldName: "branchid",
+                //     Operator: enumAUTO.Operator.Equal,
+                //     FilterValue: this.$store.state.search,
+                // },
+            ];
+            this.getDataRes();
+        },
+
         getDataRes() {
             this.showLoading = true;
-            setTimeout(() => {
+            setTimeout(async () => {
                 let objectFilter = {
                     pageIndex: this.pageIndex,
                     pageSize: this.pageSize,
                     listFilter: this.listFilter,
                     listOrderBy: this.orderBy
                 }
-                console.log(objectFilter);
-                axios.post("https://localhost:7129/api/v1/Product/PagingProductByFilter", objectFilter)
+                // console.log(objectFilter);
+                await axios.post("https://localhost:7129/api/v1/Product/PagingProductByFilter", objectFilter)
                     .then((res) => {
                         if (res.status == 200) {
                             this.showLoading = false;
                             this.dataSearch = res.data.data;
-                            console.log(res);
+                            // console.log(res);
+                            // console.log(this.dataSearch);
                         }
                     })
             }, 500);
@@ -170,7 +225,7 @@ export default {
 
         seeMoreImported() {
             this.pageSize = this.pageSize + 8;
-            this.getValue();
+            this.getDataRes();
         },
 
         detailProduct(item) {
@@ -191,16 +246,43 @@ export default {
                 this.productFavorite = data;
                 this.$store.commit('addToCart', this.productFavorite);
             }
+        },
+
+        getAllBrand() {
+            axios.get(ApiBrand.getAll())
+                .then((res) => {
+                    this.dataBrand = res.data;
+                    // console.log(this.dataBrand);
+                })
+        },
+
+        trChange(data) {
+            if (this.selectedItem === data) {
+                this.selectedItem = null;
+            } else {
+                this.selectedItem = data;
+            }
+            // console.log(this.selectedItem);
         }
     },
     created() {
-        this.getValue();
+        let param = this.$route.params.id;
+        if (param) {
+            this.getValueCategory();
+            this.getAllBrand();
+        } else {
+            this.keySearch = this.$route.query.key;
+            // console.log(this.keySearch);
+            this.getValue();
+            this.getAllBrand();
+        }
     },
     /**
      * Theo dõi sự thay đổi
      */
     watch: {
-        '$route.params.key': function (newVal) {
+        '$route.query.key': function (newVal) {
+            console.log(newVal);
             this.getValue();
         },
 
@@ -209,10 +291,31 @@ export default {
             this.getValue();
         },
 
-        // listFilter(newVal){
-        //     this.orderBy = newVal;
-        //     this.getValue();
-        // }
+
+    },
+
+    computed: {
+        filteredProducts() {
+            // console.log(this.selectedItem);
+            if (this.selectedItem == null) {
+
+                return this.dataSearch.filter((product) => {
+                    return product.price >= this.priceRange && product.price <= this.maxPrice;
+                });
+            }
+            // console.log(this.selectedItem);
+            return this.dataSearch.filter((product) => {
+                return (product.price >= this.priceRange && product.price <= this.maxPrice) && product.brandID == this.selectedItem;
+            });
+        },
+
+        minPrice() {
+            return Math.min(...this.dataSearch.map((product) => product.price));
+        },
+
+        maxPrice() {
+            return Math.max(...this.dataSearch.map((product) => product.price));
+        },
     }
 }
 </script>

@@ -2,7 +2,7 @@
     <div>
         <TheHeader></TheHeader>
         <TheNavbar></TheNavbar>
-        <div class="content">
+        <div class="content" id="main">
             <TheLineLink name="Tin tức" :detail="'/ ' + news.newsTitle"></TheLineLink>
             <div class="details-news-title">Tiêu đề: {{ news.newsTitle }}</div>
             <div class="details-news-time">Ngày tạo: {{ formatDate(news.newsDate) }}</div>

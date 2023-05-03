@@ -5,7 +5,7 @@
         <div class="content">
             <TheLineLink name="Giỏ hàng"></TheLineLink>
             <div v-show="showCart">
-                <table class="m-table">
+                <table class="m-table-order">
                     <thead>
                         <tr>
                             <th style="min-width: 50px;padding-left: 16px;">
@@ -19,7 +19,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(item, index) in listCart" :key="index">
+                        <tr v-for="(item, index) in listCart" :key="index" @click="detailProduct(item)" style="cursor: pointer;">
                             <td style="min-width: 50px; padding-left: 16px;">
                                 {{ index + 1 }}
                             </td>
@@ -132,6 +132,10 @@ export default {
             } else {
                 this.$router.push('/purchase');
             }
+        },
+
+        detailProduct(data) {
+            this.$router.push({ name: 'product', params: { id: data.productID } });
         }
 
     },

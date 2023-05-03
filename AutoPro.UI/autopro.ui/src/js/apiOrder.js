@@ -40,6 +40,10 @@ class OrderService extends base {
     filterOrderByStatus(key = '', pageSize, pageNumber,status){
         return `${this.getAll()}/FilterByStatus?textSearch=${key}&pageSize=${pageSize}&pageNumber=${pageNumber}&status=${status}`;
     }
+
+    getByUserID(id){
+        return `${this.getAll()}/GetOrderByID?id=${id}`;
+    }
 }
 
 const ApiOrder = new OrderService();

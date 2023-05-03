@@ -261,5 +261,51 @@ namespace AutoPro.API.Controllers
                 });
             }
         }
+
+        [HttpGet("GetOrderByID")]
+
+        public IActionResult getOrderByID([FromQuery] int id)
+        {
+            try
+            {
+                var result = _ordersBL.getByUserID(id);
+                // Thành công return 1
+                if (result != null)
+                {
+                    return StatusCode(StatusCodes.Status200OK, result);
+                }
+
+                if(result == null)
+                {
+                    return StatusCode(StatusCodes.Status200OK, result);
+
+                }
+
+                // Nếu kq trả về null return lỗi server
+                else
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResult
+                    {
+                        ErrorCode = Common.Enum.ErrorCode.ServerError,
+                        DevMsg = Common.Resource.DataResource.DevMsg_ServerError,
+                        UserMsg = Common.Resource.DataResource.UserMsg_ServerError,
+                        MoreInfo = Common.Resource.Resource.UserMsg_ServerError,
+                        TraceId = HttpContext.TraceIdentifier
+                    });
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResult
+                {
+                    ErrorCode = Common.Enum.ErrorCode.Exception,
+                    DevMsg = Common.Resource.DataResource.DevMsg_Exception,
+                    UserMsg = Common.Resource.DataResource.UserMsg_Exception,
+                    MoreInfo = Common.Resource.Resource.UserMsg_ServerError,
+                    TraceId = HttpContext.TraceIdentifier
+                });
+            }
+        }
     }
 }

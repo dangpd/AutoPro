@@ -27,8 +27,8 @@
               <div class="product">
                 <div class="product-image">
                   <img :src="item.image" alt="">
-                  <div class="favourtive" @click="favoriteProduct(ỉtem)">
-                    <i class="fa-solid fa-heart"></i>
+                  <div class="favourtive">
+                    <i class="fa-solid fa-heart" @click="favoriteProduct(item)"></i>
                   </div>
                 </div>
                 <div class="product-name">{{ item.productName }}</div>
@@ -47,14 +47,13 @@
       <div class="new-products-imported">
         <div class="title">PHỤ TÙNG BÁN NHIỀU NHẤT</div>
         <div class="list-product-impoted">
-          <div v-for="(item, index) in dataProductNews" :key="index"
-            :class="{ 'row-selected': rowSelected == item.productID }">
+          <div v-for="(item, index) in dataNews" :key="index" :class="{ 'row-selected': rowSelected == item.productID }">
             <!-- <router-link :to="'/product/' + item.productID" style="text-decoration: none;color: black;"> -->
             <div>
               <div class="product">
                 <div class="product-image">
                   <img :src="item.image" alt="">
-                  <div class="favourtive">
+                  <div class="favourtive" @click="favoriteProduct(item)">
                     <i class="fa-solid fa-heart"></i>
                   </div>
                 </div>
@@ -81,6 +80,7 @@ import TheFooter from '@/layout/TheFooter.vue';
 import TheHeader from '@/layout/TheHeader.vue';
 import TheNavbar from '@/layout/TheNavbar.vue';
 import axios from 'axios';
+import enumAUTO from '@/js/gEnum';
 import ApiBrand from '../../js/apiBrand';
 import ApiProduct from '../../js/apiProduct';
 import { formatMoney } from '@/js/gCommon';
@@ -125,6 +125,11 @@ export default {
       },
       number: 1,
       productFavorite: {},
+      listFilter: [],
+      orderBy: 'p.quantitySell DESC',
+      pageIndex: 1,
+      pageSizeNews: 8,
+      dataNews: [],
     }
   },
   mounted() {
@@ -164,14 +169,42 @@ export default {
       }, 500);
     },
 
+    getDataRes() {
+      this.listFilter = [{
+        FieldName: "ProductCode",
+        Operator: enumAUTO.Operator.Like,
+        FilterValue: ""
+      }]
+      this.showLoading = true;
+      setTimeout(async () => {
+        let objectFilter = {
+          pageIndex: 1,
+          pageSize: this.pageSizeNews,
+          listFilter: this.listFilter,
+          listOrderBy: this.orderBy
+        }
+        // console.log(objectFilter);
+        await axios.post("https://localhost:7129/api/v1/Product/PagingProductByFilter", objectFilter)
+          .then((res) => {
+            // console.log(res);
+            if (res.status == 200) {
+              this.showLoading = false;
+              this.dataNews = res.data.data;
+              // console.log(res);
+              // console.log(this.dataSearch);
+            }
+          })
+      }, 500);
+    },
+
     seeMoreImported() {
       this.pageSize = this.pageSize + 8;
       this.getProductNews();
     },
 
     seeMoreImported2() {
-      this.pageSize = this.pageSize + 8;
-      this.getProductNews();
+      this.pageSizeNews = this.pageSizeNews + 8;
+      this.getDataRes();
     },
 
     detailProduct(item) {
@@ -185,13 +218,10 @@ export default {
       this.$store.commit('addToCart', this.productCart);
     },
 
-    favoriteProduct(data) {
-      if (!this.role) {
-        alert("Bạn chưa đăng nhập");
-      } else {
-        this.productFavorite = data;
-        this.$store.commit('addToCart', this.productFavorite);
-      }
+    favoriteProduct(item) {
+      console.log(item);
+      this.productFavorite = item;
+      this.$store.commit('addToFavorite', item);
     }
   },
 
@@ -205,6 +235,7 @@ export default {
     setTimeout(() => {
       this.getAllBrand();
       this.getProductNews();
+      this.getDataRes();
       this.showLoading = false;
     }, 500)
   },

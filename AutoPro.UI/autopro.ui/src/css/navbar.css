@@ -1,7 +1,7 @@
 .navbar {
     height: 40px;
     width: 100%;
-    background-color: aqua;
+    background-color: #A5D7E8;
     margin: 0;
     padding: 0;
     /* position: relative; */
@@ -38,7 +38,7 @@
 }
 
 .sub-menu {
-    background-color: aqua;
+    background-color: #A5D7E8;
     color: black;
     position: absolute;
     top: 40px;

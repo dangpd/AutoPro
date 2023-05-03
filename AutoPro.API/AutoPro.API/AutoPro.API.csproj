@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AutoPro.BL\AutoPro.BL.csproj" />
     <ProjectReference Include="..\AutoPro.DL\AutoPro.DL.csproj" />
+    <ProjectReference Include="..\VNpay\VNpay.csproj" />
   </ItemGroup>
 
   <ItemGroup>

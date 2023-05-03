@@ -67,6 +67,7 @@ const routes = [
     { path: '/news/:id', name: 'news', component: DetailsNews, props: true },
     { path: '/user/:id', name: 'user', component: DetailsUser, props: true },
     { path: '/list-product-favorite', component: FavoriteProduct },
+    { path: '/product/brand/:id', name: 'productBrand', component: ProductByCategory, props: true },
     { path: '/product/category/:id', name: 'productCategory', component: ProductByCategory, props: true },
     { path: '/product/search/', name: 'productFilter', component: ProductByCategory, props: (route) => ({ query: route.query.key }) },
     { path: '/purchase', component: Purchase },

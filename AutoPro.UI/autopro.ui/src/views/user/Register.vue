@@ -8,97 +8,61 @@
         <div class="form-input">
           <div class="register-account">
             <div class="text">Tên đăng nhập :</div>
-            <MInput
-              type="text"
-              styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-            >
+            <MInput type="text" v-model="this.user.account"
+              styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
             </MInput>
           </div>
           <div class="register-account">
             <div class="text">Họ :</div>
-            <MInput
-              type="text"
-              styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-            >
+            <MInput type="text" v-model="this.user.firstName"
+              styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
             </MInput>
           </div>
           <div class="register-account">
             <div class="text">Tên :</div>
-            <MInput
-              type="text"
-              styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-            >
+            <MInput type="text" v-model="this.user.lastName"
+              styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
             </MInput>
           </div>
           <div class="register-fullName">
             <div class="text">Họ và tên :</div>
-            <MInput
-              type="text"
-              styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-            >
+            <MInput type="text" v-model="this.user.fullName"
+              styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
             </MInput>
           </div>
           <div class="register-address">
             <div class="text">Địa chỉ :</div>
-            <MInput
-              type="text"
-              styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-            >
+            <MInput type="text" v-model="this.user.address"
+              styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
             </MInput>
-          </div>
-          <div
-            class="register-account"
-            style="display: flex; align-items: center"
-          >
-            <div class="text">Avatar :</div>
-            <div style="display: flex; align-items: center">
-              <input type="file" ref="fileInput" @change="handleFileUpload()" />
-              <p style="color: blue; padding-left: 20px; padding-top: 16px">
-                {{ this.labelProcess }}
-              </p>
-            </div>
           </div>
           <div class="register-birth">
             <div class="text">Ngày sinh :</div>
-            <MInput
-              type="date"
-              styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-            >
+            <MDatePicker v-model="this.user.dateOfBirth" ref="dateOfBirth"
+              styleVal="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
+            </MDatePicker>
+          </div>
+          <div class="register-address">
+            <div class="text">Email :</div>
+            <MInput type="text" v-model="this.user.email"
+              styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
             </MInput>
           </div>
           <div class="register-gender">
             <div class="text">Giới tính :</div>
             <div class="gender">
-              <input
-                type="radio"
-                name=""
-                id=""
-                style="margin-right: 10px"
-                ref="male"
-              />Nam
-              <input
-                type="radio"
-                name=""
-                id=""
-                style="margin: 0 10px"
-                ref="male"
-              />Nữ
-              <input
-                type="radio"
-                name=""
-                id=""
-                style="margin-left: 10px; margin-right: 10px"
-                ref="male"
-              />Khác
+              <MRadio :data="[
+                  { Gender: 'Nam', GenderValue: 0 },
+                  { Gender: 'Nữ', GenderValue: 1 },
+                  { Gender: 'Khác', GenderValue: 2 },
+                ]" v-model="this.user.gender"></MRadio>
             </div>
           </div>
           <div class="register-password">
             <div class="text">Mật khẩu :</div>
-            <MInput
-              :type="showPassword1 ? 'text' : 'password'"
+            <MInput :type="showPassword1 ? 'text' : 'password'" v-model="this.user.password"
               styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-              ref="passwords"
-            >
+              ref="passwords">
             </MInput>
             <div class="register-show-password" @click="showPasswords1">
               {{ showPassword1 ? 'Ẩn' : 'Hiện' }}
@@ -106,32 +70,30 @@
           </div>
           <div class="register-password">
             <div class="text">Nhập lại mật khẩu :</div>
-            <MInput
-              :type="showPassword2 ? 'text' : 'password'"
-              styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-            >
+            <MInput :type="showPassword2 ? 'text' : 'password'" v-model="this.user.password"
+              styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
             </MInput>
             <div class="register-show-password" @click="showPasswords2">
               {{ showPassword2 ? 'Ẩn' : 'Hiện' }}
             </div>
           </div>
+          <div class="register-account">
+            <img :class="{ 'ImageNone': ImageNone }" :src="srcImage" alt=""
+              style="height: 200px;width: 200px;display: none;border: 1px solid #bbb;margin-left: 150px;margin-bottom: 30px;border-radius:50%;">
+            <div class="aco1-image-file" style="padding-left: 50px;">
+              <input type="file" ref="fileInput" @change="handleFileUpload()" />
+            </div>
+            <MInput type="text" v-model="this.user.image" styleInput="width: 900px; height: 30px;display:none">
+            </MInput>
+          </div>
         </div>
-        <div class="submit">
-          <input
-            type="submit"
-            value="Đăng kí"
-            style="padding: 4px"
-            @click="register"
-          />
+        <div class="submit" @click="register">
+          <input type="submit" value="Đăng kí" style="padding: 4px" @click="register" />
         </div>
         <div class="orther">
-          <router-link to="/account/sign-up" class="sign-up"
-            >Đăng nhập</router-link
-          >
+          <router-link to="/account/sign-up" class="sign-up">Đăng nhập</router-link>
           hoặc
-          <router-link to="/account/forgot-password" class="forgot-password"
-            >Quên mật khẩu ?</router-link
-          >
+          <router-link to="/account/forgot-password" class="forgot-password">Quên mật khẩu ?</router-link>
         </div>
       </div>
     </div>
@@ -153,6 +115,9 @@ import {
   uploadBytes,
   uploadBytesResumable,
 } from "firebase/storage";
+import MRadio from "@/components/MRadio.vue";
+import MDatePicker from "@/components/MDatePicker.vue";
+import ApiUser from '../../js/apiUser';
 export default {
   /**
    * Tên component
@@ -165,7 +130,7 @@ export default {
   /**
    * Component được sử dụng
    */
-  components: { TheHeader, TheNavbar, TheFooter, MInput, TheLineLink },
+  components: { TheHeader, TheNavbar, TheFooter, MInput, TheLineLink, MRadio, MDatePicker },
   /**
    * Emit sự thay đổi
    */
@@ -180,7 +145,12 @@ export default {
       imageUrl: null,
       labelProcess: "",
       showPassword1: false,
-      showPassword2: false
+      showPassword2: false,
+      user: {},
+      showLoading: false,
+      title: '',
+      srcImage: "",
+      ImageNone: false,
     };
   },
   /**
@@ -236,10 +206,19 @@ export default {
       this.showPassword1 = !this.showPassword1;
     },
     showPasswords2() {
-      this.showPassword2 = !this.showPassword2;
+      this.showPassword2 = !this.showPasswoFrd2;
+    },
+    register() {
+      axios.post(ApiUser.addUser(), this.user)
+        .then((res) => {
+          if(res.status == 201){
+            alert("Đăng kí thành công");
+            this.$router.push('/');
+          }
+        })
     },
   },
-  created() {},
+  created() { },
   /**
    * Theo dõi sự thay đổi
    */

@@ -25,6 +25,7 @@ using AutoPro.DL.ProductCommentDL;
 using AutoPro.DL.ProductDL;
 using AutoPro.DL.ProductFavoriteDL;
 using AutoPro.DL.UserDL;
+using VNpay.VNPayBL;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -81,6 +82,8 @@ builder.Services.AddScoped<IProductCommentDL, ProductCommentDL>();
 
 builder.Services.AddScoped<IProductFavoriteBL, ProductFavoriteBL>();
 builder.Services.AddScoped<IProductFavoriteDL, ProductFavoriteDL>();
+
+builder.Services.AddScoped<IVNPayBL, VNPayBL>();
 
 DatabaseContext.ConnectionString = builder.Configuration.GetConnectionString("MySQL");
 builder.Services.AddControllers();

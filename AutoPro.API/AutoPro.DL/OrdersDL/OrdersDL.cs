@@ -169,8 +169,7 @@ namespace AutoPro.DL.OrdersDL
             //Truyền tham số cho procedure
             var parameters = new DynamicParameters();
 
-            var propertyName = $"v_OrderCode";
-            parameters.Add(propertyName, code);
+            parameters.Add("v_OrderCode", code);
 
             using (var mySqlConnection = new MySqlConnection(connectionString))
             {
@@ -382,5 +381,20 @@ namespace AutoPro.DL.OrdersDL
             }
         }
 
+        public object getOrderByUserID(int userId)
+        {
+            // Chuẩn bị tên store procedure
+            string getOneRecordstoreProcedureName = "Proc_Orders_ByIDUser";
+
+            //Truyền tham số cho procedure
+            var parameters = new DynamicParameters();
+            parameters.Add("v_UserID", userId);
+
+            using (var mySqlConnection = new MySqlConnection(connectionString))
+            {
+                // Query
+                return mySqlConnection.Query(getOneRecordstoreProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure).ToList();
+            }
+        }
     }
 }

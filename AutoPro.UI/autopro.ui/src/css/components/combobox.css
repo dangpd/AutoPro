@@ -317,6 +317,7 @@ p {
     width: 100%;
     box-shadow: 0 0 6px #ccc;
     font-size: 14px;
+    z-index: 1;
 }
 
 .selectbox__data {

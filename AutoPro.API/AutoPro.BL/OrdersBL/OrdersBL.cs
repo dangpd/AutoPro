@@ -225,5 +225,9 @@ namespace AutoPro.BL.OrdersBL
             };
         }
 
+        public object getByUserID(int userId)
+        {
+            return _ordersDL.getOrderByUserID(userId);
+        }
     }
 }

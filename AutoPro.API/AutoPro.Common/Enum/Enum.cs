@@ -31,6 +31,7 @@ namespace AutoPro.Common.Enum
         /// Xóa thất bại
         /// </summary>
         DeleteFail = 3,
+        Success = 200,
 
         NoContent = 204,
 

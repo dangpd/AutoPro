@@ -62,14 +62,14 @@
                 </div>
             </div>
             <div class="agroup1" style="padding:0 20px;">
-                <div class="acol11" style="margin: 15px 0;">
+                <!-- <div class="acol11" style="margin: 15px 0;">
                     <div class="acol1-text" style="margin-left: 15px;">
                         Trạng thái :
                     </div>
                     <MInput type="text" v-model="product.status"
                         styleInput="width: 250px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                     </MInput>
-                </div>
+                </div> -->
                 <div class="acol11" style="margin: 15px 0;">
                     <div class="acol1-text" style="margin-left: 15px;">
                         Nhãn hàng :
