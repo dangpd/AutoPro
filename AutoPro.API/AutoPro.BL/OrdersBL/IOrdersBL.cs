@@ -48,20 +48,14 @@ namespace AutoPro.BL.OrdersBL
         /// </summary>
         /// <param name="param"></param>
         /// <returns></returns>
-        public List<double> getReportRevenueByYear(ReportRevenueByYearParam param);
+        public List<ParamQueryByYear> getReportRevenueByYear(int year);
 
         /// <summary>
         /// lấy báo cáo doanh thu theo chi nhánh từng năm
         /// </summary>
         /// <param name="param"></param>
         /// <returns></returns>
-        public List<double> getReportRevenueByBranch(TimeParam param);
+        public List<BrandPersent> getReportRevenueByBranch(TimeParam param);
 
-        ///// <summary>
-        ///// báo cáo hàng hóa được mua nhiều nhất ( top 10)
-        ///// </summary>
-        ///// <param name="param"></param>
-        ///// <returns></returns>
-        //public List<ReportProductBestSell> getReportProductBestSell(TimeParam param);
     }
 }

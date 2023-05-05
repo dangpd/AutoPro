@@ -17,8 +17,8 @@
             <div style="margin: 40px auto;padding-left:40%;font-size: 16px;">Số tiền giao dịch : {{
                 formatMoney(queryPayment.vnp_Amount / 100)
             }}</div>
-            <div style="margin: 40px auto;padding-left:40%;font-size: 18px;color: rgb(0, 98, 0);">Trạng thái giao dịch :
-                <b>{{ ketqua(queryPayment.vnp_ResponseCode) }} </b>
+            <div style="margin: 40px auto;padding-left:40%;font-size: 18px;">Trạng thái giao dịch :
+                <b style="color: rgb(0, 86, 0);">{{ ketqua(queryPayment.vnp_ResponseCode) }} </b>
             </div>
             <div style="margin: 40px auto;padding-left:40%;font-size: 18px;">
                 <p>Trang sẽ tự chuyển hướng sau : <b>{{ timeRemaining }}</b> giây</p>

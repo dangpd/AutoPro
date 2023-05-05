@@ -280,7 +280,7 @@ export default {
       }
 
       if(newVal > this.product.quantity){
-        alert("Bạn đã nhập số lượng lớn hơn trong kho");
+        alert("Bạn đã nhập số lượng lớn hơn số lượng có trong kho");
         this.number = 1;
       }
     }

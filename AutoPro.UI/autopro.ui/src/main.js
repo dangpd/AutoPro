@@ -78,8 +78,8 @@ const options = {
     icon: true
 };
 app.use(store)
-app.use(Toast,options)
-app.config.globalProperties.$toast 
+app.use(Toast, options)
+app.config.globalProperties.$toast
 app.use(ToastPlugin);
 app.use(router)
 app.component('font-awesome-icon', FontAwesomeIcon)

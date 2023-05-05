@@ -9,30 +9,30 @@
                     <i class="fa-regular fa-circle-xmark"></i>
                 </div>
             </div>
-            <div class="login-password">
+            <div class="login-password" style="max-height: 40px;">
                 <div class="text">Mật khẩu cũ :</div>
                 <MInput type='text'
                     styleInput="margin-left:150px;width: 800px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
                     v-model="passwordOld">
                 </MInput>
             </div>
-            <div class="login-password">
+            <div class="login-password" style="max-height: 40px;">
                 <div class="text">Mật khẩu mới:</div>
                 <MInput :type="showPassword3 ? 'text' : 'password'"
                     styleInput="margin-left:150px;width: 800px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
                     v-model="passwordNew">
                 </MInput>
-                <div class="login-show-password" @click="togglePasswordVisibility">
+                <div class="update-show-password" @click="togglePasswordVisibility">
                     {{ showPassword3 ? 'Ẩn' : 'Hiện' }}
                 </div>
             </div>
-            <div class="login-password">
+            <div class="login-password" style="max-height: 40px;">
                 <div class="text">Nhập lại mật khẩu mới:</div>
-                <MInput :type="showPassword4 ? 'text' : 'password'"
+                <MInput :type="showPassword4 ? 'text' : 'password'" ref="confirmPassword"
                     styleInput="margin-left:150px;width: 800px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
                     v-model="confirmPasswordNew">
                 </MInput>
-                <div class="login-show-password" @click="togglePasswordVisibility2">
+                <div class="update-show-password" @click="togglePasswordVisibility2">
                     {{ showPassword4 ? 'Ẩn' : 'Hiện' }}
                 </div>
             </div>
@@ -102,17 +102,17 @@ export default {
 
         updatePasswordNew() {
             axios.put("https://localhost:7129/api/v1/User/updatePassword", { passold: this.passwordOld, id: this.idUser, passnew: this.passwordNew })
-            .then((res)=>{
-                console.log(res);
-                if(res.status == 200){
-                    alert("Cập nhật mật khẩu thành công");
-                    this.$emit("onClose");
-                }
-            })
-            .catch((err)=>{
-                console.log(err);
-                alert("Cập nhật mật khẩu thất bại");
-            })
+                .then((res) => {
+                    console.log(res);
+                    if (res.status == 200) {
+                        alert("Cập nhật mật khẩu thành công");
+                        this.$emit("onClose");
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                    alert("Cập nhật mật khẩu thất bại");
+                })
         },
 
         togglePasswordVisibility() {
@@ -137,7 +137,15 @@ export default {
     /**
      * Theo dõi sự thay đổi
      */
-    watch: {},
+    watch: {
+        confirmPasswordNew(newVal) {
+            if (this.passwordNew.trim() != null && newVal.trim() != null && this.passwordNew.trim() != newVal) {
+                this.$refs.confirmPassword.confirm = true;
+            }else{
+                this.$refs.confirmPassword.confirm = false;
+            }
+        }
+    },
 };
 </script>
   

@@ -8,8 +8,8 @@ namespace AutoPro.Common.Entities.Param
 {
     public class TimeParam
     {
-        public DateTime startDate { get; set; }
+        public int month { get; set; }
 
-        public DateTime endDate { get; set; }
+        public int year { get; set; }
     }
 }

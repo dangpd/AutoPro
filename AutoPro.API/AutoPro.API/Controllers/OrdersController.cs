@@ -311,20 +311,42 @@ namespace AutoPro.API.Controllers
         }
 
 
-        //[HttpPost("getReportRevenueByYear")]
-        //public ServiceResult getReportRevenueByYear(ReportRevenueByYearParam param)
-        //{
-        //    ServiceResult serviceResult = new ServiceResult();
-        //    try
-        //    {
-        //        serviceResult.Data = _ordersBL.getReportRevenueByYear(param);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        serviceResult.setError(ex.Message);
-        //    }
-        //    return serviceResult;
-        //}
+        [HttpGet("getReportRevenueByYear")]
+        public IActionResult getReportRevenueByYear(int byYear)
+        {
+            try
+            {
+                var result = _ordersBL.getReportRevenueByYear(byYear);
+                if (result != null)
+                {
+                    return StatusCode(StatusCodes.Status200OK, result);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status204NoContent);
+                }
+                return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResult
+                {
+                    ErrorCode = Common.Enum.ErrorCode.Exception,
+                    DevMsg = Common.Resource.DataResource.DevMsg_Exception,
+                    UserMsg = Common.Resource.DataResource.UserMsg_Exception,
+                    MoreInfo = Common.Resource.Resource.UserMsg_ServerError,
+                    TraceId = HttpContext.TraceIdentifier
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResult
+                {
+                    ErrorCode = Common.Enum.ErrorCode.Exception,
+                    DevMsg = Common.Resource.DataResource.DevMsg_Exception,
+                    UserMsg = Common.Resource.DataResource.UserMsg_Exception,
+                    MoreInfo = ex.ToString(),
+                    TraceId = HttpContext.TraceIdentifier
+                });
+            }
+        }
 
         [HttpPost("getReportRevenueByBranch")]
         public IActionResult getReportRevenueByBranch(TimeParam param)
@@ -335,6 +357,10 @@ namespace AutoPro.API.Controllers
                 if (result != null)
                 {
                     return StatusCode(StatusCodes.Status200OK, result);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status200OK, null);
                 }
                 return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResult
                 {

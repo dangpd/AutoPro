@@ -1,6 +1,7 @@
 <template>
     <div>
-        <input class="m-input" :type="type" :placeholder="placeholder" :style="styleInput" v-model="value">
+        <input class="m-input" :type="type" :placeholder="placeholder" :style="styleInput" v-model="value"
+            :class="{ 'confirm': confirm }">
     </div>
 </template>
   
@@ -31,6 +32,7 @@ export default {
     data() {
         return {
             value: "",
+            confirm: false,
         }
     },
     /**

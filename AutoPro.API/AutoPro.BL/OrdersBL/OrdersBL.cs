@@ -249,19 +249,20 @@ namespace AutoPro.BL.OrdersBL
             return _ordersDL.getOrderByUserID(userId);
         }
 
-        public List<double> getReportRevenueByYear(ReportRevenueByYearParam param)
+        public List<ParamQueryByYear> getReportRevenueByYear(int year)
         {
-            List<double> result = new List<double>();
-            //// trả về list order theo chi nhánh trong năm của param
-            //List<SaleOrder> listSaleOrder = _orderDL.getReportRevenueByYear(param);
-            //for (int i = 1; i <= 12; i++)
-            //{
-            //    int revenue = listSaleOrder.Where(x => x.orderdate.Value.Month == i).Sum(x => x.totalprice);
-            //    double output = (double)revenue / 1000000;
-            //    output = Math.Round(output, 1);
-            //    result.Add(output);
-            //}
-            return result;
+            // trả về list order theo chi nhánh trong năm của param
+            List<ParamQueryByYear> listSaleOrder = _ordersDL.getReportByYear(year);
+            decimal tong = 0;
+            foreach(ParamQueryByYear item in listSaleOrder)
+            {
+                tong += item.tongtien;
+            }
+            if(tong == 0)
+            {
+                return null;
+            }
+            return listSaleOrder;
         }
 
         /// <summary>
@@ -269,18 +270,36 @@ namespace AutoPro.BL.OrdersBL
         /// </summary>
         /// <param name="param"></param>
         /// <returns></returns>
-        public List<double> getReportRevenueByBranch(TimeParam param)
+        public List<BrandPersent> getReportRevenueByBranch(TimeParam param)
         {
-            List<double> result = new List<double>();
-            List<int> listRevenue = _ordersDL.getReportRevenueByBranch(param);
+            List<BrandPersent> result = new List<BrandPersent>();
+            decimal tong = 0;
+            List<ParamQueryByBrand> listRevenue = _ordersDL.getReportRevenueByBranch(param);
             foreach (var item in listRevenue)
             {
-                double output = (double)item / 1000000;
-                output = Math.Round(output, 1);
-                result.Add(output);
-
+                tong += item.totalPrice;
+            }
+            if (tong == 0)
+            {
+                foreach (var item in listRevenue)
+                {
+                    BrandPersent brandPersent = new BrandPersent();
+                    brandPersent.brandName = item.brandName;
+                    brandPersent.persent = 0;
+                    //brandPersent.persent = (double)item.totalPrice;
+                    result.Add(brandPersent);
+                }
+                return result;
+            }
+            foreach (var item in listRevenue)
+            {
+                BrandPersent brandPersent = new BrandPersent();
+                brandPersent.brandName = item.brandName;
+                brandPersent.persent = (double)(item.totalPrice / tong) * 100;
+                //brandPersent.persent = (double)item.totalPrice;
+                result.Add(brandPersent);
             }
             return result;
-        }
+        }   
     }
 }

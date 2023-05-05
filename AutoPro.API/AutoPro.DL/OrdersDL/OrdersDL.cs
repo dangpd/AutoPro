@@ -398,36 +398,31 @@ namespace AutoPro.DL.OrdersDL
             }
         }
 
-        public List<int> getReportRevenueByBranch(TimeParam param)
+        public List<ParamQueryByBrand> getReportRevenueByBranch(TimeParam param)
         {
-            string storeName = "select COALESCE(sum(m.totalprice),0) from branch b left join (select case when s.deliverprice is null then s.totalprice else s.totalprice - s.deliverprice end as totalprice,s.branchid,s.branchname from saleorder s where date(s.orderdate) >= date(@startdate) and date(s.orderdate) <= date(@enddate) and s.statusid = 1) as m on b.idbranch = m.branchid group by b.idbranch order by b.idbranch desc;";
+            string storeName = "Proc_Order_ThongKeTheoNhanHang";
             DynamicParameters dynamicParam = new DynamicParameters();
-            dynamicParam.Add("@startdate", param.startDate);
-            dynamicParam.Add("@enddate", param.endDate);
-            using (var mySqlConnection = new MySqlConnection(connectionString))
-            {
-                return mySqlConnection.Query<int>(storeName, dynamicParam, commandType: System.Data.CommandType.Text).ToList();
-            }
-            //return _dbHelper.Query<int>(storeName, dynamicParam, System.Data.CommandType.Text);
-        }
-        
-        /// <summary>
-        /// báo cáo 1
-        /// </summary>
-        /// <param name="param"></param>
-        /// <returns></returns>
-        public List<Orders> getReportRevenueByYear(ReportRevenueByYearParam param)
-        {
-            string storeName = "Proc_GetReportRevenueByYear";
-            DynamicParameters dynamicParam = new DynamicParameters();
-            dynamicParam.Add("v_branchid", param.branchid);
+            dynamicParam.Add("v_month", param.month);
             dynamicParam.Add("v_year", param.year);
             using (var mySqlConnection = new MySqlConnection(connectionString))
             {
-                return mySqlConnection.Query<Orders>(storeName, dynamicParam, commandType:System.Data.CommandType.StoredProcedure).ToList();
-
+                List<ParamQueryByBrand> result = mySqlConnection.Query<ParamQueryByBrand>(storeName, dynamicParam, commandType: System.Data.CommandType.StoredProcedure).ToList();
+                return result;
             }
+        }
+        
 
+        public List<ParamQueryByYear> getReportByYear(int year)
+        {
+            string storeName = "Proc_Order_ThongKeTungThangTrongNam";
+            DynamicParameters dynamicParam = new DynamicParameters();
+            dynamicParam.Add("v_year", year);
+            using (var mySqlConnection = new MySqlConnection(connectionString))
+            {
+
+                List<ParamQueryByYear> result = mySqlConnection.Query<ParamQueryByYear>(storeName, dynamicParam, commandType: System.Data.CommandType.StoredProcedure).ToList();
+                return result;
+            }
         }
     }
 }

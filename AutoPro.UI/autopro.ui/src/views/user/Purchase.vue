@@ -26,6 +26,11 @@
                             <input type="text" class="m-inputp" v-model="phoneNumber"
                                 style="width: 350px;height: 30px;padding-left: 10px;border-radius: 4px;border: 1px solid #bbb;">
                         </div>
+                        <div class="purcharse-phone-number">
+                            <h6>Email: </h6>
+                            <input type="text" class="m-inputp" v-model="email"
+                                style="width: 350px;height: 30px;padding-left: 10px;border-radius: 4px;border: 1px solid #bbb;">
+                        </div>
                         <div class="purcharse-payment-methods">
                             <h6>Phương thức thanh toán</h6>
                             <MRadio :data="[
@@ -90,7 +95,7 @@ import MInput from '@/components/MInput.vue';
 import TheFooter from '@/layout/TheFooter.vue';
 import TheHeader from '@/layout/TheHeader.vue';
 import TheLineLink from '@/layout/TheLineLink.vue';
-import { formatMoney,formatDate } from '@/js/gCommon'
+import { formatMoney, formatDate } from '@/js/gCommon'
 import TheNavbar from '@/layout/TheNavbar.vue';
 import axios from 'axios';
 import ApiUser from '../../js/apiUser';
@@ -151,7 +156,7 @@ export default {
             return formatMoney(menoy);
         },
 
-        dateformat(date){
+        dateformat(date) {
             return formatDate(date);
         },
         paymentVnpay() {
@@ -208,7 +213,7 @@ export default {
             // }
             this.handleOrder();
         },
-        async sendEmail(order, listProduct) {
+        sendEmail(order, listProduct) {
             let emailToMail = this.email
             this.email = {
                 fromEmail: "phamducdang0403@gmail.com",
@@ -257,7 +262,7 @@ export default {
                         <br>
                         AutoPro`
             }
-            await axios.post("https://localhost:7129/api/Mail/send", this.email)
+            axios.post("https://localhost:7129/api/Mail/send", this.email)
                 .then((res) => {
                     console.log(res);
                 })
@@ -325,38 +330,6 @@ export default {
                         }
                     })
             }
-            // axios.post("https://localhost:7129/api/v1/Orders/insertOrderDetail", orderParam)
-
-            // OrderService.insertOrderDetail(orderParam).then((result) => {
-            //     if (result && result.data) {
-            //         if (result.data.success) {
-            //             if (me.checkOutTypeID == 1) {
-            //                 // thanh toán qua vnpay
-            //                 let param = {
-            //                     Amount: me.totalAmount,
-            //                 };
-
-            //                 PaymentService.getVNPayLink(param)
-            //                     .then((result) => {
-            //                         if (result && result.data) {
-            //                             let vnpayUrl = result.data.data;
-            //                             window.location.href = vnpayUrl;
-            //                         }
-            //                     })
-            //                     .catch((e) => {
-            //                         console.log(e);
-            //                     });
-            //             } else {
-            //                 me.$toast.success("Đặt mua hàng thành công!");
-            //                 this.$router.push({
-            //                     name: "c-checkout-result",
-            //                 });
-            //             }
-            //         } else {
-            //             me.$toast.error(result.data.errorMessage);
-            //         }
-            //     }
-            // });
         },
 
         /**\
