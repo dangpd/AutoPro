@@ -1,4 +1,5 @@
 ﻿using AutoPro.Common.Entities;
+using AutoPro.Common.Entities.Param;
 using AutoPro.DL.BaseDL;
 using System;
 using System.Collections.Generic;
@@ -43,5 +44,19 @@ namespace AutoPro.DL.OrdersDL
 
         public Product GetListProductByListID(int id);
         object getOrderByUserID(int userId);
+
+
+        /// <summary>
+        /// trả về báo cáo doanh thu 1
+        /// </summary>
+        /// <param name="param"></param>
+        //public List<SaleOrder> getReportRevenueByYear(ReportRevenueByYearParam param);
+
+        /// <summary>
+        /// lấy doanh số theo chi nhánh 
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public List<int> getReportRevenueByBranch(TimeParam param);
     }
 }

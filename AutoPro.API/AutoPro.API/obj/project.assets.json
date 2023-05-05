@@ -1906,7 +1906,8 @@
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
           "AutoPro.Common": "1.0.0",
-          "AutoPro.DL": "1.0.0"
+          "AutoPro.DL": "1.0.0",
+          "Microsoft.Extensions.Configuration.Abstractions": "7.0.0"
         },
         "compile": {
           "bin/placeholder/AutoPro.BL.dll": {}

@@ -68,8 +68,6 @@ namespace AutoPro.API.Controllers
                         TraceId = HttpContext.TraceIdentifier
                     });
                 }
-
-
             }
             catch (Exception ex)
             {

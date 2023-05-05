@@ -50,7 +50,7 @@ namespace AutoPro.BL.ProductBL
                         filterBuild = $" p.{item.FieldName} like '%{item.FilterValue}%'";
                         break;
                     case Common.Enum.Operator.EQUAL:
-                        filterBuild = $" p.{item.FieldName} = '%{item.FilterValue}%'";
+                        filterBuild = $" p.{item.FieldName} = {item.FilterValue}";
                         break;
                     default:
                         break;

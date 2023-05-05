@@ -5,11 +5,20 @@
     <div class="content">
       <TheLineLink name="Đơn hàng"></TheLineLink>
       <div class="list-product-order">
-        <div class="title-product-order">
+        <div class="title-product-order" style="display: flex;align-items: center;margin-bottom: 10px;">
           <div>ĐƠN HÀNG CỦA BẠN</div>
           <!-- <router-link to="/orderplaced" style="cursor: pointer;">
             ĐƠN HÀNG ĐÃ ĐẶT
           </router-link> -->
+          <div style="display: flex;align-items: center;">
+            Sắp xếp theo
+            <MSelectBoxDown :data="[
+              { feildShow: 'Tất cả đơn hàng', feildValue: 4 },
+              { feildShow: 'Đơn hàng thành công', feildValue: 1 },
+              { feildShow: 'Đơn hàng bị hủy', feildValue: 3 },
+              { feildShow: 'Đơn hàng đang chờ xử lí', feildValue: 2 },
+            ]" v-model="orderBy"></MSelectBoxDown>
+          </div>
         </div>
         <table class="m-table-order">
           <thead>
@@ -26,8 +35,8 @@
             </tr>
           </thead>
           <tbody style="line-height: 40px;">
-            <tr v-for="(item, index) in dataOrder" :key="index" @click="trClick(item.OrderID)"
-              @dblclick="rowOnDblClick(item)" :class="{'row-selected': rowSelected == item.OrderID}">
+            <tr v-for="(item, index) in filterOrders" :key="index" @click="trClick(item.OrderID)"
+              @dblclick="rowOnDblClick(item)" :class="{ 'row-selected': rowSelected == item.OrderID }">
               <td style="padding-left: 10px;">{{ index + 1 }}</td>
               <td>{{ item.OrderCode }}</td>
               <td>{{ formatDate(item.OrderDate) }}</td>
@@ -42,11 +51,11 @@
                   <div class="cancel-product-order">Hủy</div>
                 </div>
               </td> -->
-              <td>
+              <!-- <td>
                 <div class="product-order-method" v-show="item.StatusOrders == 1" @click="writeComment()">
                   <div class="cancel-product-order">Đánh giá</div>
                 </div>
-              </td>
+              </td> -->
             </tr>
           </tbody>
         </table>
@@ -70,6 +79,7 @@ import { formatDate, formatMoney } from '@/js/gCommon'
 import MLoading from '@/components/MLoading.vue';
 import Resource from '../../js/gResource';
 import OrderDetail from './OrderDetail.vue'
+import MSelectBoxDown from "@/components/MSelectBoxDown.vue";
 
 export default {
   /**
@@ -83,7 +93,7 @@ export default {
   /**
    * Component được sử dụng
    */
-  components: { TheHeader, TheNavbar, TheFooter, TheLineLink, MLoading, OrderDetail },
+  components: { TheHeader, TheNavbar, TheFooter, TheLineLink, MLoading, OrderDetail, MSelectBoxDown },
   /**
    * Emit sự thay đổi
    */
@@ -104,6 +114,7 @@ export default {
       rowSelected: -1,
       reloadTable: false,
       customer: {},
+      orderBy: 4,
     };
   },
   /**
@@ -147,7 +158,6 @@ export default {
         .then((res) => {
           if (res.status === 200) {
             alert("Hủy đơn hàng thành công");
-            this.$emit("success")
             this.$emit("onClose");
           } else {
             alert("Hủy đơn hàng thất bại");
@@ -181,17 +191,13 @@ export default {
       }
     },
     success() {
-      this.filterAndPaging();
+      this.getOrderByUserID();
       this.reloadTable = false;
     },
-  },
-  created() {
-    this.showLoading = true;
-    let id = localStorage.getItem("UserID");
-    if (!id) {
-      alert("Bạn cần đăng nhập để sử dụng tính năng này!");
-      this.$router.push('/account/sign-up');
-    } else {
+
+    getOrderByUserID() {
+      this.showLoading = true;
+      let id = localStorage.getItem("UserID");
       setTimeout(() => {
         axios.get(ApiOrder.getByUserID(id))
           .then((res) => {
@@ -203,10 +209,34 @@ export default {
       }, 300);
     }
   },
+  created() {
+    let id = localStorage.getItem("UserID");
+    if (!id) {
+      alert("Bạn cần đăng nhập để sử dụng tính năng này!");
+      this.$router.push('/account/sign-up');
+    } else {
+      this.getOrderByUserID();
+    }
+  },
   /**
    * Theo dõi sự thay đổi
    */
-  watch: {},
+  watch: {
+    orderBy(newVal) {
+      this.orderBy = newVal;
+      console.log(newVal);
+    }
+  },
+  computed: {
+    filterOrders: function () {
+      return this.dataOrder.filter((order) => {
+        if (this.orderBy === 4) {
+          return this.dataOrder;
+        }
+        return order.StatusOrders === this.orderBy;
+      });
+    },
+  }
 };
 </script>
 

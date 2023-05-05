@@ -134,3 +134,4 @@ D:\Do An Tot Nghiep\AutoPro.API\AutoPro.API\bin\Debug\net6.0\Microsoft.Extension
 D:\Do An Tot Nghiep\AutoPro.API\AutoPro.API\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
 D:\Do An Tot Nghiep\AutoPro.API\AutoPro.API\bin\Debug\net6.0\VNpay.dll
 D:\Do An Tot Nghiep\AutoPro.API\AutoPro.API\bin\Debug\net6.0\VNpay.pdb
+D:\Do An Tot Nghiep\AutoPro.API\AutoPro.API\obj\Debug\net6.0\AutoPro.API.MvcApplicationPartsAssemblyInfo.cs

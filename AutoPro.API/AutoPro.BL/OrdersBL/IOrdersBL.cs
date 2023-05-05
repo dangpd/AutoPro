@@ -43,19 +43,19 @@ namespace AutoPro.BL.OrdersBL
         public string CreateAutoOrderCode();
 
         public object Filter(string? textSearch, long pageSize, long pageNumber,int status);
-        ///// <summary>
-        ///// lấy báo cáo doanh thu theo chi nhánh từng năm
-        ///// </summary>
-        ///// <param name="param"></param>
-        ///// <returns></returns>
-        //public List<double> getReportRevenueByYear(ReportRevenueByYearParam param);
+        /// <summary>
+        /// lấy báo cáo doanh thu theo chi nhánh từng năm
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public List<double> getReportRevenueByYear(ReportRevenueByYearParam param);
 
-        ///// <summary>
-        ///// lấy báo cáo doanh thu theo chi nhánh từng năm
-        ///// </summary>
-        ///// <param name="param"></param>
-        ///// <returns></returns>
-        //public List<double> getReportRevenueByBranch(TimeParam param);
+        /// <summary>
+        /// lấy báo cáo doanh thu theo chi nhánh từng năm
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public List<double> getReportRevenueByBranch(TimeParam param);
 
         ///// <summary>
         ///// báo cáo hàng hóa được mua nhiều nhất ( top 10)

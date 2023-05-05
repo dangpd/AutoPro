@@ -1,6 +1,7 @@
 ﻿using AutoPro.BL.BaseBL;
 using AutoPro.Common.Entities;
 using AutoPro.Common.Entities.DTO;
+using AutoPro.Common.Entities.Param;
 using AutoPro.DL.UserDL;
 using System;
 using System.Collections.Generic;
@@ -250,6 +251,24 @@ namespace AutoPro.BL.UserBL
                 };
             }
             return null;
+        }
+
+        public string forgotPassword(Forgot forgot)
+        {
+            if(string.IsNullOrEmpty(forgot.email) || string.IsNullOrEmpty(forgot.email))
+            {
+                return null;
+            }
+            return _userDL.forgotPassword(forgot);
+        }
+
+        public bool updatePass(UpdatePass updatePass)
+        {
+            if(updatePass.id == null || string.IsNullOrEmpty(updatePass.passold) || string.IsNullOrEmpty(updatePass.passnew))
+            {
+                return false;
+            }
+            return _userDL.updatePass(updatePass);
         }
     }
 }

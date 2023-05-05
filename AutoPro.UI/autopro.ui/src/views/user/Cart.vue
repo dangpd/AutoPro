@@ -19,11 +19,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(item, index) in listCart" :key="index" @click="detailProduct(item)" style="cursor: pointer;">
+                        <tr v-for="(item, index) in listCart" :key="index">
                             <td style="min-width: 50px; padding-left: 16px;">
                                 {{ index + 1 }}
                             </td>
-                            <td style="min-width: 300px;">
+                            <td style="min-width: 300px;cursor: pointer;" @click="detailProduct(item)">
                                 <div class="product-cart">
                                     <img :src="item.image" alt="">
                                     <div class="product-cart-name">{{ item.productName }}</div>
@@ -31,7 +31,7 @@
                             </td>
                             <td style="min-width: 150px;">{{ formatMoney(item.price) }}</td>
                             <td style="min-width: 150px;">
-                                <MQuantity v-model="item.quantitys"></MQuantity>
+                                <MQuantity v-model="item.quantitys" :quantity="item.quantity"></MQuantity>
                             </td>
                             <td style="min-width: 150px;">
                                 {{ formatMoney(item.price * item.quantitys) }}
@@ -74,6 +74,8 @@ import TheNavbar from '@/layout/TheNavbar.vue';
 import { formatMoney } from '@/js/gCommon'
 import MQuantity from '@/components/MQuantity.vue';
 import MLoading from '@/components/MLoading.vue';
+import axios from 'axios';
+import ApiProduct from '../../js/apiProduct';
 export default {
     /**
      * Tên component
@@ -102,6 +104,7 @@ export default {
             totalCartItem: 0,
             showCart: false,
             noCart: false,
+            listProduct: [],
             showLoading: false,
         }
     },
@@ -130,14 +133,45 @@ export default {
                 alert("Bạn chưa đăng nhập!Vui lòng đăng nhập để sử dụng");
                 this.$router.push('/account/sign-up');
             } else {
-                this.$router.push('/purchase');
+                let count = 0;
+                let b = 0;
+                this.listCart.forEach((x) => {
+                    let a = this.listProduct.find(y => y.productID == x.productID);
+                    if (x.quantitys < 0) {
+                        x.quantitys = 1;
+                        b++;
+                    }
+                    if (x.quantitys > a.quantity) {
+                        count++;
+                        x.quantitys = 1;
+                    }
+                });
+                if (count == 0 && b == 0) {
+                    this.$router.push('/purchase');
+                } else if (b > 0) {
+                    alert("Số lượng nhập nhỏ hơn 0");
+                    return;
+                } else {
+                    alert("Sản phẩm mua nhiều hơn số lượng có trong kho");
+                    return;
+                }
             }
         },
 
         detailProduct(data) {
             this.$router.push({ name: 'product', params: { id: data.productID } });
-        }
+        },
 
+        getProductByID() {
+            let listID = this.$store.state.cart.items.map(x => x.productID);
+            listID.forEach(x => {
+                axios.get(ApiProduct.getProductByID(x))
+                    .then((res) => {
+                        let product = res.data;
+                        this.listProduct.push(product);
+                    })
+            });
+        }
     },
     created() {
         this.showLoading = true;
@@ -145,6 +179,7 @@ export default {
             this.showLoading = false
             this.listCart = this.$store.state.cart.items;
             this.totalCartItem = this.$store.state.cart.totalCartItem;
+            this.getProductByID();
             if (this.listCart.length > 0) {
                 this.showCart = true;
                 this.noCart = false;
@@ -163,7 +198,8 @@ export default {
                 this.showCart = false;
                 this.noCart = true;
             }
-        }
+        },
+
     },
     computed: {
         totalAmount() {
@@ -172,8 +208,9 @@ export default {
 
         totalRecord() {
             return this.$store.state.cart.items.length;
-        }
+        },
     },
+
 }
 </script>
   

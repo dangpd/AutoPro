@@ -117,5 +117,47 @@ namespace AutoPro.API.Controllers
             }
         }
 
+        [HttpPost("forgotpassword")]
+        public IActionResult forgot([FromBody] Forgot forgot)
+        {
+            try
+            {
+                var result = _userBL.forgotPassword(forgot);
+                if (result != null)
+                {
+                    return StatusCode(StatusCodes.Status200OK, result);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError);
+                }
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpPut("updatePassword")]
+        public IActionResult updatePass([FromBody] UpdatePass updatePass)
+        {
+            try
+            {
+                bool result = _userBL.updatePass(updatePass);
+                if (result)
+                {
+                    return StatusCode(StatusCodes.Status200OK, 1);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
     }
 }

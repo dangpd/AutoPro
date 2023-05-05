@@ -1,7 +1,7 @@
 <template>
     <div class="number">
         <i class="fa-solid fa-minus" @click="minusQuantity"></i>
-        <input class="m-input" style="width: 50px;border-radius: 0px" v-model="value">
+        <input class="m-input" style="width: 80px;border-radius: 0px" v-model="value">
         <i class="fa-solid fa-plus" @click="addQuantity"></i>
     </div>
 </template>
@@ -15,7 +15,10 @@ export default {
     /**
      * Hứng nhận
      */
-    props: ["modelValue"],
+    props: {
+        modelValue: Number,
+        quantity: Number,
+    },
     /**
      * Component được sử dụng
      */
@@ -33,32 +36,57 @@ export default {
     data() {
         return {
             value: "",
+            quantityHave: 0
         }
     },
     /**
      * Phương thức
      */
     methods: {
-        minusQuantity(){
-            this.value -= 1;
+        minusQuantity() {
+            let number = parseInt(this.value);
+            number -= parseInt(1);
+            this.$emit("update:modelValue", number)
         },
 
-        addQuantity(){
-            this.value += 1;
+        addQuantity() {
+            let number = parseInt(this.value);
+            number += parseInt(1);
+            this.$emit("update:modelValue", number)
         }
     },
     created() {
-        this.value = this.modelValue
+        this.value = this.modelValue;
+        this.quantityHave = this.quantity
     },
     /**
      * Theo dõi sự thay đổi
      */
     watch: {
         value(newVal) {
-            this.$emit("update:modelValue", newVal);
+            if (newVal <= 0) {
+                alert("Số lượng nhập phải lớn hơn 0");
+                this.$emit("update:modelValue", 1);
+            } else {
+                this.$emit("update:modelValue", newVal);
+            }
+
+            if (newVal > this.quantityHave) {
+                alert(`Số lượng có trong kho ${this.quantityHave} bạn đã nhập lớn hơn số lượng có trong kho`);
+                this.$emit("update:modelValue", 1);
+            }
         },
         modelValue(newVal) {
-            this.value = newVal;
+            if (newVal <= 0) {
+                alert("Số lượng nhập phải lớn hơn 0");
+                this.$emit("update:modelValue", 1);
+            } else {
+                this.value = newVal;
+            }
+            if (newVal > this.quantityHave) {
+                alert(`Số lượng có trong kho ${this.quantityHave} bạn đã nhập lớn hơn số lượng có trong kho`);
+                this.$emit("update:modelValue", 1);
+            }
             // this.$emit("update:modelValue", newVal);
         }
     }

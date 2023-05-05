@@ -18,14 +18,15 @@
           <div class="details-product-price">Giá tiền: {{ formatMoney(product.price) }} </div>
           <div class="details-product-sell">Đã bán: {{ product.quantitySell }}</div>
           <div class="details-product-sell">Số lượng còn: {{ product.quantity }}</div>
-          <div class="details-product-status">Tình trạng : {{ formatStatusProduct(product.quantity - product.quantitySell)
-          }}</div>
+          <div class="details-product-status">Tình trạng : <b> {{ formatStatusProduct( product.quantity -
+            product.quantitySell)
+          }}</b></div>
           <div class="details-product-number">
             <i class="fa-solid fa-minus" style="cursor: pointer;" @click="minusQuantity"></i>
-            <MInput style="width: 50px; border-radius: 1px" v-model="this.number"></MInput>
+            <MInput style="width: 80px; border-radius: 1px" v-model="this.number"></MInput>
             <i class="fa-solid fa-plus" style="cursor: pointer;" @click="addQuantity"></i>
           </div>
-          <div class="details-product-order" @click="addCart">
+          <div class="details-product-order" @click="addCart" v-show="showCartButton">
             <button>Đặt hàng</button>
           </div>
           <div class="details-product-describe">Mô tả : {{ product.description }}</div>
@@ -147,6 +148,7 @@ export default {
       number2: 1,
       textSearch: '',
       productFavorite: {},
+      showCartButton: false,
     };
   },
   /**
@@ -196,6 +198,11 @@ export default {
     },
 
     addCart() {
+      if (this.number > this.product.quantity) {
+        alert("Sản phẩm mua nhiều hơn số lượng có trong kho");
+        this.number = 1;
+        return
+      }
       this.productCart = { ...this.product };
       this.productCart.quantitys = this.number;
       // console.log(this.productCart);
@@ -204,6 +211,11 @@ export default {
     },
 
     addCart2(data) {
+      if (this.number2 > this.product.quantity) {
+        alert("Sản phẩm mua nhiều hơn số lượng có trong kho");
+        this.number2 = 1;
+        return;
+      }
       this.productCart2 = data;
       this.productCart2.quantitys2 = this.number2;
       // console.log(this.productCart);
@@ -212,11 +224,11 @@ export default {
     },
 
     minusQuantity() {
-      this.number = this.number - 1;
+      this.number = parseInt(this.number) - 1;
     },
 
     addQuantity() {
-      this.number = this.number + 1;
+      this.number = parseInt(this.number) + 1;
     },
 
     getProductByID(value) {
@@ -230,6 +242,12 @@ export default {
             .then((res) => {
               this.showLoading = false;
               this.product = res.data;
+              let showbuttonCart = res.data.quantity - res.data.quantitySell;
+              if (showbuttonCart == 0) {
+                this.showCartButton = false;
+              } else {
+                this.showCartButton = true;
+              }
               this.getBrand(this.product.brandID);
               this.getProductNews();
               // console.log("pro", this.product);
@@ -254,6 +272,18 @@ export default {
     '$route.params.id': function (newVal) {
       this.getProductByID(newVal);
     },
+
+    number(newVal) {
+      if (newVal <= 0) {
+        alert("Số lượng nhập nhỏ hơn 0");
+        this.number = 1;
+      }
+
+      if(newVal > this.product.quantity){
+        alert("Bạn đã nhập số lượng lớn hơn trong kho");
+        this.number = 1;
+      }
+    }
   },
 };
 </script>

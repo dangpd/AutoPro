@@ -1,4 +1,5 @@
 ﻿using AutoPro.BL.BaseBL;
+using AutoPro.BL.MaiBL;
 using AutoPro.BL.OrdersBL;
 using AutoPro.Common.Entities;
 using AutoPro.Common.Entities.DTO;
@@ -17,6 +18,7 @@ namespace AutoPro.API.Controllers
         {
             _ordersBL = ordersBL;
         }
+
         [HttpGet("FilterByStatus")]
         public IActionResult FilterByStatus([FromQuery] string? textSearch, [FromQuery] long pageSize = 10, [FromQuery] long pageNumber = 1, [FromQuery]int status = 1)
         {
@@ -99,7 +101,7 @@ namespace AutoPro.API.Controllers
                 // Thành công return 1
                 if (result.IsSuccess)
                 {
-                    return StatusCode(StatusCodes.Status201Created, 1);
+                    return StatusCode(StatusCodes.Status201Created,result.Data.MoreInfo);
                 }
 
                 // Nếu result bằng false và errorcode == invalid data return lỗi nhập liệu
@@ -303,6 +305,55 @@ namespace AutoPro.API.Controllers
                     DevMsg = Common.Resource.DataResource.DevMsg_Exception,
                     UserMsg = Common.Resource.DataResource.UserMsg_Exception,
                     MoreInfo = Common.Resource.Resource.UserMsg_ServerError,
+                    TraceId = HttpContext.TraceIdentifier
+                });
+            }
+        }
+
+
+        //[HttpPost("getReportRevenueByYear")]
+        //public ServiceResult getReportRevenueByYear(ReportRevenueByYearParam param)
+        //{
+        //    ServiceResult serviceResult = new ServiceResult();
+        //    try
+        //    {
+        //        serviceResult.Data = _ordersBL.getReportRevenueByYear(param);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        serviceResult.setError(ex.Message);
+        //    }
+        //    return serviceResult;
+        //}
+
+        [HttpPost("getReportRevenueByBranch")]
+        public IActionResult getReportRevenueByBranch(TimeParam param)
+        {
+            try
+            {
+                var result = _ordersBL.getReportRevenueByBranch(param);
+                if (result != null)
+                {
+                    return StatusCode(StatusCodes.Status200OK, result);
+                }
+                return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResult
+                {
+                    ErrorCode = Common.Enum.ErrorCode.Exception,
+                    DevMsg = Common.Resource.DataResource.DevMsg_Exception,
+                    UserMsg = Common.Resource.DataResource.UserMsg_Exception,
+                    MoreInfo = Common.Resource.Resource.UserMsg_ServerError,
+                    TraceId = HttpContext.TraceIdentifier
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResult
+                {
+                    ErrorCode = Common.Enum.ErrorCode.Exception,
+                    DevMsg = Common.Resource.DataResource.DevMsg_Exception,
+                    UserMsg = Common.Resource.DataResource.UserMsg_Exception,
+                    MoreInfo = ex.ToString(),
                     TraceId = HttpContext.TraceIdentifier
                 });
             }

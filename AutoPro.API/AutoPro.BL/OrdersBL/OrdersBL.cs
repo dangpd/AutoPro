@@ -1,4 +1,5 @@
 ﻿using AutoPro.BL.BaseBL;
+using AutoPro.BL.MaiBL;
 using AutoPro.Common.Entities;
 using AutoPro.Common.Entities.DTO;
 using AutoPro.Common.Entities.Param;
@@ -15,6 +16,7 @@ namespace AutoPro.BL.OrdersBL
     public class OrdersBL : BaseBL<Orders>,IOrdersBL
     {
         private IOrdersDL _ordersDL;
+        private IMailBL _mailBL;
 
         public OrdersBL(IOrdersDL ordersDL) : base(ordersDL)
         {
@@ -120,13 +122,30 @@ namespace AutoPro.BL.OrdersBL
             }
             if (order != null)
             {
+                //Task.Run(() => sendEmailOrders(order,listOrderDetail));
+
                 // gửi mail
                 return new ServiceResult
                 {
-                    IsSuccess = true
+                    IsSuccess = true,
+                    Data = new ErrorResult
+                    {
+                        ErrorCode = Common.Enum.ErrorCode.Success,
+                        MoreInfo = order,
+                    }
                 };
             }
             return new ServiceResult { IsSuccess = true };
+        }
+
+        private void sendEmailOrders(Orders orders, List<OrderDetail> listOrderDetail)
+        {
+            EmailRequest mailContent = new EmailRequest();
+            mailContent.ToEmail = orders.fullName;
+            mailContent.Subject = "Đơn hàng được đặt thành công";
+            string bodyContent = "Đơn hàng được đặt thành công";
+            mailContent.Body = bodyContent;
+            _mailBL.sendEmail(mailContent);
         }
 
         public ServiceResult UpdateOrderDetail(OrderDetailParam param)
@@ -228,6 +247,40 @@ namespace AutoPro.BL.OrdersBL
         public object getByUserID(int userId)
         {
             return _ordersDL.getOrderByUserID(userId);
+        }
+
+        public List<double> getReportRevenueByYear(ReportRevenueByYearParam param)
+        {
+            List<double> result = new List<double>();
+            //// trả về list order theo chi nhánh trong năm của param
+            //List<SaleOrder> listSaleOrder = _orderDL.getReportRevenueByYear(param);
+            //for (int i = 1; i <= 12; i++)
+            //{
+            //    int revenue = listSaleOrder.Where(x => x.orderdate.Value.Month == i).Sum(x => x.totalprice);
+            //    double output = (double)revenue / 1000000;
+            //    output = Math.Round(output, 1);
+            //    result.Add(output);
+            //}
+            return result;
+        }
+
+        /// <summary>
+        /// lấy báo cáo doanh thu các chi nhánh biểu đồ tròn
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public List<double> getReportRevenueByBranch(TimeParam param)
+        {
+            List<double> result = new List<double>();
+            List<int> listRevenue = _ordersDL.getReportRevenueByBranch(param);
+            foreach (var item in listRevenue)
+            {
+                double output = (double)item / 1000000;
+                output = Math.Round(output, 1);
+                result.Add(output);
+
+            }
+            return result;
         }
     }
 }

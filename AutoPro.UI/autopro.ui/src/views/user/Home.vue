@@ -8,13 +8,16 @@
       <div class="brand-products">
         <div class="title">PHỤ TÙNG THEO NHÀ SẢN XUẤT</div>
         <div class="list-brand">
-          <i class="fa-solid fa-circle-left fa-lg"></i>
-          <div class="nav-list-brand" ref="listBrand" v-for="(item, index) in dataBrand" :key="index">
-            <div class="item-brand">
-              <img :src="item.image" alt="">
+          <i class="fa-solid fa-circle-left fa-lg" @click="prevSlide" style="margin-right: 20px;cursor: pointer;"></i>
+          <div class="slide-container" ref="slideContainer">
+            <div class="slide" v-for="(item, index) in dataBrand" :key="item.brandID"
+              :style="{ transform: 'translateX(' + (index * 150 - currentIndex * 150) + 'px)' }">
+              <div class="item">
+                <img :src="item.image" alt="">
+              </div>
             </div>
           </div>
-          <i class="fa-solid fa-circle-right fa-lg"></i>
+          <i class="fa-solid fa-circle-right fa-lg" @click="nextSlide" style="margin-left: 20px;cursor: pointer;"></i>
         </div>
       </div>
       <div class="new-products-imported">
@@ -84,6 +87,7 @@ import enumAUTO from '@/js/gEnum';
 import ApiBrand from '../../js/apiBrand';
 import ApiProduct from '../../js/apiProduct';
 import { formatMoney } from '@/js/gCommon';
+
 export default {
   /**
    * Tên component
@@ -96,7 +100,7 @@ export default {
   /**
    * Component được sử dụng
    */
-  components: { TheHeader, TheNavbar, TheFooter, MLoading },
+  components: { TheHeader, TheNavbar, TheFooter, MLoading, },
   /**
    * Emit sự thay đổi
    */
@@ -130,6 +134,7 @@ export default {
       pageIndex: 1,
       pageSizeNews: 8,
       dataNews: [],
+      currentIndex: 0,
     }
   },
   mounted() {
@@ -138,6 +143,22 @@ export default {
    * Phương thức
    */
   methods: {
+    prevSlide() {
+      if (this.currentIndex === 0) {
+        this.currentIndex = this.dataBrand.length - 3;
+      } else {
+        this.currentIndex -= 1;
+      }
+    },
+
+    nextSlide() {
+      if (this.currentIndex === this.dataBrand.length - 3) {
+        this.currentIndex = 0;
+      } else {
+        this.currentIndex += 1;
+      }
+    },
+
     formatMoney(money) {
       return formatMoney(money);
     },
@@ -244,7 +265,13 @@ export default {
    */
   watch: {
 
-  }
+  },
+  mounted() {
+    setInterval(() => {
+      this.currentIndex = (this.currentIndex + 1) % this.dataBrand.length;
+    }, 3000);
+
+  },
 }
 </script>
 

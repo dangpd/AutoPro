@@ -32,6 +32,7 @@
 }
 
 .list-brand {
+    padding: 0 70px;
     display: flex;
     align-items: center;
 }
@@ -52,8 +53,8 @@
     cursor: pointer;
 }
 
-.item-brand:hover{
-    transform: scale(1.05);    
+.item-brand:hover {
+    transform: scale(1.05);
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -ms-transition: all 0.5s ease;
@@ -88,7 +89,7 @@
     box-shadow: 5px 10px #888888;
 }
 
-.product:hover{
+.product:hover {
     transform: scale(1.05);
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
@@ -179,7 +180,31 @@
     margin-bottom: 10px;
 }
 
-.see-more:hover{
+.see-more:hover {
     text-decoration: underline;
     color: blue;
+}
+
+.item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.slide-container {
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.slide {
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    transition: transform 0.5s ease;
+} 
+
+.carousel {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
 }

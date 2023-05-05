@@ -2,6 +2,7 @@ using AutoPro.BL.BaseBL;
 using AutoPro.BL.BrandBL;
 using AutoPro.BL.CartBL;
 using AutoPro.BL.ContactBL;
+using AutoPro.BL.MaiBL;
 using AutoPro.BL.NewsBL;
 using AutoPro.BL.NewsCommentBL;
 using AutoPro.BL.OrderDetailBL;
@@ -16,6 +17,7 @@ using AutoPro.DL.BaseDL;
 using AutoPro.DL.BrandDL;
 using AutoPro.DL.CartDL;
 using AutoPro.DL.ContactDL;
+using AutoPro.DL.MailDL;
 using AutoPro.DL.NewsCommentDL;
 using AutoPro.DL.NewsDL;
 using AutoPro.DL.OrderDetailDL;
@@ -84,6 +86,8 @@ builder.Services.AddScoped<IProductFavoriteBL, ProductFavoriteBL>();
 builder.Services.AddScoped<IProductFavoriteDL, ProductFavoriteDL>();
 
 builder.Services.AddScoped<IVNPayBL, VNPayBL>();
+builder.Services.AddScoped<IMailBL, MailBL>();
+builder.Services.AddScoped<IMailDL, MailDL>();
 
 DatabaseContext.ConnectionString = builder.Configuration.GetConnectionString("MySQL");
 builder.Services.AddControllers();

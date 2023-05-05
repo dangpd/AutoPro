@@ -19,6 +19,7 @@ import DetailsProduct from '@/views/user/DetailsProduct.vue'
 import DetailsNews from '@/views/user/DetailsNews.vue'
 import DetailsUser from '@/views/user/DetailsUser.vue'
 import ProductByCategory from '@/views/user/ProductByCategory.vue'
+import VNPayPayment from '@/views/user/VNPayPayment.vue'
 
 // Admin
 import AdminHome from '@/views/admin/AdminHome.vue'
@@ -71,6 +72,11 @@ const routes = [
     { path: '/product/category/:id', name: 'productCategory', component: ProductByCategory, props: true },
     { path: '/product/search/', name: 'productFilter', component: ProductByCategory, props: (route) => ({ query: route.query.key }) },
     { path: '/purchase', component: Purchase },
+    {
+        path: '/autopro.com/checkout/result',
+        component: VNPayPayment,
+        name: 'checkout-result',
+    },
 
     //Admin
     {

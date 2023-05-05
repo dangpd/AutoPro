@@ -41,6 +41,25 @@ namespace AutoPro.DL.UserDL
             }
         }
 
+        public string forgotPassword(Forgot forgot)
+        {
+            // Chuẩn bị tên stored proceduce
+            string queryLogin = "Proc_User_ForgotPassword";
+
+            // Tham số đầu vào
+            var parameters = new DynamicParameters();
+            parameters.Add("v_Account", forgot.account);
+            parameters.Add("v_Email", forgot.email);
+
+            // Kết nối db
+            using (var mySqlConnection = new MySqlConnection(connectionString))
+            {
+                var results = mySqlConnection.QueryFirstOrDefault<string>(queryLogin, parameters, commandType: System.Data.CommandType.StoredProcedure);
+                // Return kêt quả
+                return results;
+            }
+        }
+
         /// <summary>
         /// Kiểm tra tồn tại
         /// </summary>
@@ -122,6 +141,45 @@ namespace AutoPro.DL.UserDL
                 numberOfAffectedRow = mySqlConnection.Execute(updateStoredProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
             }
             return numberOfAffectedRow;
+        }
+
+        public bool updatePass(UpdatePass updatePass)
+        {
+            string sql = "select tu.Password from tb_user tu where tu.UserID = @id";
+            var param = new DynamicParameters();
+            param.Add("@id", updatePass.id);
+            string data = "";
+            using(var mySqlConnection = new MySqlConnection(connectionString))
+            {
+                data = mySqlConnection.QueryFirstOrDefault<string>(sql, param, commandType: System.Data.CommandType.Text);
+            }
+
+            if(data != updatePass.passold)
+            {
+                return false;
+            }
+            // Chuẩn bị tên stored proceduce
+            string queryLogin = "Proc_User_UpdatePassword";
+
+            // Tham số đầu vào
+            var parameters = new DynamicParameters();
+            parameters.Add("v_id", updatePass.id);
+            parameters.Add("v_Password", updatePass.passnew);
+
+            // Kết nối db
+            int numberOfAffectedRow = 0;
+            using (var mySqlConnection = new MySqlConnection(connectionString))
+            {
+                numberOfAffectedRow = mySqlConnection.Execute(queryLogin, parameters, commandType: System.Data.CommandType.StoredProcedure);
+            }
+            if(numberOfAffectedRow > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

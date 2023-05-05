@@ -2,7 +2,7 @@
     <div>
         <TheHeader></TheHeader>
         <TheNavbar></TheNavbar>
-        <div class="content">
+        <div class="content" id="main">
             <TheLineLink name="Hệ thống gầm phanh"></TheLineLink>
             <div class="products-category">
                 <div class="product-category-filter">
@@ -35,13 +35,13 @@
                         <div style="display: flex;align-items: center;">
                             Sắp xếp theo:
                             <MSelectBoxDown :data="[
-                                    { feildShow: 'Ngày tạo gần nhất', feildValue: 'p.createdDate DESC' },
-                                    { feildShow: 'Ngày sửa gần nhất', feildValue: 'p.modifiedDate DESC' },
-                                    { feildShow: 'Theo giá tăng dần', feildValue: 'p.price ASC' },
-                                    { feildShow: 'Theo giá giảm dần', feildValue: 'p.price DESC' },
-                                    { feildShow: 'Tên sản phẩm a-z', feildValue: 'p.productName ASC' },
-                                    { feildShow: 'Tên sản phẩm z-a', feildValue: 'p.productName DESC' },
-                                ]" v-model="orderBy"></MSelectBoxDown>
+                                { feildShow: 'Ngày tạo gần nhất', feildValue: 'p.createdDate DESC' },
+                                { feildShow: 'Ngày sửa gần nhất', feildValue: 'p.modifiedDate DESC' },
+                                { feildShow: 'Theo giá tăng dần', feildValue: 'p.price ASC' },
+                                { feildShow: 'Theo giá giảm dần', feildValue: 'p.price DESC' },
+                                { feildShow: 'Tên sản phẩm a-z', feildValue: 'p.productName ASC' },
+                                { feildShow: 'Tên sản phẩm z-a', feildValue: 'p.productName DESC' },
+                            ]" v-model="orderBy"></MSelectBoxDown>
                         </div>
                     </div>
                     <div class="list-product-category">
@@ -67,9 +67,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="see-more" @click="seeMoreImported">Xem thêm</div>
+                    <div class="see-more" @click="seeMoreImported" v-show="showSeeMore">Xem thêm</div>
                 </div>
             </div>
+        </div>
+        <div class="filterProduct" v-show="noData">
+            <img src="../../assets/Image/Nodata.jpg" alt="">
         </div>
         <TheFooter></TheFooter>
         <MLoading v-if="showLoading"></MLoading>
@@ -125,6 +128,8 @@ export default {
             dataBrand: [],
             selectedItem: null,
             keySearch: '',
+            noData: false,
+            showSeeMore: false,
         }
     },
     /**
@@ -178,25 +183,10 @@ export default {
         getValueCategory() {
             this.listFilter = [
                 {
-                    FieldName: "ProductCode",
-                    Operator: enumAUTO.Operator.Like,
-                    FilterValue: this.$store.state.search,
+                    FieldName: "CategoryID",
+                    Operator: enumAUTO.Operator.Equal,
+                    FilterValue: this.$route.params.id,
                 },
-                {
-                    FieldName: "ProductName",
-                    Operator: enumAUTO.Operator.Like,
-                    FilterValue: this.$store.state.search,
-                },
-                {
-                    FieldName: "PlaceOrigin",
-                    Operator: enumAUTO.Operator.Like,
-                    FilterValue: this.$store.state.search,
-                },
-                // {
-                //     FieldName: "branchid",
-                //     Operator: enumAUTO.Operator.Equal,
-                //     FilterValue: this.$store.state.search,
-                // },
             ];
             this.getDataRes();
         },
@@ -267,6 +257,7 @@ export default {
     },
     created() {
         let param = this.$route.params.id;
+        console.log('param', param);
         if (param) {
             this.getValueCategory();
             this.getAllBrand();
@@ -282,14 +273,34 @@ export default {
      */
     watch: {
         '$route.query.key': function (newVal) {
+            if (newVal == null) {
+                console.log(newVal);
+                return;
+            } else {
+                console.log(newVal);
+                this.getValue();
+            }
+        },
+
+        '$route.params.id': function (newVal) {
             console.log(newVal);
-            this.getValue();
+            this.getValueCategory();
         },
 
         orderBy(newVal) {
             this.orderBy = newVal;
             this.getValue();
         },
+
+        filteredProducts(newVal) {
+            if (newVal.length == 0) {
+                this.noData = true;
+                this.showSeeMore = false;
+            }else{
+                this.noData = false;
+                this.showSeeMore = true;
+            }
+        }
 
 
     },

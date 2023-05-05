@@ -1,4 +1,5 @@
 ﻿using AutoPro.Common.Entities;
+using AutoPro.Common.Entities.Param;
 using AutoPro.DL.BaseDL;
 using System;
 using System.Collections.Generic;
@@ -17,5 +18,9 @@ namespace AutoPro.DL.UserDL
         public bool IsExistAccount(User? record);
 
         public bool IsExistEmail(User? record);
+
+        public string forgotPassword(Forgot forgot);
+
+        public bool updatePass(UpdatePass updatePass);
     }
 }

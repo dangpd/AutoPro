@@ -84,7 +84,7 @@ export default {
         productCategory(data) {
             this.$emit("onSearch", data.categoryID);
             console.log(data.categoryID);
-            this.$router.push({ path: 'category/:id', name: 'productCategory', params: { id: data.categoryID } })
+            this.$router.push({ path: '/product/category/:id', name: 'productCategory', params: { id: data.categoryID } })
         }
     },
     created() {

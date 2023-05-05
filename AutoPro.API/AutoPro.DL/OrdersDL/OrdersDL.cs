@@ -1,5 +1,6 @@
 ﻿using AutoPro.Common.Entities;
 using AutoPro.Common.Entities.DTO;
+using AutoPro.Common.Entities.Param;
 using AutoPro.Common.ProceduceName;
 using AutoPro.DL.BaseDL;
 using Dapper;
@@ -395,6 +396,38 @@ namespace AutoPro.DL.OrdersDL
                 // Query
                 return mySqlConnection.Query(getOneRecordstoreProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure).ToList();
             }
+        }
+
+        public List<int> getReportRevenueByBranch(TimeParam param)
+        {
+            string storeName = "select COALESCE(sum(m.totalprice),0) from branch b left join (select case when s.deliverprice is null then s.totalprice else s.totalprice - s.deliverprice end as totalprice,s.branchid,s.branchname from saleorder s where date(s.orderdate) >= date(@startdate) and date(s.orderdate) <= date(@enddate) and s.statusid = 1) as m on b.idbranch = m.branchid group by b.idbranch order by b.idbranch desc;";
+            DynamicParameters dynamicParam = new DynamicParameters();
+            dynamicParam.Add("@startdate", param.startDate);
+            dynamicParam.Add("@enddate", param.endDate);
+            using (var mySqlConnection = new MySqlConnection(connectionString))
+            {
+                return mySqlConnection.Query<int>(storeName, dynamicParam, commandType: System.Data.CommandType.Text).ToList();
+            }
+            //return _dbHelper.Query<int>(storeName, dynamicParam, System.Data.CommandType.Text);
+        }
+        
+        /// <summary>
+        /// báo cáo 1
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public List<Orders> getReportRevenueByYear(ReportRevenueByYearParam param)
+        {
+            string storeName = "Proc_GetReportRevenueByYear";
+            DynamicParameters dynamicParam = new DynamicParameters();
+            dynamicParam.Add("v_branchid", param.branchid);
+            dynamicParam.Add("v_year", param.year);
+            using (var mySqlConnection = new MySqlConnection(connectionString))
+            {
+                return mySqlConnection.Query<Orders>(storeName, dynamicParam, commandType:System.Data.CommandType.StoredProcedure).ToList();
+
+            }
+
         }
     }
 }

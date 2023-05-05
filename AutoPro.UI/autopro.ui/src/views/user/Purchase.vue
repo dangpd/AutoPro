@@ -29,16 +29,16 @@
                         <div class="purcharse-payment-methods">
                             <h6>Phương thức thanh toán</h6>
                             <MRadio :data="[
-                                    { Gender: 'Thanh toán qua VNPay', GenderValue: 1 },
-                                    { Gender: 'Thanh toán tại nhà', GenderValue: 2 },
-                                ]" v-model="checkOutTypeID"></MRadio>
+                                { Gender: 'Thanh toán qua VNPay', GenderValue: 1 },
+                                { Gender: 'Thanh toán tại nhà', GenderValue: 2 },
+                            ]" v-model="checkOutTypeID"></MRadio>
                         </div>
                         <div class="purcharse-phone-number">
                             <h6>Ghi chú</h6>
                             <textarea v-model="description"
                                 style="width: 350px;height: 100px;padding-left: 10px;border-radius: 4px;border: 1px solid #bbb;word-break: break-word;margin-top: 70px;"></textarea>
                         </div>
-                        <div style="position: absolute;bottom: 0;right: 40px;" v-if="showPayVnPay">
+                        <div style="position: absolute;bottom: 0;right: 40px;" v-if="showPayVnPay" @click="paymentVnpay">
                             <button style="padding: 0 10px;border:1px solid #bbb;border-radius: 4px;">Đi tới thanh toán
                                 VNPAY</button>
                         </div>
@@ -46,12 +46,11 @@
                 </div>
                 <div class="information-product">
                     <h6>Thông tin đơn hàng</h6>
-                    <div class="list-purchase-product" v-for="(item, index) in listCart" :key="index"
-                        @click="detailProduct(item)" style="cursor: pointer;" :class="{
-                                'row-selected': rowSelected == item.productID
-                            }">
+                    <div class="list-purchase-product" v-for="(item, index) in listCart" :key="index" :class="{
+                        'row-selected': rowSelected == item.productID
+                    }">
                         <div class="product-purchase">
-                            <div class="product-purchase-image">
+                            <div class="product-purchase-image" @click="detailProduct(item)" style="cursor: pointer;">
                                 <img :src="item.image" alt="">
                             </div>
                             <div class="product-purchase-name">
@@ -91,7 +90,7 @@ import MInput from '@/components/MInput.vue';
 import TheFooter from '@/layout/TheFooter.vue';
 import TheHeader from '@/layout/TheHeader.vue';
 import TheLineLink from '@/layout/TheLineLink.vue';
-import { formatMoney } from '@/js/gCommon'
+import { formatMoney,formatDate } from '@/js/gCommon'
 import TheNavbar from '@/layout/TheNavbar.vue';
 import axios from 'axios';
 import ApiUser from '../../js/apiUser';
@@ -131,13 +130,17 @@ export default {
             orderDate: new Date(),
             deliveryDate: '',
             userID: '',
+            email: '',
             fullName: '',
             address: '',
             phoneNumber: '',
             checkOutTypeID: 2,
             description: '',
             listCart: [],
+            rowSelected: -1,
             listOrderDetail: [],
+            email: {},
+            listProductDetail: []
         }
     },
     /**
@@ -146,6 +149,22 @@ export default {
     methods: {
         formatMoney(menoy) {
             return formatMoney(menoy);
+        },
+
+        dateformat(date){
+            return formatDate(date);
+        },
+        paymentVnpay() {
+            let totalAmount = this.totalAmount;
+            console.log(totalAmount);
+            axios.post("https://localhost:7129/api/PayMent/redirect-vnpay", { totalAmount: totalAmount })
+                .then((res) => {
+                    let vnpayUrl = res.data;
+                    // const newTab = window.open(vnpayUrl);
+                    // newTab.focus();
+                    window.location.href = vnpayUrl;
+                    // console.log(res.data);
+                })
         },
 
         deleteProdoctCart(item) {
@@ -189,7 +208,60 @@ export default {
             // }
             this.handleOrder();
         },
-
+        async sendEmail(order, listProduct) {
+            let emailToMail = this.email
+            this.email = {
+                fromEmail: "phamducdang0403@gmail.com",
+                fromDisplayName: "AUTOPRO",
+                toEmail: emailToMail,
+                subject: "Đơn hàng đã được đặt thành công",
+                body: `Chào ${order.fullName},<br>
+                        Cảm ơn bạn đã đặt hàng từ chúng tôi. Đơn hàng của bạn đã được tiếp nhận và đang được xử lý. Dưới đây là chi tiết đơn hàng của bạn:
+                        <br>
+                        Mã đơn hàng: ${order.orderCode}
+                        <br>
+                        Ngày đặt hàng: ${this.dateformat(order.orderDate)}
+                        <br>
+                        Số điện thoại: ${order.phoneNumber}
+                        <br>
+                        Nơi nhận: ${order.address}
+                        <br>
+                        Ghi chú: ${order.description}
+                        <br>
+                        Hình thức thanh toán: ${order.checkOutTypeName}
+                        <br>
+                        Tình trạng thanh toán: ${order.checkoutStatusName}
+                        <br>
+                        Danh sach Sản phẩm:
+                        <table>
+                            <thead style="text-align:left">
+                                <tr>
+                                    <th style="width:200px">Tên sản phẩm</th>
+                                    <th style="width:200px">Giá</th>
+                                    <th style="width:200px">Số lượng</th>
+                                    <th style="width:200px">Thành tiền</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${listProduct}
+                            </tbody>
+                        </table>
+                        <br>
+                        Tổng thanh toán :${formatMoney(order.totalAmount)}
+                        <br>
+                        Nếu bạn có bất kỳ câu hỏi hoặc yêu cầu nào, vui lòng liên hệ với chúng tôi. Chúng tôi luôn sẵn sàng hỗ trợ bạn.
+                        <br>
+                        Chúng tôi rất cảm kích sự lựa chọn của bạn và mong muốn được phục vụ bạn trong tương lai.
+                        <br>
+                        Trân trọng,
+                        <br>
+                        AutoPro`
+            }
+            await axios.post("https://localhost:7129/api/Mail/send", this.email)
+                .then((res) => {
+                    console.log(res);
+                })
+        },
         handleOrder() {
             const me = this;
             this.prepareBeforeHandle();
@@ -197,19 +269,64 @@ export default {
                 order: JSON.stringify(this.customerInfo),
                 orderdetail: JSON.stringify(this.listOrderDetail),
             };
-            console.log(orderParam);
+            // console.log(orderParam);
 
+            if (this.checkOutTypeID == 1) {
+                this.paymentVnpay();
+                axios.post(ApiOrder.insertOrderDetail(), orderParam)
+                    .then((res) => {
+                        // console.log(res);
+                        if (res.status == 201) {
+                            alert("Đơn hàng đã được đặt thành công");
+                            let listProduct = JSON.parse(orderParam.orderdetail);
+                            let productListHtml = "";
+                            console.log(listProduct);
+                            listProduct.forEach((item) => {
+                                // Do something with each item in the array
+                                productListHtml +=
+                                    `<tr>
+                                        <td>${item.productName}</td>
+                                        <td>${formatMoney(item.price)}</td>
+                                        <td>${item.quantitys}</td>
+                                        <td>${formatMoney(item.price * item.quantitys)}</td>
+                                    </tr>`;
+                            });
+                            // console.log(productListHtml);
+                            this.sendEmail(res.data, productListHtml);
+                            this.$router.push('/order');
+                        } else {
+                            alert("Có lỗi xảy ra")
+                        }
+                    })
+            } else {
+                axios.post(ApiOrder.insertOrderDetail(), orderParam)
+                    .then((res) => {
+                        // console.log(res);
+                        if (res.status == 201) {
+                            alert("Đơn hàng đã được đặt thành công");
+                            let listProduct = JSON.parse(orderParam.orderdetail);
+                            let productListHtml = "";
+                            console.log(listProduct);
+                            listProduct.forEach((item) => {
+                                // Do something with each item in the array
+                                productListHtml +=
+                                    `<tr>
+                                        <td>${item.productName}</td>
+                                        <td>${formatMoney(item.price)}</td>
+                                        <td>${item.quantitys}</td>
+                                        <td>${formatMoney(item.price * item.quantitys)}</td>
+                                    </tr>`;
+                            });
+                            // console.log(productListHtml);
+                            this.sendEmail(res.data, productListHtml);
+                            this.$router.push('/order');
+                        } else {
+                            alert("Có lỗi xảy ra")
+                        }
+                    })
+            }
             // axios.post("https://localhost:7129/api/v1/Orders/insertOrderDetail", orderParam)
-            axios.post(ApiOrder.insertOrderDetail(), orderParam)
-                .then((res) => {
-                    console.log(res);
-                    if (res.status == 201) {
-                        alert("Đơn hàng đã được đặt thành công");
-                        this.$router.push('/order');
-                    } else {
-                        alert("Có lỗi xảy ra")
-                    }
-                })
+
             // OrderService.insertOrderDetail(orderParam).then((result) => {
             //     if (result && result.data) {
             //         if (result.data.success) {
@@ -260,7 +377,7 @@ export default {
 
             // this.customerInfo["totalprice"] = this.totalAmount;
             // Xử lý danh sách các hàng hóa mua
-            console.log(this.customerInfo);
+            // console.log(this.customerInfo);
             // Xử lý danh sách các hàng hóa mua
             this.listOrderDetail = this.listCart.map((x) => ({
                 idOrderDetail: "",
@@ -270,7 +387,7 @@ export default {
                 productName: x.productName,
                 quantitys: x.quantitys
             }));
-            console.log(this.listOrderDetail);
+            // console.log(this.listOrderDetail);
         },
 
     },
@@ -285,9 +402,11 @@ export default {
                         this.user = res.data;
                         // console.log(this.user);
                         this.userID = this.user.userID;
-                        this.fullName = this.user.fullName
-                        this.address = this.user.address
-                        this.phoneNumber = this.user.phoneNumber
+                        this.fullName = this.user.fullName;
+                        this.address = this.user.address;
+                        this.email = this.user.email;
+                        console.log(this.email);
+                        this.phoneNumber = this.user.phoneNumber;
                     }
                 })
             this.listCart = this.$store.state.cart.items;
@@ -299,11 +418,11 @@ export default {
     watch: {
         checkOutTypeID(newVal) {
             this.checkOutTypeID = newVal;
-            if (newVal == 1) {
-                this.showPayVnPay = true;
-            } else {
-                this.showPayVnPay = false;
-            }
+            // if (newVal == 1) {
+            //     this.showPayVnPay = true;
+            // } else {
+            //     this.showPayVnPay = false;
+            // }
         }
     },
     computed: {

@@ -108,3 +108,11 @@
     background-color: aqua;
     cursor: pointer;
 }
+
+.filterProduct img {
+    position: absolute;
+    top: 236px;
+    left: 410px;
+    height: calc(100vh - 245px);
+    width: calc(100% - 410px - 100px);
+}

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "R/hGLbWNlKAjYKdKdUNiwGNmXilGJeAjXOZVX6hNLH1VRHvx/ls0vMGC44kp3r8xcepnmwdoyLVAYTLeLgJ39Q==",
+  "dgSpecHash": "KvyTgbvyTisnB7lgHHl/QavzgyVbQy/RgPyLZGTMX4s5qqBELZ/FQS20SaRaFkAl/rImP+l6JQGatemKj4nNmg==",
   "success": true,
   "projectFilePath": "D:\\Do An Tot Nghiep\\AutoPro.API\\AutoPro.BL\\AutoPro.BL.csproj",
   "expectedPackageFiles": [
@@ -12,7 +12,8 @@
     "C:\\Users\\DucDang\\.nuget\\packages\\microsoft.aspnet.webapi.core\\5.2.9\\microsoft.aspnet.webapi.core.5.2.9.nupkg.sha512",
     "C:\\Users\\DucDang\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.17\\microsoft.aspnetcore.http.features.5.0.17.nupkg.sha512",
     "C:\\Users\\DucDang\\.nuget\\packages\\microsoft.csharp\\4.6.0\\microsoft.csharp.4.6.0.nupkg.sha512",
-    "C:\\Users\\DucDang\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.1\\microsoft.extensions.primitives.5.0.1.nupkg.sha512",
+    "C:\\Users\\DucDang\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\7.0.0\\microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512",
+    "C:\\Users\\DucDang\\.nuget\\packages\\microsoft.extensions.primitives\\7.0.0\\microsoft.extensions.primitives.7.0.0.nupkg.sha512",
     "C:\\Users\\DucDang\\.nuget\\packages\\microsoft.net.http.headers\\2.2.8\\microsoft.net.http.headers.2.2.8.nupkg.sha512",
     "C:\\Users\\DucDang\\.nuget\\packages\\microsoft.netcore.platforms\\3.0.0\\microsoft.netcore.platforms.3.0.0.nupkg.sha512",
     "C:\\Users\\DucDang\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
@@ -88,6 +89,7 @@
     "C:\\Users\\DucDang\\.nuget\\packages\\system.reflection.typeextensions\\4.3.0\\system.reflection.typeextensions.4.3.0.nupkg.sha512",
     "C:\\Users\\DucDang\\.nuget\\packages\\system.resources.resourcemanager\\4.3.0\\system.resources.resourcemanager.4.3.0.nupkg.sha512",
     "C:\\Users\\DucDang\\.nuget\\packages\\system.runtime\\4.3.0\\system.runtime.4.3.0.nupkg.sha512",
+    "C:\\Users\\DucDang\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
     "C:\\Users\\DucDang\\.nuget\\packages\\system.runtime.extensions\\4.3.0\\system.runtime.extensions.4.3.0.nupkg.sha512",
     "C:\\Users\\DucDang\\.nuget\\packages\\system.runtime.handles\\4.3.0\\system.runtime.handles.4.3.0.nupkg.sha512",
     "C:\\Users\\DucDang\\.nuget\\packages\\system.runtime.interopservices\\4.3.0\\system.runtime.interopservices.4.3.0.nupkg.sha512",

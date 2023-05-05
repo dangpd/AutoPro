@@ -37,6 +37,9 @@
                                 <router-link to="/list-product-favorite" class="item-header">
                                     <div class="product-favorite">Sản phẩm yêu thích</div>
                                 </router-link>
+                                <div class="item-header" @click="updatePassword">
+                                    <div class="product-favorite">Cập nhật mật khẩu</div>
+                                </div>
                                 <router-link to="/" class="item-header" @click="logout">
                                     <div class="logout">Đăng xuất</div>
                                 </router-link>
@@ -55,6 +58,7 @@
             </div>
         </div>
         <div class="line-header"></div>
+        <UpdatePassword v-if="showUpdate" @onClose="showUpdate = false"></UpdatePassword>
     </div>
 </template>
 
@@ -62,6 +66,7 @@
 import MInput from '@/components/MInput.vue'
 import axios from 'axios';
 import ApiUser from '../js/apiUser';
+import UpdatePassword from '@/views/user/UpdatePassword.vue';
 export default {
     /**
        * Tên component
@@ -74,11 +79,11 @@ export default {
     /**
      * Component được sử dụng
      */
-    components: { MInput },
+    components: { MInput, UpdatePassword },
     /**
      * Emit sự thay đổi
      */
-    emits: ["update:keySearch"],
+    emits: ["update:keySearch","update:modelValue"],
     directives: {
 
     },
@@ -93,6 +98,7 @@ export default {
             userID: '',
             keySeach: '',
             listFilter: [],
+            showUpdate: false,
         }
     },
     /**
@@ -109,7 +115,11 @@ export default {
 
         searchProductHeader() {
             this.$store.commit('updateSearch', this.keySeach);
-            this.$router.push({ path: 'search/', name: 'productFilter', query: { key: this.keySeach } })
+            this.$router.push({ path: '/product/search/', name: 'productFilter', query: { key: this.keySeach } })
+        },
+
+        updatePassword() {
+            this.showUpdate = true;
         }
     },
     created() {

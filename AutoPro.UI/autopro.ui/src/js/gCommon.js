@@ -98,6 +98,20 @@ function formatMoney(money) {
     }
 }
 
+function ketquaVNpay(status) {
+    try {
+        if (status == 0) {
+            return "Giao dịch thành công";
+        } else if (status == 9) {
+            return "Thanh toán không thành công";
+        } else {
+            return "Thanh toán không thành công";
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 function formatNumber(number) {
     return new Intl.NumberFormat("de-DE").format(number);
 }
@@ -135,4 +149,4 @@ function fetchAPI(url, method, fnCallBack, data, typeRes) {
         })
         .catch(err => console.log(err));
 }
-export { clickoutside, formatNumber, formatStatusProduct, formatMoney, formatDate, formatGender, fetchAPI };
+export { clickoutside, ketquaVNpay, formatNumber, formatStatusProduct, formatMoney, formatDate, formatGender, fetchAPI };
