@@ -53,6 +53,21 @@
                 </div>
                 <Bar :data="dataBar" :options="optionsBar" />
             </div>
+            <div v-if="showLoading3">
+                <MLoading></MLoading>
+            </div>
+            <div v-else>
+                <div style="display: flex;align-items: center;margin: 20px 0 20px 320px;font-weight:bold">
+                    <div>Thống kê doanh thu từng quý theo năm (Đơn vị vnd). Vui lòng chọn năm: </div>
+                    <div>
+                        <select v-model="byYearQuarterly"
+                            style="height: 36px;width: 100px;magin-left:20px;border: 1px solid #bbb;border-radius: 4px;">
+                            <option v-for="year2 in years2" :key="year2" :value="year2">{{ year2 }}</option>
+                        </select>
+                    </div>
+                </div>
+                <Bar :data="dataBarQuarterly" :options="optionsBarQuarterly" />
+            </div>
             <!-- <Bar :data="data" :options="options" /> -->
         </div>
 
@@ -104,13 +119,6 @@ export default {
      */
     data() {
         return {
-            // data: {
-            //     labels: ['January', 'February', 'March'],
-            //     datasets: [{ data: [40, 20, 12] }]
-            // },
-            // options: {
-            //     responsive: true
-            // },
             dataChartDought: {
                 labels: [],
                 datasets: [
@@ -143,18 +151,6 @@ export default {
             },
             dataBar: {
                 labels: [
-                    // 'January',
-                    // 'February',
-                    // 'March',
-                    // 'April',
-                    // 'May',
-                    // 'June',
-                    // 'July',
-                    // 'August',
-                    // 'September',
-                    // 'October',
-                    // 'November',
-                    // 'December'
                 ],
                 datasets: [
                     {
@@ -170,6 +166,22 @@ export default {
                 width: 1000,
                 height: 1000
             },
+            dataBarQuarterly: {
+                labels: [1, 2, 3, 4],
+                datasets: [
+                    {
+                        label: 'Tổng tiền',
+                        backgroundColor: '#f87979',
+                        data: []
+                    }
+                ]
+            },
+            optionsBarQuarterly: {
+                responsive: true,
+                maintainAspectRatio: true,
+                width: 1000,
+                height: 1000
+            },
             listBrand: [],
             listPersent: [],
             showLoading: false,
@@ -180,6 +192,11 @@ export default {
             listTotal: [],
             byYear: 2023,
             years: [],
+            showLoading3: false,
+            byYearQuarterly: 2023,
+            year2: 2023,
+            years2: [],
+            listTotalByQuarterly: [],
         }
     },
     /**
@@ -190,17 +207,34 @@ export default {
             this.showLoading = true;
             axios.post("https://localhost:7129/api/v1/Orders/getReportRevenueByBranch", { month: this.month, year: this.year })
                 .then((res) => {
-                    if (res.status = 200) {
+                    if (res.status = 200 && res.data.length > 0) {
                         for (let i = 0; i < res.data.length; i++) {
                             this.listBrand.push(res.data[i].brandName)
                             let phanTram = res.data[i].persent + " %";
                             this.listPersent.push(res.data[i].persent)
                         }
                         this.dataChartDought.labels = this.listBrand;
-                        this.dataChartDought.datasets[0].data = this.listPersent;
+                        let tong = 0;
+                        this.listPersent.forEach(x => {
+                            tong += x;
+                        });
+                        // console.log(tong);
+                        // if (tong == 0) {
+                        //     this.dataChartDought.datasets[0] = [
+                        //         {
+                        //             backgroundColor: ['#FF6384'],
+                        //             data: [1]
+                        //         }
+                        //     ];
+                        // } else {
+                            this.dataChartDought.datasets[0].data = this.listPersent;
+                        // }
                         this.listBrand = [];
                         this.listPersent = [];
                         this.showLoading = false;
+                    } else {
+                        this.dataChartDought.labels = this.listBrand;
+                        this.dataChartDought.datasets[0].data = [0, 0, 0, 0, 0, 0];
                     }
                 })
         },
@@ -212,6 +246,7 @@ export default {
                     // console.log(res.data);
                     // this.showLoading = false;
                     if (res.status = 200 && res.data.length > 0) {
+                        this.listMonth = [];
                         for (let i = 0; i < res.data.length; i++) {
                             this.listMonth.push(res.data[i].thang)
                             this.listTotal.push(res.data[i].tongtien)
@@ -239,11 +274,36 @@ export default {
                         console.log(error.response.data);
                     }
                 });
+        },
+
+        thongKeTheoQuy() {
+            this.showLoading3 = true;
+            axios.get("https://localhost:7129/api/v1/Orders/getReportRevenueByYear", { params: { byYear: this.byYearQuarterly } })
+                .then((res) => {
+                    // console.log(res.data);
+                    // this.showLoading = false;
+                    if (res.status = 200 && res.data.length > 0) {
+                        for (let i = 0; i < res.data.length; i += 3) {
+                            let tongtientheoquy = res.data[i].tongtien + res.data[i + 1].tongtien + res.data[i + 2].tongtien;
+                            this.listTotalByQuarterly.push(tongtientheoquy);
+                        }
+                        this.dataBarQuarterly.datasets[0].data = this.listTotalByQuarterly;
+                        this.listTotalByQuarterly = [];
+                        this.showLoading3 = false;
+                    } else {
+                        // Xử lý khi không nhận được dữ liệu
+                        this.dataBarQuarterly.datasets[0].data = [];
+                        this.showLoading3 = false;
+                    }
+                })
+                .catch(error => {
+                });
         }
     },
     created() {
         this.thongKeTheoNhanHangTheoThang();
         this.thongKeTheoNam();
+        this.thongKeTheoQuy();
     },
     /**
      * Theo dõi sự thay đổi
@@ -266,6 +326,11 @@ export default {
             this.byYear = newVal;
             this.thongKeTheoNam();
             console.log(newVal);
+        },
+
+        byYearQuarterly(newVal) {
+            this.byYearQuarterly = newVal;
+            this.thongKeTheoQuy();
         }
     },
     mounted() {
@@ -275,6 +340,12 @@ export default {
             years.push(i);
         }
         this.years = years;
+        const currentYear2 = new Date().getFullYear();
+        const years2 = [];
+        for (let i = currentYear; i >= 1900; i--) {
+            years2.push(i);
+        }
+        this.years2 = years2;
     }
 }
 </script>
