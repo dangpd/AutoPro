@@ -233,10 +233,12 @@ export default {
                 .then((res) => {
                     if (res.status === 200) {
                         alert("Đơn hàng đã được xác nhận");
+                        this.$toast.success("Đơn hàng được xác nhận");
                         this.$emit("success")
                         this.$emit("onClose");
                     } else {
                         alert("Xác nhận đơn hàng thất bại");
+                        this.$toast.error("Xác nhận đơn hàng thất bại");
                         this.$emit("onClose");
                     }
                 })
@@ -258,10 +260,12 @@ export default {
                 .then((res) => {
                     if (res.status === 200) {
                         alert("Hủy đơn hàng thành công");
+                        this.$toast.success("Hủy đơn hàng thành công");
                         this.$emit("success")
                         this.$emit("onClose");
                     } else {
                         alert("Hủy đơn hàng thất bại");
+                        this.$toast.error("Hủy đơn hàng thất bại");
                         this.$emit("onClose");
                     }
                 })

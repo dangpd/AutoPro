@@ -47,6 +47,7 @@ export default {
       admin: {},
       userID: '',
       showUpdateAdmin: false,
+      nombreRuta: '',
     }
   },
   /**
@@ -71,6 +72,7 @@ export default {
         this.$router.push('/forbidden');
         return;
       }
+
       this.userID = login;
       // console.log(this.userID);
       if (this.userID != null) {
@@ -79,7 +81,10 @@ export default {
             if (res.status == 200) {
               this.admin = res.data;
               // console.log(this.admin);
-              this.$router.push('/admin/dashload')
+              let fullpath = this.currentRoute;
+              if (fullpath == '/admin/' || fullpath == '/admin') {
+                this.$router.push('/admin/dashload')
+              }
             }
           })
       }
@@ -96,6 +101,13 @@ export default {
    */
   watch: {
 
+  },
+  computed: {
+    currentRoute: function () {
+      let path = this.$route.path;
+      // console.log(path);
+      return path;
+    }
   }
 }
 </script>

@@ -94,12 +94,12 @@
                     <i class="fa-solid fa-caret-down"></i>
                 </div>
             </router-link>
-            <!-- <router-link to="/admin/product" style="text-decoration: none;">
+            <router-link to="/admin/comment" style="text-decoration: none;">
                 <div class="anav-item">
-                    <div class="anav__text">Quản lí bình luận</div>
+                    <div class="anav__text">Quản lí đánh giá</div>
                     <i class="fa-solid fa-caret-down"></i>
                 </div>
-            </router-link> -->
+            </router-link>
         </div>
         <MLoading v-if="showLoading"></MLoading>
     </div>

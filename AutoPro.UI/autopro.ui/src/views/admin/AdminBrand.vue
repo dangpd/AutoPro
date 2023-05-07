@@ -43,8 +43,8 @@
                 <tbody>
                     <tr v-for="(item, index) in dataBrand" :key="index" @click="trClick(item.brandID)"
                         @dblclick="rowOnDblClick(item)" :class="{
-                                'row-selected': rowSelected == item.brandID,
-                            }">
+                            'row-selected': rowSelected == item.brandID,
+                        }">
                         <td style="padding-left: 10px;">{{ index + 1 }}</td>
                         <td>{{ item.brandCode }}</td>
                         <td>{{ item.brandName }}</td>
@@ -85,10 +85,10 @@
                     <div class="m-page-number-group">
                         <button class="m-page-number" v-for="(item, index) in pageNumber" :key="item"
                             :class="{ 'm-page-number-select': pageChoice == item }" @click="changePageChoice(
-                                    pageNumber[index - 1],
-                                    item,
-                                    pageNumber[index + 1]
-                                )
+                                pageNumber[index - 1],
+                                item,
+                                pageNumber[index + 1]
+                            )
                                 ">
                             {{ item }}
                         </button>
@@ -223,8 +223,13 @@ export default {
             axios.delete(ApiBrand.deleteBrandByID(data.brandID))
                 .then((res) => {
                     if (res.status == 200) {
+                        this.$toast.success("Xóa thành công");
                         this.filterAndPaging();
                     }
+                })
+                .catch((err) => {
+                    console.log(err);
+                    this.$toast.error("Xóa thất bại");
                 })
         },
 

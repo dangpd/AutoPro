@@ -17,15 +17,15 @@ class UserService extends base {
         return `${this.getAll()}/login`
     }
 
-    updateUser(id){
+    updateUser(id) {
         return `${this.getAll()}/${id}`;
     }
 
-    updateAdmin(id){
+    updateAdmin(id) {
         return `${this.getAll()}/admin/${id}`;
     }
 
-    updateAdmin(id){
+    updateAdmin(id) {
         return `${this.getAll()}/${id}`;
     }
 
@@ -35,6 +35,14 @@ class UserService extends base {
 
     filterUser(key = '', pageSize, pageNumber) {
         return `${this.getAll()}/Filter?textSearch=${key}&pageSize=${pageSize}&pageNumber=${pageNumber}`;
+    }
+
+    filterComment(key = '', pageSize, pageNumber) {
+        return `https://localhost:7129/api/v1/ProductComment/Filter?textSearch=${key}&pageSize=${pageSize}&pageNumber=${pageNumber}`;
+    }
+
+    deleteComment(id) {
+        return `https://localhost:7129/api/v1/ProductComment/${id}`;
     }
 
 }

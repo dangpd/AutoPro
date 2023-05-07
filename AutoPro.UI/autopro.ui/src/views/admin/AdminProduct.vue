@@ -246,8 +246,13 @@ export default {
             axios.delete(ApiProduct.deleteProductByID(data.productID))
                 .then((res) => {
                     if (res.status == 200) {
+                        this.$toast.success("Xóa thành công");
                         this.filterAndPaging();
                     }
+                })
+                .catch((err) => {
+                    console.log(err);
+                    this.$toast.error("Xóa thất bại");
                 })
         },
 

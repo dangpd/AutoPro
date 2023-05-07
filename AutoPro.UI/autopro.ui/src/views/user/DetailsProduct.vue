@@ -18,7 +18,7 @@
           <div class="details-product-price">Giá tiền: {{ formatMoney(product.price) }} </div>
           <div class="details-product-sell">Đã bán: {{ product.quantitySell }}</div>
           <div class="details-product-sell">Số lượng còn: {{ product.quantity }}</div>
-          <div class="details-product-status">Tình trạng : <b> {{ formatStatusProduct( product.quantity -
+          <div class="details-product-status">Tình trạng : <b> {{ formatStatusProduct(product.quantity -
             product.quantitySell)
           }}</b></div>
           <div class="details-product-number">
@@ -47,14 +47,20 @@
             </p>
           </div>
           <div class="detail-product-comment">Đánh giá</div>
-          <div class="list-comment">
-            <div class="user-comment">
+          <div class="list-comment" v-for="(item, index) in dataComment" :key="index">
+            <div class="user-comment" style="margin: 20px 0;">
               <div class="user-comment-img">
-                <img src="../../assets/Image/giamsoc.jpg" alt="" />
+                <img :src="item.Image" alt="" />
               </div>
               <div class="user-comment-conten">
-                <div class="username-comment">Pham Đức Đăng</div>
-                <div class="user-content-comment">Nội dung đánh giá</div>
+                <div style="display: flex;justify-content: space-between;">
+                  <div class="username-comment">Người đánh giá: {{ item.Name }}</div>
+                  <div>
+                    <star-rating :show-rating="false" :read-only="true" :star-size="20" :rating="item.RatingID" :animate="true"></star-rating>
+                    <!-- Đánh giá: {{ item.RatingID }} sao -->
+                  </div>
+                </div>
+                <div class="user-content-comment">Nội dung: {{ item.Detail }}</div>
               </div>
             </div>
           </div>
@@ -105,6 +111,8 @@ import axios from 'axios';
 import { formatStatusProduct, formatDate, formatMoney } from '@/js/gCommon'
 import ApiProduct from '../../js/apiProduct';
 import ApiBrand from '../../js/apiBrand';
+import StarRating from 'vue-star-rating'
+
 export default {
   /**
    * Tên component
@@ -122,7 +130,7 @@ export default {
   /**
    * Component được sử dụng
    */
-  components: { TheHeader, TheNavbar, TheFooter, TheLineLink, MInput, MLoading },
+  components: { TheHeader, TheNavbar, TheFooter, TheLineLink, MInput, MLoading, StarRating },
   /**
    * Emit sự thay đổi
    */
@@ -149,6 +157,7 @@ export default {
       textSearch: '',
       productFavorite: {},
       showCartButton: false,
+      dataComment: [],
     };
   },
   /**
@@ -242,6 +251,7 @@ export default {
             .then((res) => {
               this.showLoading = false;
               this.product = res.data;
+              this.getCommnetbyProduct(res.data.productID);
               let showbuttonCart = res.data.quantity - res.data.quantitySell;
               if (showbuttonCart == 0) {
                 this.showCartButton = false;
@@ -254,6 +264,16 @@ export default {
             })
         }, 500)
       }
+    },
+
+    getCommnetbyProduct(idProducts) {
+      axios.get('https://localhost:7129/api/v1/ProductComment/ListCommentByPorduct', { params: { idProduct: idProducts } })
+        .then((res) => {
+          if (res.status == 200) {
+            this.dataComment = res.data;
+            // console.log(this.dataComment);
+          }
+        })
     },
 
     favoriteProduct(data) {
@@ -279,7 +299,7 @@ export default {
         this.number = 1;
       }
 
-      if(newVal > this.product.quantity){
+      if (newVal > this.product.quantity) {
         alert("Bạn đã nhập số lượng lớn hơn số lượng có trong kho");
         this.number = 1;
       }

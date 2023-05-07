@@ -75,10 +75,10 @@
             Giới tính :
           </div>
           <MRadio :data="[
-              { Gender: 'Nam', GenderValue: 0 },
-              { Gender: 'Nữ', GenderValue: 1 },
-              { Gender: 'Khác', GenderValue: 2 },
-            ]" v-model="user.gender"></MRadio>
+            { Gender: 'Nam', GenderValue: 0 },
+            { Gender: 'Nữ', GenderValue: 1 },
+            { Gender: 'Khác', GenderValue: 2 },
+          ]" v-model="user.gender"></MRadio>
           <!-- <MInput type="text" v-model="user.gender"
             styleInput="width: calc(250px); height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;margin-right:15px;">
           </MInput> -->
@@ -244,11 +244,13 @@ export default {
         await axios.post(ApiUser.addUser(), this.user)
           .then((res) => {
             if (res.status == 201) {
+              this.$toast.success("Tạo thành công");
               this.$emit("onClose");
               this.$emit("success");
             }
           })
           .catch((err) => {
+            this.$toast.error("Tạo thất bại");
             console.log(err);
           })
       } else {
@@ -256,12 +258,14 @@ export default {
         await axios.put(ApiUser.updateUser(this.id), this.user)
           .then((res) => {
             if (res.status == 200) {
+              this.$toast.success("Cập nhật thành công");
               this.$emit("success");
               this.$emit("onClose");
             }
           })
           .catch((err) => {
             console.log(err);
+            this.$toast.error("Cập nhật thất bại");
           })
       }
     }

@@ -18,6 +18,8 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import '@fortawesome/fontawesome-free/css/all.css'
 import "vue-toastification/dist/index.css";
+import AwesomeVueStarRating from 'awesome-vue-star-rating'
+import StarRating from 'vue-star-rating'
 /* add icons to the library */
 // const EventBus = new Vue();
 // Vue.prototype.$eventBus = EventBus;
@@ -83,5 +85,7 @@ app.config.globalProperties.$toast
 app.use(ToastPlugin);
 app.use(router)
 app.component('font-awesome-icon', FontAwesomeIcon)
+app.component('star-rating', AwesomeVueStarRating)
+app.component('awesome-vue-star-rating', AwesomeVueStarRating)
 app.mount('#app')
 

@@ -267,7 +267,7 @@ export default {
             axios.post("https://localhost:7129/api/Mail/send", this.email)
                 .then((res) => {
                     console.log(res);
-                    this.$toast.success("Email được gửi thành công")
+                    // this.$toast.success("Email được gửi thành công")
                 })
                 .catch((err) => {
                     alert("Email gửi thất bại");
@@ -335,6 +335,7 @@ export default {
                             this.sendEmail(res.data, productListHtml);
                             this.$router.push('/order');
                             this.$toast.success("Đặt hàng thành công")
+                            this.$toast.success("Email được gửi thành công")
                         } else {
                             alert("Có lỗi xảy ra")
                             this.$toast.success("Đặt hàng thất bại")

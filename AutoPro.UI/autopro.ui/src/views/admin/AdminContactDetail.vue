@@ -117,22 +117,26 @@ export default {
                 await axios.post(ApiContact.addContact(), this.contact)
                     .then((res) => {
                         if (res.status == 201) {
+                            this.$toast.success("Tạo thành công");
                             this.$emit("onClose");
                             this.$emit("success");
                         }
                     })
                     .catch((err) => {
+                        this.$toast.error("Tạo thất bại");
                         console.log(err);
                     })
             } else {
                 await axios.put(ApiContact.updateContact(this.id), this.contact)
                     .then((res) => {
                         if (res.status == 200) {
+                            this.$toast.success("Cập nhật thành công");
                             this.$emit("success");
                             this.$emit("onClose");
                         }
                     })
                     .catch((err) => {
+                        this.$toast.error("Cập nhật thất bại");
                         console.log(err);
                     })
             }

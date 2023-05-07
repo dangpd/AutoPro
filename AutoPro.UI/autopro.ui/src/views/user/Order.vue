@@ -64,7 +64,8 @@
     <TheFooter></TheFooter>
     <MLoading v-if="showLoading"></MLoading>
     <OrderDetail v-if="showPopup" @onClose="showPopup = false" :id="id" :type="type" :statusOrder="statusOrder"
-      @success="success"></OrderDetail>
+      @success="success" @showProductComment="showProductComment"></OrderDetail>
+    <ProductComment v-if="showComment" @onClose="showComment = false" :idProduct="idProductComment"></ProductComment>
   </div>
 </template>
 
@@ -80,6 +81,7 @@ import MLoading from '@/components/MLoading.vue';
 import Resource from '../../js/gResource';
 import OrderDetail from './OrderDetail.vue'
 import MSelectBoxDown from "@/components/MSelectBoxDown.vue";
+import ProductComment from "./ProductComment.vue";
 
 export default {
   /**
@@ -93,7 +95,7 @@ export default {
   /**
    * Component được sử dụng
    */
-  components: { TheHeader, TheNavbar, TheFooter, TheLineLink, MLoading, OrderDetail, MSelectBoxDown },
+  components: { TheHeader, TheNavbar, TheFooter, TheLineLink, MLoading, OrderDetail, MSelectBoxDown, ProductComment },
   /**
    * Emit sự thay đổi
    */
@@ -115,6 +117,9 @@ export default {
       reloadTable: false,
       customer: {},
       orderBy: 4,
+      // showComment: false,
+      showComment: false,
+      idProductComment: '',
     };
   },
   /**
@@ -204,9 +209,14 @@ export default {
             this.showLoading = false;
             this.dataOrder = res.data;
             // console.log(this.dataOrder);
-            // console.log(res);
+            console.log(res);
           })
       }, 300);
+    },
+
+    showProductComment(data) {
+      this.showComment = true;
+      this.idProductComment = data.productID;
     }
   },
   created() {

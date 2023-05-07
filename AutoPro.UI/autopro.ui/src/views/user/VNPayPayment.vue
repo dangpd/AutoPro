@@ -80,6 +80,8 @@ export default {
 
         redirect() {
             this.$router.push('/order');
+            this.$toast.success("Đặt hàng thành công");
+            this.$toast.success("Gửi email thành công");
         },
 
     },

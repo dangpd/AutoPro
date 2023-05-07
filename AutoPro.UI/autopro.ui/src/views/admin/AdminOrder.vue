@@ -37,8 +37,8 @@
                 <tbody>
                     <tr v-for="(item, index) in dataOrder" :key="index" @click="trClick(item.orderID)"
                         @dblclick="rowOnDblClick(item)" :class="{
-                                'row-selected': rowSelected == item.orderID,
-                            }">
+                            'row-selected': rowSelected == item.orderID,
+                        }">
                         <td style="padding-left: 10px;">{{ index + 1 }}</td>
                         <td>{{ item.orderCode }}</td>
                         <td>{{ formatDate(item.orderDate) }}</td>
@@ -81,10 +81,10 @@
                     <div class="m-page-number-group">
                         <button class="m-page-number" v-for="(item, index) in pageNumber" :key="item"
                             :class="{ 'm-page-number-select': pageChoice == item }" @click="changePageChoice(
-                                    pageNumber[index - 1],
-                                    item,
-                                    pageNumber[index + 1]
-                                )
+                                pageNumber[index - 1],
+                                item,
+                                pageNumber[index + 1]
+                            )
                                 ">
                             {{ item }}
                         </button>
@@ -220,8 +220,13 @@ export default {
             axios.delete(ApiBrand.deleteBrandByID(data.orderID))
                 .then((res) => {
                     if (res.status == 200) {
+                        this.$toast.success("Xóa thành công");
                         this.filterAndPaging();
                     }
+                })
+                .catch((err) => {
+                    console.log(err);
+                    this.$toast.error("Xóa thất bại");
                 })
         },
 
@@ -437,8 +442,10 @@ export default {
 
     },
     created() {
-        if (this.id) {
-            this.statusFilter = id;
+        let param = this.$route.params.id;
+        // console.log(param);
+        if (param) {
+            this.statusFilter = param;
             this.filterAndPagingByStatus();
         } else {
             this.filterAndPaging();

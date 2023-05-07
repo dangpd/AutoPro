@@ -35,8 +35,8 @@
                 <tbody>
                     <tr v-for="(item, index) in dataCategory" :key="index" @click="trClick(item.categoryID)"
                         @dblclick="rowOnDblClick(item)" :class="{
-                                'row-selected': rowSelected == item.categoryID,
-                            }">
+                            'row-selected': rowSelected == item.categoryID,
+                        }">
                         <td style="padding-left: 10px;">{{ index + 1 }}</td>
                         <td>{{ item.categoryCode }}</td>
                         <td>{{ item.categoryName }}</td>
@@ -76,10 +76,10 @@
                     <div class="m-page-number-group">
                         <button class="m-page-number" v-for="(item, index) in pageNumber" :key="item"
                             :class="{ 'm-page-number-select': pageChoice == item }" @click="changePageChoice(
-                                    pageNumber[index - 1],
-                                    item,
-                                    pageNumber[index + 1]
-                                )
+                                pageNumber[index - 1],
+                                item,
+                                pageNumber[index + 1]
+                            )
                                 ">
                             {{ item }}
                         </button>
@@ -212,8 +212,13 @@ export default {
             axios.delete(ApiProductCategory.deleteProductCategoryByID(data.categoryID))
                 .then((res) => {
                     if (res.status == 200) {
+                        this.$toast.success("Xóa thành công");
                         this.filterAndPaging();
                     }
+                })
+                .catch((err) => {
+                    console.log(err);
+                    this.$toast.error("Xóa thất bại");
                 })
         },
 

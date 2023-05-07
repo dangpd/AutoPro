@@ -99,7 +99,20 @@ namespace AutoPro.Common.Enum
         Edit = 2,
         Delete = 3
     }
+    public enum Rating
+    {
 
+        //HoanToanKhongHaiLong
+        StronglyDisagree = 1,
+        //KhongHaiLong
+        Disagree = 2,
+        // Trung lap
+        Neutral= 3,
+        // Đồng ý
+        Agree = 4,
+        // Hoàn toàn đồng ý
+        StronglyAgree = 5
+    }
     public enum Operator
     {
         [Display(Name = "EQUAL")]

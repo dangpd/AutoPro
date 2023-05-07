@@ -26,6 +26,8 @@ namespace AutoPro.API.Controllers
             int tongtintuc = 0;
             int tongnhanhang = 0;
             int tongdanhmuc = 0;
+            int sanphamsaphethang = 0;
+            int tongdanhgia = 0;
 
             using (var conn = new MySqlConnection(connectionString))
             {
@@ -73,6 +75,14 @@ namespace AutoPro.API.Controllers
                                         tongdanhmuc = reader.GetInt32(0);
                                         break;
 
+                                    case "sanphamsaphethang":
+                                        sanphamsaphethang = reader.GetInt32(0);
+                                        break;
+
+                                    case "tongsodanhgia":
+                                        tongdanhgia = reader.GetInt32(0);
+                                        break;
+
                                     default:
                                         break;
                                 }
@@ -92,8 +102,10 @@ namespace AutoPro.API.Controllers
                     TongDoanhThu = tongdoanhthu,
                     TongTinTuc = tongtintuc,
                     TongNhanHang = tongnhanhang,
-                    TongDanhMuc = tongdanhmuc
-                });
+                    TongDanhMuc = tongdanhmuc,
+                    SanPhamSapHetHang = sanphamsaphethang,
+                    TongDanhgia = tongdanhgia,
+                }) ;
             }
         }
     }

@@ -183,11 +183,13 @@ export default {
                 await axios.post(ApiBrand.addBrand(), this.brand)
                     .then((res) => {
                         if (res.status == 201) {
+                            this.$toast.success("Tạo thành công");
                             this.$emit("onClose");
                             this.$emit("success");
                         }
                     })
                     .catch((err) => {
+                        this.$toast.error("Tạo thất bại");
                         console.log(err);
                     })
             } else {
@@ -195,11 +197,13 @@ export default {
                 await axios.put(ApiBrand.updateBrand(this.id), this.brand)
                     .then((res) => {
                         if (res.status == 200) {
+                            this.$toast.success("Cập nhật thành công");
                             this.$emit("success");
                             this.$emit("onClose");
                         }
                     })
                     .catch((err) => {
+                        this.$toast.error("Cập nhật thất bại");
                         console.log(err);
                     })
             }

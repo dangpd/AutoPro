@@ -235,11 +235,13 @@ export default {
                 await axios.post(ApiProduct.addProduct(), this.product)
                     .then((res) => {
                         if (res.status == 201) {
+                            this.$toast.success("Tạo sẩn phẩm thành công");
                             this.$emit("onClose");
                             this.$emit("success");
                         }
                     })
                     .catch((err) => {
+                        this.$toast.error("Tạo sản phẩm thất bại");
                         console.log(err);
                     })
             } else {
@@ -247,11 +249,13 @@ export default {
                 await axios.put(ApiProduct.updateProduct(this.id), this.product)
                     .then((res) => {
                         if (res.status == 200) {
+                            this.$toast.success("Cập nhật sản phẩm thành công");
                             this.$emit("success");
                             this.$emit("onClose");
                         }
                     })
                     .catch((err) => {
+                        this.$toast.error("Cập nhật sản phẩm thất bại");
                         console.log(err);
                     })
             }

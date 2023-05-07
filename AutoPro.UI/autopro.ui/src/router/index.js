@@ -30,6 +30,7 @@ import AdminContact from '@/views/admin/AdminContact.vue'
 import AdminNews from '@/views/admin/AdminNews.vue'
 import AdminOrder from '@/views/admin/AdminOrder.vue'
 import AdminProduct from '@/views/admin/AdminProduct.vue'
+import AdminComment from '@/views/admin/AdminComment.vue'
 import AdminDashload from '@/views/admin/AdminDashload.vue'
 import AdminRevenueStatistics from '@/views/admin/AdminRevenueStatistics.vue'
 
@@ -98,6 +99,7 @@ const routes = [
                 },
                 { path: '/admin/news', component: AdminNews },
                 { path: '/admin/product', component: AdminProduct },
+                { path: '/admin/comment', component: AdminComment },
                 { path: '/admin/dashload', component: AdminDashload },
                 { path: '/admin/revenue-statistics', component: AdminRevenueStatistics },
             ]

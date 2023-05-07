@@ -79,7 +79,7 @@
                 </div>
             </div>
         </div>
-        <div style="margin-top: 10px;display: flex;">
+        <div class="dashloadheader" style="margin-top: 10px;display: flex;">
             <div class="iconh" @click="adminProduct">
                 <div class="i1" style="background-color: #2371EC;">
                     <div class="i12">
@@ -99,7 +99,7 @@
                     <i class="fa-regular fa-circle-right" style="margin-left: 4px;"></i>
                 </div>
             </div>
-            <div class="iconh" @click="adminCategory" style="margin-left: 10px;">
+            <div class="iconh" @click="adminCategory">
                 <div class="i1" style="background-color: #34EC52;">
                     <div class="i12">
                         <div style="font-size: 18px;">
@@ -118,7 +118,7 @@
                     <i class="fa-regular fa-circle-right" style="margin-left: 4px;"></i>
                 </div>
             </div>
-            <div class="iconh" @click="adminRevenue" style="margin-left: 10px;">
+            <div class="iconh" @click="adminRevenue">
                 <div class="i1" style="background-color: #E79434;">
                     <div class="i12">
                         <div style="font-size: 18px;">
@@ -136,6 +136,44 @@
                     Xem chi tiết
                     <i class="fa-regular fa-circle-right" style="margin-left: 4px;"></i>
                 </div>
+            </div>
+            <div class="iconh" @click="adminProduct">
+                <div class="i1" style="background-color: #E3D17F;">
+                    <div class="i12">
+                        <div style="font-size: 18px;">
+                            Sản phẩm sắp hết hàng
+                        </div>
+                        <div style="font-size: 30px;">
+                            {{ dashload.sanPhamSapHetHang }}
+                        </div>
+                    </div>
+                    <div class="i13">
+                        <img src="../../assets/Image/product.png" style="padding-right: 10px;" alt="">
+                    </div>
+                </div>
+                <div class="i2" style="background-color: #D7B725;">
+                    Xem chi tiết
+                    <i class="fa-regular fa-circle-right" style="margin-left: 4px;"></i>
+                </div>
+            </div>
+        </div>
+        <div class="iconh" @click="adminComment" style="margin-top: 10px;">
+            <div class="i1" style="background-color: #CC5AEF;">
+                <div class="i12">
+                    <div style="font-size: 18px;">
+                        Tổng số đánh giá
+                    </div>
+                    <div style="font-size: 30px;">
+                        {{ dashload.tongDanhgia }}
+                    </div>
+                </div>
+                <div class="i13">
+                    <img src="../../assets/Image/product.png" style="padding-right: 10px;" alt="">
+                </div>
+            </div>
+            <div class="i2" style="background-color: #8218A3;">
+                Xem chi tiết
+                <i class="fa-regular fa-circle-right" style="margin-left: 4px;"></i>
             </div>
         </div>
         <MLoading v-if="showLoading"></MLoading>
@@ -209,9 +247,13 @@ export default {
             this.$router.push('/admin/revenue-statistics');
         },
 
-        adminCategory(){
+        adminCategory() {
             this.$router.push('/admin/category');
-        }
+        },
+        
+        adminComment() {
+            this.$router.push('/admin/comment');
+        },
     },
     created() {
         const role = localStorage.getItem("Role");

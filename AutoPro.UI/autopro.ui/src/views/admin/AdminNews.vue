@@ -34,8 +34,8 @@
                 <tbody>
                     <tr v-for="(item, index) in dataNews" :key="index" @click="trClick(item.newsID)"
                         @dblclick="rowOnDblClick(item)" :class="{
-                                'row-selected': rowSelected == item.newsID,
-                            }">
+                            'row-selected': rowSelected == item.newsID,
+                        }">
                         <td style="padding-left: 10px;text-align:center">{{ index + 1 }}</td>
                         <td>{{ item.newsTitle }}</td>
                         <td><img :src="item.image" alt="" style="width: 100px;height: 100px;"></td>
@@ -83,10 +83,10 @@
                     <div class="m-page-number-group">
                         <button class="m-page-number" v-for="(item, index) in pageNumber" :key="item"
                             :class="{ 'm-page-number-select': pageChoice == item }" @click="changePageChoice(
-                                    pageNumber[index - 1],
-                                    item,
-                                    pageNumber[index + 1]
-                                )
+                                pageNumber[index - 1],
+                                item,
+                                pageNumber[index + 1]
+                            )
                                 ">
                             {{ item }}
                         </button>
@@ -221,8 +221,13 @@ export default {
             axios.delete(ApiNews.deleteNewsByID(data.newsID))
                 .then((res) => {
                     if (res.status == 200) {
+                        this.$toast.success("Xóa thành công");
                         this.filterAndPaging();
                     }
+                })
+                .catch((err) => {
+                    console.log(err);
+                    this.$toast.error("Xóa thất bại");
                 })
         },
 

@@ -103,15 +103,21 @@
                     </tr>
                 </thead>
                 <tbody style="line-height: 36px;">
-                    <tr v-for="(item, index) in orderDetail" :key="index" @click="detailProduct(item)" :class="{
+                    <tr v-for="(item, index) in orderDetail" :key="index" :class="{
                         'row-selected': rowSelected == item.productID
                     }" style="cursor: pointer;">
                         <td style="padding-left: 10px;">{{ index + 1 }}</td>
-                        <td>{{ item.productCode }}</td>
-                        <td>{{ item.productName }}</td>
-                        <td>{{ formatMoney(item.price) }}</td>
-                        <td>{{ item.quantitys }}</td>
-                        <td>{{ formatMoney(item.price * item.quantitys) }}</td>
+                        <td @click="detailProduct(item)">{{ item.productCode }}</td>
+                        <td @click="detailProduct(item)">{{ item.productName }}</td>
+                        <td @click="detailProduct(item)">{{ formatMoney(item.price) }}</td>
+                        <td @click="detailProduct(item)">{{ item.quantitys }}</td>
+                        <td @click="detailProduct(item)">{{ formatMoney(item.price * item.quantitys) }}</td>
+                        <td>
+                            <div class="product-order-method" v-show="statusOrder == 1"
+                                @click="writeComment(item)">
+                                <div class="cancel-product-order">Đánh giá</div>
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -157,7 +163,7 @@ export default {
     /**
      * Emit sự thay đổi
      */
-    emits: ["onClose", "success"],
+    emits: ["onClose", "success", "showProductComment"],
     directives: {},
     /**
      * Data
@@ -277,6 +283,10 @@ export default {
                 })
         },
 
+        writeComment(data) {
+            this.$emit("showProductComment", data);
+        },
+
         onClose() {
             this.$emit("onClose")
         }
@@ -290,7 +300,7 @@ export default {
                 //Lấy dữ liệu
                 axios.get(ApiOrder.getOrderDeatilByID(this.id))
                     .then((res) => {
-                        console.log(res);
+                        // console.log(res);
                         this.showLoading = false;
                         this.customer = res.data.orders;
                         this.orderDetail = res.data.orderDetail;
