@@ -76,7 +76,7 @@
                   </div>
                 </div>
                 <div class="product-name">{{ item.productName }}</div>
-                <div class="price">{{ item.price }}</div>
+                <div class="price">{{ formatMoney(item.price) }}</div>
                 <div class="product-buttom">
                   <div class="product-detail" @click="detailProduct(item.productID)">Xem chi tiết</div>
                   <div class="add-cart" @click="addCart2(item)">Thêm vào giỏ hàng</div>

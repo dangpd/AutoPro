@@ -15,7 +15,20 @@
                 </div>
             </div>
             <div class="list-name-table">
-                Danh sách sản phẩm
+                <div>
+                    Danh sách sản phẩm
+                </div>
+                <div style="display: flex;align-items: center;">
+                    Sắp xếp theo:
+                    <MSelectBoxDown :data="[
+                        { feildShow: 'Ngày tạo gần nhất', feildValue: 'p.createdDate DESC' },
+                        { feildShow: 'Ngày sửa gần nhất', feildValue: 'p.modifiedDate DESC' },
+                        { feildShow: 'Theo giá tăng dần', feildValue: 'p.price ASC' },
+                        { feildShow: 'Theo giá giảm dần', feildValue: 'p.price DESC' },
+                        { feildShow: 'Tên sản phẩm a-z', feildValue: 'p.productName ASC' },
+                        { feildShow: 'Tên sản phẩm z-a', feildValue: 'p.productName DESC' },
+                    ]" v-model="orderBy"></MSelectBoxDown>
+                </div>
             </div>
         </div>
         <div class="table-admin">
@@ -39,8 +52,8 @@
                 <tbody>
                     <tr v-for="(item, index) in dataProduct" :key="index" @click="trClick(item.productID)"
                         @dblclick="rowOnDblClick(item)" :class="{
-                                'row-selected': rowSelected == item.productID,
-                            }">
+                            'row-selected': rowSelected == item.productID,
+                        }">
                         <td style="padding-left: 10px;">{{ index + 1 }}</td>
                         <td>{{ item.productCode }}</td>
                         <td>{{ item.productName }}</td>
@@ -90,10 +103,10 @@
                     <div class="m-page-number-group">
                         <button class="m-page-number" v-for="(item, index) in pageNumber" :key="item"
                             :class="{ 'm-page-number-select': pageChoice == item }" @click="changePageChoice(
-                                    pageNumber[index - 1],
-                                    item,
-                                    pageNumber[index + 1]
-                                )
+                                pageNumber[index - 1],
+                                item,
+                                pageNumber[index + 1]
+                            )
                                 ">
                             {{ item }}
                         </button>
@@ -119,6 +132,8 @@ import MLoading from '@/components/MLoading.vue';
 import { getStorage, ref, deleteObject } from "firebase/storage";
 import ApiProduct from '../../js/apiProduct';
 import MSelectBox from '@/components/MSelectBox.vue';
+import MSelectBoxDown from '@/components/MSelectBoxDown.vue';
+import enumAUTO from '@/js/gEnum';
 export default {
     /**
            * Tên component
@@ -131,7 +146,7 @@ export default {
     /**
      * Component được sử dụng
      */
-    components: { AdminLineLink, MInput, AdminProductDetail, MLoading, MSelectBox },
+    components: { AdminLineLink, MInput, AdminProductDetail, MLoading, MSelectBox, MSelectBoxDown },
     /**
      * Emit sự thay đổi
      */
@@ -153,14 +168,12 @@ export default {
             reloadTable: false,
             showLoading: false,
             textSearch: "",
-            pageSize: 10,
             pageNumber: 1,
             showSeeMore: false,
             statusProduct: false,
 
             showTablePaging: false,
 
-            pageSize: 10,
             // Số trang được tính
             pageNumber: [],
             // Vị trí trang là 1
@@ -172,6 +185,10 @@ export default {
             // Số trang trả về
             totalPage: 0,
             //Popup
+            orderBy: 'p.modifiedDate DESC',
+            pageIndex: 1,
+            pageSize: 10,
+            dataSearch: [],
         }
     },
     /**
@@ -252,43 +269,91 @@ export default {
 
         filterAndPaging() {
             this.showLoading = true;
+            this.listFilter = [
+                {
+                    FieldName: "ProductCode",
+                    Operator: enumAUTO.Operator.Like,
+                    FilterValue: this.textSearch,
+                },
+                {
+                    FieldName: "ProductName",
+                    Operator: enumAUTO.Operator.Like,
+                    FilterValue: this.textSearch,
+                },
+                {
+                    FieldName: "PlaceOrigin",
+                    Operator: enumAUTO.Operator.Like,
+                    FilterValue: this.textSearch,
+                },
+            ];
             setTimeout(() => {
-                axios.get(ApiProduct.filterProduct(this.textSearch, this.pageSize, this.pageChoice))
+                let objectFilter = {
+                    pageIndex: this.pageIndex,
+                    pageSize: this.pageSize,
+                    listFilter: this.listFilter,
+                    listOrderBy: this.orderBy
+                }
+                // console.log(objectFilter);
+                axios.post("https://localhost:7129/api/v1/Product/PagingProductByFilter", objectFilter)
                     .then((res) => {
-                        if (res.status == 200) {
-                            if (res.data.totalRecord > 0) {
-                                this.showLoading = false;
-                                this.noData = false;
-                                this.dataProduct = res.data.data;
-                                this.showSeeMore = true;
-                                // console.log(res.data.data.length);
-                                // for (let i = 0; i < res.data.data.length; i++) {
-                                //     this.quantity = res.data.data[i].quantity
-                                //     this.quantitySell = res.data.data[i].quantitySell;
-                                // }
-                                // res.data.data.forEach(element => {
-                                //     this.numberOfInventory = element.quantity[i] - element.quantitySell[i];
-                                // });
-
-                                this.showTablePaging = true;
-                                // Gán dữ liệu số trang trả về bằng Data trả về
-                                this.totalPage = res.data.totalPage;
-                                // Gán dữ liệu số bản ghi cho form bằng Data trả về
-                                this.totalRecord = res.data.totalRecord;
-                                // Gán số trang được chọn bằng số trang được chọn
-                                this.currentPage = this.pageChoice;
-                                // Set số page
-                                this.setPageNumber();
-                                // console.log(res);
-                            } else {
-                                this.showLoading = false;
-                                this.noData = true;
-                                this.dataProduct = null;
-                                this.showSeeMore = false;
-                                this.showTablePaging = false;
-                            }
+                        if (res.status == 200 && res.data.data.length > 0) {
+                            this.showLoading = false;
+                            this.noData = false;
+                            this.dataProduct = res.data.data;
+                            this.showSeeMore = true;
+                            this.showTablePaging = true;
+                            // Gán dữ liệu số trang trả về bằng Data trả về
+                            this.totalPage = res.data.totalPage;
+                            // Gán dữ liệu số bản ghi cho form bằng Data trả về
+                            this.totalRecord = res.data.totalRecord;
+                            // Gán số trang được chọn bằng số trang được chọn
+                            this.currentPage = this.pageChoice;
+                            // Set số page
+                            this.setPageNumber();
+                        } else {
+                            this.showLoading = false;
+                            this.noData = true;
+                            this.dataProduct = null;
+                            this.showSeeMore = false;
+                            this.showTablePaging = false;
                         }
                     })
+                // axios.get(ApiProduct.filterProduct(this.textSearch, this.pageSize, this.pageChoice))
+                //     .then((res) => {
+                //         if (res.status == 200) {
+                //             if (res.data.totalRecord > 0) {
+                //                 this.showLoading = false;
+                //                 this.noData = false;
+                //                 this.dataProduct = res.data.data;
+                //                 this.showSeeMore = true;
+                //                 // console.log(res.data.data.length);
+                //                 // for (let i = 0; i < res.data.data.length; i++) {
+                //                 //     this.quantity = res.data.data[i].quantity
+                //                 //     this.quantitySell = res.data.data[i].quantitySell;
+                //                 // }
+                //                 // res.data.data.forEach(element => {
+                //                 //     this.numberOfInventory = element.quantity[i] - element.quantitySell[i];
+                //                 // });
+
+                //                 this.showTablePaging = true;
+                //                 // Gán dữ liệu số trang trả về bằng Data trả về
+                //                 this.totalPage = res.data.totalPage;
+                //                 // Gán dữ liệu số bản ghi cho form bằng Data trả về
+                //                 this.totalRecord = res.data.totalRecord;
+                //                 // Gán số trang được chọn bằng số trang được chọn
+                //                 this.currentPage = this.pageChoice;
+                //                 // Set số page
+                //                 this.setPageNumber();
+                //                 // console.log(res);
+                //             } else {
+                //                 this.showLoading = false;
+                //                 this.noData = true;
+                //                 this.dataProduct = null;
+                //                 this.showSeeMore = false;
+                //                 this.showTablePaging = false;
+                //             }
+                //         }
+                //     })
             }, 500)
         },
 
@@ -479,6 +544,11 @@ export default {
                 }, 500);
             }
         },
+
+        orderBy(newVal) {
+            this.orderBy = newVal;
+            this.filterAndPaging();
+        }
     },
     computed: {
         // numberQuantity(){

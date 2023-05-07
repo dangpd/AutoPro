@@ -1,7 +1,7 @@
 <template>
     <div class="navbar">
         <div class="nav-list">
-            <router-link to="/" class="nav-item" style="display: flex;">
+            <router-link to="/" class="nav-item" style="display: flex;" @click="goHome">
                 <i class="fa-solid fa-house"></i>
                 <div class="nav-text" style="padding-left: 8px;">Trang chủ</div>
             </router-link>
@@ -20,16 +20,16 @@
                     </div>
                 </div>
             </div>
-            <router-link to="/about" class="nav-item">Giới thiệu</router-link>
-            <router-link to="/news" class="nav-item" style="display: flex;">
+            <router-link to="/about" @click="goHome" class="nav-item">Giới thiệu</router-link>
+            <router-link to="/news" @click="goHome" class="nav-item" style="display: flex;">
                 <i class="fa-solid fa-newspaper"></i>
                 <div class="nav-text" style="padding-left: 8px;">Tin tức</div>
             </router-link>
-            <router-link to="/helps/pay-ment" class="nav-item" style="display: flex;">
+            <router-link to="/helps/pay-ment" @click="goHome" class="nav-item" style="display: flex;">
                 <i class="fa-solid fa-headset"></i>
                 <div class="nav-text" style="padding-left: 8px;">Chính sách</div>
             </router-link>
-            <router-link to="/contact" class="nav-item" style="display: flex;">
+            <router-link to="/contact" @click="goHome" class="nav-item" style="display: flex;">
                 <i class="fa-solid fa-circle-info"></i>
                 <div class="nav-text" style="padding-left: 8px;">Liên hệ</div>
             </router-link>
@@ -80,8 +80,12 @@ export default {
                     }
                 })
         },
+        goHome() {
+            this.$store.commit('updateSearch');
+        },
 
         productCategory(data) {
+            this.goHome();
             this.$emit("onSearch", data.categoryID);
             console.log(data.categoryID);
             this.$router.push({ path: '/product/category/:id', name: 'productCategory', params: { id: data.categoryID } })

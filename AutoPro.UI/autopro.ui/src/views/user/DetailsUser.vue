@@ -198,10 +198,13 @@ export default {
                     if (res.status == 200) {
                         alert("Sửa thành công");
                         this.$router.push('/');
+                        this.$toast.success("Cập nhật thành công")
                     }
                 })
                 .catch((err) => {
                     console.log(err);
+                    alert("Cập nhật thất bại!");
+                    this.$toast.error("Cập nhật thất bại")
                 })
         }
     },

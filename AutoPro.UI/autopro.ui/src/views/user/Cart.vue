@@ -125,6 +125,7 @@ export default {
 
         removeProduct(item) {
             this.$store.commit('removeCart', item);
+            this.$toast.success("Xóa thành công sản phẩm khỏi giỏ hàng")
         },
 
         purchase() {

@@ -105,6 +105,7 @@ export default {
             setTimeout(() => {
                 this.showLoading = false;
                 this.$store.commit('removeFavorite', data);
+                this.$toast.success("Xóa thành công")
             }, 100);
         }
     },

@@ -8,7 +8,7 @@
             <div class="form-input">
                 <div class="login-account">
                     <div class="text">Tên đăng nhập :</div>
-                    <MInput type="text"
+                    <MInput type="text" ref="account"
                         styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
                         v-model="user.account">
                     </MInput>
@@ -17,7 +17,7 @@
                     <div class="text">Mật khẩu :</div>
                     <MInput :type="showPassword3 ? 'text' : 'password'"
                         styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-                        v-model="user.password">
+                        v-model="user.password" ref="password">
                     </MInput>
                     <div class="login-show-password" @click="togglePasswordVisibility">
                         {{ showPassword3 ? 'Ẩn' : 'Hiện' }}
@@ -118,13 +118,16 @@ export default {
                         localStorage.setItem('Role', res.data.Role);
                         if (res.data.Role == "Admin") {
                             this.$router.push('/admin/dashload');
+                            this.$toast.success("Đăng nhập thành công")
                         } else if (res.data.Role == "User") {
                             this.$router.push('/');
+                            this.$toast.success("Đăng nhập thành công")
                         }
                     }
                 })
                 .catch(() => {
                     alert("Tài khoản hoặc mật khẩu sai");
+                    this.$toast.error("Đăng nhập thất bại")
                 })
         },
 

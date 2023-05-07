@@ -237,12 +237,14 @@ export default {
       this.productCart.quantitys = this.number;
       // console.log(this.productCart);
       this.$store.commit('addToCart', this.productCart);
+      this.$toast.success("Thêm thành công sản phẩm vào giỏ hàng")
     },
 
     favoriteProduct(item) {
       console.log(item);
       this.productFavorite = item;
       this.$store.commit('addToFavorite', item);
+      this.$toast.success("Thêm thành công vào sản phẩm yêu thích")
     }
   },
 

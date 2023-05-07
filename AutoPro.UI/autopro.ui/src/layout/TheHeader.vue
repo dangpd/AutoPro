@@ -2,9 +2,9 @@
     <div>
         <div class="header">
             <div class="header-left">
-                <router-link to="/" class="logo">
+                <router-link to="/" class="logo" @click="goHome">
                     <img src="../assets/Image/logo3.jpg" alt="">
-                    <h6 style="font-weight: 700;">Hệ thống ô tô phụ tùng uy tín chính hãng</h6>
+                    <h6 style="font-weight: 700;">Hệ thống phụ tùng ô tô uy tín chính hãng</h6>
                 </router-link>
                 <div class="search">
                     <MInput placeholder="Nhập từ khóa tìm kiếm" type="text" v-model="keySeach"
@@ -31,10 +31,10 @@
                         <div class="info">
                             <div class="">Xin chào , {{ this.user.fullName }}</div>
                             <div class="under-user">
-                                <router-link :to="'/user/' + userID" class="item-header">
+                                <router-link :to="'/user/' + userID" class="item-header" @click="goHome">
                                     <div class="details-user">Tài khoản của tôi</div>
                                 </router-link>
-                                <router-link to="/list-product-favorite" class="item-header">
+                                <router-link to="/list-product-favorite" class="item-header" @click="goHome">
                                     <div class="product-favorite">Sản phẩm yêu thích</div>
                                 </router-link>
                                 <div class="item-header" @click="updatePassword">
@@ -47,11 +47,11 @@
                         </div>
                     </div>
                 </div>
-                <router-link to="/cart" class="cart">
+                <router-link to="/cart" class="cart" @click="goHome">
                     <i class="fa-solid fa-cart-plus"></i>
                     <div class="info-cart">Giỏ hàng của bạn</div>
                 </router-link>
-                <router-link to="/order" class="cart">
+                <router-link to="/order" class="cart" @click="goHome">
                     <i class="fa-solid fa-cart-flatbed-suitcase"></i>
                     <div class="info-cart">Đơn hàng của bạn</div>
                 </router-link>
@@ -83,7 +83,7 @@ export default {
     /**
      * Emit sự thay đổi
      */
-    emits: ["update:keySearch","update:modelValue"],
+    emits: ["update:keySearch", "update:modelValue"],
     directives: {
 
     },
@@ -106,11 +106,13 @@ export default {
      */
     methods: {
         logout() {
+            this.goHome();
             localStorage.removeItem('UserID');
             localStorage.removeItem('Role');
             this.isLogin = true;
             this.isNoLogin = false;
             this.$router.push('/');
+            this.$toast.success("Đăng xuất thành công")
         },
 
         searchProductHeader() {
@@ -119,11 +121,27 @@ export default {
         },
 
         updatePassword() {
+            this.goHome();
             this.showUpdate = true;
+        },
+
+        goHome(){
+            this.$store.commit('updateSearch');
         }
     },
     created() {
         const login = localStorage.getItem("UserID");
+        const role = localStorage.getItem("Role");
+        if (role == "Admin") {
+            this.$router.push('/forbidden');
+            return;
+        }
+
+        let quey = this.$store.state.search;
+        console.log(quey);
+        if(quey != null){
+            this.keySeach = quey;
+        }
         this.userID = login;
         // console.log(this.userID);
         if (this.userID != null) {
@@ -155,11 +173,21 @@ export default {
                 // this.userID = newVal;
             }
         },
-
+        
         keySeach(newVal) {
             this.keySeach = newVal;
-            this.$emit("update:modelValue", newVal);
+            this.$emit("update:keySearch", newVal);
             this.$store.commit('updateSearch', newVal);
+        },
+
+        search(newVal){
+            this.keySeach = newVal;
+            this.$store.commit('updateSearch', newVal);
+        }
+    },
+    computed:{
+        search(){
+            return this.$store.state.search;
         }
     }
 }

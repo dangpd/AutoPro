@@ -5,7 +5,7 @@
                 <div class="aform-title-left">
                     {{ this.title }}
                 </div>
-                <div class="onClose" @click="onClose">
+                <div class="onClose" @click="onClose" style="cursor: pointer;">
                     <i class="fa-regular fa-circle-xmark"></i>
                 </div>
             </div>
@@ -106,12 +106,15 @@ export default {
                     console.log(res);
                     if (res.status == 200) {
                         alert("Cập nhật mật khẩu thành công");
+                        this.$toast.success("Cập nhật mật khẩu thành công")
                         this.$emit("onClose");
                     }
                 })
                 .catch((err) => {
                     console.log(err);
                     alert("Cập nhật mật khẩu thất bại");
+                    this.$toast.error("Cập nhật mật khẩu thất bại")
+
                 })
         },
 
@@ -141,7 +144,7 @@ export default {
         confirmPasswordNew(newVal) {
             if (this.passwordNew.trim() != null && newVal.trim() != null && this.passwordNew.trim() != newVal) {
                 this.$refs.confirmPassword.confirm = true;
-            }else{
+            } else {
                 this.$refs.confirmPassword.confirm = false;
             }
         }

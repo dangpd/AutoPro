@@ -171,16 +171,12 @@ export default {
                     Operator: enumAUTO.Operator.Like,
                     FilterValue: this.$store.state.search,
                 },
-                // {
-                //     FieldName: "branchid",
-                //     Operator: enumAUTO.Operator.Equal,
-                //     FilterValue: this.$store.state.search,
-                // },
             ];
             this.getDataRes();
         },
 
         getValueCategory() {
+            this.$store.commit('updateSearch',);
             this.listFilter = [
                 {
                     FieldName: "CategoryID",
@@ -258,12 +254,12 @@ export default {
     created() {
         let param = this.$route.params.id;
         console.log('param', param);
+        this.keySearch = this.$route.query.key;
+        console.log(this.keySearch);
         if (param) {
             this.getValueCategory();
             this.getAllBrand();
         } else {
-            this.keySearch = this.$route.query.key;
-            // console.log(this.keySearch);
             this.getValue();
             this.getAllBrand();
         }
@@ -278,11 +274,13 @@ export default {
                 return;
             } else {
                 console.log(newVal);
+                this.$store.commit('updateSearch', newVal);
                 this.getValue();
             }
         },
 
         '$route.params.id': function (newVal) {
+            this.$store.commit('updateSearch', '');
             console.log(newVal);
             this.getValueCategory();
         },
@@ -296,10 +294,14 @@ export default {
             if (newVal.length == 0) {
                 this.noData = true;
                 this.showSeeMore = false;
-            }else{
+            } else {
                 this.noData = false;
                 this.showSeeMore = true;
             }
+        },
+
+        search(newVal) {
+            this.$store.commit('updateSearch', newVal);
         }
 
 
@@ -327,6 +329,10 @@ export default {
         maxPrice() {
             return Math.max(...this.dataSearch.map((product) => product.price));
         },
+
+        search() {
+            return this.$store.state.search;
+        }
     }
 }
 </script>

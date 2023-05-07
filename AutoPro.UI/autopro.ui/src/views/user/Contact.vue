@@ -115,9 +115,11 @@ export default {
                         if (res.status == 201) {
                             alert("Gửi thành công");
                             this.contact = {};
+                            this.$toast.success("Gửi đơn liên hệ thành công")
                         }
                     })
                     .catch((err) => {
+                        this.$toast.error("Gửi đơn liên hệ thất bại")
                         console.log(err);
                     })
             }, 500);

@@ -156,7 +156,7 @@
   right: 0;
   background-color: rgba(0, 0, 0, 0.562);
   box-sizing: border-box;
-  z-index: 100;
+  z-index: 10;
 }
 
 .agroup1 {

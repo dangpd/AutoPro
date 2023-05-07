@@ -104,8 +104,8 @@
                 </thead>
                 <tbody style="line-height: 36px;">
                     <tr v-for="(item, index) in orderDetail" :key="index" @click="detailProduct(item)" :class="{
-                            'row-selected': rowSelected == item.productID
-                        }" style="cursor: pointer;">
+                        'row-selected': rowSelected == item.productID
+                    }" style="cursor: pointer;">
                         <td style="padding-left: 10px;">{{ index + 1 }}</td>
                         <td>{{ item.productCode }}</td>
                         <td>{{ item.productName }}</td>
@@ -267,8 +267,11 @@ export default {
                         alert("Hủy đơn hàng thành công");
                         this.$emit("success")
                         this.$emit("onClose");
+                        this.$toast.success("Hủy đơn hàng thành công")
+
                     } else {
                         alert("Hủy đơn hàng thất bại");
+                        this.$toast.error("Hủy đơn hàng thất bại")
                         this.$emit("onClose");
                     }
                 })

@@ -1,12 +1,13 @@
 <template>
   <div>
     <div class="ahomecontent">
-      <AdminNavbar @infoAdmin="infoAdmin"></AdminNavbar>
-      <div class="arouter-view-content">
+      <AdminNavbar @infoAdmin="infoAdmin" @showUpdate="showUpdate"></AdminNavbar>
+      <div class="arouter-view-content" style="z-index: 1;">
         <router-view></router-view>
       </div>
     </div>
     <AdminInfo v-if="showPopup" @onClose="showPopup = false" :id="userID" @success="success"></AdminInfo>
+    <UpdatePassword v-if="showUpdateAdmin" @onClose="showUpdateAdmin = false"></UpdatePassword>
   </div>
 </template>
 
@@ -15,6 +16,7 @@ import AdminNavbar from '@/layout/AdminNavbar.vue';
 import AdminInfo from './AdminInfo.vue';
 import axios from 'axios';
 import ApiUser from '@/js/apiUser';
+import UpdatePassword from '../user/UpdatePassword.vue';
 export default {
   /**
          * Tên component
@@ -27,7 +29,7 @@ export default {
   /**
    * Component được sử dụng
    */
-  components: { AdminNavbar, AdminInfo, },
+  components: { AdminNavbar, AdminInfo, UpdatePassword },
   /**
    * Emit sự thay đổi
    */
@@ -43,7 +45,8 @@ export default {
       showPopup: false,
       showLoading: false,
       admin: {},
-      userID: ''
+      userID: '',
+      showUpdateAdmin: false,
     }
   },
   /**
@@ -53,11 +56,21 @@ export default {
     infoAdmin() {
       this.showPopup = true;
     },
+
+    showUpdate() {
+      this.showUpdateAdmin = true;
+    },
+
     success() {
 
     },
     getAdmin() {
       const login = localStorage.getItem("UserID");
+      const role = localStorage.getItem("Role");
+      if (role == "User" || role == null) {
+        this.$router.push('/forbidden');
+        return;
+      }
       this.userID = login;
       // console.log(this.userID);
       if (this.userID != null) {

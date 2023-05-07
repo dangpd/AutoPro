@@ -15,8 +15,9 @@
                 <div>Xin chào, {{ admin.account }}</div>
                 <div><i class="fa-solid fa-caret-down" style="margin-left: 8px"></i>
                 </div>
-                <div class="under-admin-info" @click="infoAdmin">
-                    <div class="details-user">Tài khoản của tôi</div>
+                <div class="under-admin-info">
+                    <div class="details-user" @click="infoAdmin">Tài khoản của tôi</div>
+                    <div class="details-user" @click="UpdatePassword">Cập nhật mật khẩu</div>
                     <router-link to="/" class="item-header" @click="logout">
                         <div class="logout">Đăng xuất</div>
                     </router-link>
@@ -108,6 +109,7 @@
 import axios from 'axios';
 import ApiUser from '@/js/apiUser';
 import MLoading from '@/components/MLoading.vue';
+import UpdatePassword from '@/views/user/UpdatePassword.vue';
 
 export default {
     /**
@@ -121,11 +123,11 @@ export default {
     /**
      * Component được sử dụng
      */
-    components: { MLoading },
+    components: { MLoading, UpdatePassword },
     /**
      * Emit sự thay đổi
      */
-    emits: ["infoAdmin"],
+    emits: ["infoAdmin", "showUpdate"],
     directives: {
 
     },
@@ -167,7 +169,12 @@ export default {
 
         orderCacel() {
             this.$router.push({ name: 'orderStatus', params: { id: 3 } });
-        }
+        },
+
+        UpdatePassword() {
+            this.$emit("showUpdate");
+            // this.showUpdate = true;
+        },
     },
     created() {
         const adminID = localStorage.getItem("UserID");

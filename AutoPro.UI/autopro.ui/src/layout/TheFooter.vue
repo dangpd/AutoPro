@@ -3,8 +3,10 @@
         <div class="line-footer"></div>
         <div class="footer">
             <div class="footer-left">
-                <img src="../assets/Image/logo3.jpg" alt="">
-                <h6 style="font-weight: 700;">Hệ thống ô tô phụ tùng uy tín chính hãng</h6>
+                <router-link to="/" style="text-decoration: none;color: black;">
+                    <img src="../assets/Image/logo3.jpg" alt="">
+                    <h6 style="font-weight: 700;">Hệ thống phụ tùng Ô tô uy tín chính hãng</h6>
+                </router-link>
                 <div class="contact">
                     <img src="../assets/Image/CarlsonFacebook.png" alt="">
                     <img src="../assets/Image/icon_twitter_20x20.gif" alt="">
@@ -22,7 +24,7 @@
                     <h6>Cơ sở 2: Tô Ngọc Vân - P.Thạnh Xuân - Q.12 - HCM</h6>
                     <h6>Điện thoại: 0915.76.5555 - 0355. 999. 336 - 0961.399.499 - 0942.399.366 - 0988.550.306</h6>
                     <h6> Giấy phép Đăng ký kinh doanh số 0105878779 do sở KHĐT TP.Hà Nội cấp ngày 4/5/2012
-                        Copyright © 2012 - 2023 Hathanhauto.com</h6>
+                        Copyright © 2012 - 2023 AutoPro.com</h6>
                 </div>
                 <div class="sitemap">
                     <iframe
@@ -82,4 +84,6 @@ export default {
 }
 </script>
 
-<style>@import url(../css/footer.css);</style>
+<style>
+@import url(../css/footer.css);
+</style>

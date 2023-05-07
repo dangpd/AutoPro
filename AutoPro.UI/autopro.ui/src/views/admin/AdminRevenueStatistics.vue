@@ -24,7 +24,7 @@
                         { feildShow: 'Tháng 9', feildValue: 9 },
                         { feildShow: 'Tháng 10', feildValue: 10 },
                         { feildShow: 'Tháng 11', feildValue: 11 },
-                        { feildShow: 'Tháng 11', feildValue: 12 },
+                        { feildShow: 'Tháng 12', feildValue: 12 },
                     ]" v-model="month" style="margin: 0 30px 0 10px;"></MSelectBoxDown>
                 </div>
                 <div style="display: flex;align-items: center;">
@@ -124,14 +124,6 @@ export default {
                 datasets: [
                     {
                         data: [],
-                        backgroundColor: [
-                            '#FF6384',
-                            '#36A2EB',
-                            '#FFCE56',
-                            '#4BC0C0',
-                            '#9966FF',
-                            '#FF8A80'
-                        ],
                         hoverBackgroundColor: [
                             '#FF6384',
                             '#36A2EB',
@@ -218,17 +210,20 @@ export default {
                         this.listPersent.forEach(x => {
                             tong += x;
                         });
-                        // console.log(tong);
-                        // if (tong == 0) {
-                        //     this.dataChartDought.datasets[0] = [
-                        //         {
-                        //             backgroundColor: ['#FF6384'],
-                        //             data: [1]
-                        //         }
-                        //     ];
-                        // } else {
-                            this.dataChartDought.datasets[0].data = this.listPersent;
-                        // }
+                        this.dataChartDought.datasets[0].data = this.listPersent;
+                        this.dataChartDought.datasets[0].backgroundColor = [
+                            '#FF6384',
+                            '#36A2EB',
+                            '#FFCE56',
+                            '#4BC0C0',
+                            '#9966FF',
+                            '#FF8A80'
+                        ];
+                        if (tong == 0) {
+                            this.dataChartDought.labels = ['Không có dữ liệu'];
+                            this.dataChartDought.datasets[0].data = [0.00001];
+                            this.dataChartDought.datasets[0].backgroundColor = ['#FF6384'];
+                        }
                         this.listBrand = [];
                         this.listPersent = [];
                         this.showLoading = false;

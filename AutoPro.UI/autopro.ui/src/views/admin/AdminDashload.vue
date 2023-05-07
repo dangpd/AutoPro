@@ -122,7 +122,7 @@
                 <div class="i1" style="background-color: #E79434;">
                     <div class="i12">
                         <div style="font-size: 18px;">
-                            Tổng doanh thu
+                            Tổng doanh thu - thống kê
                         </div>
                         <div style="font-size: 30px;">
                             {{ formatMoney(dashload.tongDoanhThu) }}
@@ -215,8 +215,9 @@ export default {
     },
     created() {
         const role = localStorage.getItem("Role");
-        if (role == "User") {
+        if (role == "User" || role == null) {
             this.$router.push('/forbidden');
+            return;
         }
         this.showLoading = true;
         setTimeout(() => {

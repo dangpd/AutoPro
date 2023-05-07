@@ -18,19 +18,19 @@
                         styleInput="width: calc(250px); height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;margin-right:15px;">
                     </MInput>
                 </div>
-                <div class="acol12" style="margin: 15px 0;">
-                    <div class="acol2-text">
-                        Mật khẩu :
-                    </div>
-                    <MInput type="text" v-model="user.password"
-                        styleInput="width: calc(250px); height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;margin-right:15px;">
-                    </MInput>
-                </div>
                 <div class="acol11" style="margin:15px 0">
                     <div class="acol1-text">
                         Email :
                     </div>
                     <MInput type="text" v-model="user.email"
+                        styleInput="width: calc(250px); height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;margin-right:15px;">
+                    </MInput>
+                </div>
+                <div class="acol12" style="margin: 15px 0;">
+                    <div class="acol2-text">
+                        Điện thoại :
+                    </div>
+                    <MInput type="text" v-model="user.phoneNumber"
                         styleInput="width: calc(250px); height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;margin-right:15px;">
                     </MInput>
                 </div>
@@ -69,19 +69,16 @@
                     <MDatePicker v-model="user.dateOfBirth" ref="dateOfBirth"
                         styleVal="width: calc(250px); height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;margin-right:15px;">
                     </MDatePicker>
-                    <!-- <MInput type="text" v-model="user.dateOfBirth"
-                        styleInput="width: calc(250px); height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;margin-right:15px;">
-                    </MInput> -->
                 </div>
                 <div class="acol12" style="margin: 15px 0;">
                     <div class="acol2-text">
                         Giới tính :
                     </div>
                     <MRadio :data="[
-                            { Gender: 'Nam', GenderValue: 0 },
-                            { Gender: 'Nữ', GenderValue: 1 },
-                            { Gender: 'Khác', GenderValue: 2 },
-                        ]" v-model="user.gender"></MRadio>
+                        { Gender: 'Nam', GenderValue: 0 },
+                        { Gender: 'Nữ', GenderValue: 1 },
+                        { Gender: 'Khác', GenderValue: 2 },
+                    ]" v-model="user.gender"></MRadio>
                     <!-- <MInput type="text" v-model="user.gender"
                         styleInput="width: calc(250px); height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;margin-right:15px;">
                     </MInput> -->
@@ -91,16 +88,6 @@
                         Địa chỉ :
                     </div>
                     <MInput type="text" v-model="user.address"
-                        styleInput="width: calc(250px); height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;margin-right:15px;">
-                    </MInput>
-                </div>
-            </div>
-            <div class="agroup1" style="padding: 0 20px;">
-                <div class="acol12" style="margin: 15px 0;">
-                    <div class="acol2-text">
-                        Điện thoại :
-                    </div>
-                    <MInput type="text" v-model="user.phoneNumber"
                         styleInput="width: calc(250px); height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;margin-right:15px;">
                     </MInput>
                 </div>

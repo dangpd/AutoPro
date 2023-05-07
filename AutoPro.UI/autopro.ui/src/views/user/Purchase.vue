@@ -80,7 +80,7 @@
                 </div>
             </div>
             <!-- <router-link to="/order"> -->
-            <div class="order-purchase" @click="orderProduct">
+            <div class="order-purchase" @click="orderProduct" v-show="showDatHang">
                 <button>Đặt hàng</button>
             </div>
             <!-- </router-link> -->
@@ -145,7 +145,8 @@ export default {
             rowSelected: -1,
             listOrderDetail: [],
             email: {},
-            listProductDetail: []
+            listProductDetail: [],
+            showDatHang: true,
         }
     },
     /**
@@ -181,6 +182,7 @@ export default {
 
         removeProduct(item) {
             this.$store.commit('removeCart', item);
+            this.$toast.success("Xóa sản phẩm khỏi đơn hàng thành công")
         },
 
         validateBeforeSave(data) {
@@ -265,9 +267,15 @@ export default {
             axios.post("https://localhost:7129/api/Mail/send", this.email)
                 .then((res) => {
                     console.log(res);
+                    this.$toast.success("Email được gửi thành công")
+                })
+                .catch((err) => {
+                    alert("Email gửi thất bại");
+                    this.$toast.error("Gửi email thất bại")
                 })
         },
         handleOrder() {
+
             const me = this;
             this.prepareBeforeHandle();
             let orderParam = {
@@ -275,7 +283,6 @@ export default {
                 orderdetail: JSON.stringify(this.listOrderDetail),
             };
             // console.log(orderParam);
-
             if (this.checkOutTypeID == 1) {
                 this.paymentVnpay();
                 axios.post(ApiOrder.insertOrderDetail(), orderParam)
@@ -299,8 +306,10 @@ export default {
                             // console.log(productListHtml);
                             this.sendEmail(res.data, productListHtml);
                             this.$router.push('/order');
+                            this.$toast.success("Đặt hàng thành công")
                         } else {
                             alert("Có lỗi xảy ra")
+                            this.$toast.success("Đặt hàng thất bại")
                         }
                     })
             } else {
@@ -325,8 +334,10 @@ export default {
                             // console.log(productListHtml);
                             this.sendEmail(res.data, productListHtml);
                             this.$router.push('/order');
+                            this.$toast.success("Đặt hàng thành công")
                         } else {
                             alert("Có lỗi xảy ra")
+                            this.$toast.success("Đặt hàng thất bại")
                         }
                     })
             }
@@ -348,6 +359,13 @@ export default {
             this.customerInfo["checkOutTypeID"] = this.checkOutTypeID; // Thanh toán tại nhà
             this.customerInfo["CheckOutStatusID"] = 2 // Chưa thanh toán
 
+            if (this.totalProduct == 0) {
+                let text = `Không có sản phẩm nào ở giỏ hàng vui lòng chọn tiếp tục mua sắm!Bạn có muốn chuyển hướng về trang chủ không`;
+                if (confirm(text) == true) {
+                    this.$router.push('/');
+                    return;
+                }
+            }
             // this.customerInfo["totalprice"] = this.totalAmount;
             // Xử lý danh sách các hàng hóa mua
             // console.log(this.customerInfo);
@@ -396,12 +414,25 @@ export default {
             // } else {
             //     this.showPayVnPay = false;
             // }
+        },
+
+        totalProduct(newVal) {
+            if (this.totalProduct == 0) {
+                alert("Không có sản phẩm ở giỏ hàng");
+                this.showDatHang = false;
+            } else {
+                this.showDatHang = true;
+            }
         }
     },
     computed: {
         totalAmount() {
             return this.$store.state.cart.items.reduce((total, item) => total + (item.price * item.quantitys), 0);
         },
+
+        totalProduct() {
+            return this.$store.state.cart.items.length;
+        }
     }
 }
 </script>
