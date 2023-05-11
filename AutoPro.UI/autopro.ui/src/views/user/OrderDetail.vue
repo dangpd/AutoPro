@@ -128,6 +128,14 @@
                 <div class="cancel-product-order">Đánh giá</div>
               </div>
             </td>
+            <td>
+              <div
+                class="product-order-method"
+                v-show="(statusOrder == 1) & (item.isComment == 1)"
+              >
+                <div class="cancel-product-order">Đã đánh giá</div>
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>
