@@ -23,5 +23,7 @@ namespace AutoPro.Common.Entities
         public decimal? price { get; set; }
 
         public int quantitys { get; set; }
+
+        public Boolean isComment { get; set; }
     }
 }

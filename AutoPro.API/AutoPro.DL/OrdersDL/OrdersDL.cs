@@ -139,7 +139,7 @@ namespace AutoPro.DL.OrdersDL
                 var propertyValue = property.GetValue(record);
                 parameters.Add(propertyName, propertyValue);
             }
-
+            parameters.Add("v_IsComment", 0);
             parameters.Add("v_CreatedDate", DateTime.Now);
             parameters.Add("v_CreatedBy", "DangPD");
             parameters.Add("v_ModifiedDate", DateTime.Now);
@@ -196,10 +196,12 @@ namespace AutoPro.DL.OrdersDL
                 {
                     var propertyName = $"v_{property.Name}";
                     var propertyValue = property.GetValue(orderDetail);
+
                     parameters.Add(propertyName, propertyValue);
                 }
+                parameters.Add("v_IsComment", 0);
                 // Gọi vào db và trả về số bản ghi bị ảnh hưởng
-                int numberOfAffectedRows = 0;
+            int numberOfAffectedRows = 0;
                 using (var mySqlConnection = new MySqlConnection(connectionString))
                 {
                     numberOfAffectedRows = mySqlConnection.Execute(insertStoreProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);

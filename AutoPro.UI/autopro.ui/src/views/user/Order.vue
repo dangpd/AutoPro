@@ -5,39 +5,50 @@
     <div class="content">
       <TheLineLink name="Đơn hàng"></TheLineLink>
       <div class="list-product-order">
-        <div class="title-product-order" style="display: flex;align-items: center;margin-bottom: 10px;">
+        <div
+          class="title-product-order"
+          style="display: flex; align-items: center; margin-bottom: 10px"
+        >
           <div>ĐƠN HÀNG CỦA BẠN</div>
           <!-- <router-link to="/orderplaced" style="cursor: pointer;">
             ĐƠN HÀNG ĐÃ ĐẶT
           </router-link> -->
-          <div style="display: flex;align-items: center;">
+          <div style="display: flex; align-items: center">
             Sắp xếp theo
-            <MSelectBoxDown :data="[
-              { feildShow: 'Tất cả đơn hàng', feildValue: 4 },
-              { feildShow: 'Đơn hàng thành công', feildValue: 1 },
-              { feildShow: 'Đơn hàng bị hủy', feildValue: 3 },
-              { feildShow: 'Đơn hàng đang chờ xử lí', feildValue: 2 },
-            ]" v-model="orderBy"></MSelectBoxDown>
+            <MSelectBoxDown
+              :data="[
+                { feildShow: 'Tất cả đơn hàng', feildValue: 4 },
+                { feildShow: 'Đơn hàng thành công', feildValue: 1 },
+                { feildShow: 'Đơn hàng bị hủy', feildValue: 3 },
+                { feildShow: 'Đơn hàng đang chờ xử lí', feildValue: 2 },
+              ]"
+              v-model="orderBy"
+            ></MSelectBoxDown>
           </div>
         </div>
         <table class="m-table-order">
           <thead>
             <tr>
-              <th style="width: 50px;padding-left: 10px;">STT</th>
-              <th style="width: 100px;">Mã đơn hàng</th>
-              <th style="width: 100px;">Ngày tạo</th>
-              <th style="width: 100px;">Người nhận</th>
-              <th style="width: 250px;">Địa chỉ</th>
-              <th style="width: 100px;">Tổng tiền</th>
-              <th style="width: 200px;">Hình thức thanh toán</th>
-              <th style="width: 170px;">Trạng thái thanh toán</th>
-              <th style="width: 150px;">Trạng thái đơn hàng</th>
+              <th style="width: 50px; padding-left: 10px">STT</th>
+              <th style="width: 100px">Mã đơn hàng</th>
+              <th style="width: 100px">Ngày tạo</th>
+              <th style="width: 100px">Người nhận</th>
+              <th style="width: 250px">Địa chỉ</th>
+              <th style="width: 100px">Tổng tiền</th>
+              <th style="width: 200px">Hình thức thanh toán</th>
+              <th style="width: 170px">Trạng thái thanh toán</th>
+              <th style="width: 150px">Trạng thái đơn hàng</th>
             </tr>
           </thead>
-          <tbody style="line-height: 40px;">
-            <tr v-for="(item, index) in filterOrders" :key="index" @click="trClick(item.OrderID)"
-              @dblclick="rowOnDblClick(item)" :class="{ 'row-selected': rowSelected == item.OrderID }">
-              <td style="padding-left: 10px;">{{ index + 1 }}</td>
+          <tbody style="line-height: 40px">
+            <tr
+              v-for="(item, index) in filterOrders"
+              :key="index"
+              @click="trClick(item.OrderID)"
+              @dblclick="rowOnDblClick(item)"
+              :class="{ 'row-selected': rowSelected == item.OrderID }"
+            >
+              <td style="padding-left: 10px">{{ index + 1 }}</td>
               <td>{{ item.OrderCode }}</td>
               <td>{{ formatDate(item.OrderDate) }}</td>
               <td>{{ item.FullName }}</td>
@@ -63,9 +74,25 @@
     </div>
     <TheFooter></TheFooter>
     <MLoading v-if="showLoading"></MLoading>
-    <OrderDetail v-if="showPopup" @onClose="showPopup = false" :id="id" :type="type" :statusOrder="statusOrder"
-      @success="success" @showProductComment="showProductComment"></OrderDetail>
-    <ProductComment v-if="showComment" @onClose="showComment = false" :idProduct="idProductComment"></ProductComment>
+    <OrderDetail
+      v-if="showPopup"
+      @onClose="showPopup = false"
+      :id="id"
+      :type="type"
+      :statusOrder="statusOrder"
+      :reloadDetail="reloadOrderDetail"
+      @success="success"
+      @showProductComment="showProductComment"
+      @updateReload="updateReload"
+    ></OrderDetail>
+    <ProductComment
+      v-if="showComment"
+      @onClose="showComment = false"
+      @updateOrderDetailProduct="updateOrderDetailProduct"
+      :idProduct="idProductComment"
+      :idOrder="idOrderComment"
+      :idOrderDetail="idOrderDetailComment"
+    ></ProductComment>
   </div>
 </template>
 
@@ -74,12 +101,12 @@ import TheFooter from "@/layout/TheFooter.vue";
 import TheHeader from "@/layout/TheHeader.vue";
 import TheLineLink from "@/layout/TheLineLink.vue";
 import TheNavbar from "@/layout/TheNavbar.vue";
-import axios from 'axios';
-import ApiOrder from '../../js/apiOrder';
-import { formatDate, formatMoney } from '@/js/gCommon'
-import MLoading from '@/components/MLoading.vue';
-import Resource from '../../js/gResource';
-import OrderDetail from './OrderDetail.vue'
+import axios from "axios";
+import ApiOrder from "../../js/apiOrder";
+import { formatDate, formatMoney } from "@/js/gCommon";
+import MLoading from "@/components/MLoading.vue";
+import Resource from "../../js/gResource";
+import OrderDetail from "./OrderDetail.vue";
 import MSelectBoxDown from "@/components/MSelectBoxDown.vue";
 import ProductComment from "./ProductComment.vue";
 
@@ -95,7 +122,16 @@ export default {
   /**
    * Component được sử dụng
    */
-  components: { TheHeader, TheNavbar, TheFooter, TheLineLink, MLoading, OrderDetail, MSelectBoxDown, ProductComment },
+  components: {
+    TheHeader,
+    TheNavbar,
+    TheFooter,
+    TheLineLink,
+    MLoading,
+    OrderDetail,
+    MSelectBoxDown,
+    ProductComment,
+  },
   /**
    * Emit sự thay đổi
    */
@@ -108,18 +144,21 @@ export default {
     return {
       dataOrder: [],
       showLoading: false,
-      type: '',
+      type: "",
       showPopup: false,
       noData: false,
-      id: '',
-      statusOrder: '',
+      id: "",
+      statusOrder: "",
       rowSelected: -1,
       reloadTable: false,
       customer: {},
       orderBy: 4,
       // showComment: false,
       showComment: false,
-      idProductComment: '',
+      idProductComment: "",
+      idOrderComment: "",
+      idOrderDetailComment: "",
+      reloadOrderDetail: false,
     };
   },
   /**
@@ -135,15 +174,15 @@ export default {
 
     prepareBeforeHandle() {
       this.customer["orderCode"] = this.item.OrderCode;
-      this.customer["orderDate"] = this.item.OrderDate,
-        this.customer["idUser"] = this.item.IdUser;
+      (this.customer["orderDate"] = this.item.OrderDate),
+        (this.customer["idUser"] = this.item.IdUser);
       this.customer["fullName"] = this.item.FullName;
       this.customer["address"] = this.item.Address;
       this.customer["phoneNumber"] = this.item.PhoneNumber;
       this.customer["description"] = this.item.Description;
       this.customer["totalAmount"] = this.item.TotalAmount;
       this.customer["checkOutTypeID"] = this.item.CheckOutTypeID; // Thanh toán tại nhà
-      this.customer["CheckOutStatusID"] = this.item.CheckOutStatusID // Chưa thanh toán
+      this.customer["CheckOutStatusID"] = this.item.CheckOutStatusID; // Chưa thanh toán
       // Xử lý danh sách các hàng hóa mua
     },
 
@@ -159,16 +198,15 @@ export default {
       console.log(this.orderDetail);
       console.log(orderParam);
       // Xác nhận đơn hàng
-      axios.post(ApiOrder.updateOrderDetail(), orderParam)
-        .then((res) => {
-          if (res.status === 200) {
-            alert("Hủy đơn hàng thành công");
-            this.$emit("onClose");
-          } else {
-            alert("Hủy đơn hàng thất bại");
-            this.$emit("onClose");
-          }
-        })
+      axios.post(ApiOrder.updateOrderDetail(), orderParam).then((res) => {
+        if (res.status === 200) {
+          alert("Hủy đơn hàng thành công");
+          this.$emit("onClose");
+        } else {
+          alert("Hủy đơn hàng thất bại");
+          this.$emit("onClose");
+        }
+      });
     },
 
     formatMoney(moeny) {
@@ -204,26 +242,37 @@ export default {
       this.showLoading = true;
       let id = localStorage.getItem("UserID");
       setTimeout(() => {
-        axios.get(ApiOrder.getByUserID(id))
-          .then((res) => {
-            this.showLoading = false;
-            this.dataOrder = res.data;
-            // console.log(this.dataOrder);
-            console.log(res);
-          })
+        axios.get(ApiOrder.getByUserID(id)).then((res) => {
+          this.showLoading = false;
+          this.dataOrder = res.data;
+          // console.log(this.dataOrder);
+          // console.log(res);
+        });
       }, 300);
     },
 
     showProductComment(data) {
+      // console.log('data',data);
       this.showComment = true;
       this.idProductComment = data.productID;
+      this.idOrderComment = data.orderID;
+      this.idOrderDetailComment = data.orderDetailID;
+    },
+
+    updateOrderDetailProduct() {
+      // this.$emit("updateOrderDetail");
+      this.reloadOrderDetail = true;
+    },
+
+    updateReload(){
+      this.reloadOrderDetail = false;
     }
   },
   created() {
     let id = localStorage.getItem("UserID");
     if (!id) {
       alert("Bạn cần đăng nhập để sử dụng tính năng này!");
-      this.$router.push('/account/sign-up');
+      this.$router.push("/account/sign-up");
     } else {
       this.getOrderByUserID();
     }
@@ -235,7 +284,12 @@ export default {
     orderBy(newVal) {
       this.orderBy = newVal;
       console.log(newVal);
-    }
+    },
+
+    reloadOrderDetail(newVal) {
+      console.log(newVal);
+      this.reloadOrderDetail = newVal;
+    },
   },
   computed: {
     filterOrders: function () {
@@ -246,7 +300,7 @@ export default {
         return order.StatusOrders === this.orderBy;
       });
     },
-  }
+  },
 };
 </script>
 
