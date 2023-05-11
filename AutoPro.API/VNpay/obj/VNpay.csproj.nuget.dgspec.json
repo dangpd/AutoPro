@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Do An Tot Nghiep\\AutoPro.API\\VNpay\\VNpay.csproj": {}
+    "E:\\Dang\\Do an\\11-5\\AutoPro\\AutoPro.API\\VNpay\\VNpay.csproj": {}
   },
   "projects": {
-    "D:\\Do An Tot Nghiep\\AutoPro.API\\AutoPro.Common\\AutoPro.Common.csproj": {
+    "E:\\Dang\\Do an\\11-5\\AutoPro\\AutoPro.API\\AutoPro.Common\\AutoPro.Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Do An Tot Nghiep\\AutoPro.API\\AutoPro.Common\\AutoPro.Common.csproj",
+        "projectUniqueName": "E:\\Dang\\Do an\\11-5\\AutoPro\\AutoPro.API\\AutoPro.Common\\AutoPro.Common.csproj",
         "projectName": "AutoPro.Common",
-        "projectPath": "D:\\Do An Tot Nghiep\\AutoPro.API\\AutoPro.Common\\AutoPro.Common.csproj",
-        "packagesPath": "C:\\Users\\DucDang\\.nuget\\packages\\",
-        "outputPath": "D:\\Do An Tot Nghiep\\AutoPro.API\\AutoPro.Common\\obj\\",
+        "projectPath": "E:\\Dang\\Do an\\11-5\\AutoPro\\AutoPro.API\\AutoPro.Common\\AutoPro.Common.csproj",
+        "packagesPath": "C:\\Users\\doanp\\.nuget\\packages\\",
+        "outputPath": "E:\\Dang\\Do an\\11-5\\AutoPro\\AutoPro.API\\AutoPro.Common\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\DucDang\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\doanp\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -71,7 +71,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -80,21 +81,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Do An Tot Nghiep\\AutoPro.API\\VNpay\\VNpay.csproj": {
+    "E:\\Dang\\Do an\\11-5\\AutoPro\\AutoPro.API\\VNpay\\VNpay.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Do An Tot Nghiep\\AutoPro.API\\VNpay\\VNpay.csproj",
+        "projectUniqueName": "E:\\Dang\\Do an\\11-5\\AutoPro\\AutoPro.API\\VNpay\\VNpay.csproj",
         "projectName": "VNpay",
-        "projectPath": "D:\\Do An Tot Nghiep\\AutoPro.API\\VNpay\\VNpay.csproj",
-        "packagesPath": "C:\\Users\\DucDang\\.nuget\\packages\\",
-        "outputPath": "D:\\Do An Tot Nghiep\\AutoPro.API\\VNpay\\obj\\",
+        "projectPath": "E:\\Dang\\Do an\\11-5\\AutoPro\\AutoPro.API\\VNpay\\VNpay.csproj",
+        "packagesPath": "C:\\Users\\doanp\\.nuget\\packages\\",
+        "outputPath": "E:\\Dang\\Do an\\11-5\\AutoPro\\AutoPro.API\\VNpay\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\DucDang\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\doanp\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -108,8 +109,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\Do An Tot Nghiep\\AutoPro.API\\AutoPro.Common\\AutoPro.Common.csproj": {
-                "projectPath": "D:\\Do An Tot Nghiep\\AutoPro.API\\AutoPro.Common\\AutoPro.Common.csproj"
+              "E:\\Dang\\Do an\\11-5\\AutoPro\\AutoPro.API\\AutoPro.Common\\AutoPro.Common.csproj": {
+                "projectPath": "E:\\Dang\\Do an\\11-5\\AutoPro\\AutoPro.API\\AutoPro.Common\\AutoPro.Common.csproj"
               }
             }
           }
@@ -135,7 +136,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -144,7 +146,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     }

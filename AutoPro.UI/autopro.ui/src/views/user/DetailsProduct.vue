@@ -76,8 +76,8 @@
               @click="detailProduct(item.productID)"> -->
               <div class="product">
                 <div class="product-image">
-                  <img :src="item.image" alt="" @click="favoriteProduct(item)">
-                  <div class="favourtive">
+                  <img :src="item.image" alt="">
+                  <div class="favourtive" @click="favoriteProduct(item)">
                     <i class="fa-solid fa-heart"></i>
                   </div>
                 </div>
@@ -151,7 +151,7 @@ export default {
       },
       number: 1,
       productCart2: {
-        quantitys2: ''
+        quantitys: ''
       },
       number2: 1,
       textSearch: '',
@@ -188,7 +188,7 @@ export default {
     getProductNews() {
       this.showLoading = true;
       setTimeout(() => {
-        axios.get(ApiProduct.filterProduct(this.textSearch, this.pageSize, 1))
+        axios.get(ApiProduct.filterProduct(this.textSearch, this.pageSize, 2))
           .then((res) => {
             if (res.status == 200) {
               this.showLoading = false;
@@ -217,19 +217,22 @@ export default {
       // console.log(this.productCart);
       this.$store.commit('addToCart', this.productCart);
       this.$router.push('/cart');
+      this.$toast.success("Thêm thành công sản phẩm vào giỏ hàng");
     },
 
     addCart2(data) {
-      if (this.number2 > this.product.quantity) {
+      console.log(data);
+      if (this.number2 > data.quantity) {
         alert("Sản phẩm mua nhiều hơn số lượng có trong kho");
         this.number2 = 1;
         return;
       }
-      this.productCart2 = data;
-      this.productCart2.quantitys2 = this.number2;
+      this.productCart2 = {...data};
+      this.productCart2.quantitys = this.number2;
       // console.log(this.productCart);
       this.$store.commit('addToCart', this.productCart2);
-      this.$router.push('/cart');
+      // this.$router.push('/cart');
+      this.$toast.success("Thêm thành công sản phẩm vào giỏ hàng");
     },
 
     minusQuantity() {
@@ -276,9 +279,18 @@ export default {
         })
     },
 
-    favoriteProduct(data) {
-      this.productFavorite = data;
-      this.$store.commit('addToFavorite', this.productFavorite);
+    favoriteProduct(item) {
+      let user = localStorage.getItem("UserID");
+      if (user) {
+        console.log(item);
+        this.productFavorite = item;
+        this.$store.commit("addToFavorite", item);
+        // this.$toast.success("Thêm thành công vào sản phẩm yêu thích");
+      } else {
+        alert(
+          "Bạn chưa đăng nhập. Vui lòng đăng nhập để sử dụng tính năng này"
+        );
+      }
     }
   },
   created() {
