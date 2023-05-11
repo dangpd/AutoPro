@@ -142,30 +142,40 @@
       <div style="margin: 20px 0">
         Tổng tiền cần thanh toán: <b>{{ formatMoney(customer.totalAmount) }}</b>
       </div>
-      <div class="aformSave" v-show="processOrder">
-        <!-- <button style="background-color: #019160;color: white;" @click="questionSaveItem">Duyệt đơn hàng</button> -->
-        <button
-          style="background-color: #ba031a; margin-left: 40px; color: white"
-          @click="questionCancelItem"
-        >
-          Hủy đơn hàng
-        </button>
-      </div>
-      <div class="aformSave" v-show="doneOrder">
-        <button
-          style="background-color: #019160; color: white"
-          @click="onClose"
-        >
-          Đơn hàng đã được duyệt
-        </button>
-      </div>
-      <div class="aformSave" v-show="cancelOrder">
-        <button
-          style="background-color: #ba031a; color: white"
-          @click="onClose"
-        >
-          Đơn hàng đã bị hủy
-        </button>
+      <div style="display: flex;">
+        <div class="aformSave" v-show="processOrder">
+          <!-- <button style="background-color: #019160;color: white;" @click="questionSaveItem">Duyệt đơn hàng</button> -->
+          <button
+            style="background-color: #ba031a; margin-left: 40px; color: white"
+            @click="questionCancelItem"
+          >
+            Hủy đơn hàng
+          </button>
+        </div>
+        <div class="aformSave" v-show="doneOrder">
+          <button
+            style="background-color: #019160; color: white"
+            @click="onClose"
+          >
+            Đơn hàng thành công
+          </button>
+        </div>
+        <div class="aformSave" v-show="returnOrders">
+          <button
+            style="background-color: #019160; color: white"
+            @click="returnOrder"
+          >
+            Hoàn hàng
+          </button>
+        </div>
+        <div class="aformSave" v-show="cancelOrder">
+          <button
+            style="background-color: #ba031a; color: white"
+            @click="onClose"
+          >
+            Đơn hàng đã bị hủy
+          </button>
+        </div>
       </div>
     </div>
     <MLoading v-if="showLoading"></MLoading>
@@ -211,6 +221,7 @@ export default {
       doneOrder: false,
       rowSelected: -1,
       cancelOrder: false,
+      returnOrders: false,
       reload: false,
     };
   },
@@ -321,7 +332,9 @@ export default {
     onClose() {
       this.$emit("onClose");
     },
+    returnOrder(){
 
+    },
     getOrderDetail() {
       if (this.id) {
         // Bật loadding
@@ -338,14 +351,17 @@ export default {
               this.processOrder = true;
               this.doneOrder = false;
               this.cancelOrder = false;
+              this.returnOrders = false;
             } else if (this.statusOrder == 1) {
               this.processOrder = false;
-              this.doneOrder = true;
+              this.doneOrder = false;
               this.cancelOrder = false;
+              this.returnOrders = true;
             } else if (this.statusOrder == 3) {
               this.processOrder = false;
               this.doneOrder = false;
               this.cancelOrder = true;
+              this.returnOrders = false;
             }
           });
         }, 500);

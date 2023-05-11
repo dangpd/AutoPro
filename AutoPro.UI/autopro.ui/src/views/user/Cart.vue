@@ -31,8 +31,9 @@
                             </td>
                             <td style="min-width: 150px;">{{ formatMoney(item.price) }}</td>
                             <td style="min-width: 150px;">
-                                <MQuantity v-model="item.quantitys" :quantity="item.quantity"></MQuantity>
+                                <MQuantity v-model="item.quantitys" :quantity="item.quantity" v-show="item.quantity > 0"></MQuantity>
                             </td>
+                            <td style="min-width: 150px;" v-show="item.quantity <= 0">{{ item.quantity }}</td>
                             <td style="min-width: 150px;">
                                 {{ formatMoney(item.price * item.quantitys) }}
                             </td>
@@ -138,6 +139,7 @@ export default {
                 let b = 0;
                 this.listCart.forEach((x) => {
                     let a = this.listProduct.find(y => y.productID == x.productID);
+                    console.log(a);
                     if (x.quantitys < 0) {
                         x.quantitys = 1;
                         b++;

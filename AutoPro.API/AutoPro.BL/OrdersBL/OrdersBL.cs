@@ -206,7 +206,7 @@ namespace AutoPro.BL.OrdersBL
             foreach (var item in orderDetail)
             {
                 Product currentProduct = listProductDetail.Find(x => x.ProductID == item.productID);
-                int inventory = currentProduct.Quantity - currentProduct.QuantitySell;
+                int inventory = currentProduct.Quantity;
                 if (item.quantitys > inventory)
                 {
                     productcode.Add(item.productCode);

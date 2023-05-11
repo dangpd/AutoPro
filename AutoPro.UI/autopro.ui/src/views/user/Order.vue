@@ -17,10 +17,13 @@
             Sắp xếp theo
             <MSelectBoxDown
               :data="[
-                { feildShow: 'Tất cả đơn hàng', feildValue: 4 },
+                { feildShow: 'Tất cả đơn hàng', feildValue: 7 },
                 { feildShow: 'Đơn hàng thành công', feildValue: 1 },
                 { feildShow: 'Đơn hàng bị hủy', feildValue: 3 },
                 { feildShow: 'Đơn hàng đang chờ xử lí', feildValue: 2 },
+                // { feildShow: 'Đơn hàng hoàn', feildValue: 6 },
+                { feildShow: 'Đơn hàng chờ duyệt hoàn', feildValue: 5 },
+                { feildShow: 'Đơn hàng đã được duyệt hoàn', feildValue: 6 },
               ]"
               v-model="orderBy"
             ></MSelectBoxDown>
@@ -152,7 +155,7 @@ export default {
       rowSelected: -1,
       reloadTable: false,
       customer: {},
-      orderBy: 4,
+      orderBy: 7,
       // showComment: false,
       showComment: false,
       idProductComment: "",
@@ -264,9 +267,9 @@ export default {
       this.reloadOrderDetail = true;
     },
 
-    updateReload(){
+    updateReload() {
       this.reloadOrderDetail = false;
-    }
+    },
   },
   created() {
     let id = localStorage.getItem("UserID");
@@ -294,7 +297,7 @@ export default {
   computed: {
     filterOrders: function () {
       return this.dataOrder.filter((order) => {
-        if (this.orderBy === 4) {
+        if (this.orderBy === 7) {
           return this.dataOrder;
         }
         return order.StatusOrders === this.orderBy;

@@ -161,22 +161,14 @@ namespace AutoPro.Common.Enum
         [Display(Name = "Đơn hàng đã bị hủy")]
         Destroy = 3,
 
-        [Display(Name = "Chờ giao hàng")]
-        WaitingDeliver = 4,
+        [Display(Name = "Đơn hàng đã duyệt")]
+        Aprove = 4,
 
-        [Display(Name = "Đang giao hàng")]
-        DoingDeliver = 5,
+        [Display(Name = "Hoàn hàng")]
+        Cancel = 5,
 
-        [Display(Name = "Giao hàng thất bại")]
-        DeliverFail = 6,
-
-        [Display(Name = "Đổi hàng")]
-        Exchange = 7,
-
-        [Display(Name = "Trả hàng")]
-        Return = 8,
-
-
+        [Display(Name = "Đơn hàng hoàn")]
+        Return = 6,
     }
 
     public enum CheckoutType

@@ -289,7 +289,7 @@ namespace AutoPro.DL.OrdersDL
             return false;
         }
         // update san pham
-        public bool UpdateOrderDetailProduct(IEnumerable<OrderDetail> listInsert, List<Product> listProduct)
+        public bool UpdateOrderDetailProduct(IEnumerable<OrderDetail> listInsert, List<Product> listProduct,int statusOrder)
         {
             int totalRecordUpdate = 0;
             int totalRecordBuy = Convert.ToInt16(listInsert.Count());
@@ -297,17 +297,34 @@ namespace AutoPro.DL.OrdersDL
             // Trừ sản phẩm trong database
             foreach (var item in listInsert)
             {
-                Product currentProduct = listProduct.Find(x => x.ProductID == item.productID);
-                if(item.quantitys > currentProduct.Quantity)
-                {
-                    return false;
-                }
-                int productID = item.productID;
-                int quantity = currentProduct.Quantity - item.quantitys;
-                int quantitySell = currentProduct.QuantitySell + item.quantitys;
+                int productID = 0;
+                int quantity = 0;
+                int quantitySell = 0;
                 // Chuẩn bị tên store procedure
                 string updateStoredProcedureName = "Proc_ProductOrdersDetail_Update";
 
+                // Đặt thhành công
+                if(statusOrder == 1)
+                {
+                    Product currentProduct = listProduct.Find(x => x.ProductID == item.productID);
+                    if (item.quantitys > currentProduct.Quantity)
+                    {
+                        return false;
+                    }
+                    productID = item.productID;
+                    quantity = currentProduct.Quantity - item.quantitys;
+                    quantitySell = currentProduct.QuantitySell + item.quantitys;
+                }
+                // HỦy
+                else if (statusOrder == 6)
+                {
+                    Product currentProduct = listProduct.Find(x => x.ProductID == item.productID);
+                    productID = item.productID;
+                    quantity = currentProduct.Quantity + item.quantitys;
+                    quantitySell = currentProduct.QuantitySell - item.quantitys;
+                }
+
+                
                 var parameters = new DynamicParameters();
                 parameters.Add("v_ProductID", productID);
                 parameters.Add("v_QuantitySell", quantitySell);
@@ -348,10 +365,8 @@ namespace AutoPro.DL.OrdersDL
             {
                 int statusOrder = order.statusOrders;
                 // Trạng thái xác nhận đơn hàng thành công
-                if (statusOrder == 1)
-                {
                     // Update số sản phẩm bán,sản phẩm trong kho
-                    bool updateProduct = UpdateOrderDetailProduct(listOrderDetail, listProduct);
+                    bool updateProduct = UpdateOrderDetailProduct(listOrderDetail, listProduct,statusOrder);
                     if (!updateProduct)
                     {
                         return false;
@@ -360,7 +375,6 @@ namespace AutoPro.DL.OrdersDL
                     {
                         return true;
                     }
-                }
             }
             return true;
         }

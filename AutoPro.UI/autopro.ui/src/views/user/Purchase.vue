@@ -475,7 +475,7 @@ export default {
         productCode: x.productCode,
         productID: x.productID,
         productName: x.productName,
-        quantitys: x.quantitys,
+        quantitys: parseInt(x.quantitys),
       }));
       // console.log(this.listOrderDetail);
     },
