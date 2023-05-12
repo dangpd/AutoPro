@@ -84,7 +84,9 @@
 .anav-item:hover {
     background-color: #3395FF;
 }
-
+.anav__texts:hover{
+    color: white;
+}
 .anav-item i {
     color: white;
 }

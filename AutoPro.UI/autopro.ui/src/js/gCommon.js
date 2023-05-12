@@ -112,6 +112,28 @@ function ketquaVNpay(status) {
     }
 }
 
+function statusOrders(status) {
+    try {
+        if (status == 1) {
+            return "Đơn hàng thành công";
+        } else if (status == 2) {
+            return "Đơn hàng đang xử lí";
+        } else if (status == 3) {
+            return "Đơn hàng  đã bị hủy";
+        } else if (status == 4) {
+            return "Đơn hàng đã được duyệt";
+        } else if (status == 5) {
+            return "Đơn hàng hoàn chờ duyệt";
+        } else if (status == 6) {
+            return "Đơn hàng hoàn đã được duyệt";
+        } else {
+            return "";
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 function formatNumber(number) {
     return new Intl.NumberFormat("de-DE").format(number);
 }
@@ -149,4 +171,4 @@ function fetchAPI(url, method, fnCallBack, data, typeRes) {
         })
         .catch(err => console.log(err));
 }
-export { clickoutside, ketquaVNpay, formatNumber, formatStatusProduct, formatMoney, formatDate, formatGender, fetchAPI };
+export { clickoutside, statusOrders,ketquaVNpay, formatNumber, formatStatusProduct, formatMoney, formatDate, formatGender, fetchAPI };

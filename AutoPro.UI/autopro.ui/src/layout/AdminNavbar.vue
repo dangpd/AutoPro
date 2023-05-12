@@ -40,13 +40,6 @@
                     <i class="fa-solid fa-caret-down"></i>
                 </div>
             </router-link>
-            <router-link to="/admin/category" style="text-decoration: none;">
-                <div class="anav-item">
-                    <div class="anav__text">Quản lí danh mục</div>
-                    <i class="fa-solid fa-caret-down"></i>
-                </div>
-            </router-link>
-            <!-- <router-link to="/admin/order" style="text-decoration: none;"> -->
             <div class="anav-item anav-menu">
                 <div class="anav__text">Quản lí đơn hàng</div>
                 <i class="fa-solid fa-caret-down"></i>
@@ -60,15 +53,30 @@
                         <i class="fa-solid fa-caret-down" style="color: black;"></i>
                     </div>
                     <div class="anav-item" @click="orderDone">
-                        <div class="anav__texts">Đơn hàng đã duyệt</div>
+                        <div class="anav__texts">Đơn hàng thành công</div>
                         <i class="fa-solid fa-caret-down" style="color: black;"></i>
                     </div>
                     <div class="anav-item" @click="orderCacel">
                         <div class="anav__texts">Đơn hàng đã hủy</div>
                         <i class="fa-solid fa-caret-down" style="color: black;"></i>
                     </div>
+                    <div class="anav-item" @click="orderWaitReturn">
+                        <div class="anav__texts">Đơn hàng hoàn chờ duyệt</div>
+                        <i class="fa-solid fa-caret-down" style="color: black;"></i>
+                    </div>
+                    <div class="anav-item" @click="orderReturn">
+                        <div class="anav__texts">Đơn hàng hoàn</div>
+                        <i class="fa-solid fa-caret-down" style="color: black;"></i>
+                    </div>
                 </div>
             </div>
+            <router-link to="/admin/category" style="text-decoration: none;">
+                <div class="anav-item">
+                    <div class="anav__text">Quản lí danh mục</div>
+                    <i class="fa-solid fa-caret-down"></i>
+                </div>
+            </router-link>
+            <!-- <router-link to="/admin/order" style="text-decoration: none;"> -->
             <!-- </router-link> -->
             <router-link to="/admin/account" style="text-decoration: none;">
                 <div class="anav-item">
@@ -171,10 +179,19 @@ export default {
             this.$router.push({ name: 'orderStatus', params: { id: 3 } });
         },
 
+        orderWaitReturn() {
+            this.$router.push({ name: 'orderStatusReturn', params: { id: 5 } });
+        },
+
+        orderReturn() {
+            this.$router.push({ name: 'orderStatusReturn', params: { id: 6 } });
+        },
+
         UpdatePassword() {
             this.$emit("showUpdate");
             // this.showUpdate = true;
         },
+
     },
     created() {
         const adminID = localStorage.getItem("UserID");

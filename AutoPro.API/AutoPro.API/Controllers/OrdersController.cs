@@ -4,8 +4,11 @@ using AutoPro.BL.OrdersBL;
 using AutoPro.Common.Entities;
 using AutoPro.Common.Entities.DTO;
 using AutoPro.Common.Entities.Param;
+using AutoPro.DL;
+using Dapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MySqlConnector;
 
 namespace AutoPro.API.Controllers
 {
@@ -230,6 +233,59 @@ namespace AutoPro.API.Controllers
             }
         }
 
+        [HttpPost("updateOrderByStatus")]
+        public IActionResult updateByStatus(OrderStatus status)
+        {
+            string connectionString = DatabaseContext.ConnectionString;
+            // Lấy kết quả trả về bên Bussiness Layer
+            try
+            {
+                // Lấy kết quả trả về bên Bussiness Layer
+                string proc = "Proc_Orders_UpdateStatus";
+
+                //Truyền tham số cho procedure
+                var parameters = new DynamicParameters();
+                parameters.Add("v_IdOrder", status.idOrder);
+                parameters.Add("v_Status", status.statusOrder);
+                parameters.Add("v_Reason", status.reason);
+                int number = 0;
+                using (var mySqlConnection = new MySqlConnection(connectionString))
+                {
+                    // Query
+                    number = mySqlConnection.Execute(proc, parameters, commandType: System.Data.CommandType.StoredProcedure);
+                }
+                // Thành công return danh sách record
+
+                if (number > 0)
+                {
+                    return StatusCode(StatusCodes.Status200OK, 1);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResult
+                    {
+                        ErrorCode = Common.Enum.ErrorCode.Exception,
+                        DevMsg = Common.Resource.DataResource.DevMsg_Exception,
+                        UserMsg = Common.Resource.DataResource.UserMsg_Exception,
+                        MoreInfo = Common.Resource.Resource.UserMsg_ServerError,
+                        TraceId = HttpContext.TraceIdentifier
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                // Lỗi exception
+                Console.WriteLine(ex.ToString());
+                return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResult
+                {
+                    ErrorCode = Common.Enum.ErrorCode.Exception,
+                    DevMsg = Common.Resource.DataResource.DevMsg_Exception,
+                    UserMsg = Common.Resource.DataResource.UserMsg_Exception,
+                    MoreInfo = Common.Resource.Resource.UserMsg_ServerError,
+                    TraceId = HttpContext.TraceIdentifier
+                });
+            }
+        }
 
         [HttpGet("GetNewOrdersCode")]
         public IActionResult getOrderCodeAuto()

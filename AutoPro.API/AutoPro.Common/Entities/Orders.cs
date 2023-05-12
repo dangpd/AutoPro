@@ -86,5 +86,7 @@ namespace AutoPro.Common.Entities
                 return "";
             }
         }
+
+        public string? reason { get; set; }
     }
 }

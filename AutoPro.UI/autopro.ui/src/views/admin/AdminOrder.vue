@@ -4,16 +4,13 @@
       <AdminLineLink name="Đơn hàng"></AdminLineLink>
       <div class="table-toolbar">
         <div class="search-toolbar">
-          <MInput
-            v-model="textSearch"
-            ref="inputSearch"
+          <MInput v-model="textSearch" ref="inputSearch"
             styleInput="width:400px; height:36px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-            placeholder="Tìm kiếm đơn hàng"
-          ></MInput>
+            placeholder="Tìm kiếm đơn hàng"></MInput>
           <button @click="search">Tìm kiếm</button>
         </div>
         <div class="add-toolbar">
-          <button @click="addOrder">Thêm mới</button>
+          <!-- <button @click="addOrder">Thêm mới</button> -->
           <div class="refresh" @click="refresh">
             <i class="fa-solid fa-rotate"></i>
           </div>
@@ -38,15 +35,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr
-            v-for="(item, index) in dataOrder"
-            :key="index"
-            @click="trClick(item.orderID)"
-            @dblclick="rowOnDblClick(item)"
-            :class="{
+          <tr v-for="(item, index) in dataOrder" :key="index" @click="trClick(item.orderID)"
+            @dblclick="rowOnDblClick(item)" :class="{
               'row-selected': rowSelected == item.orderID,
-            }"
-          >
+            }">
             <td style="padding-left: 10px">{{ index + 1 }}</td>
             <td>{{ item.orderCode }}</td>
             <td>{{ formatDate(item.orderDate) }}</td>
@@ -76,47 +68,33 @@
       <div class="paging__right">
         <div class="m-pagding-right-left">
           <div>
-            <MSelectBox
-              :data="[
-                { feildShow: '10 bản ghi trên trang', feildValue: 10 },
-                { feildShow: '20 bản ghi trên trang', feildValue: 20 },
-                { feildShow: '50 bản ghi trên trang', feildValue: 50 },
-                { feildShow: '70 bản ghi trên trang', feildValue: 70 },
-                { feildShow: '100 bản ghi trên trang', feildValue: 100 },
-              ]"
-              v-model="pageSize"
-            ></MSelectBox>
+            <MSelectBox :data="[
+              { feildShow: '10 bản ghi trên trang', feildValue: 10 },
+              { feildShow: '20 bản ghi trên trang', feildValue: 20 },
+              { feildShow: '50 bản ghi trên trang', feildValue: 50 },
+              { feildShow: '70 bản ghi trên trang', feildValue: 70 },
+              { feildShow: '100 bản ghi trên trang', feildValue: 100 },
+            ]" v-model="pageSize"></MSelectBox>
           </div>
         </div>
         <div class="m-pagding-right-right">
           <div class="m-page-number-group">
-            <button
-              class="m-page-number"
-              v-for="(item, index) in pageNumber"
-              :key="item"
-              :class="{ 'm-page-number-select': pageChoice == item }"
-              @click="
+            <button class="m-page-number" v-for="(item, index) in pageNumber" :key="item"
+              :class="{ 'm-page-number-select': pageChoice == item }" @click="
                 changePageChoice(
                   pageNumber[index - 1],
                   item,
                   pageNumber[index + 1]
                 )
-              "
-            >
+                ">
               {{ item }}
             </button>
           </div>
         </div>
       </div>
     </div>
-    <AdminOrderDetail
-      v-if="showPopup"
-      @onClose="showPopup = false"
-      :id="id"
-      :type="type"
-      :statusOrder="statusOrder"
-      @success="success"
-    >
+    <AdminOrderDetail v-if="showPopup" @onClose="showPopup = false" :id="id" :type="type" :statusOrder="statusOrder"
+      @success="success">
     </AdminOrderDetail>
     <MLoading v-if="showLoading"></MLoading>
   </div>
@@ -324,7 +302,7 @@ export default {
                 this.noData = false;
                 this.dataOrder = res.data.data;
                 this.showSeeMore = true;
-                // console.log(res);
+                // console.log(res.data.data);
                 this.showTablePaging = true;
                 // Gán dữ liệu số trang trả về bằng Data trả về
                 this.totalPage = res.data.totalPage;
@@ -348,7 +326,16 @@ export default {
     },
 
     success() {
-      this.filterAndPaging();
+      let param = this.$route.params.id;
+      // console.log(param);
+      if (param) {
+        this.statusFilter = param;
+        this.changePageChoice();
+        this.filterAndPagingByStatus();
+      } else {
+        this.changePageChoice();
+        this.filterAndPaging();
+      }
       this.reloadTable = false;
     },
 

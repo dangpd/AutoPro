@@ -5,28 +5,22 @@
     <div class="content">
       <TheLineLink name="Đơn hàng"></TheLineLink>
       <div class="list-product-order">
-        <div
-          class="title-product-order"
-          style="display: flex; align-items: center; margin-bottom: 10px"
-        >
+        <div class="title-product-order" style="display: flex; align-items: center; margin-bottom: 10px">
           <div>ĐƠN HÀNG CỦA BẠN</div>
           <!-- <router-link to="/orderplaced" style="cursor: pointer;">
             ĐƠN HÀNG ĐÃ ĐẶT
           </router-link> -->
           <div style="display: flex; align-items: center">
             Sắp xếp theo
-            <MSelectBoxDown
-              :data="[
-                { feildShow: 'Tất cả đơn hàng', feildValue: 7 },
-                { feildShow: 'Đơn hàng thành công', feildValue: 1 },
-                { feildShow: 'Đơn hàng bị hủy', feildValue: 3 },
-                { feildShow: 'Đơn hàng đang chờ xử lí', feildValue: 2 },
-                // { feildShow: 'Đơn hàng hoàn', feildValue: 6 },
-                { feildShow: 'Đơn hàng chờ duyệt hoàn', feildValue: 5 },
-                { feildShow: 'Đơn hàng đã được duyệt hoàn', feildValue: 6 },
-              ]"
-              v-model="orderBy"
-            ></MSelectBoxDown>
+            <MSelectBoxDown :data="[
+              { feildShow: 'Tất cả đơn hàng', feildValue: 7 },
+              { feildShow: 'Đơn hàng thành công', feildValue: 1 },
+              { feildShow: 'Đơn hàng bị hủy', feildValue: 3 },
+              { feildShow: 'Đơn hàng đang chờ xử lí', feildValue: 2 },
+              // { feildShow: 'Đơn hàng hoàn', feildValue: 6 },
+              { feildShow: 'Đơn hàng hoàn chờ duyệt', feildValue: 5 },
+              { feildShow: 'Đơn hàng hoàn đã được duyệt', feildValue: 6 },
+            ]" v-model="orderBy"></MSelectBoxDown>
           </div>
         </div>
         <table class="m-table-order">
@@ -44,13 +38,8 @@
             </tr>
           </thead>
           <tbody style="line-height: 40px">
-            <tr
-              v-for="(item, index) in filterOrders"
-              :key="index"
-              @click="trClick(item.OrderID)"
-              @dblclick="rowOnDblClick(item)"
-              :class="{ 'row-selected': rowSelected == item.OrderID }"
-            >
+            <tr v-for="(item, index) in filterOrders" :key="index" @click="trClick(item.OrderID)"
+              @dblclick="rowOnDblClick(item)" :class="{ 'row-selected': rowSelected == item.OrderID }">
               <td style="padding-left: 10px">{{ index + 1 }}</td>
               <td>{{ item.OrderCode }}</td>
               <td>{{ formatDate(item.OrderDate) }}</td>
@@ -59,43 +48,25 @@
               <td>{{ formatMoney(item.totalAmount) }}</td>
               <td>{{ item.CheckOutTypeName }}</td>
               <td>{{ item.CheckOutStatusName }}</td>
-              <td>{{ item.StatusOrdersName }}</td>
-              <!-- <td>
-                <div class="product-order-method" v-show="item.StatusOrders == 2" @click="questionCancelItem(item)">
-                  <div class="cancel-product-order">Hủy</div>
-                </div>
-              </td> -->
-              <!-- <td>
-                <div class="product-order-method" v-show="item.StatusOrders == 1" @click="writeComment()">
-                  <div class="cancel-product-order">Đánh giá</div>
-                </div>
-              </td> -->
+              <td>{{ statusOrderName(item.StatusOrders) }}</td>
             </tr>
           </tbody>
         </table>
+        <div class="nodata" v-show="noData">
+          <img src="../../assets/Image/Nodata.jpg" alt="">
+        </div>
       </div>
     </div>
     <TheFooter></TheFooter>
     <MLoading v-if="showLoading"></MLoading>
-    <OrderDetail
-      v-if="showPopup"
-      @onClose="showPopup = false"
-      :id="id"
-      :type="type"
-      :statusOrder="statusOrder"
-      :reloadDetail="reloadOrderDetail"
-      @success="success"
-      @showProductComment="showProductComment"
-      @updateReload="updateReload"
-    ></OrderDetail>
-    <ProductComment
-      v-if="showComment"
-      @onClose="showComment = false"
-      @updateOrderDetailProduct="updateOrderDetailProduct"
-      :idProduct="idProductComment"
-      :idOrder="idOrderComment"
-      :idOrderDetail="idOrderDetailComment"
-    ></ProductComment>
+    <OrderDetail v-if="showPopup" @onClose="showPopup = false" :id="id" :type="type" :statusOrder="statusOrder"
+      :reloadDetail="reloadOrderDetail" @success="success" @showProductComment="showProductComment"
+      @updateReload="updateReload" @returnOrder="returnOrder" @cancelReturnOrder="cancelReturnOrder"></OrderDetail>
+    <ProductComment ref="productComment" v-if="showComment" @onClose="showComment = false"
+      @updateOrderDetailProduct="updateOrderDetailProduct" :idProduct="idProductComment" :idOrder="idOrderComment"
+      :idOrderDetail="idOrderDetailComment"></ProductComment>
+    <ReturnOrder v-if="showReturnOrder" @onClose="showReturnOrder = false" :idOrderReturn="idOrderReturn"
+      @closeDetail="closeDetail"></ReturnOrder>
   </div>
 </template>
 
@@ -106,12 +77,14 @@ import TheLineLink from "@/layout/TheLineLink.vue";
 import TheNavbar from "@/layout/TheNavbar.vue";
 import axios from "axios";
 import ApiOrder from "../../js/apiOrder";
-import { formatDate, formatMoney } from "@/js/gCommon";
+import { formatDate, formatMoney,statusOrders } from "@/js/gCommon";
 import MLoading from "@/components/MLoading.vue";
 import Resource from "../../js/gResource";
 import OrderDetail from "./OrderDetail.vue";
 import MSelectBoxDown from "@/components/MSelectBoxDown.vue";
 import ProductComment from "./ProductComment.vue";
+import ReturnOrder from "./ReturnOrder.vue";
+import { faL } from '@fortawesome/free-solid-svg-icons';
 
 export default {
   /**
@@ -134,6 +107,7 @@ export default {
     OrderDetail,
     MSelectBoxDown,
     ProductComment,
+    ReturnOrder
   },
   /**
    * Emit sự thay đổi
@@ -162,12 +136,20 @@ export default {
       idOrderComment: "",
       idOrderDetailComment: "",
       reloadOrderDetail: false,
+      showReturnOrder: false,
+      idOrderDetailReturn: '',
+      idOrderReturn: '',
+      idProductReturn: '',
     };
   },
   /**
    * Phương thức
    */
   methods: {
+    statusOrderName(status){
+      return statusOrders(status);
+    },
+
     questionSaveItem(item) {
       let text = `Bạn có muốn hủy đơn hàng "${item.OrderCode}" không không ?`;
       if (confirm(text) == true) {
@@ -270,6 +252,35 @@ export default {
     updateReload() {
       this.reloadOrderDetail = false;
     },
+
+    returnOrder() {
+      this.showReturnOrder = true;
+      this.idOrderReturn = this.id;
+    },
+    cancelReturnOrder(data) {
+      let param = {
+        idOrder: data,
+        statusOrder: 1,
+      }
+      axios.post("https://localhost:7129/api/v1/Orders/updateOrderByStatus", param)
+        .then((res) => {
+          console.log(res);
+          if (res.status == 200) {
+            this.$toast.success("Xác nhận hủy hoàn hàng thành công");
+            this.showPopup = false;
+            this.getOrderByUserID();
+          }
+        })
+        .catch((err)=>{
+          console.log(err);
+          this.$toast.error("Có lỗi xảy ra")
+        })
+    },
+
+    closeDetail() {
+      this.showPopup = false;
+      this.getOrderByUserID();
+    },
   },
   created() {
     let id = localStorage.getItem("UserID");
@@ -286,13 +297,21 @@ export default {
   watch: {
     orderBy(newVal) {
       this.orderBy = newVal;
-      console.log(newVal);
+      // console.log(newVal);
     },
 
     reloadOrderDetail(newVal) {
       console.log(newVal);
       this.reloadOrderDetail = newVal;
     },
+
+    filterOrders(newVal) {
+      if (newVal == 0) {
+        this.noData = true;
+      } else {
+        this.noData = false;
+      }
+    }
   },
   computed: {
     filterOrders: function () {

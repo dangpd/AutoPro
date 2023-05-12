@@ -26,6 +26,7 @@
 .m-table-order tbody tr {
     font-size: 14px;
     border-top: 1px solid #bbb;
+    position: relative;
     /* border-bottom: 1px solid #bbb; */
 }
 
@@ -56,6 +57,9 @@
     padding-left: 10px;
     border-radius: 4px;
     background-color: #A5D7E8;
+    position: absolute;
+    top: 2px;
+    right: 10px;
 }
 
 .product-order-method:hover {

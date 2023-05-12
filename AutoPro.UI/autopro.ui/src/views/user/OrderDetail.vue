@@ -12,79 +12,63 @@
       <div class="agroup1">
         <div class="acol1">
           <div class="acol1-text">Mã đơn hàng :</div>
-          <MInput
-            type="text"
+          <MInput type="text"
             styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-            v-model="customer.orderCode"
-          >
+            v-model="customer.orderCode">
           </MInput>
         </div>
         <div class="acol1">
           <div class="acol1-text">Người đặt :</div>
-          <MInput
-            type="text"
+          <MInput type="text"
             styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-            v-model="customer.fullName"
-          >
+            v-model="customer.fullName">
           </MInput>
         </div>
       </div>
       <div class="agroup1">
         <div class="acol2">
           <div class="acol2-text">Ngày đặt :</div>
-          <MDatePicker
-            v-model="customer.orderDate"
-            styleVal="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-          >
+          <MDatePicker v-model="customer.orderDate"
+            styleVal="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
           </MDatePicker>
         </div>
         <div class="acol2">
           <div class="acol2-text">Số điện thoại :</div>
-          <MInput
-            type="text"
+          <MInput type="text"
             styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-            v-model="customer.phoneNumber"
-          >
+            v-model="customer.phoneNumber">
           </MInput>
         </div>
       </div>
       <div class="agroup1">
         <div class="acol1">
           <div class="acol2-text">Lưu ý của khách hàng :</div>
-          <MInput
-            type="text"
+          <MInput type="text"
             styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-            v-model="customer.description"
-          >
+            v-model="customer.description">
           </MInput>
         </div>
         <div class="acol2">
           <div class="acol2-text">Phương thức thanh toán :</div>
-          <MInput
-            type="text"
+          <MInput type="text"
             styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-            v-model="customer.checkOutTypeName"
-          >
+            v-model="customer.checkOutTypeName">
           </MInput>
         </div>
       </div>
       <div class="agroup1">
         <div class="acol1">
           <div class="acol1-text">Tình trạng thanh toán :</div>
-          <MInput
-            type="text"
+          <MInput type="text"
             styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-            v-model="customer.checkoutStatusName"
-          >
+            v-model="customer.checkoutStatusName">
           </MInput>
         </div>
         <div class="acol1">
           <div class="acol1-text">Tình trạng đơn hàng :</div>
-          <MInput
-            type="text"
+          <MInput type="text"
             styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-            v-model="customer.statusOrdersName"
-          >
+            v-model="customer.statusOrdersName">
           </MInput>
         </div>
       </div>
@@ -103,14 +87,9 @@
           </tr>
         </thead>
         <tbody style="line-height: 36px">
-          <tr
-            v-for="(item, index) in orderDetail"
-            :key="index"
-            :class="{
-              'row-selected': rowSelected == item.productID,
-            }"
-            style="cursor: pointer"
-          >
+          <tr v-for="(item, index) in orderDetail" :key="index" :class="{
+            'row-selected': rowSelected == item.productID,
+          }" style="cursor: pointer">
             <td style="padding-left: 10px">{{ index + 1 }}</td>
             <td @click="detailProduct(item)">{{ item.productCode }}</td>
             <td @click="detailProduct(item)">{{ item.productName }}</td>
@@ -120,19 +99,13 @@
               {{ formatMoney(item.price * item.quantitys) }}
             </td>
             <td>
-              <div
-                class="product-order-method"
-                v-show="(statusOrder == 1) & (item.isComment == 0)"
-                @click="writeComment(item)"
-              >
+              <div class="product-order-method" v-show="(statusOrder == 1) & (item.isComment == 0)"
+                @click="writeComment(item)">
                 <div class="cancel-product-order">Đánh giá</div>
               </div>
             </td>
             <td>
-              <div
-                class="product-order-method"
-                v-show="(statusOrder == 1) & (item.isComment == 1)"
-              >
+              <div class="product-order-method" v-show="(statusOrder == 1) & (item.isComment == 1)">
                 <div class="cancel-product-order">Đã đánh giá</div>
               </div>
             </td>
@@ -145,35 +118,33 @@
       <div style="display: flex;">
         <div class="aformSave" v-show="processOrder">
           <!-- <button style="background-color: #019160;color: white;" @click="questionSaveItem">Duyệt đơn hàng</button> -->
-          <button
-            style="background-color: #ba031a; margin-left: 40px; color: white"
-            @click="questionCancelItem"
-          >
+          <button style="background-color: #ba031a; margin-left: 40px; color: white" @click="questionCancelItem">
             Hủy đơn hàng
           </button>
         </div>
         <div class="aformSave" v-show="doneOrder">
-          <button
-            style="background-color: #019160; color: white"
-            @click="onClose"
-          >
+          <button style="background-color: #019160; color: white" @click="onClose">
             Đơn hàng thành công
           </button>
         </div>
+        <div class="aformSave" v-show="returnOrderDone">
+          <button style="background-color: #019160; color: white" @click="onClose">
+            Đơn hàng hoàn đã được duyệt thành công
+          </button>
+        </div>
         <div class="aformSave" v-show="returnOrders">
-          <button
-            style="background-color: #019160; color: white"
-            @click="returnOrder"
-          >
+          <button style="background-color: #019160; color: white" @click="questionSaveItemReturn">
             Hoàn hàng
           </button>
         </div>
         <div class="aformSave" v-show="cancelOrder">
-          <button
-            style="background-color: #ba031a; color: white"
-            @click="onClose"
-          >
+          <button style="background-color: #ba031a; color: white" @click="onClose">
             Đơn hàng đã bị hủy
+          </button>
+        </div>
+        <div class="aformSave" v-show="cancelOrderReturn">
+          <button style="background-color: #ba031a; color: white" @click="questionCancelItemReturn">
+            Hủy hoàn đơn hàng
           </button>
         </div>
       </div>
@@ -213,7 +184,7 @@ export default {
    */
   data() {
     return {
-      orderDetail: {},
+      orderDetail: [],
       customer: {},
       showLoading: false,
       title: "",
@@ -223,6 +194,8 @@ export default {
       cancelOrder: false,
       returnOrders: false,
       reload: false,
+      returnOrderDone: false,
+      cancelOrderReturn: false,
     };
   },
   /**
@@ -246,6 +219,24 @@ export default {
       let text = `Bạn có muốn hủy đơn hàng này không ?`;
       if (confirm(text) == true) {
         this.cancelOrderDetail();
+      } else {
+        this.$emit("onClose");
+      }
+    },
+
+    questionSaveItemReturn(item) {
+      let text = `Bạn có muốn hoàn đơn hàng này không không ?`;
+      if (confirm(text) == true) {
+        this.returnOrder();
+      } else {
+        this.$emit("onClose");
+      }
+    },
+
+    questionCancelItemReturn(item) {
+      let text = `Bạn có muốn hủy đơn hàng hoàn này không ?`;
+      if (confirm(text) == true) {
+        this.returnOrderCancel();
       } else {
         this.$emit("onClose");
       }
@@ -332,9 +323,15 @@ export default {
     onClose() {
       this.$emit("onClose");
     },
-    returnOrder(){
-
+    returnOrder() {
+      this.$emit("returnOrder");
     },
+
+    returnOrderCancel() {
+      console.log(this.id);
+      this.$emit("cancelReturnOrder", this.id);
+    },
+
     getOrderDetail() {
       if (this.id) {
         // Bật loadding
@@ -347,6 +344,8 @@ export default {
             this.showLoading = false;
             this.customer = res.data.orders;
             this.orderDetail = res.data.orderDetail;
+            this.dataProduct = this.orderDetail;
+            // console.log(this.dataProduct);
             if (this.statusOrder == 2) {
               this.processOrder = true;
               this.doneOrder = false;
@@ -362,6 +361,18 @@ export default {
               this.doneOrder = false;
               this.cancelOrder = true;
               this.returnOrders = false;
+            } else if (this.statusOrder == 6) {
+              this.processOrder = false;
+              this.doneOrder = false;
+              this.cancelOrder = false;
+              this.returnOrders = false;
+              this.returnOrderDone = true;
+            } else if (this.statusOrder == 5) {
+              this.processOrder = false;
+              this.doneOrder = false;
+              this.cancelOrder = false;
+              this.returnOrders = false;
+              this.cancelOrderReturn = true;
             }
           });
         }, 500);
@@ -373,7 +384,7 @@ export default {
   created() {
     this.getOrderDetail();
     this.reload = this.reloadDetail;
-    console.log(this.reloadDetail);
+    // console.log(this.reloadDetail);
   },
   /**
    * Theo dõi sự thay đổi
@@ -397,7 +408,20 @@ export default {
         this.$emit("updateReload");
       }
     },
+    unShowReturn(newVal) {
+      if (newVal >= 0) {
+        this.returnOrders = false;
+      } else {
+        this.returnOrders = true;
+      }
+    }
   },
+  computed: {
+    unShowReturn() {
+      return this.orderDetail.filter(item => item.isComment === true).length;
+    },
+
+  }
 };
 </script>
   

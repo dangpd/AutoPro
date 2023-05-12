@@ -126,6 +126,15 @@
             <div class="aformSave" v-show="cancelOrder">
                 <button style="background-color: #BA031A;color: white;" @click="onClose">Đơn hàng đã bị hủy</button>
             </div>
+            <div class="aformSave" v-show="returnOrder">
+                <button style="background-color: #019160;color: white;" @click="questionSaveItemReturn">Duyệt đơn
+                    hủy</button>
+                <button style="background-color: #BA031A;margin-left: 40px;color: white;"
+                    @click="questionCancelItemReturn">Không
+                    duyệt
+                    đơn
+                    hàng</button>
+            </div>
         </div>
         <MLoading v-if="showLoading"></MLoading>
     </div>
@@ -169,13 +178,14 @@ export default {
             processOrder: false,
             doneOrder: false,
             cancelOrder: false,
+            returnOrder: false,
         };
     },
     /**
      * Phương thức
      */
     methods: {
-        questionSaveItem(item) {
+        questionSaveItem() {
             let text = `Bạn có muốn duyệt đơn hàng này không không ?`;
             if (confirm(text) == true) {
                 this.approveOrderDetail();
@@ -184,10 +194,28 @@ export default {
             }
         },
 
-        questionCancelItem(item) {
+        questionCancelItem() {
             let text = `Bạn có muốn hủy đơn hàng này không ?`;
             if (confirm(text) == true) {
                 this.cancelOrderDetail();
+            } else {
+                this.$emit("onClose");
+            }
+        },
+
+        questionSaveItemReturn() {
+            let text = `Bạn có muốn duyệt đơn hàng hoàn này không không ?`;
+            if (confirm(text) == true) {
+                this.approveOrderDetailReturn();
+            } else {
+                this.$emit("onClose");
+            }
+        },
+
+        questionCancelItemReturn() {
+            let text = `Bạn có muốn hủy đơn hàng hoàn này không ?`;
+            if (confirm(text) == true) {
+                this.cancelOrderDetailReturn();
             } else {
                 this.$emit("onClose");
             }
@@ -206,7 +234,7 @@ export default {
         prepareBeforeHandle() {
             this.customer["orderCode"] = this.customer.orderCode;
             this.customer["orderDate"] = this.customer.orderDate,
-            this.customer["idUser"] = this.customer.idUser;
+                this.customer["idUser"] = this.customer.idUser;
             this.customer["fullName"] = this.customer.fullName;
             this.customer["address"] = this.customer.address;
             this.customer["phoneNumber"] = this.customer.phoneNumber;
@@ -245,9 +273,35 @@ export default {
         },
 
         cancelOrderDetail() {
+            let param = {
+                idOrder: this.id,
+                statusOrder: 3,
+                reason: this.customer.reason
+            }
+            // console.log(param);
+            axios.post("https://localhost:7129/api/v1/Orders/updateOrderByStatus", param)
+                .then((res) => {
+                    console.log(res);
+                    if (res.status == 200) {
+                        this.$toast.success("Đơn hàng đã bị hủy");
+                        this.$emit("onClose");
+                        this.$emit("success")
+                    }
+                })
+                .catch((res) => {
+                    console.log(res);
+                    this.$toast.error("Có lỗi xảy ra")
+                })
+        },
+
+        onClose() {
+            this.$emit("onClose")
+        },
+
+        approveOrderDetailReturn() {
             const me = this;
             this.prepareBeforeHandle();
-            this.customer["statusOrders"] = 3; // chờ tiếp nhận
+            this.customer["statusOrders"] = 6; // duyệt hàng hoàn
             let orderParam = {
                 order: JSON.stringify(this.customer),
                 orderdetail: JSON.stringify(this.orderDetail),
@@ -259,23 +313,42 @@ export default {
             axios.post(ApiOrder.updateOrderDetail(), orderParam)
                 .then((res) => {
                     if (res.status === 200) {
-                        alert("Hủy đơn hàng thành công");
-                        this.$toast.success("Hủy đơn hàng thành công");
+                        alert("Đơn hàng hoàn đã được xác nhận");
+                        this.$toast.success("Đơn hàng hoàn được xác nhận");
                         this.$emit("success")
                         this.$emit("onClose");
                     } else {
-                        alert("Hủy đơn hàng thất bại");
-                        this.$toast.error("Hủy đơn hàng thất bại");
+                        alert("Xác nhận đơn hàng hoàn thất bại");
+                        this.$toast.error("Xác nhận đơn hàng hoàn thất bại");
                         this.$emit("onClose");
                     }
                 })
         },
 
-        onClose() {
-            this.$emit("onClose")
+        cancelOrderDetailReturn() {
+            let param = {
+                idOrder: this.id,
+                statusOrder: 1,
+                reason: this.customer.reason
+            }
+            // console.log(param);
+            axios.post("https://localhost:7129/api/v1/Orders/updateOrderByStatus", param)
+                .then((res) => {
+                    console.log(res);
+                    if (res.status == 200) {
+                        this.$toast.success("Đơn hàng hoàn không được duyệt");
+                        this.$emit("onClose");
+                        this.$emit("success")
+                    }
+                })
+                .catch((res) => {
+                    console.log(res);
+                    this.$toast.error("Có lỗi xảy ra")
+                })
         }
     },
     created() {
+        // console.log(this.id);
         if (this.id) {
             // Bật loadding
             this.showLoading = true;
@@ -292,14 +365,22 @@ export default {
                             this.processOrder = true;
                             this.doneOrder = false;
                             this.cancelOrder = false;
+                            this.returnOrder = false;
                         } else if (this.statusOrder == 1) {
                             this.processOrder = false;
                             this.doneOrder = true;
                             this.cancelOrder = false;
+                            this.returnOrder = false;
                         } else if (this.statusOrder == 3) {
                             this.processOrder = false;
                             this.doneOrder = false;
                             this.cancelOrder = true;
+                            this.returnOrder = false;
+                        } else if (this.statusOrder == 5) {
+                            this.processOrder = false;
+                            this.doneOrder = false;
+                            this.cancelOrder = false;
+                            this.returnOrder = true;
                         }
                     })
             }, 500)

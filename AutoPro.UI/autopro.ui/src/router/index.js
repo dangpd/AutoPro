@@ -13,7 +13,6 @@ import Register from '@/views/user/Register.vue'
 import ForgotPassword from '@/views/user/ForgotPassword.vue'
 import Cart from '@/views/user/Cart.vue'
 import Order from '@/views/user/Order.vue'
-import OrderPlaced from '@/views/user/OrderPlaced.vue'
 import FavoriteProduct from '@/views/user/FavoriteProduct.vue'
 import DetailsProduct from '@/views/user/DetailsProduct.vue'
 import DetailsNews from '@/views/user/DetailsNews.vue'
@@ -29,6 +28,7 @@ import AdminCategory from '@/views/admin/AdminCategory.vue'
 import AdminContact from '@/views/admin/AdminContact.vue'
 import AdminNews from '@/views/admin/AdminNews.vue'
 import AdminOrder from '@/views/admin/AdminOrder.vue'
+import AdminOrderReturn from '@/views/admin/AdminOrderReturn.vue'
 import AdminProduct from '@/views/admin/AdminProduct.vue'
 import AdminComment from '@/views/admin/AdminComment.vue'
 import AdminDashload from '@/views/admin/AdminDashload.vue'
@@ -64,7 +64,6 @@ const routes = [
     // { path: '/cart', name: 'cart', component: Cart, props: true },
     { path: '/cart', component: Cart },
     { path: '/order', component: Order },
-    { path: '/orderplaced', component: OrderPlaced },
     { path: '/product/:id', name: 'product', component: DetailsProduct, props: true },
     { path: '/news/:id', name: 'news', component: DetailsNews, props: true },
     { path: '/user/:id', name: 'user', component: DetailsUser, props: true },
@@ -94,9 +93,10 @@ const routes = [
                     component: AdminOrder,
                     children:
                         [
-                            { path: 'statusOrders/:id', name: 'orderStatus', component: AdminOrder, props: true }
+                            { path: 'statusOrders/:id', name: 'orderStatus', component: AdminOrder, props: true },
                         ]
                 },
+                { path: '/admin/order/orderStatusReturn/:id', name: 'orderStatusReturn', component: AdminOrderReturn, props: true },
                 { path: '/admin/news', component: AdminNews },
                 { path: '/admin/product', component: AdminProduct },
                 { path: '/admin/comment', component: AdminComment },

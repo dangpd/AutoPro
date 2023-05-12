@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Dang\\Do an\\11-5\\AutoPro\\AutoPro.API\\AutoPro.Common\\AutoPro.Common.csproj": {}
+    "D:\\Do An Tot Nghiep\\AutoPro.API\\AutoPro.Common\\AutoPro.Common.csproj": {}
   },
   "projects": {
-    "E:\\Dang\\Do an\\11-5\\AutoPro\\AutoPro.API\\AutoPro.Common\\AutoPro.Common.csproj": {
+    "D:\\Do An Tot Nghiep\\AutoPro.API\\AutoPro.Common\\AutoPro.Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Dang\\Do an\\11-5\\AutoPro\\AutoPro.API\\AutoPro.Common\\AutoPro.Common.csproj",
+        "projectUniqueName": "D:\\Do An Tot Nghiep\\AutoPro.API\\AutoPro.Common\\AutoPro.Common.csproj",
         "projectName": "AutoPro.Common",
-        "projectPath": "E:\\Dang\\Do an\\11-5\\AutoPro\\AutoPro.API\\AutoPro.Common\\AutoPro.Common.csproj",
-        "packagesPath": "C:\\Users\\doanp\\.nuget\\packages\\",
-        "outputPath": "E:\\Dang\\Do an\\11-5\\AutoPro\\AutoPro.API\\AutoPro.Common\\obj\\",
+        "projectPath": "D:\\Do An Tot Nghiep\\AutoPro.API\\AutoPro.Common\\AutoPro.Common.csproj",
+        "packagesPath": "C:\\Users\\DucDang\\.nuget\\packages\\",
+        "outputPath": "D:\\Do An Tot Nghiep\\AutoPro.API\\AutoPro.Common\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\doanp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\DucDang\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -71,8 +71,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -81,7 +80,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     }
