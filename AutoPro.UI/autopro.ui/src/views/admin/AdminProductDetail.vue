@@ -14,7 +14,8 @@
                     <div class="acol1-text" style="margin-left: 15px;">
                         Mã sản phẩm :
                     </div>
-                    <MInput type="text" v-model="product.productCode"
+                    <MInput type="text" v-model="product.productCode" ref="productCode"
+                        messError="Mã sản phẩm không được bỏ trống"
                         styleInput="width: 250px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                     </MInput>
                 </div>
@@ -22,7 +23,8 @@
                     <div class="acol2-text" style="margin-left: 15px;">
                         Tên sản phẩm :
                     </div>
-                    <MInput type="text" v-model="product.productName"
+                    <MInput type="text" v-model="product.productName" ref="productName"
+                        messError="Tên sản phẩm không được bỏ trống"
                         styleInput="width: 250px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                     </MInput>
                 </div>
@@ -30,7 +32,7 @@
                     <div class="acol1-text" style="margin-left: 15px;">
                         Giá :
                     </div>
-                    <MInput type="text" v-model="product.price"
+                    <MInput type="text" v-model="product.price" ref="price" messError="Giá sản phẩm không được bỏ trống"
                         styleInput="width: 250px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                     </MInput>
                 </div>
@@ -40,7 +42,8 @@
                     <div class="acol1-text" style="margin-left: 15px;">
                         Nơi xuất xứ :
                     </div>
-                    <MInput type="text" v-model="product.placeOrigin"
+                    <MInput type="text" v-model="product.placeOrigin" ref="placeOrigin"
+                        messError="Nơi xuất xử không được bỏ trống"
                         styleInput="width: 250px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                     </MInput>
                 </div>
@@ -48,7 +51,8 @@
                     <div class="acol1-text" style="margin-left: 15px;">
                         Số lượng nhập :
                     </div>
-                    <MInput type="text" v-model="product.quantity"
+                    <MInput type="text" v-model="product.quantity" ref="quantity"
+                        messError="Số lượng nhập không được bỏ trống"
                         styleInput="width: 250px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                     </MInput>
                 </div>
@@ -101,13 +105,13 @@
                 </div>
             </div>
             <div class="acol2-link">
-                <div class="acol1-text" style="width: 150px;">
+                <div class="acol1-text" style="width: 150px;display: none;">
                     Linh đường dẫn :
                 </div>
-                <MInput type="text" v-model="product.image" styleInput="width: 900px; height: 30px;">
+                <MInput type="text" v-model="product.image" styleInput="width: 900px; height: 30px;display: none;">
                 </MInput>
             </div>
-            <div class="aformSave" @click="questionSaveItem(product)">
+            <div class="aformSave" @click="save(product)">
                 <button>Lưu</button>
             </div>
         </div>
@@ -151,7 +155,13 @@ export default {
      */
     data() {
         return {
-            product: {},
+            product: {
+                productCode: "",
+                productName: "",
+                price: "",
+                placeOrigin: "",
+                quantity: "",
+            },
             showLoading: false,
             title: '',
             srcImage: "",
@@ -230,6 +240,39 @@ export default {
                 console.log(error);
             }
         },
+        validateForm() {
+            let validate = true;
+            if (this.product.productCode.trim().length <= 0) {
+                this.$refs.productCode.validate();
+                validate = false;
+            }
+            if (this.product.productName.trim().length <= 0) {
+                this.$refs.productName.validate();
+                validate = false;
+            }
+            if (this.product.price.trim().length <= 0) {
+                this.$refs.price.validate();
+                validate = false;
+            }
+            if (this.product.placeOrigin.trim().length <= 0) {
+                this.$refs.placeOrigin.validate();
+                validate = false;
+            }
+            if (this.product.quantity.trim().length <= 0) {
+                this.$refs.quantity.validate();
+                validate = false;
+            }
+            return validate;
+        },
+
+        save(data) {
+            if (!this.validateForm()) {
+                alert("Bạn đã nhập thiếu thông tin")
+            } else {
+                this.questionSaveItem(data);
+            }
+        },
+
         async saveProduct() {
             if (this.type == Resource.FormAdminType.Add) {
                 await axios.post(ApiProduct.addProduct(), this.product)

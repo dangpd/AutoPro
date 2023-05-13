@@ -11,15 +11,16 @@
             </div>
             <div class="login-password" style="max-height: 40px;">
                 <div class="text">Mật khẩu cũ :</div>
-                <MInput type='text'
-                    styleInput="margin-left:150px;width: 800px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
+                <MInput type='text' ref="passwordOld" messError="Mật khẩu cũ không được bỏ trống"
+                    styleInput="width: 950px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
                     v-model="passwordOld">
                 </MInput>
             </div>
             <div class="login-password" style="max-height: 40px;">
                 <div class="text">Mật khẩu mới:</div>
-                <MInput :type="showPassword3 ? 'text' : 'password'"
-                    styleInput="margin-left:150px;width: 800px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
+                <MInput :type="showPassword3 ? 'text' : 'password'" ref="passwordNew"
+                    messError="Mật khẩu mới không được bỏ trống"
+                    styleInput="width: 950px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
                     v-model="passwordNew">
                 </MInput>
                 <div class="update-show-password" @click="togglePasswordVisibility">
@@ -29,7 +30,8 @@
             <div class="login-password" style="max-height: 40px;">
                 <div class="text">Nhập lại mật khẩu mới:</div>
                 <MInput :type="showPassword4 ? 'text' : 'password'" ref="confirmPassword"
-                    styleInput="margin-left:150px;width: 800px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
+                    messError="Mật khẩu nhập lại không được bỏ trống"
+                    styleInput="width: 950px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
                     v-model="confirmPasswordNew">
                 </MInput>
                 <div class="update-show-password" @click="togglePasswordVisibility2">
@@ -37,7 +39,7 @@
                 </div>
             </div>
             <div class="aformSave">
-                <button style="background-color: #206905;margin-left: 40px;color: white;" @click="questionSaveItem">Cập
+                <button style="background-color: #206905;margin-left: 40px;color: white;" @click="updatePassword">Cập
                     nhật</button>
             </div>
         </div>
@@ -90,14 +92,45 @@ export default {
         questionSaveItem() {
             let text = `Bạn có muốn cập nhật mật khẩu không ?`;
             if (confirm(text) == true) {
-                this.updatePasswordNew();
+                if(this.passwordNew.trim() != this.confirmPasswordNew.trim()){
+                    this.$refs.confirmPassword.confirm = true;
+                    this.$refs.passwordNew.confirm = true;
+                    alert("Mật khẩu nhập lại không khớp");
+                    return;
+                }else{
+                    this.updatePasswordNew();
+                }
             } else {
-                this.$emit("onClose");
+                // this.$emit("onClose");
             }
         },
 
         onClose() {
             this.$emit("onClose");
+        },
+        validateForm() {
+            let validate = true;
+            if (this.passwordOld.trim().length <= 0) {
+                this.$refs.passwordOld.validate();
+                validate = false;
+            }
+            if (this.passwordNew.trim().length <= 0) {
+                this.$refs.passwordNew.validate();
+                validate = false;
+            }
+            if (this.confirmPasswordNew.trim().length <= 0) {
+                this.$refs.confirmPassword.validate();
+                validate = false;
+            }
+            return validate;
+        },
+
+        updatePassword() {
+            if (!this.validateForm()) {
+                alert("Bạn đã nhập thiếu thông tin");
+            } else {
+                this.questionSaveItem();
+            }
         },
 
         updatePasswordNew() {
@@ -141,13 +174,15 @@ export default {
      * Theo dõi sự thay đổi
      */
     watch: {
-        confirmPasswordNew(newVal) {
-            if (this.passwordNew.trim() != null && newVal.trim() != null && this.passwordNew.trim() != newVal) {
-                this.$refs.confirmPassword.confirm = true;
-            } else {
-                this.$refs.confirmPassword.confirm = false;
-            }
-        }
+        // confirmPasswordNew(newVal) {
+        //     console.log(newVal);
+        //     console.log('new',this.passwordNew);
+        //     if (this.passwordNew.trim() != null && newVal.trim() != null && this.passwordNew != newVal) {
+        //         this.$refs.confirmPassword.showError = true;
+        //     } else {
+        //         this.$refs.confirmPassword.confirm = false;
+        //     }
+        // }
     },
 };
 </script>

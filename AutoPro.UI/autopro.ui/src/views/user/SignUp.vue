@@ -8,16 +8,17 @@
             <div class="form-input">
                 <div class="login-account">
                     <div class="text">Tên đăng nhập :</div>
-                    <MInput type="text" ref="account"
+                    <MInput type="text" ref="account" messError="Tài khoản không được bỏ trống"
                         styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
                         v-model="user.account">
                     </MInput>
                 </div>
                 <div class="login-password">
                     <div class="text">Mật khẩu :</div>
-                    <MInput :type="showPassword3 ? 'text' : 'password'"
+                    <MInput :type="showPassword3 ? 'text' : 'password'" ref="password"
+                        messError="Mật khẩu không được bỏ trống"
                         styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-                        v-model="user.password" ref="password">
+                        v-model="user.password">
                     </MInput>
                     <div class="login-show-password" @click="togglePasswordVisibility">
                         {{ showPassword3 ? 'Ẩn' : 'Hiện' }}
@@ -83,52 +84,43 @@ export default {
      * Phương thức
      */
     methods: {
+        validateForm() {
+            let validate = true;
+            if (this.user.account.trim().length <= 0) {
+                this.$refs.account.validate();
+                validate = false;
+            }
+            if (this.user.password.trim().length <= 0) {
+                this.$refs.password.validate();
+                validate = false;
+            }
+            return validate;
+        },
+
         loginApp() {
-            // fetchAPI(
-            //     ApiUser.login(),
-            //     'POST',
-            //     (res) => {
-            //         if (res.errorCode == 400) {
-            //             alert("Tài khoản hoặc mật khẩu sai");
-            //         } else if (res.errorCode == 500) {
-            //             alert("Tài khoản hoặc mật khẩu sai");
-            //         } else {
-            //             localStorage.setItem('UserID', res.UserID);
-            //             localStorage.setItem('Role', res.Role);
-            //             if (res.Role == "Admin") {
-            //                 this.$router.push('/admin/dashload');
-            //             } else if (res.Role == "User") {
-            //                 this.$router.push('/');
-            //             }
-            //         }
-            //     },
-            //     this.user
-            // )
-
-
-            // const res = axiosServiceDefault.postRequest(ApiUser.login(), this.user)
-            // console.log(res);
-
-
-            axios.post(ApiUser.login(), { account: this.user.account, password: this.user.password })
-                .then((res) => {
-                    // console.log('res', res);
-                    if (res.status == 200) {
-                        localStorage.setItem('UserID', res.data.UserID);
-                        localStorage.setItem('Role', res.data.Role);
-                        if (res.data.Role == "Admin") {
-                            this.$router.push('/admin/dashload');
-                            this.$toast.success("Đăng nhập thành công")
-                        } else if (res.data.Role == "User") {
-                            this.$router.push('/');
-                            this.$toast.success("Đăng nhập thành công")
+            if (!this.validateForm()) {
+                alert("Bạn nhập thiều tài khoản hoặc mật khẩu");
+            } else {
+                axios.post(ApiUser.login(), { account: this.user.account, password: this.user.password })
+                    .then((res) => {
+                        // console.log('res', res);
+                        if (res.status == 200) {
+                            localStorage.setItem('UserID', res.data.UserID);
+                            localStorage.setItem('Role', res.data.Role);
+                            if (res.data.Role == "Admin") {
+                                this.$router.push('/admin/dashload');
+                                this.$toast.success("Đăng nhập thành công")
+                            } else if (res.data.Role == "User") {
+                                this.$router.push('/');
+                                this.$toast.success("Đăng nhập thành công")
+                            }
                         }
-                    }
-                })
-                .catch(() => {
-                    alert("Tài khoản hoặc mật khẩu sai");
-                    this.$toast.error("Đăng nhập thất bại")
-                })
+                    })
+                    .catch(() => {
+                        alert("Tài khoản hoặc mật khẩu sai");
+                        this.$toast.error("Đăng nhập thất bại")
+                    })
+            }
         },
 
         togglePasswordVisibility() {

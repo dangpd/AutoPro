@@ -9,19 +9,19 @@
                 <div class="form-input">
                     <div class="forgot-account">
                         <div class="text">Tên đăng nhập :</div>
-                        <MInput type="text" v-model="account"
+                        <MInput type="text" v-model="account" ref="account" messError="Tài khoản không được bỏ trống"
                             styleInput="width: 400px; height: 30px;; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                         </MInput>
                     </div>
                     <div class="forgot-email">
                         <div class="text">Email :</div>
-                        <MInput type="text" v-model="email"
+                        <MInput type="text" v-model="email" ref="email" messError="Email không được bỏ trống"
                             styleInput="width: 400px; height: 30px;; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                         </MInput>
                     </div>
                 </div>
-                <div class="submit">
-                    <input type="submit" @click="sendForgot" value="Gửi" style="padding: 4px ;border-radius:4px">
+                <div class="submit"  @click="sendForgot">
+                    <input type="submit" value="Gửi" style="padding: 4px ;border-radius:4px">
                 </div>
                 <div class="orther">
                     <router-link to="/account/sign-up" class="sign-up">Đăng nhập</router-link>
@@ -74,6 +74,19 @@ export default {
      * Phương thức
      */
     methods: {
+        validateForm() {
+            let validate = true;
+            if (this.account.trim().length <= 0) {
+                this.$refs.account.validate();
+                validate = false;
+            }
+            if (this.email.trim().length <= 0) {
+                this.$refs.email.validate();
+                validate = false;
+            }
+            return validate;
+        },
+
         forgotPassword() {
             axios.post("https://localhost:7129/api/v1/User/forgotpassword", { account: this.account, email: this.email })
                 .then((res) => {
@@ -107,7 +120,11 @@ export default {
         },
 
         sendForgot(){
-            this.forgotPassword();
+            if(!this.validateForm()){
+                alert("Bạn đã nhập thiếu thông tin");
+            }else{
+                this.forgotPassword();
+            }
         }
     },
     created() {

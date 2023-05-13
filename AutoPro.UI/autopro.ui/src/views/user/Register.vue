@@ -8,43 +8,43 @@
         <div class="form-input">
           <div class="register-account">
             <div class="text">Tên đăng nhập :</div>
-            <MInput type="text" v-model="this.user.account"
+            <MInput type="text" v-model="this.user.account" ref="account" messError="Tài khoản không được bỏ trống"
               styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
             </MInput>
           </div>
           <div class="register-account">
             <div class="text">Họ :</div>
-            <MInput type="text" v-model="this.user.firstName"
+            <MInput type="text" v-model="this.user.firstName" ref="firstName" messError="Họ không được bỏ trống"
               styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
             </MInput>
           </div>
           <div class="register-account">
             <div class="text">Tên :</div>
-            <MInput type="text" v-model="this.user.lastName"
+            <MInput type="text" v-model="this.user.lastName" ref="lastName" messError="Tên không được bỏ trống"
               styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
             </MInput>
           </div>
           <div class="register-fullName">
             <div class="text">Họ và tên :</div>
-            <MInput type="text" v-model="this.user.fullName"
+            <MInput type="text" v-model="this.user.fullName" ref="fullName" messError="Họ và tên không được bỏ trống"
               styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
             </MInput>
           </div>
           <div class="register-address">
             <div class="text">Địa chỉ :</div>
-            <MInput type="text" v-model="this.user.address"
+            <MInput type="text" v-model="this.user.address" ref="address" messError="Địa chỉ không được bỏ trống"
               styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
             </MInput>
           </div>
           <div class="register-birth">
             <div class="text">Ngày sinh :</div>
-            <MDatePicker v-model="this.user.dateOfBirth" ref="dateOfBirth"
+            <MDatePicker v-model="this.user.dateOfBirth" ref="dateOfBirth" messError="Tài khoản không được bỏ trống"
               styleVal="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
             </MDatePicker>
           </div>
           <div class="register-address">
             <div class="text">Email :</div>
-            <MInput type="text" v-model="this.user.email"
+            <MInput type="text" v-model="this.user.email" ref="email" messError="Email không được bỏ trống"
               styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
             </MInput>
           </div>
@@ -52,17 +52,17 @@
             <div class="text">Giới tính :</div>
             <div class="gender">
               <MRadio :data="[
-                  { Gender: 'Nam', GenderValue: 0 },
-                  { Gender: 'Nữ', GenderValue: 1 },
-                  { Gender: 'Khác', GenderValue: 2 },
-                ]" v-model="this.user.gender"></MRadio>
+                { Gender: 'Nam', GenderValue: 0 },
+                { Gender: 'Nữ', GenderValue: 1 },
+                { Gender: 'Khác', GenderValue: 2 },
+              ]" v-model="this.user.gender"></MRadio>
             </div>
           </div>
           <div class="register-password">
             <div class="text">Mật khẩu :</div>
-            <MInput :type="showPassword1 ? 'text' : 'password'" v-model="this.user.password"
-              styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;"
-              ref="passwords">
+            <MInput :type="showPassword1 ? 'text' : 'password'" v-model="this.user.password" ref="password"
+              messError="Mật khẩu không được bỏ trống"
+              styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
             </MInput>
             <div class="register-show-password" @click="showPasswords1">
               {{ showPassword1 ? 'Ẩn' : 'Hiện' }}
@@ -70,7 +70,8 @@
           </div>
           <div class="register-password">
             <div class="text">Nhập lại mật khẩu :</div>
-            <MInput :type="showPassword2 ? 'text' : 'password'" v-model="this.user.password"
+            <MInput :type="showPassword2 ? 'text' : 'password'" v-model="this.user.password2" ref="password2"
+              messError="Mật khẩu không được bỏ trống"
               styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
             </MInput>
             <div class="register-show-password" @click="showPasswords2">
@@ -88,7 +89,7 @@
           </div>
         </div>
         <div class="submit" @click="register">
-          <input type="submit" value="Đăng kí" style="padding: 4px" @click="register" />
+          <input type="submit" value="Đăng kí" style="padding: 4px" />
         </div>
         <div class="orther">
           <router-link to="/account/sign-up" class="sign-up">Đăng nhập</router-link>
@@ -146,7 +147,16 @@ export default {
       labelProcess: "",
       showPassword1: false,
       showPassword2: false,
-      user: {},
+      user: {
+        account: "",
+        password: "",
+        password2: "",
+        firstName: "",
+        lastName: "",
+        fullName: "",
+        address: "",
+        email: "",
+      },
       showLoading: false,
       title: '',
       srcImage: "",
@@ -208,21 +218,72 @@ export default {
     showPasswords2() {
       this.showPassword2 = !this.showPasswoFrd2;
     },
+    validateForm() {
+      let validate = true;
+      if (this.user.account.trim().length <= 0) {
+        this.$refs.account.validate();
+        validate = false;
+      }
+      if (this.user.firstName.trim().length <= 0) {
+        this.$refs.firstName.validate();
+        validate = false;
+      }
+      if (this.user.lastName.trim().length <= 0) {
+        this.$refs.lastName.validate();
+        validate = false;
+      }
+      if (this.user.fullName.trim().length <= 0) {
+        this.$refs.fullName.validate();
+        validate = false;
+      }
+      if (this.user.address.trim().length <= 0) {
+        this.$refs.address.validate();
+        validate = false;
+      }
+      if (this.user.email.trim().length <= 0) {
+        this.$refs.email.validate();
+        validate = false;
+      }
+      if (this.user.password.trim().length <= 0) {
+        this.$refs.password.validate();
+        validate = false;
+      }
+      if (this.user.password2.trim().length <= 0) {
+        this.$refs.password2.validate();
+        validate = false;
+      }
+      return validate;
+    },
+
     register() {
-      axios.post(ApiUser.addUser(), this.user)
-        .then((res) => {
-          if(res.status == 201){
-            alert("Đăng kí thành công");
-            this.$router.push('/');
-          }
-        })
+      if (!this.validateForm()) { 
+        alert("Bạn đã nhập thiếu thông tin");
+      } else {
+        if (this.user.password != this.user.password2) {
+          alert("Mật khẩu nhập lại sai");
+        }
+        else {
+          axios.post(ApiUser.addUser(), this.user)    
+            .then((res) => {
+              if (res.status == 201) {
+                alert("Đăng kí thành công");
+                this.$router.push('/');
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+              alert("Có lỗi xảy ra")
+            })
+        }
+      }
     },
   },
   created() { },
   /**
    * Theo dõi sự thay đổi
    */
-  watch: {},
+  watch: {
+  },
 };
 </script>
 

@@ -1,7 +1,10 @@
 <template>
     <div>
         <input class="m-input" :type="type" :placeholder="placeholder" :style="styleInput" v-model="value"
-            :class="{ 'confirm': confirm }">
+            :class="{ 'confirm': confirm }" @input="onInput">
+        <div class="under_input" v-show="showError">
+            <label for="" style="font-size: 14px;">{{ messError }}</label>
+        </div>
     </div>
 </template>
   
@@ -14,7 +17,7 @@ export default {
     /**
      * Hứng nhận
      */
-    props: ["placeholder", "styleInput", "type", "modelValue"],
+    props: ["placeholder", "styleInput", "type", "modelValue", "messError", "required"],
     /**
      * Component được sử dụng
      */
@@ -33,13 +36,29 @@ export default {
         return {
             value: "",
             confirm: false,
+            showError: false,
         }
     },
     /**
      * Phương thức
      */
     methods: {
+        validate() {
+            // if (this.requied) {
+            this.showError = true;
+            this.confirm = true;
+            // }
+        },
 
+        onInput() {
+            // Kiểm tra giá trị nhập vào tự input
+            this.value = event.target.value;
+            // Update giá trị value
+            this.$emit("update:modelValue", event.target.value);
+            // Không show lỗi
+            this.showError = false;
+            this.confirm = false;
+        }
     },
     created() {
         this.value = this.modelValue

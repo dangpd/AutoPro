@@ -15,7 +15,7 @@
                         <div class="acol1n-text">
                             Tiêu đề :
                         </div>
-                        <MInput type="text" v-model="news.newsTitle"
+                        <MInput type="text" v-model="news.newsTitle" ref="newsTitle" messError="Tiêu đề không được bỏ trống"
                             styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                         </MInput>
                     </div>
@@ -50,13 +50,13 @@
                 </div>
             </div>
             <div class="acol2-link">
-                <div class="acol1-text" style="width: 150px;">
+                <div class="acol1-text" style="width: 150px;display: none;">
                     Linh đường dẫn :
                 </div>
-                <MInput type="text" v-model="news.image" styleInput="width: 900px; height: 30px;">
+                <MInput type="text" v-model="news.image" styleInput="width: 900px; height: 30px;display: none;">
                 </MInput>
             </div>
-            <div class="aformSave" @click="questionSaveItem(news)">
+            <div class="aformSave" @click="save(news)">
                 <button>Lưu</button>
             </div>
         </div>
@@ -101,6 +101,7 @@ export default {
         return {
             news: {
                 newsDate: new Date(),
+                newsTitle: "",
             },
             showLoading: false,
             title: '',
@@ -180,6 +181,23 @@ export default {
                 console.log(error);
             }
         },
+        validateForm() {
+            let validate = true;
+            if (this.news.newsTitle.trim().length <= 0) {
+                this.$refs.newsTitle.validate();
+                validate = false;
+            }
+            return validate;
+        },
+        
+        save(data) {
+            if (!this.validateForm()) {
+                alert("Bạn đã nhập thiếu thông tin")
+            } else {
+                this.questionSaveItem(data);
+            }
+        },
+
         async saveNews() {
             setTimeout(async () => {
                 if (this.type == Resource.FormAdminType.Add) {

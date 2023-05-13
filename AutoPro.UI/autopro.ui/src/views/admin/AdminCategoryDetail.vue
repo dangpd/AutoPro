@@ -14,7 +14,8 @@
                     <div class="acol1-text">
                         Mã danh mục :
                     </div>
-                    <MInput type="text" v-model="category.categoryCode"
+                    <MInput type="text" v-model="category.categoryCode" ref="categoryCode"
+                        messError="Mã danh mục không được bỏ trống"
                         styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                     </MInput>
                 </div>
@@ -22,7 +23,8 @@
                     <div class="acol2-text">
                         Tên danh mục :
                     </div>
-                    <MInput type="text" v-model="category.categoryName"
+                    <MInput type="text" v-model="category.categoryName" ref="categoryName"
+                        messError="Tên danh mục không được bỏ trống"
                         styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                     </MInput>
                 </div>
@@ -37,7 +39,7 @@
                     </MInput>
                 </div>
             </div>
-            <div class="aformSave" @click="questionSaveItem(category)">
+            <div class="aformSave" @click="save(category)">
                 <button>Lưu</button>
             </div>
         </div>
@@ -75,7 +77,10 @@ export default {
     data() {
         return {
             showLoading: false,
-            category: {},
+            category: {
+                categoryCode: "",
+                categoryName: "",
+            },
             title: '',
         };
     },
@@ -95,7 +100,26 @@ export default {
         onClose() {
             this.$emit("onClose");
         },
-
+        validateForm() {
+            let validate = true;
+            if (this.category.categoryCode.trim().length <= 0) {
+                this.$refs.categoryCode.validate();
+                validate = false;
+            }
+            if (this.category.categoryName.trim().length <= 0) {
+                this.$refs.categoryName.validate();
+                validate = false;
+            }
+            return validate;
+        },
+        
+        save(data) {
+            if (!this.validateForm()) {
+                alert("Bạn đã nhập thiếu thông tin")
+            } else {
+                this.questionSaveItem(data);
+            }
+        },
         async saveCategory() {
             if (this.type == Resource.FormAdminType.Add) {
                 await axios.post(ApiProductCategory.addProductCategory(), this.category)

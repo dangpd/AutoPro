@@ -14,7 +14,7 @@
                     <div class="acol2-text">
                         Tài khoản :
                     </div>
-                    <MInput type="text" v-model="user.account"
+                    <MInput type="text" v-model="user.account" ref="account" messError="Tài khoản không được bỏ trống"
                         styleInput="width: calc(250px); height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;margin-right:15px;">
                     </MInput>
                 </div>
@@ -22,7 +22,7 @@
                     <div class="acol1-text">
                         Email :
                     </div>
-                    <MInput type="text" v-model="user.email"
+                    <MInput type="text" v-model="user.email" ref="email" messError="Email không được bỏ trống"
                         styleInput="width: calc(250px); height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;margin-right:15px;">
                     </MInput>
                 </div>
@@ -30,7 +30,8 @@
                     <div class="acol2-text">
                         Điện thoại :
                     </div>
-                    <MInput type="text" v-model="user.phoneNumber"
+                    <MInput type="text" v-model="user.phoneNumber" ref="phoneNumber"
+                        messError="Số điện thoại không được bỏ trống"
                         styleInput="width: calc(250px); height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;margin-right:15px;">
                     </MInput>
                 </div>
@@ -40,7 +41,7 @@
                     <div class="acol1-text">
                         Họ :
                     </div>
-                    <MInput type="text" v-model="user.firstName"
+                    <MInput type="text" v-model="user.firstName" ref="firstName" messError="Họ không được bỏ trống"
                         styleInput="width: calc(250px); height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;margin-right:15px;">
                     </MInput>
                 </div>
@@ -48,7 +49,7 @@
                     <div class="acol2-text">
                         Tên :
                     </div>
-                    <MInput type="text" v-model="user.lastName"
+                    <MInput type="text" v-model="user.lastName" ref="lastName" messError="Tên không được bỏ trống"
                         styleInput="width: calc(250px); height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;margin-right:15px;">
                     </MInput>
                 </div>
@@ -56,7 +57,7 @@
                     <div class="acol1-text">
                         Họ và tên :
                     </div>
-                    <MInput type="text" v-model="user.fullName"
+                    <MInput type="text" v-model="user.fullName" ref="fullName" messError="Họ và tên không được bỏ trống"
                         styleInput="width: calc(250px); height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;margin-right:15px;">
                     </MInput>
                 </div>
@@ -87,7 +88,7 @@
                     <div class="acol1-text">
                         Địa chỉ :
                     </div>
-                    <MInput type="text" v-model="user.address"
+                    <MInput type="text" v-model="user.address" ref="address" messError="Địa chỉ không được bỏ trống"
                         styleInput="width: calc(250px); height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;margin-right:15px;">
                     </MInput>
                 </div>
@@ -105,13 +106,13 @@
                 </div>
             </div>
             <div class="acol2-link">
-                <div class="acol1-text" style="width: 150px;">
+                <div class="acol1-text" style="width: 150px;display: none;">
                     Linh đường dẫn :
                 </div>
-                <MInput type="text" v-model="user.image" styleInput="width: 900px; height: 30px;">
+                <MInput type="text" v-model="user.image" styleInput="display:none;width: 900px; height: 30px;">
                 </MInput>
             </div>
-            <div class="aformSave" @click="questionSaveItem(user)">
+            <div class="aformSave" @click="updateAdmin(user)">
                 <button>Lưu</button>
             </div>
         </div>
@@ -156,9 +157,16 @@ export default {
      */
     data() {
         return {
-            user: {},
             showLoading: false,
-            user: {},
+            user: {
+                account: "",
+                firstName: "",
+                lastName: "",
+                fullName: "",
+                address: "",
+                email: "",
+                phoneNumber: "",
+            },
             title: '',
             srcImage: "",
             ImageNone: false
@@ -236,6 +244,47 @@ export default {
                 console.log(error);
             }
         },
+
+        validateForm() {
+            let validate = true;
+            if (this.user.account.trim().length <= 0) {
+                this.$refs.account.validate();
+                validate = false;
+            }
+            if (this.user.firstName.trim().length <= 0) {
+                this.$refs.firstName.validate();
+                validate = false;
+            }
+            if (this.user.lastName.trim().length <= 0) {
+                this.$refs.lastName.validate();
+                validate = false;
+            }
+            if (this.user.fullName.trim().length <= 0) {
+                this.$refs.fullName.validate();
+                validate = false;
+            }
+            if (this.user.address.trim().length <= 0) {
+                this.$refs.address.validate();
+                validate = false;
+            }
+            if (this.user.email.trim().length <= 0) {
+                this.$refs.email.validate();
+                validate = false;
+            }
+            if (this.user.phoneNumber.trim().length <= 0) {
+                this.$refs.phoneNumber.validate();
+                validate = false;
+            }
+            return validate;
+        },
+        updateAdmin(data) {
+            if (!this.validateForm()) {
+                alert("Bạn đã nhập thiếu thông tin");
+            } else {
+                this.questionSaveItem(data);
+            }
+        },
+
         async saveAdmin() {
             this.showLoading = true;
             setTimeout(async () => {

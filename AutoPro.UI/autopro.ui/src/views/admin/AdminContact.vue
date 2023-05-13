@@ -10,7 +10,7 @@
                     <button @click="search">Tìm kiếm</button>
                 </div>
                 <div class="add-toolbar">
-                    <button @click="addContact">Thêm mới</button>
+                    <!-- <button @click="addContact">Thêm mới</button> -->
                     <div class="refresh" @click="refresh"><i class="fa-solid fa-rotate"></i></div>
                 </div>
             </div>

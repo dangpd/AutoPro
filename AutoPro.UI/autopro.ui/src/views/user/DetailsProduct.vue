@@ -16,6 +16,15 @@
           <div class="details-product-brand">Thương hiệu: {{ brand.brandName }}</div>
           <div class="details-product-brand">Xuất xứ: {{ product.placeOrigin }}</div>
           <div class="details-product-price">Giá tiền: {{ formatMoney(product.price) }} </div>
+          <div v-if="starCommentProduct > 0">
+            <div class="details-product-sell" style="display: flex;align-items: center;">
+              <div>Đánh giá: {{ this.starCommentProduct }}/5</div><img src="../../assets/Image/star.svg"
+                style="margin-left: 4px;width: 16px;height: 16px;" alt="">
+            </div>
+          </div>
+          <div v-else>
+            <div class="details-product-sell">Đánh giá: Chưa có đánh giá</div>
+          </div>
           <div class="details-product-sell">Đã bán: {{ product.quantitySell }}</div>
           <div class="details-product-sell">Số lượng còn: {{ product.quantity }}</div>
           <div class="details-product-status">Tình trạng : <b> {{ formatStatusProduct(product.quantity -
@@ -56,7 +65,8 @@
                 <div style="display: flex;justify-content: space-between;">
                   <div class="username-comment">Người đánh giá: {{ item.Name }}</div>
                   <div>
-                    <star-rating :show-rating="false" :read-only="true" :star-size="20" :rating="item.RatingID" :animate="true"></star-rating>
+                    <star-rating :show-rating="false" :read-only="true" :star-size="20" :rating="item.RatingID"
+                      :animate="true"></star-rating>
                     <!-- Đánh giá: {{ item.RatingID }} sao -->
                   </div>
                 </div>
@@ -207,6 +217,13 @@ export default {
     },
 
     addCart() {
+      let type = typeof this.number;
+      // console.log(type);
+      if (type == "string") {
+        alert("Dữ liệu nhập vào sai định dạng số");
+        this.number = 1;
+        return;
+      }
       if (this.number > this.product.quantity) {
         alert("Sản phẩm mua nhiều hơn số lượng có trong kho");
         this.number = 1;
@@ -227,7 +244,7 @@ export default {
         this.number2 = 1;
         return;
       }
-      this.productCart2 = {...data};
+      this.productCart2 = { ...data };
       this.productCart2.quantitys = this.number2;
       // console.log(this.productCart);
       this.$store.commit('addToCart', this.productCart2);
@@ -315,8 +332,23 @@ export default {
         alert("Bạn đã nhập số lượng lớn hơn số lượng có trong kho");
         this.number = 1;
       }
-    }
+    },
   },
+  computed: {
+    starCommentProduct() {
+      if (this.dataComment.length > 0) {
+        let tong = 0;
+        this.dataComment.forEach((x) => {
+          tong += x.RatingID;
+        })
+        // console.log(tong);
+        // console.log(this.dataComment.length);
+        return parseFloat(tong / this.dataComment.length);
+      } else {
+        return 0;
+      }
+    }
+  }
 };
 </script>
   

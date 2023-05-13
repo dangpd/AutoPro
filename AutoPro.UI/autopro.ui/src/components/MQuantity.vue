@@ -1,11 +1,7 @@
 <template>
   <div class="number">
     <i class="fa-solid fa-minus" @click="minusQuantity"></i>
-    <input
-      class="m-input"
-      style="width: 80px; border-radius: 0px"
-      v-model="value"
-    />
+    <input class="m-input" style="width: 80px; border-radius: 0px" v-model="value" @input="onInput" />
     <i class="fa-solid fa-plus" @click="addQuantity"></i>
   </div>
 </template>
@@ -56,6 +52,15 @@ export default {
       number += parseInt(1);
       this.$emit("update:modelValue", number);
     },
+
+    onInput() {
+      let paValue = this.value;
+      let paModelValue = this.modelValue;
+      if (isNaN(paValue) || isNaN(paModelValue)) {
+        alert("Định dạng số lượng bạn nhập vào không đúng dịnh dạng số");
+        this.$emit("update:modelValue", 1)
+      }
+    }
   },
   created() {
     this.value = this.modelValue;

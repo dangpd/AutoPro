@@ -34,7 +34,7 @@
 .purcharse-phone-number,
 .purcharse-payment-methods {
     display: flex;
-    height: 36px;
+    height: 40px;
     margin: 10px;
     align-items: center;
 }

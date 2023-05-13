@@ -14,7 +14,8 @@
                     <div class="acol1-text">
                         Mã nhãn hàng :
                     </div>
-                    <MInput type="text" v-model="brand.brandCode"
+                    <MInput type="text" v-model="brand.brandCode" ref="brandCode"
+                        messError="Mã nhãn hàng không được bỏ trống"
                         styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                     </MInput>
                 </div>
@@ -22,7 +23,8 @@
                     <div class="acol2-text">
                         Tên nhãn hàng :
                     </div>
-                    <MInput type="text" v-model="brand.brandName"
+                    <MInput type="text" v-model="brand.brandName" ref="brandName"
+                        messError="Tên nhãn hàng không được bỏ trống"
                         styleInput="width: 400px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                     </MInput>
                 </div>
@@ -50,13 +52,13 @@
                 </div>
             </div>
             <div class="acol2-link">
-                <div class="acol1-text" style="width: 150px;">
+                <div class="acol1-text" style="width: 150px;display: none;">
                     Linh đường dẫn :
                 </div>
-                <MInput type="text" v-model="brand.image" styleInput="width: 900px; height: 30px;">
+                <MInput type="text" v-model="brand.image" styleInput="width: 900px; height: 30px;display: none;">
                 </MInput>
             </div>
-            <div class="aformSave" @click="questionSaveItem(brand)">
+            <div class="aformSave" @click="save(brand)">
                 <button>Lưu</button>
             </div>
         </div>
@@ -100,7 +102,10 @@ export default {
     data() {
         return {
             showLoading: false,
-            brand: {},
+            brand: {
+                brandCode: "",
+                brandName: "",
+            },
             title: '',
             srcImage: "",
             ImageNone: false
@@ -118,7 +123,7 @@ export default {
                 this.$emit("onClose");
             }
         },
-        
+
         async handleFileUpload() {
             //   const storageRef = ref(storage, "user/" + this.file.name);
             //   console.log(this.$refs.fileInput.files[0]);
@@ -176,6 +181,26 @@ export default {
                 return formatDate(datetime);
             } catch (error) {
                 console.log(error);
+            }
+        },
+
+        validateForm() {
+            let validate = true;
+            if (this.brand.brandCode.trim().length <= 0) {
+                this.$refs.brandCode.validate();
+                validate = false;
+            }
+            if (this.brand.brandName.trim().length <= 0) {
+                this.$refs.brandName.validate();
+                validate = false;
+            }
+            return validate;
+        },
+        save(data){
+            if(!this.validateForm()){
+                alert("Bạn đã nhập thiếu thông tin")
+            }else{
+                this.questionSaveItem(data);
             }
         },
         async saveBrand() {

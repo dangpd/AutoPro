@@ -8,86 +8,80 @@
         <div class="information-user-order">
           <div class="title-purcharse-user">
             <h6>Thông tin khách hàng</h6>
-            <router-link to="/user/:id" class="user-update"
-              >Chỉnh sửa thông tin nhận hàng</router-link
-            >
+            <router-link to="/user/:id" class="user-update">Chỉnh sửa thông tin nhận hàng</router-link>
           </div>
           <div class="content-purcharse-user">
             <div class="purcharse-name">
               <h6>Họ và tên:</h6>
-              <input
-                type="text"
-                class="m-inputp"
-                v-model="fullName"
-                style="
+              <MInput type="text" class="m-inputp" ref="fullName" messError="Họ và tên không được bỏ trống" styleInput="width: 350px;
+                  height: 30px;
+                  padding-left: 10px;
+                  border-radius: 4px;
+                  border: 1px solid #bbb;" v-model="fullName"></MInput>
+              <!-- <input type="text" class="m-inputp" v-model="fullName" style="
                   width: 350px;
                   height: 30px;
                   padding-left: 10px;
                   border-radius: 4px;
                   border: 1px solid #bbb;
-                "
-              />
+                " /> -->
             </div>
             <div class="purcharse-address">
               <h6>Địa chỉ:</h6>
-              <input
-                type="text"
-                class="m-inputp"
-                v-model="address"
-                style="
+              <MInput type="text" class="m-inputp" ref="address" messError="Địa chỉ không được bỏ trống" styleInput="width: 350px;
+                  height: 30px;
+                  padding-left: 10px;
+                  border-radius: 4px;
+                  border: 1px solid #bbb;" v-model="address"></MInput>
+              <!-- <input type="text" class="m-inputp" v-model="address" style="
                   width: 350px;
                   height: 30px;
                   padding-left: 10px;
                   border-radius: 4px;
                   border: 1px solid #bbb;
-                "
-              />
+                " /> -->
             </div>
             <div class="purcharse-phone-number">
               <h6>Số điện toại:</h6>
-              <input
-                type="text"
-                class="m-inputp"
-                v-model="phoneNumber"
-                style="
+              <MInput type="text" class="m-inputp" ref="phoneNumber" messError="Số điện thoại không được bỏ trống"
+                styleInput="width: 350px;
+                  height: 30px;
+                  padding-left: 10px;
+                  border-radius: 4px;
+                  border: 1px solid #bbb;" v-model="phoneNumber"></MInput>
+              <!-- <input type="text" class="m-inputp" v-model="phoneNumber" style="
                   width: 350px;
                   height: 30px;
                   padding-left: 10px;
                   border-radius: 4px;
                   border: 1px solid #bbb;
-                "
-              />
+                " /> -->
             </div>
             <div class="purcharse-phone-number">
               <h6>Email:</h6>
-              <input
-                type="text"
-                class="m-inputp"
-                v-model="email"
-                style="
+              <MInput type="text" class="m-inputp" ref="email" messError="Email không được bỏ trống" styleInput="width: 350px;
+                  height: 30px;
+                  padding-left: 10px;
+                  border-radius: 4px;
+                  border: 1px solid #bbb;" v-model="email"></MInput>
+              <!-- <input type="text" class="m-inputp" v-model="email" style="
                   width: 350px;
                   height: 30px;
                   padding-left: 10px;
                   border-radius: 4px;
                   border: 1px solid #bbb;
-                "
-              />
+                " /> -->
             </div>
             <div class="purcharse-payment-methods">
               <h6>Phương thức thanh toán</h6>
-              <MRadio
-                :data="[
-                  { Gender: 'Thanh toán qua VNPay', GenderValue: 1 },
-                  { Gender: 'Thanh toán tại nhà', GenderValue: 2 },
-                ]"
-                v-model="checkOutTypeID"
-              ></MRadio>
+              <MRadio :data="[
+                { Gender: 'Thanh toán qua VNPay', GenderValue: 1 },
+                { Gender: 'Thanh toán tại nhà', GenderValue: 2 },
+              ]" v-model="checkOutTypeID"></MRadio>
             </div>
             <div class="purcharse-phone-number">
               <h6>Ghi chú</h6>
-              <textarea
-                v-model="description"
-                style="
+              <textarea v-model="description" style="
                   width: 350px;
                   height: 100px;
                   padding-left: 10px;
@@ -95,21 +89,14 @@
                   border: 1px solid #bbb;
                   word-break: break-word;
                   margin-top: 70px;
-                "
-              ></textarea>
+                "></textarea>
             </div>
-            <div
-              style="position: absolute; bottom: 0; right: 40px"
-              v-if="showPayVnPay"
-              @click="paymentVnpay"
-            >
-              <button
-                style="
+            <div style="position: absolute; bottom: 0; right: 40px" v-if="showPayVnPay" @click="paymentVnpay">
+              <button style="
                   padding: 0 10px;
                   border: 1px solid #bbb;
                   border-radius: 4px;
-                "
-              >
+                ">
                 Đi tới thanh toán VNPAY
               </button>
             </div>
@@ -117,27 +104,18 @@
         </div>
         <div class="information-product">
           <h6>Thông tin đơn hàng</h6>
-          <div
-            class="list-purchase-product"
-            v-for="(item, index) in listCart"
-            :key="index"
-            :class="{
-              'row-selected': rowSelected == item.productID,
-            }"
-          >
+          <div class="list-purchase-product" v-for="(item, index) in listCart" :key="index" :class="{
+            'row-selected': rowSelected == item.productID,
+          }">
             <div class="product-purchase">
-              <div
-                class="product-purchase-image"
-                @click="detailProduct(item)"
-                style="cursor: pointer"
-              >
+              <div class="product-purchase-image" @click="detailProduct(item)" style="cursor: pointer">
                 <img :src="item.image" alt="" />
               </div>
               <div class="product-purchase-name">
                 {{ item.productName }}
                 <br />
                 Mã sản phẩm:{{ item.productCode }}
-                <br/>
+                <br />
                 Giá sản phẩm: {{ formatMoney(item.price) }}
                 <br />
                 Số lượng*{{ item.quantitys }}
@@ -289,17 +267,42 @@ export default {
       }
       return true;
     },
+
     detailProduct(data) {
       this.$router.push({ name: "product", params: { id: data.productID } });
     },
+
+    validateForm() {
+      let validate = true;
+      if (this.fullName.trim().length <= 0) {
+        this.$refs.fullName.validate();
+        validate = false;
+      }
+      if (this.address.trim().length <= 0) {
+        this.$refs.address.validate();
+        validate = false;
+      }
+      if (this.phoneNumber.trim().length <= 0) {
+        this.$refs.phoneNumber.validate();
+        validate = false;
+      }
+      if (this.email.trim().length <= 0) {
+        this.$refs.email.validate();
+        validate = false;
+      }
+      if (this.checkOutTypeID <= 0 || this.checkOutTypeID == null) {
+        validate = false;
+      }
+      return validate;
+    },
     // Click nút Đặt hàng
     orderProduct() {
-      // Check validate -- làm sau
-      // let isValid = this.validateBeforeSave(this.customerInfo);
-      // if (!isValid) {
-      //     return;
-      // }
-      this.handleOrder();
+      // validate
+      if (!this.validateForm()) {
+        alert("Bạn đã nhập thiếu thông tin");
+      } else {
+        this.handleOrder();
+      }
     },
     sendEmail(order, listProduct) {
       let emailToMail = this.email;
@@ -387,8 +390,8 @@ export default {
                                         <td>${formatMoney(item.price)}</td>
                                         <td>${item.quantitys}</td>
                                         <td>${formatMoney(
-                                          item.price * item.quantitys
-                                        )}</td>
+                  item.price * item.quantitys
+                )}</td>
                                     </tr>`;
               });
               // console.log(productListHtml);
@@ -421,8 +424,8 @@ export default {
                                         <td>${formatMoney(item.price)}</td>
                                         <td>${item.quantitys}</td>
                                         <td>${formatMoney(
-                                          item.price * item.quantitys
-                                        )}</td>
+                  item.price * item.quantitys
+                )}</td>
                                     </tr>`;
               });
               // console.log(productListHtml);

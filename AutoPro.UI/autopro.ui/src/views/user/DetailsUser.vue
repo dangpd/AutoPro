@@ -12,31 +12,36 @@
                     <div>
                         <div class="details-user-firstname">
                             <div class="details-text">Tài khoản :</div>
-                            <MInput type="text" v-model="this.userDetail.account"
+                            <MInput type="text" v-model="this.userDetail.account" ref="account"
+                                messError="Tài khoản không được bỏ trống"
                                 styleInput="width: 600px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                             </MInput>
                         </div>
                         <div class="details-user-firstname">
                             <div class="details-text">Họ :</div>
-                            <MInput type="text" v-model="this.userDetail.firstName"
+                            <MInput type="text" v-model="this.userDetail.firstName" ref="firstName"
+                                messError="Họ không được bỏ trống"
                                 styleInput="width: 600px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                             </MInput>
                         </div>
                         <div class="details-user-lastname">
                             <div class="details-text">Tên :</div>
-                            <MInput type="text" v-model="this.userDetail.lastName"
+                            <MInput type="text" v-model="this.userDetail.lastName" ref="lastName"
+                                messError="Tên không được bỏ trống"
                                 styleInput="width: 600px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                             </MInput>
                         </div>
                         <div class="details-user-fullName">
                             <div class="details-text">Họ và tên :</div>
-                            <MInput type="text" v-model="this.userDetail.fullName"
+                            <MInput type="text" v-model="this.userDetail.fullName" ref="fullName"
+                                messError="Họ và tên không được bỏ trống"
                                 styleInput="width: 600px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                             </MInput>
                         </div>
                         <div class="details-user-address">
                             <div class="details-text">Địa chỉ :</div>
-                            <MInput type="text" v-model="this.userDetail.address"
+                            <MInput type="text" v-model="this.userDetail.address" ref="address"
+                                messError="Địa chỉ không được bỏ trống"
                                 styleInput="width: 600px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                             </MInput>
                         </div>
@@ -49,20 +54,22 @@
                         <div class="details-user-gender">
                             <div class="details-text">Giới tính :</div>
                             <MRadio :data="[
-                                    { Gender: 'Nam', GenderValue: 0 },
-                                    { Gender: 'Nữ', GenderValue: 1 },
-                                    { Gender: 'Khác', GenderValue: 2 },
-                                ]" v-model="this.userDetail.gender"></MRadio>
+                                { Gender: 'Nam', GenderValue: 0 },
+                                { Gender: 'Nữ', GenderValue: 1 },
+                                { Gender: 'Khác', GenderValue: 2 },
+                            ]" v-model="this.userDetail.gender"></MRadio>
                         </div>
                         <div class="details-user-firstname">
                             <div class="details-text">Email :</div>
-                            <MInput type="text" v-model="this.userDetail.email"
+                            <MInput type="text" v-model="this.userDetail.email" ref="email"
+                                messError="Email không được bỏ trống"
                                 styleInput="width: 600px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                             </MInput>
                         </div>
                         <div class="details-user-firstname">
                             <div class="details-text">Số điện thoại :</div>
-                            <MInput type="text" v-model="this.userDetail.phoneNumber"
+                            <MInput type="text" v-model="this.userDetail.phoneNumber" ref="phoneNumber"
+                                messError="Số điện thoại không được bỏ trống"
                                 styleInput="width: 600px; height: 30px; font-size:13px; padding-left:15px; border-radius:4px;box-sizing: border-box;">
                             </MInput>
                         </div>
@@ -80,7 +87,7 @@
 
                 </div>
             </div>
-            <div class="details-user-update" @click="saveUser">
+            <div class="details-user-update" @click="save(userDetail)">
                 <button>Lưu</button>
             </div>
         </div>
@@ -131,7 +138,15 @@ export default {
      */
     data() {
         return {
-            userDetail: {},
+            userDetail: {
+                account: "",
+                firstName: "",
+                lastName: "",
+                fullName: "",
+                address: "",
+                email: "",
+                phoneNumber: "",
+            },
             showLoading: false,
             title: '',
             srcImage: "",
@@ -143,6 +158,15 @@ export default {
      * Phương thức
      */
     methods: {
+        questionSaveItem(item) {
+            let text = `Bạn có muốn lưu tài khoản ${item.account} không ?`;
+            if (confirm(text) == true) {
+                this.saveUser();
+            } else {
+                // this.$emit("onClose");
+            }
+        },
+        
         async handleFileUpload() {
             //   const storageRef = ref(storage, "user/" + this.file.name);
             //   console.log(this.$refs.fileInput.files[0]);
@@ -190,22 +214,65 @@ export default {
                 }
             );
         },
+        validateForm() {
+            let validate = true;
+            if (this.userDetail.account.trim().length <= 0) {
+                this.$refs.account.validate();
+                validate = false;
+            }
+            if (this.userDetail.firstName.trim().length <= 0) {
+                this.$refs.firstName.validate();
+                validate = false;
+            }
+            if (this.userDetail.lastName.trim().length <= 0) {
+                this.$refs.lastName.validate();
+                validate = false;
+            }
+            if (this.userDetail.fullName.trim().length <= 0) {
+                this.$refs.fullName.validate();
+                validate = false;
+            }
+            if (this.userDetail.address.trim().length <= 0) {
+                this.$refs.address.validate();
+                validate = false;
+            }
+            if (this.userDetail.email.trim().length <= 0) {
+                this.$refs.email.validate();
+                validate = false;
+            }
+            if (this.userDetail.phoneNumber.trim().length <= 0) {
+                this.$refs.phoneNumber.validate();
+                validate = false;
+            }
+            return validate;
+        },
 
+        save(data) {
+            if (!this.validateForm()) {
+                alert("Bạn đã nhập thiếu thông tin")
+            } else {
+                this.questionSaveItem(data);
+            }
+        },
         async saveUser() {
-            this.userDetail.image = this.srcImage;
-            await axios.put(ApiUser.updateUser(this.id), this.userDetail)
-                .then((res) => {
-                    if (res.status == 200) {
-                        alert("Sửa thành công");
-                        this.$router.push('/');
-                        this.$toast.success("Cập nhật thành công")
-                    }
-                })
-                .catch((err) => {
-                    console.log(err);
-                    alert("Cập nhật thất bại!");
-                    this.$toast.error("Cập nhật thất bại")
-                })
+            if (!this.validateForm()) {
+                alert("Bạn đã nhập thiếu thông tin");
+            } else {
+                this.userDetail.image = this.srcImage;
+                await axios.put(ApiUser.updateUser(this.id), this.userDetail)
+                    .then((res) => {
+                        if (res.status == 200) {
+                            alert("Sửa thành công");
+                            this.$router.push('/');
+                            this.$toast.success("Cập nhật thành công")
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        alert("Cập nhật thất bại!");
+                        this.$toast.error("Cập nhật thất bại")
+                    })
+            }
         }
     },
     created() {
