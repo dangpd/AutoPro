@@ -131,8 +131,12 @@ export default {
                         }
                     })
                     .catch((err) => {
-                        this.$toast.error("Tạo thất bại");
                         console.log(err);
+                        if (err.response.status == 400) {
+                            this.$toast.error("Mã nhãn hàng đã tồn tại");
+                        } else {
+                            this.$toast.error("Tạo thất bại");
+                        }
                     })
             } else {
                 await axios.put(ApiProductCategory.updateProductCategory(this.id), this.category)
@@ -144,8 +148,12 @@ export default {
                         }
                     })
                     .catch((err) => {
-                        this.$toast.error("Cập nhật thất bại");
                         console.log(err);
+                        if (err.response.status == 400) {
+                            this.$toast.error("Mã danh mục đã tồn tại");
+                        } else {
+                            this.$toast.error("Cập nhật danh mục thất bại");
+                        }
                     })
             }
         }

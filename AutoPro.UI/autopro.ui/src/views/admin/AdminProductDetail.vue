@@ -158,7 +158,7 @@ export default {
             product: {
                 productCode: "",
                 productName: "",
-                price: "",
+                price: 0,
                 placeOrigin: "",
                 quantity: "",
             },
@@ -250,7 +250,7 @@ export default {
                 this.$refs.productName.validate();
                 validate = false;
             }
-            if (this.product.price.trim().length <= 0) {
+            if (this.product.price <= 0) {
                 this.$refs.price.validate();
                 validate = false;
             }
@@ -258,7 +258,7 @@ export default {
                 this.$refs.placeOrigin.validate();
                 validate = false;
             }
-            if (this.product.quantity.trim().length <= 0) {
+            if (this.product.quantity <= 0) {
                 this.$refs.quantity.validate();
                 validate = false;
             }
@@ -284,8 +284,12 @@ export default {
                         }
                     })
                     .catch((err) => {
-                        this.$toast.error("Tạo sản phẩm thất bại");
                         console.log(err);
+                        if (err.response.status == 400) {
+                            this.$toast.error("Mã sản phẩm đã tồn tại");
+                        } else {
+                            this.$toast.error("Tạo thất bại");
+                        }
                     })
             } else {
                 this.product.image = this.srcImage;
@@ -298,8 +302,12 @@ export default {
                         }
                     })
                     .catch((err) => {
-                        this.$toast.error("Cập nhật sản phẩm thất bại");
                         console.log(err);
+                        if (err.response.status == 400) {
+                            this.$toast.error("Mã sản phẩm đã tồn tại");
+                        } else {
+                            this.$toast.error("Cập nhật thất bại");
+                        }
                     })
             }
         }

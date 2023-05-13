@@ -204,8 +204,7 @@ export default {
                 console.log(error);
             }
         },
-
-        deleteItem(data) {
+        deleteImage(data){
             if (data.image != null) {
                 const storage = getStorage();
 
@@ -219,17 +218,22 @@ export default {
                     console.log("Xóa thất bại");
                 });
             }
+        },
 
+        deleteItem(data) {
             axios.delete(ApiBrand.deleteBrandByID(data.brandID))
                 .then((res) => {
                     if (res.status == 200) {
                         this.$toast.success("Xóa thành công");
+                        this.deleteImage(data)
                         this.filterAndPaging();
                     }
                 })
                 .catch((err) => {
-                    console.log(err);
-                    this.$toast.error("Xóa thất bại");
+                    if (err.response.status == 500) {
+                        alert("Xóa nhãn hàng thất bại do còn sản phẩm trong danh mục này");
+                        this.$toast.error("Xóa thất bại");
+                    }
                 })
         },
 

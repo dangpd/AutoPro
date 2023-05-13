@@ -298,7 +298,13 @@ export default {
                         }
                     })
                     .catch((err) => {
+                        this.showLoading = false;
                         console.log(err);
+                        if (err.response.status == 400) {
+                            this.$toast.error("Tên tài khoản hoặc email đã tồn tại");
+                        } else {
+                            this.$toast.error("Cập nhật thất bại");
+                        }
                     })
             }, 500)
         }

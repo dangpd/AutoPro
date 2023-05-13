@@ -6,6 +6,7 @@ using AutoPro.Common.Entities.Param;
 using AutoPro.DL.BaseDL;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MySqlConnector;
 
 namespace AutoPro.API.Controllers
 {
@@ -67,9 +68,9 @@ namespace AutoPro.API.Controllers
         public IActionResult UpdateAdminRecord([FromBody] User record, [FromRoute] int idRecord)
         {
             // Lấy kết quả trả về bên Bussiness Layer
-            var result = _userBL.UpdateAdmin(record, idRecord);
             try
             {
+                var result = _userBL.UpdateAdmin(record, idRecord);
                 // Thành công return 1
                 if (result.IsSuccess)
                 {
@@ -101,6 +102,17 @@ namespace AutoPro.API.Controllers
                         TraceId = HttpContext.TraceIdentifier
                     });
                 }
+            }
+            catch (MySqlException mySqlException)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult
+                {
+                    ErrorCode = Common.Enum.ErrorCode.DuplicateCode,
+                    DevMsg = Common.Resource.DataResource.DevMsg_InvalidData,
+                    UserMsg = Common.Resource.DataResource.UserMsg_InvalidData,
+                    MoreInfo = "trung ma",
+                    TraceId = HttpContext.TraceIdentifier
+                });
             }
             catch (Exception ex)
             {

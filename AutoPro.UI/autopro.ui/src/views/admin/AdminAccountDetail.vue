@@ -301,8 +301,12 @@ export default {
             }
           })
           .catch((err) => {
-            this.$toast.error("Tạo thất bại");
             console.log(err);
+            if (err.response.status == 400) {
+              this.$toast.error("Tên tài khoản hoặc email đã tồn tại");
+            } else {
+              this.$toast.error("Tạo thất bại");
+            }
           })
       } else {
         this.user.image = this.srcImage;
@@ -316,7 +320,11 @@ export default {
           })
           .catch((err) => {
             console.log(err);
-            this.$toast.error("Cập nhật thất bại");
+            if (err.response.status == 400) {
+              this.$toast.error("Tên tài khoản hoặc email đã tồn tại");
+            } else {
+              this.$toast.error("Cập nhật thất bại");
+            }
           })
       }
     }

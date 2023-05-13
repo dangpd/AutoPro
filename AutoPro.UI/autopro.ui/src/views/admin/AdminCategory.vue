@@ -217,8 +217,10 @@ export default {
                     }
                 })
                 .catch((err) => {
-                    console.log(err);
-                    this.$toast.error("Xóa thất bại");
+                    if(err.response.status == 500){
+                        alert("Xóa danh mục thất bại do còn sản phẩm trong danh mục này");
+                        this.$toast.error("Xóa thất bại");
+                    }
                 })
         },
 

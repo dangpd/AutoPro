@@ -166,7 +166,7 @@ export default {
                 // this.$emit("onClose");
             }
         },
-        
+
         async handleFileUpload() {
             //   const storageRef = ref(storage, "user/" + this.file.name);
             //   console.log(this.$refs.fileInput.files[0]);
@@ -269,8 +269,11 @@ export default {
                     })
                     .catch((err) => {
                         console.log(err);
-                        alert("Cập nhật thất bại!");
-                        this.$toast.error("Cập nhật thất bại")
+                        if (err.response.status == 400) {
+                            this.$toast.error("Tên tài khoản hoặc email đã tồn tại");
+                        } else {
+                            this.$toast.error("Cập nhật thất bại");
+                        }
                     })
             }
         }

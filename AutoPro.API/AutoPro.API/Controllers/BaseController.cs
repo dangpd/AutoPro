@@ -2,6 +2,7 @@
 using AutoPro.Common.Entities.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MySqlConnector;
 
 namespace AutoPro.API.Controllers
 {
@@ -177,10 +178,11 @@ namespace AutoPro.API.Controllers
         public virtual IActionResult InsertRecord(T record)
         {
             // Lấy kết quả trả về bên Bussiness Layer
-            var result = _baseBL.InsertRecord(record);
 
             try
             {
+                var result = _baseBL.InsertRecord(record);
+
                 // Thành công return 1
                 if (result.IsSuccess)
                 {
@@ -213,6 +215,17 @@ namespace AutoPro.API.Controllers
                     });
                 }
             }
+            catch (MySqlException mySqlException)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult
+                {
+                    ErrorCode = Common.Enum.ErrorCode.DuplicateCode,
+                    DevMsg = Common.Resource.DataResource.DevMsg_InvalidData,
+                    UserMsg = Common.Resource.DataResource.UserMsg_InvalidData,
+                    MoreInfo = "trung ma",
+                    TraceId = HttpContext.TraceIdentifier
+                });
+            }
             catch (Exception ex)
             {
                 // lỗi exception
@@ -238,9 +251,9 @@ namespace AutoPro.API.Controllers
         public virtual IActionResult UpdateRecord([FromBody] T record, [FromRoute] int idRecord)
         {
             // Lấy kết quả trả về bên Bussiness Layer
-            var result = _baseBL.UpdateRecord(record, idRecord);
             try
             {
+                var result = _baseBL.UpdateRecord(record, idRecord);
                 // Thành công return 1
                 if (result.IsSuccess)
                 {
@@ -272,6 +285,17 @@ namespace AutoPro.API.Controllers
                         TraceId = HttpContext.TraceIdentifier
                     });
                 }
+            }
+            catch (MySqlException mySqlException)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult
+                {
+                    ErrorCode = Common.Enum.ErrorCode.DuplicateCode,
+                    DevMsg = Common.Resource.DataResource.DevMsg_InvalidData,
+                    UserMsg = Common.Resource.DataResource.UserMsg_InvalidData,
+                    MoreInfo = "trung ma",
+                    TraceId = HttpContext.TraceIdentifier
+                });
             }
             catch (Exception ex)
             {

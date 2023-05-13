@@ -196,10 +196,10 @@ export default {
             }
             return validate;
         },
-        save(data){
-            if(!this.validateForm()){
+        save(data) {
+            if (!this.validateForm()) {
                 alert("Bạn đã nhập thiếu thông tin")
-            }else{
+            } else {
                 this.questionSaveItem(data);
             }
         },
@@ -214,8 +214,12 @@ export default {
                         }
                     })
                     .catch((err) => {
-                        this.$toast.error("Tạo thất bại");
                         console.log(err);
+                        if (err.response.status == 400) {
+                            this.$toast.error("Mã nhãn hàng đã tồn tại");
+                        } else {
+                            this.$toast.error("Tạo thất bại");
+                        }
                     })
             } else {
                 this.brand.image = this.srcImage;
@@ -228,8 +232,12 @@ export default {
                         }
                     })
                     .catch((err) => {
-                        this.$toast.error("Cập nhật thất bại");
                         console.log(err);
+                        if (err.response.status == 400) {
+                            this.$toast.error("Mã nhãn hàng đã tồn tại");
+                        } else {
+                            this.$toast.error("Cập nhật thất bại");
+                        }
                     })
             }
         }
