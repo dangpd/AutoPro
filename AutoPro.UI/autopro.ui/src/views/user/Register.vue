@@ -256,14 +256,14 @@ export default {
     },
 
     register() {
-      if (!this.validateForm()) { 
+      if (!this.validateForm()) {
         alert("Bạn đã nhập thiếu thông tin");
       } else {
         if (this.user.password != this.user.password2) {
           alert("Mật khẩu nhập lại sai");
         }
         else {
-          axios.post(ApiUser.addUser(), this.user)    
+          axios.post(ApiUser.addUser(), this.user)
             .then((res) => {
               if (res.status == 201) {
                 alert("Đăng kí thành công");
@@ -272,7 +272,11 @@ export default {
             })
             .catch((err) => {
               console.log(err);
-              alert("Có lỗi xảy ra")
+              if (err.response.status == 400) {
+                this.$toast.error("Tên tài khoản hoặc email đã tồn tại");
+              } else {
+                this.$toast.error("Tạo thất bại");
+              }
             })
         }
       }
