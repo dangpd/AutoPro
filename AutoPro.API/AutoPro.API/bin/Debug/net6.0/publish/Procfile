@@ -1,0 +1,1 @@
+web: dotnet exec ./AutoPro.API.dll

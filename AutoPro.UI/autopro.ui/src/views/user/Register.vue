@@ -255,7 +255,12 @@ export default {
       return validate;
     },
 
-    register() {
+    async getByAccount(data) {
+      const newData = await axios.get("https://localhost:7129/api/v1/User/getByAccount", { params: { account: data } })
+      return newData.data;
+    },
+
+    async register() {
       if (!this.validateForm()) {
         alert("Bạn đã nhập thiếu thông tin");
       } else {
@@ -267,7 +272,12 @@ export default {
             .then((res) => {
               if (res.status == 201) {
                 alert("Đăng kí thành công");
-                this.$router.push('/');
+                const data = this.getByAccount(this.user.account);
+                data.then((res) => {
+                  localStorage.setItem('UserID', res.UserID);
+                  localStorage.setItem('Role', res.Role);
+                  this.$router.push('/');
+                })
               }
             })
             .catch((err) => {

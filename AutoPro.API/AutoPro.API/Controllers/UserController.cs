@@ -3,7 +3,9 @@ using AutoPro.BL.UserBL;
 using AutoPro.Common.Entities;
 using AutoPro.Common.Entities.DTO;
 using AutoPro.Common.Entities.Param;
+using AutoPro.DL;
 using AutoPro.DL.BaseDL;
+using Dapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MySqlConnector;
@@ -169,6 +171,39 @@ namespace AutoPro.API.Controllers
             {
                 Console.WriteLine(ex.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpGet("getByAccount")]
+        public IActionResult getByAccount([FromQuery] string account)
+        {
+            try
+            {
+                // Khởi tạo lấy kết nối đường dẫn database
+                string connectionString = DatabaseContext.ConnectionString;
+                // Chuẩn bị tên store procedure
+                string sql = "SELECT * FROM tb_user tu WHERE tu.Account = @'v_account';";
+                //Truyền tham số cho procedure
+                var parameters = new DynamicParameters();
+                parameters.Add("v_account", account);
+                object data = null;
+                using (var mySqlConnection = new MySqlConnection(connectionString))
+                {
+                    // Query
+                    data = mySqlConnection.QueryFirstOrDefault<object>(sql, parameters, commandType: System.Data.CommandType.Text);
+                }
+                if (data == null)
+                {
+                    return StatusCode(StatusCodes.Status204NoContent);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status200OK, data);
+                }
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, 1);
             }
         }
     }
